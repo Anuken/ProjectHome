@@ -1,0 +1,1681 @@
+
+projecthome.png
+size: 64,32
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+circle
+  rotate: false
+  xy: 2, 2
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 24, 14
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+
+projecthome2.png
+size: 128,32
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+weapons/icesword
+  rotate: false
+  xy: 2, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/icesword-item
+  rotate: false
+  xy: 2, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/icon-weapon
+  rotate: false
+  xy: 90, 19
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/lancesword
+  rotate: false
+  xy: 13, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/lancesword-item
+  rotate: false
+  xy: 12, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/marblesword
+  rotate: false
+  xy: 24, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/marblesword-item
+  rotate: false
+  xy: 100, 19
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/phasesword
+  rotate: false
+  xy: 35, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/phasesword-item
+  rotate: false
+  xy: 22, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/silversword
+  rotate: false
+  xy: 46, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/silversword-item
+  rotate: false
+  xy: 110, 19
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/staff
+  rotate: false
+  xy: 57, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/staff-item
+  rotate: false
+  xy: 32, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/sword
+  rotate: false
+  xy: 68, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/sword-item
+  rotate: false
+  xy: 42, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/tentasword
+  rotate: false
+  xy: 79, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/tentasword-item
+  rotate: false
+  xy: 52, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+
+projecthome3.png
+size: 512,32
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+enemies/golem
+  rotate: false
+  xy: 231, 3
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+enemies/golem-armless
+  rotate: false
+  xy: 371, 18
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+enemies/golem-arms
+  rotate: false
+  xy: 385, 18
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+enemies/marbledrone
+  rotate: false
+  xy: 399, 18
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+enemies/marblegolem
+  rotate: false
+  xy: 413, 18
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+enemies/marblegolem-armless
+  rotate: false
+  xy: 427, 18
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+enemies/marblegolem-arms
+  rotate: false
+  xy: 441, 18
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+enemies/tentafly
+  rotate: false
+  xy: 127, 17
+  size: 24, 13
+  orig: 24, 13
+  offset: 0, 0
+  index: -1
+enemies/tentaflyeye
+  rotate: false
+  xy: 127, 2
+  size: 24, 13
+  orig: 24, 13
+  offset: 0, 0
+  index: -1
+enemies/tentaflyeye2
+  rotate: false
+  xy: 153, 17
+  size: 24, 13
+  orig: 24, 13
+  offset: 0, 0
+  index: -1
+enemies/tentaflyi1
+  rotate: false
+  xy: 153, 2
+  size: 24, 13
+  orig: 24, 13
+  offset: 0, 0
+  index: -1
+enemies/tentaflyi3
+  rotate: false
+  xy: 153, 2
+  size: 24, 13
+  orig: 24, 13
+  offset: 0, 0
+  index: -1
+enemies/tentaflyi5
+  rotate: false
+  xy: 153, 2
+  size: 24, 13
+  orig: 24, 13
+  offset: 0, 0
+  index: -1
+enemies/tentaflyi2
+  rotate: false
+  xy: 179, 17
+  size: 24, 13
+  orig: 24, 13
+  offset: 0, 0
+  index: -1
+enemies/tentaflyi4
+  rotate: false
+  xy: 179, 2
+  size: 24, 13
+  orig: 24, 13
+  offset: 0, 0
+  index: -1
+enemies/tentaflyi6
+  rotate: false
+  xy: 205, 17
+  size: 24, 13
+  orig: 24, 13
+  offset: 0, 0
+  index: -1
+enemies/tentaflywingsbot
+  rotate: false
+  xy: 205, 2
+  size: 24, 13
+  orig: 24, 13
+  offset: 0, 0
+  index: -1
+enemies/tentaflywingstop
+  rotate: false
+  xy: 231, 17
+  size: 24, 13
+  orig: 24, 13
+  offset: 0, 0
+  index: -1
+enemies/tentaguardbottom
+  rotate: false
+  xy: 257, 15
+  size: 17, 15
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+enemies/tentaguardeye
+  rotate: false
+  xy: 276, 15
+  size: 17, 15
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+enemies/tentaguardeye2
+  rotate: false
+  xy: 295, 15
+  size: 17, 15
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+enemies/tentaguardi1
+  rotate: false
+  xy: 314, 15
+  size: 17, 15
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+enemies/tentaguardi3
+  rotate: false
+  xy: 314, 15
+  size: 17, 15
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+enemies/tentaguardi2
+  rotate: false
+  xy: 333, 15
+  size: 17, 15
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+enemies/tentaguardi4
+  rotate: false
+  xy: 352, 15
+  size: 17, 15
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+enemies/tentawarrioreye
+  rotate: false
+  xy: 2, 6
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+enemies/tentawarrioreye2
+  rotate: false
+  xy: 27, 6
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+enemies/tentawarriori1
+  rotate: false
+  xy: 52, 6
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+enemies/tentawarriori2
+  rotate: false
+  xy: 77, 6
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+enemies/tentawarriori4
+  rotate: false
+  xy: 77, 6
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+enemies/tentawarriori3
+  rotate: false
+  xy: 102, 6
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+
+projecthome4.png
+size: 1024,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+shadows/shadow10
+  rotate: false
+  xy: 314, 47
+  size: 10, 6
+  orig: 10, 6
+  offset: 0, 0
+  index: -1
+shadows/shadow100
+  rotate: false
+  xy: 510, 193
+  size: 100, 29
+  orig: 100, 29
+  offset: 0, 0
+  index: -1
+shadows/shadow102
+  rotate: false
+  xy: 378, 161
+  size: 102, 29
+  orig: 102, 29
+  offset: 0, 0
+  index: -1
+shadows/shadow104
+  rotate: false
+  xy: 248, 129
+  size: 104, 29
+  orig: 104, 29
+  offset: 0, 0
+  index: -1
+shadows/shadow106
+  rotate: false
+  xy: 122, 97
+  size: 106, 29
+  orig: 106, 29
+  offset: 0, 0
+  index: -1
+shadows/shadow108
+  rotate: false
+  xy: 2, 64
+  size: 108, 30
+  orig: 108, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow110
+  rotate: false
+  xy: 530, 224
+  size: 110, 30
+  orig: 110, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow112
+  rotate: false
+  xy: 396, 192
+  size: 112, 30
+  orig: 112, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow114
+  rotate: false
+  xy: 262, 160
+  size: 114, 30
+  orig: 114, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow116
+  rotate: false
+  xy: 130, 128
+  size: 116, 30
+  orig: 116, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow118
+  rotate: false
+  xy: 2, 96
+  size: 118, 30
+  orig: 118, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow12
+  rotate: false
+  xy: 170, 30
+  size: 12, 7
+  orig: 12, 7
+  offset: 0, 0
+  index: -1
+shadows/shadow120
+  rotate: false
+  xy: 408, 224
+  size: 120, 30
+  orig: 120, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow122
+  rotate: false
+  xy: 272, 192
+  size: 122, 30
+  orig: 122, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow124
+  rotate: false
+  xy: 136, 160
+  size: 124, 30
+  orig: 124, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow126
+  rotate: false
+  xy: 2, 128
+  size: 126, 30
+  orig: 126, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow128
+  rotate: false
+  xy: 278, 224
+  size: 128, 30
+  orig: 128, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow130
+  rotate: false
+  xy: 140, 192
+  size: 130, 30
+  orig: 130, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow132
+  rotate: false
+  xy: 2, 160
+  size: 132, 30
+  orig: 132, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow134
+  rotate: false
+  xy: 142, 224
+  size: 134, 30
+  orig: 134, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow136
+  rotate: false
+  xy: 2, 192
+  size: 136, 30
+  orig: 136, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow138
+  rotate: false
+  xy: 2, 224
+  size: 138, 30
+  orig: 138, 30
+  offset: 0, 0
+  index: -1
+shadows/shadow14
+  rotate: false
+  xy: 98, 2
+  size: 14, 8
+  orig: 14, 8
+  offset: 0, 0
+  index: -1
+shadows/shadow16
+  rotate: false
+  xy: 230, 117
+  size: 16, 9
+  orig: 16, 9
+  offset: 0, 0
+  index: -1
+shadows/shadow18
+  rotate: false
+  xy: 722, 213
+  size: 18, 10
+  orig: 18, 10
+  offset: 0, 0
+  index: -1
+shadows/shadow2
+  rotate: false
+  xy: 326, 93
+  size: 6, 4
+  orig: 6, 4
+  offset: 0, 0
+  index: -1
+shadows/shadow20
+  rotate: false
+  xy: 482, 164
+  size: 20, 11
+  orig: 20, 11
+  offset: 0, 0
+  index: -1
+shadows/shadow22
+  rotate: false
+  xy: 354, 146
+  size: 22, 12
+  orig: 22, 12
+  offset: 0, 0
+  index: -1
+shadows/shadow24
+  rotate: false
+  xy: 612, 194
+  size: 24, 12
+  orig: 24, 12
+  offset: 0, 0
+  index: -1
+shadows/shadow26
+  rotate: false
+  xy: 482, 177
+  size: 26, 13
+  orig: 26, 13
+  offset: 0, 0
+  index: -1
+shadows/shadow28
+  rotate: false
+  xy: 612, 208
+  size: 28, 14
+  orig: 28, 14
+  offset: 0, 0
+  index: -1
+shadows/shadow30
+  rotate: false
+  xy: 314, 55
+  size: 30, 15
+  orig: 30, 15
+  offset: 0, 0
+  index: -1
+shadows/shadow32
+  rotate: false
+  xy: 334, 93
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+shadows/shadow34
+  rotate: false
+  xy: 334, 111
+  size: 34, 16
+  orig: 34, 16
+  offset: 0, 0
+  index: -1
+shadows/shadow36
+  rotate: false
+  xy: 332, 3
+  size: 36, 17
+  orig: 36, 17
+  offset: 0, 0
+  index: -1
+shadows/shadow38
+  rotate: false
+  xy: 292, 2
+  size: 38, 18
+  orig: 38, 18
+  offset: 0, 0
+  index: -1
+shadows/shadow4
+  rotate: false
+  xy: 360, 87
+  size: 6, 4
+  orig: 6, 4
+  offset: 0, 0
+  index: -1
+shadows/shadow40
+  rotate: false
+  xy: 250, 2
+  size: 40, 18
+  orig: 40, 18
+  offset: 0, 0
+  index: -1
+shadows/shadow42
+  rotate: false
+  xy: 316, 72
+  size: 42, 19
+  orig: 42, 19
+  offset: 0, 0
+  index: -1
+shadows/shadow44
+  rotate: false
+  xy: 368, 86
+  size: 44, 20
+  orig: 44, 20
+  offset: 0, 0
+  index: -1
+shadows/shadow46
+  rotate: false
+  xy: 426, 87
+  size: 46, 20
+  orig: 46, 20
+  offset: 0, 0
+  index: -1
+shadows/shadow48
+  rotate: false
+  xy: 426, 109
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+shadows/shadow50
+  rotate: false
+  xy: 970, 179
+  size: 50, 21
+  orig: 50, 21
+  offset: 0, 0
+  index: -1
+shadows/shadow52
+  rotate: false
+  xy: 970, 202
+  size: 52, 22
+  orig: 52, 22
+  offset: 0, 0
+  index: -1
+shadows/shadow54
+  rotate: false
+  xy: 370, 108
+  size: 54, 22
+  orig: 54, 22
+  offset: 0, 0
+  index: -1
+shadows/shadow56
+  rotate: false
+  xy: 312, 22
+  size: 56, 23
+  orig: 56, 23
+  offset: 0, 0
+  index: -1
+shadows/shadow58
+  rotate: false
+  xy: 252, 22
+  size: 58, 23
+  orig: 58, 23
+  offset: 0, 0
+  index: -1
+shadows/shadow6
+  rotate: false
+  xy: 360, 81
+  size: 6, 4
+  orig: 6, 4
+  offset: 0, 0
+  index: -1
+shadows/shadow60
+  rotate: false
+  xy: 252, 47
+  size: 60, 24
+  orig: 60, 24
+  offset: 0, 0
+  index: -1
+shadows/shadow62
+  rotate: false
+  xy: 252, 73
+  size: 62, 24
+  orig: 62, 24
+  offset: 0, 0
+  index: -1
+shadows/shadow64
+  rotate: false
+  xy: 184, 14
+  size: 64, 24
+  orig: 64, 24
+  offset: 0, 0
+  index: -1
+shadows/shadow66
+  rotate: false
+  xy: 184, 40
+  size: 66, 25
+  orig: 66, 25
+  offset: 0, 0
+  index: -1
+shadows/shadow68
+  rotate: false
+  xy: 100, 12
+  size: 68, 25
+  orig: 68, 25
+  offset: 0, 0
+  index: -1
+shadows/shadow70
+  rotate: false
+  xy: 112, 39
+  size: 70, 26
+  orig: 70, 26
+  offset: 0, 0
+  index: -1
+shadows/shadow72
+  rotate: false
+  xy: 896, 198
+  size: 72, 26
+  orig: 72, 26
+  offset: 0, 0
+  index: -1
+shadows/shadow74
+  rotate: false
+  xy: 820, 198
+  size: 74, 26
+  orig: 74, 26
+  offset: 0, 0
+  index: -1
+shadows/shadow76
+  rotate: false
+  xy: 742, 198
+  size: 76, 26
+  orig: 76, 26
+  offset: 0, 0
+  index: -1
+shadows/shadow78
+  rotate: false
+  xy: 642, 196
+  size: 78, 27
+  orig: 78, 27
+  offset: 0, 0
+  index: -1
+shadows/shadow8
+  rotate: false
+  xy: 316, 93
+  size: 8, 4
+  orig: 8, 4
+  offset: 0, 0
+  index: -1
+shadows/shadow80
+  rotate: false
+  xy: 510, 164
+  size: 80, 27
+  orig: 80, 27
+  offset: 0, 0
+  index: -1
+shadows/shadow82
+  rotate: false
+  xy: 378, 132
+  size: 82, 27
+  orig: 82, 27
+  offset: 0, 0
+  index: -1
+shadows/shadow84
+  rotate: false
+  xy: 248, 99
+  size: 84, 28
+  orig: 84, 28
+  offset: 0, 0
+  index: -1
+shadows/shadow86
+  rotate: false
+  xy: 122, 67
+  size: 86, 28
+  orig: 86, 28
+  offset: 0, 0
+  index: -1
+shadows/shadow88
+  rotate: false
+  xy: 928, 226
+  size: 88, 28
+  orig: 88, 28
+  offset: 0, 0
+  index: -1
+shadows/shadow90
+  rotate: false
+  xy: 836, 226
+  size: 90, 28
+  orig: 90, 28
+  offset: 0, 0
+  index: -1
+shadows/shadow92
+  rotate: false
+  xy: 742, 226
+  size: 92, 28
+  orig: 92, 28
+  offset: 0, 0
+  index: -1
+shadows/shadow94
+  rotate: false
+  xy: 2, 2
+  size: 94, 29
+  orig: 94, 29
+  offset: 0, 0
+  index: -1
+shadows/shadow96
+  rotate: false
+  xy: 2, 33
+  size: 96, 29
+  orig: 96, 29
+  offset: 0, 0
+  index: -1
+shadows/shadow98
+  rotate: false
+  xy: 642, 225
+  size: 98, 29
+  orig: 98, 29
+  offset: 0, 0
+  index: -1
+
+projecthome5.png
+size: 1024,16
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+player2/playerbody1
+  rotate: false
+  xy: 272, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody1back
+  rotate: false
+  xy: 317, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody1front
+  rotate: false
+  xy: 326, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody1walk
+  rotate: false
+  xy: 335, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody2
+  rotate: false
+  xy: 281, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody2back
+  rotate: false
+  xy: 344, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody2front
+  rotate: false
+  xy: 353, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody3
+  rotate: false
+  xy: 290, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody3back
+  rotate: false
+  xy: 362, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody3front
+  rotate: false
+  xy: 371, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody4
+  rotate: false
+  xy: 299, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody4back
+  rotate: false
+  xy: 380, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody4front
+  rotate: false
+  xy: 389, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody5
+  rotate: false
+  xy: 308, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody5back
+  rotate: false
+  xy: 398, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerbody5front
+  rotate: false
+  xy: 407, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerface
+  rotate: false
+  xy: 416, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerfists
+  rotate: false
+  xy: 425, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerfrontskin
+  rotate: false
+  xy: 542, 5
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+player2/playerfrontwalkfront1skin
+  rotate: false
+  xy: 542, 5
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+player2/playerfrontwalk1skin
+  rotate: false
+  xy: 542, 5
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+player2/playerfrontwalk2skin
+  rotate: false
+  xy: 542, 5
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+player2/playerfrontwalkfront2skin
+  rotate: false
+  xy: 542, 5
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+player2/playerhead1
+  rotate: false
+  xy: 2, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead10
+  rotate: false
+  xy: 83, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead10back
+  rotate: false
+  xy: 110, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead10front
+  rotate: false
+  xy: 119, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead3front
+  rotate: false
+  xy: 119, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead8front
+  rotate: false
+  xy: 119, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead11
+  rotate: false
+  xy: 92, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead11back
+  rotate: false
+  xy: 128, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead11front
+  rotate: false
+  xy: 137, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead12
+  rotate: false
+  xy: 101, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead12back
+  rotate: false
+  xy: 146, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead12front
+  rotate: false
+  xy: 155, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead1back
+  rotate: false
+  xy: 164, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead1front
+  rotate: false
+  xy: 173, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead2
+  rotate: false
+  xy: 11, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead2back
+  rotate: false
+  xy: 182, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead2front
+  rotate: false
+  xy: 191, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead3
+  rotate: false
+  xy: 20, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead3back
+  rotate: false
+  xy: 200, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead4
+  rotate: false
+  xy: 29, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead5
+  rotate: false
+  xy: 38, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead5back
+  rotate: false
+  xy: 209, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead5front
+  rotate: false
+  xy: 218, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead7front
+  rotate: false
+  xy: 218, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead6front
+  rotate: false
+  xy: 218, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead6
+  rotate: false
+  xy: 47, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead6back
+  rotate: false
+  xy: 227, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead7
+  rotate: false
+  xy: 56, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead7back
+  rotate: false
+  xy: 236, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead8
+  rotate: false
+  xy: 65, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead8back
+  rotate: false
+  xy: 245, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead9
+  rotate: false
+  xy: 74, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead9back
+  rotate: false
+  xy: 254, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerhead9front
+  rotate: false
+  xy: 263, 2
+  size: 7, 11
+  orig: 7, 11
+  offset: 0, 0
+  index: -1
+player2/playerlegs1
+  rotate: false
+  xy: 434, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1walk6
+  rotate: false
+  xy: 434, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1frontwalk1
+  rotate: false
+  xy: 443, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1frontwalk2
+  rotate: false
+  xy: 452, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1frontwalk3
+  rotate: false
+  xy: 461, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1frontwalk4
+  rotate: false
+  xy: 461, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1frontwalk5
+  rotate: false
+  xy: 470, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1frontwalk6
+  rotate: false
+  xy: 479, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1walk1
+  rotate: false
+  xy: 488, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1walk2
+  rotate: false
+  xy: 497, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1walk3
+  rotate: false
+  xy: 506, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1walk4
+  rotate: false
+  xy: 515, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1walk5
+  rotate: false
+  xy: 524, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+player2/playerlegs1walk7
+  rotate: false
+  xy: 533, 3
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+
+projecthome6.png
+size: 512,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+tiles/blocks1
+  rotate: false
+  xy: 402, 50
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/blocks2
+  rotate: false
+  xy: 416, 50
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/blocks3
+  rotate: false
+  xy: 430, 50
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/bluesapling1
+  rotate: false
+  xy: 376, 45
+  size: 11, 17
+  orig: 11, 17
+  offset: 0, 0
+  index: -1
+tiles/bluesapling2
+  rotate: false
+  xy: 389, 45
+  size: 11, 17
+  orig: 11, 17
+  offset: 0, 0
+  index: -1
+tiles/bluesapling3
+  rotate: false
+  xy: 194, 17
+  size: 14, 19
+  orig: 14, 19
+  offset: 0, 0
+  index: -1
+tiles/bluetree1
+  rotate: false
+  xy: 2, 14
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+tiles/bluetree2
+  rotate: false
+  xy: 52, 14
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+tiles/edge
+  rotate: false
+  xy: 444, 50
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/grass
+  rotate: false
+  xy: 458, 50
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/grassedge
+  rotate: false
+  xy: 250, 46
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/marble1
+  rotate: false
+  xy: 472, 50
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/marble2
+  rotate: false
+  xy: 486, 50
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/marble3
+  rotate: false
+  xy: 250, 32
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/marble4
+  rotate: false
+  xy: 264, 32
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/marbleblock
+  rotate: false
+  xy: 194, 38
+  size: 12, 24
+  orig: 12, 24
+  offset: 0, 0
+  index: -1
+tiles/marbleedge
+  rotate: false
+  xy: 210, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/marblepillar
+  rotate: false
+  xy: 208, 38
+  size: 12, 24
+  orig: 12, 24
+  offset: 0, 0
+  index: -1
+tiles/marbles
+  rotate: false
+  xy: 278, 32
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/marbles2
+  rotate: false
+  xy: 292, 32
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/marbles2edge
+  rotate: false
+  xy: 210, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/marblesedge
+  rotate: false
+  xy: 268, 46
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/marker
+  rotate: false
+  xy: 228, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/oaktree1
+  rotate: false
+  xy: 102, 14
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+tiles/pgrass1
+  rotate: false
+  xy: 306, 32
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/pgrass2
+  rotate: false
+  xy: 320, 32
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/pgrass3
+  rotate: false
+  xy: 334, 32
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/pgrassdk1
+  rotate: false
+  xy: 348, 32
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/pgrassdk2
+  rotate: false
+  xy: 362, 32
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/pgrassdk3
+  rotate: false
+  xy: 376, 31
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/pgrassdkedge
+  rotate: false
+  xy: 228, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/pgrassedge
+  rotate: false
+  xy: 286, 46
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/pwall
+  rotate: false
+  xy: 222, 38
+  size: 12, 24
+  orig: 12, 24
+  offset: 0, 0
+  index: -1
+tiles/pwall2
+  rotate: false
+  xy: 152, 14
+  size: 12, 48
+  orig: 12, 48
+  offset: 0, 0
+  index: -1
+tiles/pwall3
+  rotate: false
+  xy: 166, 14
+  size: 12, 48
+  orig: 12, 48
+  offset: 0, 0
+  index: -1
+tiles/pwall4
+  rotate: false
+  xy: 180, 14
+  size: 12, 48
+  orig: 12, 48
+  offset: 0, 0
+  index: -1
+tiles/redrock
+  rotate: false
+  xy: 390, 31
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/redrockedge
+  rotate: false
+  xy: 304, 46
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/respawnpoint
+  rotate: false
+  xy: 246, 18
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/respawnpointedge
+  rotate: false
+  xy: 322, 46
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/stone
+  rotate: false
+  xy: 246, 4
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/stoneedge
+  rotate: false
+  xy: 340, 46
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/stonewall
+  rotate: false
+  xy: 236, 38
+  size: 12, 24
+  orig: 12, 24
+  offset: 0, 0
+  index: -1
+tiles/wall
+  rotate: false
+  xy: 2, 6
+  size: 12, 6
+  orig: 12, 6
+  offset: 0, 0
+  index: -1
+tiles/wallshadow
+  rotate: false
+  xy: 358, 46
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
