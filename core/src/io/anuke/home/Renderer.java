@@ -19,6 +19,10 @@ public class Renderer{
 	private static Cache[][] caches;
 	private static RenderableList[][] renderables;
 	private static int lastcamx = -100, lastcamy = -100;
+	
+	public static void updateWalls(){
+		lastcamx = -100;
+	}
 
 	public static void renderWorld(){
 		

@@ -1,7 +1,9 @@
-package io.anuke.home.entities;
+package io.anuke.home.entities.enemies;
 
 import com.badlogic.gdx.graphics.Color;
 
+import io.anuke.home.entities.Enemy;
+import io.anuke.home.entities.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.util.Mathf;
@@ -14,7 +16,7 @@ public class Tentapod  extends Enemy{
 		hiteffect = "blood";
 		deatheffect = "purpleblood";
 		
-		setMaxHealth(100);
+		setMaxHealth(120);
 		
 		height = 4;
 		hitoffsety = height;

@@ -11,11 +11,96 @@ public class Projectiles extends BaseBulletType<Projectile>{
 	
 	public static final Projectiles
 	
+	scorchshot = new Projectiles(){
+		{
+			speed = 2.6f;
+			hiteffect = "scorchblap";
+			lifetime = 100;
+		}
+		
+		public void draw(Projectile b){
+			Draw.color(Color.CORAL, Color.DARK_GRAY, b.ifract());
+			Draw.polygon(3, b.x, b.y, 4, b.angle()-90);
+			Draw.color();
+		}
+	},
+	aethershot = new Projectiles(){
+		{
+			speed = 3f;
+			hiteffect = "aetherblap";
+			lifetime = 100;
+		}
+		
+		public void draw(Projectile b){
+			Draw.color(Color.PURPLE, Color.MAGENTA, b.ifract());
+			Draw.circle(b.x, b.y, 3);
+			Draw.color();
+		}
+	},
+	orbshot = new Projectiles(){
+		{
+			speed = 1.9f;
+			hiteffect = "orbshrink";
+			despawneffect = "orbshrink";
+			lifetime = 100;
+			hitsize = 14;
+		}
+		
+		public void draw(Projectile b){
+			Draw.color(Color.WHITE, Color.PINK, b.ifract());
+			Draw.circle(b.x, b.y, 8);
+			Draw.color();
+		}
+	},
+	planeshot = new Projectiles(){
+		{
+			speed = 4.2f;
+			hiteffect = "planeblap";
+			lifetime = 100;
+		}
+		
+		public void draw(Projectile b){
+			Draw.thick(2f);
+			Draw.color(Color.WHITE, Color.LIME, b.ifract());
+			Draw.lineAngleCenter(b.x, b.y, b.angle(), 4);
+			Draw.reset();
+		}
+	},
+	fusionshot = new Projectiles(){
+		{
+			speed = 2.6f;
+			hiteffect = "fusionblap";
+			lifetime = 70;
+		}
+		
+		public void draw(Projectile b){
+			Draw.color(Color.CORAL, Color.WHITE, b.ifract());
+			Draw.thick(1f);
+			Draw.polygon(3, b.x, b.y, 3, b.angle()-90);
+			Draw.lineAngleCenter(b.x, b.y, b.angle(), 7);
+			Draw.color();
+		}
+	},
 	slash = new Projectiles(){
 		{
 			speed = 0f;
 			hitsize = 6;
 			lifetime = 7;
+		}
+	},
+	tentaslash = new Projectiles(){
+		{
+			speed = 2f;
+			hitsize = 9;
+			lifetime = 7;
+			despawneffect = "tentaflash";
+		}
+		
+		public void draw(Projectile b){
+			Draw.color(Color.PURPLE, Color.BLACK, b.ifract());
+			Draw.lineAngle(b.x, b.y, 0, b.angle()+30, 6);
+			Draw.polygon(3, b.x, b.y, 4, b.angle()+180);
+			Draw.reset();
 		}
 	},
 	phaseslash = new Projectiles(){

@@ -1,7 +1,9 @@
-package io.anuke.home.entities;
+package io.anuke.home.entities.enemies;
 
 import com.badlogic.gdx.graphics.Color;
 
+import io.anuke.home.entities.Enemy;
+import io.anuke.home.entities.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.util.Geometry;
@@ -12,7 +14,7 @@ public class Tentafly extends Enemy{
 	float reload = 120;
 	
 	public Tentafly(){
-		setMaxHealth(55);
+		setMaxHealth(70);
 		
 		hiteffect = "blood";
 		deatheffect = "purpleblood";

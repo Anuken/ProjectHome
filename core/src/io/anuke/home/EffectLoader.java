@@ -12,6 +12,50 @@ public class EffectLoader{
 	
 	public static void load(){
 		
+		Effect.create("scorchblap", 8, e->{
+			Draw.thickness(2f);
+			Draw.color(Hue.mix(Color.CORAL, Color.WHITE, e.ifract()));
+			Draw.spikes(e.x, e.y, e.ifract()*5f, 1, 6);
+			Draw.reset();
+		});
+		
+		Effect.create("aetherblap", 8, e->{
+			Draw.thickness(1f);
+			Draw.color(Hue.mix(Color.PURPLE, Color.WHITE, e.ifract()));
+			Draw.spikes(e.x, e.y, e.ifract()*5f, 1, 4);
+			Draw.circle(e.x, e.y, e.ifract()*5f);
+			Draw.reset();
+		});
+		
+		Effect.create("planeblap", 8, e->{
+			Draw.thickness(1f);
+			Draw.color(Hue.mix(Color.LIME, Color.WHITE, e.ifract()));
+			Draw.spikes(e.x, e.y, e.ifract()*5f, 2, 4);
+			Draw.polygon(4, e.x, e.y, e.ifract()*5f);
+			Draw.reset();
+		});
+		
+		Effect.create("orbblap", 9, e->{
+			Draw.thickness(2f);
+			Draw.color(Hue.mix(Color.PINK, Color.WHITE, e.ifract()));
+			Draw.circle(e.x, e.y, e.ifract()*6f);
+			Draw.reset();
+		});
+		
+		Effect.create("orbshrink", 9, e->{
+			Draw.color(Color.PINK, Color.WHITE, e.ifract());
+			Draw.circle(e.x, e.y, 8-e.ifract()*8f);
+			Draw.color();
+		});
+		
+		Effect.create("fusionblap", 9, e->{
+			Draw.thickness(1f);
+			Draw.color(Hue.mix(Color.CORAL, Color.BLACK, e.ifract()));
+			Draw.spikes(e.x, e.y, e.ifract()*5f, 2, 5, 90);
+			Draw.polygon(5, e.x, e.y, e.ifract()*6f, 90);
+			Draw.reset();
+		});
+		
 		Effect.create("explosion", 10, e->{
 			Draw.color(Color.YELLOW);
 			Draw.circle(e.x, e.y, 20*e.ifract());
@@ -89,6 +133,17 @@ public class EffectLoader{
 			Draw.reset();
 		});
 		
+		Effect.create("dust", 23, e->{
+			Draw.color(Color.LIGHT_GRAY, Color.DARK_GRAY, e.ifract());
+			
+			float rad = e.fract()*4f;
+			Geometry.randVectors(e.id, 5, e.ifract()*30f, (x, y)->{
+				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
+			});
+			
+			Draw.reset();
+		});
+		
 		Effect.create("purpleblood", 25, e->{
 			Draw.color(new Color(0x411e4bff), Color.BLACK, e.ifract());
 			
@@ -132,6 +187,13 @@ public class EffectLoader{
 			Draw.reset();
 		});
 		
+		Effect.create("tentaflash", 7, e->{
+			Draw.thickness(2f);
+			Draw.color(Hue.mix(Color.PURPLE, Color.BLACK, e.ifract()));
+			Draw.spikes(e.x, e.y, e.ifract()*7f, 1, 3, 90);
+			Draw.reset();
+		});
+		
 		Effect.create("death", 20, e->{
 			Draw.thickness(4f);
 			Draw.color(Hue.mix(Color.PURPLE, Color.GRAY, e.ifract()));
@@ -142,6 +204,14 @@ public class EffectLoader{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			
+			Draw.reset();
+		});
+		
+		Effect.create("dash", 7, e->{
+			Draw.thickness(1f);
+			Draw.color(Color.WHITE, Color.GRAY, e.ifract());
+			float s = e.fract()*7;
+			Draw.rect("circle", e.x, e.y, s, s);
 			Draw.reset();
 		});
 		
@@ -228,6 +298,7 @@ public class EffectLoader{
 		Effect.create("swingtenta", 7, e->{
 			Draw.color(tent, Color.BLACK, e.ifract());
 			float s = e.fract()*8;
+			Draw.rect("circle", e.x, e.y, s/2f, s/2f);
 			Draw.polygon(3, e.x, e.y, s);
 			Draw.reset();
 		});
@@ -236,8 +307,8 @@ public class EffectLoader{
 			Draw.color(Color.PURPLE, Color.BLACK, e.ifract());
 			float s = e.fract()*8;
 			Draw.rect("circle", e.x, e.y, s, s);
-			Draw.color();
-			Draw.polygon(3, e.x, e.y, 2-e.ifract()*2f);
+			//Draw.color();
+			//Draw.polygon(3, e.x, e.y, 2-e.ifract()*2f);
 			Draw.reset();
 		});
 		

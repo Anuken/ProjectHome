@@ -14,6 +14,7 @@ import io.anuke.ucore.entities.Entities;
 import io.anuke.ucore.entities.SolidEntity;
 import io.anuke.ucore.util.Angles;
 import io.anuke.ucore.util.Mathf;
+import io.anuke.ucore.util.Timers;
 
 public class Player extends Creature{
 	public static final float hitdur = 30;
@@ -21,8 +22,16 @@ public class Player extends Creature{
 	public Direction direction = right;
 	public Item weapon;
 	public float hittime;
-	float speed = 1.8f;
 	public boolean oncheckpoint = false;
+	public float dashscl = 1f;
+	public float dashcharge = 15f;
+	
+	public final float basespeed = 1.8f;
+	
+	public int defense;
+	public int attack;
+	public float speed = basespeed;
+	
 	
 	public Player(){
 		setMaxHealth(100);
@@ -69,6 +78,18 @@ public class Player extends Creature{
 	}
 	
 	@Override
+	public void damage(int amount){
+		int out = Mathf.clamp(amount-defense, 2, 1000);
+		super.damage(out);
+	}
+	
+	@Override
+	public void shoot(Projectiles type, int damage, float x, float y, float angle){
+		Projectile p = new Projectile(type, this, angle).set(x, y).add();
+		p.damage = damage+attack;
+	}
+	
+	@Override
 	public void onDeath(){
 		clampHealth();
 		Effects.effect("explosion", this);
@@ -105,6 +126,19 @@ public class Player extends Creature{
 		vector.set(0, 0);
 		
 		float speed = this.speed*delta;
+		
+		if(Inputs.keyDown("dash")){
+			dashscl -= delta/dashcharge;
+			if(dashscl > 0.3f && Timers.get(this, "dasheffect", 3)){
+				Effects.effect("dash", x, y+3);
+			}
+			dashscl = Mathf.clamp(dashscl);
+			speed *= (1f+dashscl*2f);
+		}else{
+			dashscl += delta/dashcharge/2f;
+		}
+		
+		dashscl = Mathf.clamp(dashscl);
 		
 		if(Inputs.keyDown("up")){
 			vector.y += speed;

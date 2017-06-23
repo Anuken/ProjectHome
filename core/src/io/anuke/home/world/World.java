@@ -3,10 +3,13 @@ package io.anuke.home.world;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
 import io.anuke.home.Vars;
 import io.anuke.home.entities.*;
+import io.anuke.home.entities.enemies.*;
+import io.anuke.ucore.entities.Entity;
 import io.anuke.ucore.noise.Noise;
 import io.anuke.ucore.util.Mathf;
 
@@ -14,6 +17,7 @@ public class World{
 	private static Tile[][] tiles;
 	private static ObjectMap<Integer, Block> map = new ObjectMap<>();
 	private static ObjectMap<Integer, String> structmap = new ObjectMap<>();
+	private static Array<Door> doors = new Array<Door>();
 	private static Pixmap pixmap;
 
 	public static void create(){
@@ -31,9 +35,15 @@ public class World{
 		map.put(0xffef80ff, Blocks.checkpoint);
 		
 		structmap.put(0xa6b3d4ff, "temple");
+		structmap.put(0xcad2e7ff, "dungeon");
 		//map.put(0xaf6261ff, Blocks.redrock);
 
 		generate();
+	}
+	
+	public static void addDoors(){
+		for(Entity e : doors)
+			e.add();
 	}
 
 	/** Returns null when out of bounds. Take care. */
@@ -67,6 +77,14 @@ public class World{
 			}
 		}
 	}
+	
+	public static void placeSpawner(int x, int y, Enemy enemy){
+		Tile tile = get(x, y);
+		if(tile != null){
+			tile.wall = Blocks.spawner;
+			tile.data = enemy;
+		}
+	}
 
 	public static void placeRad(int x, int y, int rad, Block block){
 		placeWall(x - rad, y - rad, block);
@@ -84,15 +102,44 @@ public class World{
 				int color = pix.getPixel(x, pix.getHeight()-1-y);
 				int fcolor = floor.getPixel(x, pix.getHeight()-1-y);
 				
+				int worldx = cx+x-pix.getWidth()/2, worldy = cy+y-pix.getHeight()/2;
+				
 				if(map.containsKey(color)){
-					get(cx+x-pix.getWidth()/2,cy+y-pix.getHeight()/2).wall = map.get(color);
+					get(worldx, worldy).wall = map.get(color);
 				}
 				
 				if(map.get(fcolor, Blocks.air) != Blocks.air){
-					get(cx+x-pix.getWidth()/2,cy+y-pix.getHeight()/2).floor = map.get(fcolor);
+					get(worldx, worldy).floor = map.get(fcolor);
+				}
+				
+				if(color == 0xff00ffff){
+					doors.add(new Door(true, worldx, worldy));
+				}
+				
+				if(color == 0x00ff00ff){
+					doors.add(new Door(false, worldx, worldy));
+				}
+				
+				if(color == 0x00ffffff){
+					Door a = new Door(true, worldx, worldy+1);
+					Door b = new Door(false, worldx, worldy-1);
+					Door.link(a, b);
+					doors.add(a);
+					doors.add(b);
+				}
+				
+				if(color == 0xffdadcff){
+					placeSpawner(worldx, worldy, new MarbleGolem());
+				}else if(color == 0xae5b5fff){
+					placeSpawner(worldx, worldy, new MarbleDrone());
+				}else if(color == 0xf64e56ff){
+					placeSpawner(worldx, worldy, new MarbleObelisk());
 				}
 			}
 		}
+		
+		pix.dispose();
+		floor.dispose();
 	}
 
 	private static void generate(){
@@ -144,8 +191,6 @@ public class World{
 					tile.wall = Blocks.checkpoint;
 					tile.floor = Blocks.marble;
 				}
-				
-				
 
 				tiles[x][y] = tile;
 			}

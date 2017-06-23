@@ -1,8 +1,10 @@
-package io.anuke.home.entities;
+package io.anuke.home.entities.enemies;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 
+import io.anuke.home.entities.Enemy;
+import io.anuke.home.entities.Projectiles;
 import io.anuke.home.items.Items;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
@@ -26,7 +28,7 @@ public class Tentawarrior extends Enemy{
 		hiteffect = "blood";
 		deatheffect = "purpleblood";
 
-		setMaxHealth(100);
+		setMaxHealth(130);
 
 		height = 11;
 		hitoffsety = 14;

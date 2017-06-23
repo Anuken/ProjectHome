@@ -1,5 +1,7 @@
-package io.anuke.home.entities;
+package io.anuke.home.entities.enemies;
 
+import io.anuke.home.entities.Enemy;
+import io.anuke.home.entities.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.util.Mathf;

@@ -20,125 +20,258 @@ player
   index: -1
 
 projecthome2.png
-size: 128,32
+size: 256,32
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-weapons/icesword
+weapons/aetherstaff
   rotate: false
   xy: 2, 12
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
   index: -1
-weapons/icesword-item
+weapons/aetherstaff-item
   rotate: false
   xy: 2, 2
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
-weapons/icon-weapon
-  rotate: false
-  xy: 90, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-weapons/lancesword
+weapons/amberstaff
   rotate: false
   xy: 13, 12
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
   index: -1
-weapons/lancesword-item
+weapons/amberstaff-item
+  rotate: false
+  xy: 156, 19
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/ascendarmor-item
   rotate: false
   xy: 12, 2
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
-weapons/marblesword
+weapons/densearmor-item
+  rotate: false
+  xy: 166, 19
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/densearmoritem
+  rotate: false
+  xy: 166, 19
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/fusionstaff
   rotate: false
   xy: 24, 12
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
   index: -1
-weapons/marblesword-item
-  rotate: false
-  xy: 100, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-weapons/phasesword
-  rotate: false
-  xy: 35, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-weapons/phasesword-item
+weapons/fusionstaff-item
   rotate: false
   xy: 22, 2
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
-weapons/silversword
+weapons/hellarmor-item
   rotate: false
-  xy: 46, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-weapons/silversword-item
-  rotate: false
-  xy: 110, 19
+  xy: 176, 19
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
-weapons/staff
+weapons/icesword
   rotate: false
-  xy: 57, 12
+  xy: 35, 12
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
   index: -1
-weapons/staff-item
+weapons/icesword-item
   rotate: false
   xy: 32, 2
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
-weapons/sword
+weapons/icon-armor
   rotate: false
-  xy: 68, 12
-  size: 9, 15
-  orig: 9, 15
+  xy: 186, 19
+  size: 8, 8
+  orig: 8, 8
   offset: 0, 0
   index: -1
-weapons/sword-item
+weapons/icon-weapon
   rotate: false
   xy: 42, 2
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
-weapons/tentasword
+weapons/juggernautarmor-item
+  rotate: false
+  xy: 196, 19
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/lancesword
+  rotate: false
+  xy: 46, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/lancesword-item
+  rotate: false
+  xy: 52, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/marblesword
+  rotate: false
+  xy: 57, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/marblesword-item
+  rotate: false
+  xy: 206, 19
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/orbstaff
+  rotate: false
+  xy: 68, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/orbstaff-item
+  rotate: false
+  xy: 62, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/phasesword
   rotate: false
   xy: 79, 12
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
   index: -1
+weapons/phasesword-item
+  rotate: false
+  xy: 216, 19
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/planestaff
+  rotate: false
+  xy: 90, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/planestaff-item
+  rotate: false
+  xy: 72, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/reflectarmor-item
+  rotate: false
+  xy: 226, 19
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/scorchstaff
+  rotate: false
+  xy: 101, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/scorchstaff-item
+  rotate: false
+  xy: 82, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/silversword
+  rotate: false
+  xy: 112, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/silversword-item
+  rotate: false
+  xy: 236, 19
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/staff
+  rotate: false
+  xy: 123, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/staff-item
+  rotate: false
+  xy: 246, 19
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/sword
+  rotate: false
+  xy: 134, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+weapons/sword-item
+  rotate: false
+  xy: 92, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+weapons/tentasword
+  rotate: false
+  xy: 145, 12
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
 weapons/tentasword-item
   rotate: false
-  xy: 52, 2
+  xy: 102, 2
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -158,44 +291,58 @@ enemies/golem
   index: -1
 enemies/golem-armless
   rotate: false
-  xy: 371, 18
+  xy: 389, 18
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/golem-arms
   rotate: false
-  xy: 385, 18
+  xy: 403, 18
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/marbledrone
   rotate: false
-  xy: 399, 18
+  xy: 417, 18
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/marblegolem
   rotate: false
-  xy: 413, 18
+  xy: 431, 18
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/marblegolem-armless
   rotate: false
-  xy: 427, 18
+  xy: 445, 18
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/marblegolem-arms
   rotate: false
-  xy: 441, 18
+  xy: 459, 18
   size: 12, 12
   orig: 12, 12
+  offset: 0, 0
+  index: -1
+enemies/marbleobelisk
+  rotate: false
+  xy: 371, 14
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+enemies/marbleoobelisk
+  rotate: false
+  xy: 371, 14
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 enemies/tentafly
@@ -226,14 +373,14 @@ enemies/tentaflyi1
   orig: 24, 13
   offset: 0, 0
   index: -1
-enemies/tentaflyi3
+enemies/tentaflyi5
   rotate: false
   xy: 153, 2
   size: 24, 13
   orig: 24, 13
   offset: 0, 0
   index: -1
-enemies/tentaflyi5
+enemies/tentaflyi3
   rotate: false
   xy: 153, 2
   size: 24, 13
@@ -994,14 +1141,7 @@ player2/playerfrontskin
   orig: 8, 8
   offset: 0, 0
   index: -1
-player2/playerfrontwalkfront1skin
-  rotate: false
-  xy: 542, 5
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-player2/playerfrontwalk1skin
+player2/playerfrontwalkfront2skin
   rotate: false
   xy: 542, 5
   size: 8, 8
@@ -1015,7 +1155,14 @@ player2/playerfrontwalk2skin
   orig: 8, 8
   offset: 0, 0
   index: -1
-player2/playerfrontwalkfront2skin
+player2/playerfrontwalkfront1skin
+  rotate: false
+  xy: 542, 5
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+player2/playerfrontwalk1skin
   rotate: false
   xy: 542, 5
   size: 8, 8
@@ -1050,14 +1197,14 @@ player2/playerhead10front
   orig: 7, 11
   offset: 0, 0
   index: -1
-player2/playerhead3front
+player2/playerhead8front
   rotate: false
   xy: 119, 2
   size: 7, 11
   orig: 7, 11
   offset: 0, 0
   index: -1
-player2/playerhead8front
+player2/playerhead3front
   rotate: false
   xy: 119, 2
   size: 7, 11
@@ -1183,14 +1330,14 @@ player2/playerhead5front
   orig: 7, 11
   offset: 0, 0
   index: -1
-player2/playerhead7front
+player2/playerhead6front
   rotate: false
   xy: 218, 2
   size: 7, 11
   orig: 7, 11
   offset: 0, 0
   index: -1
-player2/playerhead6front
+player2/playerhead7front
   rotate: false
   xy: 218, 2
   size: 7, 11

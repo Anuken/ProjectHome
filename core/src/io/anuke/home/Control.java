@@ -41,8 +41,12 @@ public class Control extends RendererModule{
 			"left", Keys.A,
 			"down", Keys.S,
 			"right", Keys.D,
+			"dash", Keys.SHIFT_LEFT,
 			"pause", Keys.ESCAPE,
-			"pickup", Keys.Q
+			"pickup", Keys.Q,
+			"weapon1", Keys.NUM_1,
+			"weapon2", Keys.NUM_2,
+			"weapon3", Keys.NUM_3
 		);
 		
 		Settings.loadAll("io.anuke.home");
@@ -77,25 +81,19 @@ public class Control extends RendererModule{
 	
 	public void respawn(){
 		player.heal();
-		player.set(checkpoint.worldx(), checkpoint.worldy()).add();
+		//player.set(checkpoint.worldx(), checkpoint.worldy()).add();
 		player.oncheckpoint = true;
 	}
 	
 	public void reset(){
 		Entities.clear();
+		World.addDoors();
 		
 		float center = Vars.worldsize*Vars.tilesize/2f;
 		
-		player = new Player().set(center, center).add();
+		player = new Player()/*.set(center, center)*/.set(12*539, 12*(1024-368)).add();
 		
 		respawn();
-		
-		//new Tentapod().set(center, center).add();
-		
-		for(int i = 0; i < 5; i ++){
-		//	ItemDrop drop = new ItemDrop(new ItemStack(Mathf.chance(0.5f) ? Items.staff : Items.sword));
-		//	drop.set(center+Mathf.range(50), center+Mathf.range(50)).add();
-		}
 		
 		Entities.resizeTree(0, 0, center*2, center*2);
 	}

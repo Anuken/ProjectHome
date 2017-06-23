@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Align;
 
 import io.anuke.home.Vars;
 import io.anuke.home.entities.ItemDrop;
+import io.anuke.home.entities.Player;
 import io.anuke.home.items.*;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Graphics;
@@ -17,6 +18,7 @@ import io.anuke.ucore.scene.style.TextureRegionDrawable;
 import io.anuke.ucore.scene.ui.Image;
 import io.anuke.ucore.scene.ui.Label;
 import io.anuke.ucore.scene.ui.layout.Table;
+import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Strings;
 import io.anuke.ucore.util.Timers;
 
@@ -27,21 +29,40 @@ public class Inventory extends Table{
 	ItemStack selected;
 	ItemTooltip tooltip;
 	boolean deselecting;
+	int slotweapon = 0;
 
 	final float slotsize = 56;
 	final float itemsize = 32;
 
 	public Inventory() {
 		filters[0] = ItemType.weapon;
-
+		filters[1] = ItemType.weapon;
+		filters[2] = ItemType.weapon;
+		filters[3] = ItemType.armor;
+		
+		
 		addItem(new ItemStack(Items.marblesword));
 		addItem(new ItemStack(Items.icesword));
 		addItem(new ItemStack(Items.lancesword));
 		addItem(new ItemStack(Items.phasesword));
 		addItem(new ItemStack(Items.tentasword));
 		addItem(new ItemStack(Items.silversword));
-		addItem(new ItemStack(Items.staff));
+		addItem(new ItemStack(Items.amberstaff));
+		addItem(new ItemStack(Items.densearmor));
 		
+		
+		addItem(new ItemStack(Items.scorchstaff));
+		addItem(new ItemStack(Items.aetherstaff));
+		addItem(new ItemStack(Items.orbstaff));
+		addItem(new ItemStack(Items.planestaff));
+		addItem(new ItemStack(Items.fusionstaff));
+		/*
+		addItem(new ItemStack(Items.ascendarmor));
+		addItem(new ItemStack(Items.densearmor));
+		addItem(new ItemStack(Items.hellarmor));
+		addItem(new ItemStack(Items.juggarmor));
+		addItem(new ItemStack(Items.reflectarmor));
+		*/
 		setup();
 	}
 	
@@ -78,7 +99,33 @@ public class Inventory extends Table{
 	public void act(float delta){
 		super.act(delta);
 		
-		Vars.control.player.weapon = (stacks[0] == null ? null : stacks[0].item);
+		if(Inputs.scrolled()){
+			slotweapon += Inputs.scroll();
+			slotweapon = Mathf.clamp(slotweapon, 0, 2);
+		}
+		
+		if(Inputs.keyUp("weapon1"))
+			slotweapon = 0;
+		
+		if(Inputs.keyUp("weapon2"))
+			slotweapon = 1;
+		
+		if(Inputs.keyUp("weapon3"))
+			slotweapon = 2;
+		
+		Player player = Vars.control.player;
+		
+		player.weapon = (stacks[slotweapon] == null ? null : stacks[slotweapon].item);
+		
+		if(stacks[3] != null){
+			Item item = stacks[3].item;
+			player.speed = item.speedbuff/10f + player.basespeed;
+			player.attack = item.attackbuff;
+			player.defense = item.defensebuff;
+		}else{
+			player.attack = player.defense = 0;
+			player.speed = player.basespeed;
+		}
 		
 		Element e = getScene().hit(Graphics.mouse().x, Graphics.mouse().y, true);
 
@@ -179,7 +226,7 @@ public class Inventory extends Table{
 			if(this.item == item) return;
 			
 			String desc = (item.description == null) ? "" : ("\n"+item.description);
-			String stat = item.weapontype == null ? "" : ("\n[orange]" + item.weapontype.getStatString());
+			String stat = item.getStats();
 			
 			label.setText(
 				"[yellow]"+item.formalName+"\n"+
@@ -192,9 +239,15 @@ public class Inventory extends Table{
 			//descl.setText(item.description == null ? "                         " : item.description);
 			//typel.setText(Strings.capitalize(item.type.name()));
 			
-			image.setDrawable(new TextureRegionDrawable(Draw.region(item.name)));
+			getCell(image).pad(4);
 			
-			getCell(image).size(9*imgscl, 15*imgscl).pad(4);
+			if(Draw.hasRegion(item.name)){
+				image.setDrawable(new TextureRegionDrawable(Draw.region(item.name)));
+				getCell(image).size(9*imgscl, 15*imgscl);
+			}else{
+				image.setDrawable(new TextureRegionDrawable(Draw.region(item.name + "-item")));
+				getCell(image).size(8*imgscl, 8*imgscl).pad(6).padTop(16);
+			}
 			
 			pack();
 		}
@@ -224,7 +277,7 @@ public class Inventory extends Table{
 
 		@Override
 		public void draw(){
-			Draw.patch("slot", x, y, width, height);
+			Draw.patch(slotweapon == index ? "slot-select" : "slot", x, y, width, height);
 
 			ItemStack stack = stacks[index];
 

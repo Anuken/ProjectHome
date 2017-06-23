@@ -20,15 +20,15 @@ public class Enemy extends Creature{
 
 	static final float timeout = 600;
 
-	DestructibleEntity target;
+	public DestructibleEntity target;
 
-	String deatheffect = "death";
-	String hiteffect = "hit";
+	public String deatheffect = "death";
+	public String hiteffect = "hit";
 
-	float height = 4;
-	float range = 180;
-	float speed = 0.5f;
-	float idletime = 0f;
+	public float height = 4;
+	public float range = 230;
+	public float speed = 0.5f;
+	public float idletime = 0f;
 
 	public void retarget(){
 		
@@ -51,7 +51,7 @@ public class Enemy extends Creature{
 				idletime += delta;
 
 				if(idletime >= timeout){
-					Tile tile = World.get(Mathf.scl(x, Vars.tilesize), Mathf.scl(x, Vars.tilesize));
+					Tile tile = World.get(Mathf.scl(x, Vars.tilesize), Mathf.scl(y, Vars.tilesize));
 					
 					if(tile != null && tile.wall == Blocks.air){
 						tile.data = this;

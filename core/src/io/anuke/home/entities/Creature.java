@@ -33,7 +33,7 @@ public abstract class Creature extends DestructibleEntity{
 		});
 	}
 	
-	void draw(DrawFunc d){
+	public void draw(DrawFunc d){
 		list.add(new FuncRenderable(0, Sorter.object, d));
 	}
 	

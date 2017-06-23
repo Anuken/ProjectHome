@@ -11,38 +11,106 @@ import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.core.Inputs;
 import io.anuke.ucore.entities.Entity;
 import io.anuke.ucore.modules.Module;
-import io.anuke.ucore.util.Angles;
-import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
+import io.anuke.ucore.util.*;
 
 public class WeaponTypes{
 	
 	public static class Staff extends WeaponType{
 		Projectiles projectile = Projectiles.yellowshot;
 		String shooteffect = "yellowblap";
+		String alteffect = shooteffect;
+		Color chargecolor = Color.ORANGE;
+		int shots = 1;
+		float shotspacing = 5f;
+		float chargetime = 60;
+		float accuracy = 0f;
+		boolean holdable = true;
+		
+		float offset = 0f;
+		float charge = 0;
+	
 		
 		{
-			speed = 20f;
+			speed = 30f;
 		}
 		
 		void setVector(Player player){
 			vector.set(1, 1).setAngle(player.angle()).setLength(4);
 		}
 		
+		public void altAttack(Player player){
+			Effects.shake(3f, 3f);
+			Geometry.circle(20, f->{
+				player.shoot(projectile, damage*2, vector.x, vector.y, f);
+			});
+		}
+		
+		public void shot(){
+			
+		}
+		
+		/**sets vector to staff tip*/
+		public void setTip(Player player){
+			setVector(player);
+			vector.add(player.x, player.y+player.height+5);
+		}
+		
+		public String getStatString(){
+			return super.getStatString() + "\n[royal]Shots: " + (int)shots;
+		}
+		
 		@Override
 		public void draw(Player player, Item item){
 			setVector(player);
-			Draw.rect(item.name, player.x+vector.x, player.y+player.height+vector.y+4);
+			
+			offset = Mathf.lerp(offset, charge/chargetime*4f, 0.3f*Mathf.delta());
+			
+			Draw.rect(item.name, player.x+vector.x, offset+player.y+player.height+vector.y+4);
+			Draw.reset();
+			
+			if(charge > 0){
+				Draw.color(Color.WHITE, chargecolor, charge/chargetime);
+				Draw.polygon(3, player.x+vector.x+0.5f, player.y+player.height+vector.y+6+offset, 3);
+				if(charge >= chargetime){
+					Draw.color(Color.WHITE, Color.SKY, Mathf.absin(Timers.time(), 5f, 1f));
+					Draw.polygon(3, player.x+vector.x+0.5f, player.y+player.height+vector.y+6+offset, 3);
+				}
+			}
+			
+			Draw.reset();
 		}
 		
 		@Override
 		public void update(Player player){
 			setVector(player);
-			if(Inputs.buttonDown(Buttons.LEFT) && Timers.get(player, "weaponcooldown", speed)){
-				float x = player.x + vector.x;
-				float y = player.y + player.height + vector.y + 5;
+			
+			float x = player.x + vector.x;
+			float y = player.y + player.height + vector.y + 5;
+			
+			if(Inputs.buttonRelease(Buttons.RIGHT)){
+				if(charge >= chargetime){
+					Effects.effect(shooteffect, x, y+2);
+					setTip(player);
+					altAttack(player);
+				}
+				charge = 0f;
+			}
+			
+			if(Inputs.buttonDown(Buttons.RIGHT)){
+				charge += Mathf.delta();
+				if(charge >= chargetime && holdable){
+					Effects.effect(shooteffect, x, y+2);
+					setTip(player);
+					altAttack(player);
+					charge = 0f;
+				}
+			}else if(Inputs.buttonDown(Buttons.LEFT) && Timers.get(player, "weaponcooldown", speed)){
 				Effects.effect(shooteffect, x, y+2);
-				player.shoot(projectile, damage, x, y, Angles.mouseAngle(x, y));
+				shot();
+				Geometry.shotgun(shots, shotspacing, Angles.mouseAngle(x, y), f->{
+					player.shoot(projectile, damage, x, y, f + Mathf.range(accuracy));
+				});
+				
 			}
 		}
 	}
@@ -66,6 +134,10 @@ public class WeaponTypes{
 		
 		{
 			speed = 40f;
+		}
+		
+		public String getStatString(){
+			return super.getStatString() + "\n[royal]Reach: " + (int)reach;
 		}
 		
 		float maxswing(){
