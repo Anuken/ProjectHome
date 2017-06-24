@@ -91,7 +91,7 @@ public class Control extends RendererModule{
 		
 		float center = Vars.worldsize*Vars.tilesize/2f;
 		
-		player = new Player()/*.set(center, center)*/.set(12*539, 12*(1024-368)).add();
+		player = new Player()/*.set(center, center)*/.set(12*569, 12*(1024-110)).add();
 		
 		respawn();
 		

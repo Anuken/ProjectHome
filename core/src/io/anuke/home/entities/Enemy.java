@@ -29,6 +29,7 @@ public class Enemy extends Creature{
 	public float range = 230;
 	public float speed = 0.5f;
 	public float idletime = 0f;
+	public boolean despawn = true;
 
 	public void retarget(){
 		
@@ -47,7 +48,7 @@ public class Enemy extends Creature{
 		}else{
 			target = null;
 
-			if(dst > 300){
+			if(dst > 300 && despawn){
 				idletime += delta;
 
 				if(idletime >= timeout){
@@ -56,7 +57,9 @@ public class Enemy extends Creature{
 					if(tile != null && tile.wall == Blocks.air){
 						tile.data = this;
 						tile.wall = Blocks.spawner;
+						heal();
 						remove();
+						reset();
 					}else{
 						idletime = 0f;
 					}
@@ -68,6 +71,10 @@ public class Enemy extends Creature{
 		//target = (DestructibleEntity)Entities.getClosest(x, y, 100, e->{
 		//	return e instanceof Player;
 		//});
+	}
+	
+	public void reset(){
+		
 	}
 
 	boolean targetValid(){

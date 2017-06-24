@@ -7,7 +7,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
 import io.anuke.home.Vars;
-import io.anuke.home.entities.*;
+import io.anuke.home.entities.Door;
+import io.anuke.home.entities.Enemy;
 import io.anuke.home.entities.enemies.*;
 import io.anuke.ucore.entities.Entity;
 import io.anuke.ucore.noise.Noise;
@@ -120,6 +121,22 @@ public class World{
 					doors.add(new Door(false, worldx, worldy));
 				}
 				
+				if(color == 0xff99feff){
+					Door door = new Door(true, worldx, worldy);
+					door.width = 8;
+					door.height = 2;
+					door.areaw = door.areah = 39;
+					doors.add(door);
+				}
+				
+				if(color == 0x99ffaaff){
+					Door door = new Door(false, worldx, worldy);
+					door.width = 8;
+					door.height = 4;
+					door.areaw = door.areah = 39;
+					doors.add(door);
+				}
+				
 				if(color == 0x00ffffff){
 					Door a = new Door(true, worldx, worldy+1);
 					Door b = new Door(false, worldx, worldy-1);
@@ -130,6 +147,8 @@ public class World{
 				
 				if(color == 0xffdadcff){
 					placeSpawner(worldx, worldy, new MarbleGolem());
+				}else if(color == 0xff874cff){
+					placeSpawner(worldx, worldy, new Boss());
 				}else if(color == 0xae5b5fff){
 					placeSpawner(worldx, worldy, new MarbleDrone());
 				}else if(color == 0xf64e56ff){

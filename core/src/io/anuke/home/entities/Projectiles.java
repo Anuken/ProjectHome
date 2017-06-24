@@ -15,7 +15,7 @@ public class Projectiles extends BaseBulletType<Projectile>{
 		{
 			speed = 2.6f;
 			hiteffect = "scorchblap";
-			lifetime = 100;
+			lifetime = 80;
 		}
 		
 		public void draw(Projectile b){
@@ -28,7 +28,7 @@ public class Projectiles extends BaseBulletType<Projectile>{
 		{
 			speed = 3f;
 			hiteffect = "aetherblap";
-			lifetime = 100;
+			lifetime = 80;
 		}
 		
 		public void draw(Projectile b){
@@ -42,7 +42,7 @@ public class Projectiles extends BaseBulletType<Projectile>{
 			speed = 1.9f;
 			hiteffect = "orbshrink";
 			despawneffect = "orbshrink";
-			lifetime = 100;
+			lifetime = 80;
 			hitsize = 14;
 		}
 		
@@ -56,7 +56,8 @@ public class Projectiles extends BaseBulletType<Projectile>{
 		{
 			speed = 4.2f;
 			hiteffect = "planeblap";
-			lifetime = 100;
+			despawneffect = "planeblap";
+			lifetime = 50;
 		}
 		
 		public void draw(Projectile b){
@@ -219,7 +220,7 @@ public class Projectiles extends BaseBulletType<Projectile>{
 			speed = 3f;
 			hiteffect = "yellowblap";
 			//despawneffect = "tentablip";
-			lifetime = 100;
+			lifetime = 80;
 		}
 		
 		public void draw(Projectile b){
@@ -241,6 +242,43 @@ public class Projectiles extends BaseBulletType<Projectile>{
 			Draw.color(tent, Color.BLACK, b.ifract());
 			Draw.polygon(3, b.x, b.y, 4, b.angle()-90);
 			Draw.color();
+		}
+	},
+	shadowshot = new Projectiles(){
+		{
+			speed = 1.7f;
+			hiteffect = "tentablip";
+			despawneffect = "tentablip";
+			lifetime = 160;
+			damage = 5;
+		}
+		
+		public void draw(Projectile b){
+			Draw.color(Color.BLACK, tent, b.ifract());
+			Draw.polygon(10, b.x, b.y, 4, b.angle()-90);
+			Draw.color();
+		}
+	},
+	shadowsplit = new Projectiles(){
+		{
+			speed = 1.7f;
+			hiteffect = "tentablip";
+			despawneffect = "tentablip";
+			lifetime = 90;
+			damage = 12;
+		}
+		
+		public void draw(Projectile b){
+			Draw.color(Color.BLACK, tent, b.ifract());
+			Draw.polygon(10, b.x, b.y, 8, b.angle()-90);
+			Draw.color();
+		}
+		
+		public void despawned(Projectile b){
+			super.despawned(b);
+			Geometry.circle(6, f->{
+				new Projectile(shadowshot, b.owner, f-90).set(b.x, b.y).add();
+			});
 		}
 	},
 	daggershot = new Projectiles(){

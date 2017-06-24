@@ -64,8 +64,8 @@ public class EffectLoader{
 		
 		Effect.create("hit", 10, e->{
 			Draw.thickness(1f);
-			Draw.color(Hue.mix(Color.WHITE, Color.LIGHT_GRAY, e.ifract()));
-			Draw.spikes(e.x, e.y, e.ifract()*4f, 1, 8);
+			Draw.color(Hue.mix(Color.ORANGE, Color.PURPLE, e.ifract()));
+			Draw.spikes(e.x, e.y, e.ifract()*4f, 2, 8);
 			Draw.reset();
 		});
 		
@@ -196,7 +196,7 @@ public class EffectLoader{
 		
 		Effect.create("death", 20, e->{
 			Draw.thickness(4f);
-			Draw.color(Hue.mix(Color.PURPLE, Color.GRAY, e.ifract()));
+			Draw.color(Hue.mix(Color.ORANGE, Color.GRAY, e.ifract()));
 			Draw.spikes(e.x, e.y, 1f+e.ifract()*8f, 1, 5);
 			
 			float rad = e.fract()*6f;
@@ -211,6 +211,14 @@ public class EffectLoader{
 			Draw.thickness(1f);
 			Draw.color(Color.WHITE, Color.GRAY, e.ifract());
 			float s = e.fract()*7;
+			Draw.rect("circle", e.x, e.y, s, s);
+			Draw.reset();
+		});
+		
+		Effect.create("darkdash", 7, e->{
+			Draw.thickness(1f);
+			Draw.color(Color.BLACK, Color.CLEAR, e.ifract());
+			float s = e.fract()*10;
 			Draw.rect("circle", e.x, e.y, s, s);
 			Draw.reset();
 		});

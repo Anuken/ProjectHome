@@ -15,11 +15,12 @@ import io.anuke.ucore.entities.SolidEntity;
 import io.anuke.ucore.util.Timers;
 
 public class Door extends Entity{
-	public static final int width = 4, height = 3;
 	public static final Block block = Blocks.marblepillar;
-	public static final int areaw = 53, areah = 19;
 	
-	private static final Rectangle rect = new Rectangle(0, 0, areaw*Vars.tilesize, areah*Vars.tilesize);
+	private static final Rectangle rect = new Rectangle();
+	
+	public int width = 4, height = 3;
+	public int areaw = 53, areah = 18;
 	
 	boolean front;
 	boolean open;
@@ -40,7 +41,9 @@ public class Door extends Entity{
 	@Override
 	public void update(){
 		if(Timers.get(this, "wallupdate", 60)){
-			float cx = (tilex-1.5f)*Vars.tilesize;
+			rect.setSize(areaw*Vars.tilesize, areah*Vars.tilesize);
+			float cx = (tilex+0.5f-width/2f)*Vars.tilesize;
+			
 			if(front){
 				rect.setPosition(cx - rect.getWidth()/2, tiley*Vars.tilesize);
 			}else{

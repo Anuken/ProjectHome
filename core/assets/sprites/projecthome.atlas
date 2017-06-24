@@ -291,42 +291,42 @@ enemies/golem
   index: -1
 enemies/golem-armless
   rotate: false
-  xy: 389, 18
+  xy: 407, 18
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/golem-arms
   rotate: false
-  xy: 403, 18
+  xy: 421, 18
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/marbledrone
   rotate: false
-  xy: 417, 18
+  xy: 435, 18
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/marblegolem
   rotate: false
-  xy: 431, 18
+  xy: 449, 18
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/marblegolem-armless
   rotate: false
-  xy: 445, 18
+  xy: 463, 18
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/marblegolem-arms
   rotate: false
-  xy: 459, 18
+  xy: 477, 18
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
@@ -340,7 +340,7 @@ enemies/marbleobelisk
   index: -1
 enemies/marbleoobelisk
   rotate: false
-  xy: 371, 14
+  xy: 389, 14
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
