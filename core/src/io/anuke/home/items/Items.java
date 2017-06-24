@@ -41,7 +41,7 @@ public class Items{
 		slash = "swingcryo";
 		alt = "swingaltcryo";
 	}}),
-	lancesword = new Item("lancesword", "Crimson Dagger", new WeaponTypes.Sword(){{
+	daggersword = new Item("lancesword", "Crimson Dagger", new WeaponTypes.Sword(){{
 		damage = 3;
 		speed = 4f;
 		swingarc = 160f;
@@ -83,12 +83,12 @@ public class Items{
 		chargetime = 20;
 	}}),
 	amberstaff = new Item("amberstaff", "Amber Staff", new WeaponTypes.Staff(){{
-		damage = 3;
-		speed = 6f;
+		damage = 4;
+		speed = 12f;
 	}}),
 	scorchstaff = new Item("scorchstaff", "Scorched Staff", new WeaponTypes.Staff(){{
 			damage = 4;
-			speed = 8f;
+			speed = 11f;
 			shooteffect = "scorchblap";
 			projectile = Projectiles.scorchshot;
 		}
@@ -100,8 +100,8 @@ public class Items{
 		}
 	}),
 	aetherstaff = new Item("aetherstaff", "Staff of the Aether", new WeaponTypes.Staff(){{
-		damage = 6;
-		speed = 6f;
+		damage = 3;
+		speed = 10f;
 		shooteffect = "aetherblap";
 		shots = 2;
 		projectile = Projectiles.aethershot;
@@ -115,19 +115,25 @@ public class Items{
 		chargetime = 100;
 	}}),
 	planestaff = new Item("planestaff", "Planestaff", new WeaponTypes.Staff(){{
-			damage = 30;
-			speed = 20f;
+			damage = 22;
+			speed = 30f;
 			shooteffect = "planeblap";
 			projectile = Projectiles.planeshot;
 		}
 	
 		public void shot(){
-			Effects.shake(2, 1);
+			Effects.shake(3, 2);
+		}
+		
+		public void altAttack(Player player){
+			Geometry.shotgun(7, 10, player.angle(), f->{
+				player.shoot(Projectiles.scorchshot, damage*2, vector.x, vector.y, f);
+			});
 		}
 	}),
 	fusionstaff = new Item("fusionstaff", "Staff of Fused Cores", new WeaponTypes.Staff(){{
-		damage = 10;
-		speed = 6f;
+		damage = 5;
+		speed = 10f;
 		shots = 3;
 		shooteffect = "fusionblap";
 		shotspacing = 9;

@@ -16,6 +16,10 @@ public class WeaponType{
 				"\n[firebrick]Attack Speed: " + Mathf.round(60f/speed, 0.1f);
 	}
 	
+	public float getAngleOffset(){
+		return 0f;
+	}
+	
 	public void draw(Player player, Item item){
 		
 	}

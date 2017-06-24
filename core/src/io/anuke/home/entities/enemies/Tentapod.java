@@ -16,7 +16,7 @@ public class Tentapod  extends Enemy{
 		hiteffect = "blood";
 		deatheffect = "purpleblood";
 		
-		setMaxHealth(120);
+		setMaxHealth(190);
 		
 		height = 4;
 		hitoffsety = height;

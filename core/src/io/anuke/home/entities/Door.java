@@ -21,8 +21,8 @@ public class Door extends Entity{
 	
 	public int width = 4, height = 3;
 	public int areaw = 53, areah = 18;
+	public boolean front;
 	
-	boolean front;
 	boolean open;
 	int tilex, tiley;
 	Door linked;

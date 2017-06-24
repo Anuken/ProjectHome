@@ -32,6 +32,9 @@ public class Player extends Creature{
 	public int attack;
 	public float speed = basespeed;
 	
+	private float walktime;
+	private float walkspeed = 0.09f;
+	
 	
 	public Player(){
 		setMaxHealth(100);
@@ -41,10 +44,27 @@ public class Player extends Creature{
 	
 	public void drawRenderables(){
 		draw(b->{
-			Draw.grect("player", x, y);
+			String walk = "";
+			
+			if(walktime > 0){
+				walk = "walk" + ((int)(walktime)%2+1);
+			}
+			
+			Draw.grect("player-" + direction.name+walk, x, y, direction.flipped);
+			
+			b.layer = y;
+		});
+		
+		draw(b->{
+			float angle = angle() + (weapon == null ? 0f : weapon.weapontype.getAngleOffset());
 			
 			drawWeapons();
-			b.layer = y;
+			
+			if(angle > 0 && angle < 180){
+				b.layer = y+1;
+			}else{
+				b.layer = y-0.1f;
+			}
 		});
 		
 		drawShadow(8, 0);
@@ -112,11 +132,17 @@ public class Player extends Creature{
 			hittime = Mathf.clamp(hittime, 0, hitdur);
 		}
 		
+		if(Timers.get(this, "regen", 60)){
+			health ++;
+			clampHealth();
+		}
+		
 		Tile tile = World.get(Mathf.scl2(x, Vars.tilesize), Mathf.scl2(y, Vars.tilesize));
 		if(tile.wall == Blocks.checkpoint){
 			if(!oncheckpoint){
 				Effects.effect("checkpoint", tile.worldx(), tile.worldy());
 				Vars.control.addCheckpoint(tile);
+				heal();
 			}
 			oncheckpoint = true;
 		}else{
@@ -160,9 +186,20 @@ public class Player extends Creature{
 			direction = right;
 		}
 		
+		if(weapon != null){
+			float angle = angle();
+			direction = (angle < 45 || angle > 315 ? right : angle >= 45 && angle < 135 ? back : angle >= 135 && angle < 225 ? left : front);
+		}
+		
 		vector.limit(speed);
 		
 		move(vector.x, vector.y);
+		
+		if(vector.isZero()){
+			walktime = 0f;
+		}else{
+			walktime += walkspeed*delta*this.speed/basespeed;
+		}
 		
 		ItemDrop drop = closestDrop();
 		

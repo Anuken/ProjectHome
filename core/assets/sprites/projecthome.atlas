@@ -6,16 +6,86 @@ filter: Nearest,Nearest
 repeat: none
 circle
   rotate: false
-  xy: 2, 2
+  xy: 2, 10
   size: 20, 20
   orig: 20, 20
   offset: 0, 0
   index: -1
+hand
+  rotate: false
+  xy: 61, 29
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
 player
   rotate: false
-  xy: 24, 14
+  xy: 24, 22
   size: 8, 8
   orig: 8, 8
+  offset: 0, 0
+  index: -1
+player-
+  rotate: false
+  xy: 24, 12
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player-back
+  rotate: false
+  xy: 24, 2
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player-backwalk1
+  rotate: false
+  xy: 34, 22
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player-backwalk2
+  rotate: false
+  xy: 33, 12
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player-front
+  rotate: false
+  xy: 33, 2
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player-frontwalk1
+  rotate: false
+  xy: 43, 22
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player-frontwalk2
+  rotate: false
+  xy: 42, 12
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player-walk1
+  rotate: false
+  xy: 42, 2
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player-walk2
+  rotate: false
+  xy: 52, 22
+  size: 7, 8
+  orig: 7, 8
   offset: 0, 0
   index: -1
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import io.anuke.home.entities.Enemy;
 import io.anuke.home.entities.Projectile;
 import io.anuke.home.entities.Projectiles;
+import io.anuke.home.items.Items;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.entities.Entities;
@@ -21,11 +22,30 @@ public class Boss extends Enemy{
 	private float startx, starty;
 	
 	private float rotation = 0f;
-	private Phase phase = Phase.values()[3];
+	private Phase phase = Phase.values()[0];
 	private float phasetime = 800f;
 	
+	static{
+		int c = 15;
+		setDrops(Boss.class,
+			Items.ascendarmor, c,
+			Items.hellarmor, c,
+			Items.juggarmor, c,
+			Items.reflectarmor, c,
+				
+			Items.daggersword, c, 
+			Items.phasesword, c, 
+			Items.silversword, c,
+				
+			Items.aetherstaff, c,
+			Items.fusionstaff, c,
+			Items.orbstaff, c,
+			Items.planestaff, c
+		);
+	}
+	
 	public Boss(){
-		setMaxHealth(1000);
+		setMaxHealth(2000);
 		hitsize = 20;
 		hitoffsety = 10;
 		
@@ -108,6 +128,13 @@ public class Boss extends Enemy{
 		y = starty;
 	}
 	
+	public void update(){
+		super.update();
+		if(target == null){
+			reset();
+		}
+	}
+	
 	public void move(){
 		//who needs actual state machines? /s
 		
@@ -134,7 +161,7 @@ public class Boss extends Enemy{
 		
 		if(phase == Phase.swirl){
 			if(Timers.get(this, "circle", 1)){
-				shoot(Projectiles.tentashot, x, y+height, rotation);
+				shoot(Projectiles.tentashot, 20, x, y+height, rotation);
 				rotation += 22f;
 			}
 		}else if(phase == Phase.blast){
@@ -147,7 +174,7 @@ public class Boss extends Enemy{
 			}
 		}else if(phase == Phase.seek){
 			if(Timers.get(this, "seek", 2)){
-				shoot(Projectiles.tentashot, x, y+height, angleTo(target, height)+Mathf.range(50f));
+				shoot(Projectiles.tentashot, 10, x, y+height, angleTo(target, height)+Mathf.range(50f));
 			}
 		}else if(phase == Phase.chase){
 			if(Timers.get(this, "chase", 90)){

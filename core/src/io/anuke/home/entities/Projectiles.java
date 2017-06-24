@@ -19,7 +19,7 @@ public class Projectiles extends BaseBulletType<Projectile>{
 		}
 		
 		public void draw(Projectile b){
-			Draw.color(Color.CORAL, Color.DARK_GRAY, b.ifract());
+			Draw.color(Color.CORAL, Color.ORANGE, b.ifract());
 			Draw.polygon(3, b.x, b.y, 4, b.angle()-90);
 			Draw.color();
 		}

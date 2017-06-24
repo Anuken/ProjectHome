@@ -23,9 +23,12 @@ import io.anuke.ucore.util.Timers;
 
 public class Control extends RendererModule{
 	public Player player;
-	private GifRecorder recorder = new GifRecorder(batch);
+	
+	private final int startx = 525, starty = 1024-897;
 	private Tile checkpoint;
 	private Array<Enemy> killed = new Array<>();
+	
+	private GifRecorder recorder = new GifRecorder(batch);
 	
 	public Control(){
 		atlas = new Atlas("projecthome.atlas");
@@ -77,7 +80,9 @@ public class Control extends RendererModule{
 	}
 	
 	public void onDeath(){
-		Vars.ui.showDeath();
+		Timers.run(50, ()->{
+			Vars.ui.showDeath();
+		});
 	}
 	
 	public void addCheckpoint(Tile tile){
@@ -87,7 +92,7 @@ public class Control extends RendererModule{
 	
 	public void respawn(){
 		player.heal();
-		player.set(12*524, 12*(1024-432))/*.set(checkpoint.worldx(), checkpoint.worldy())*/.add();
+		player/*.set(12*522, 12*(1024-597))*/.set(checkpoint.worldx(), checkpoint.worldy()).add();
 		player.oncheckpoint = true;
 		
 		for(Enemy enemy : killed){
@@ -100,12 +105,15 @@ public class Control extends RendererModule{
 	
 	public void reset(){
 		killed.clear();
+		World.generate();
 		Entities.clear();
 		World.addDoors();
 		
+		checkpoint = World.get(startx, starty);
+		
 		float center = Vars.worldsize*Vars.tilesize/2f;
 		
-		player = new Player().set(center, center)/*.set(12*569, 12*(1024-110))*/.add();
+		player = new Player()/*.set(12*569, 12*(1024-110))*/.add();
 		
 		respawn();
 		

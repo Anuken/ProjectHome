@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import io.anuke.home.entities.Enemy;
 import io.anuke.home.entities.Projectiles;
+import io.anuke.home.items.Items;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.util.Geometry;
@@ -15,6 +16,28 @@ public class Tentacolumn extends Enemy{
 	float reload = 35;
 	int eye = 0;
 	Vector2[] offsets = {new Vector2(0, 0), new Vector2(-4, -7), new Vector2(4, -7)};
+	
+	static{
+		int c = 5;
+		setDrops(Tentacolumn.class,
+			Items.ascendarmor, c,
+			Items.densearmor, c,
+			Items.hellarmor, c,
+			Items.juggarmor, c,
+			Items.reflectarmor, c,
+				
+			Items.icesword, c, 
+			Items.daggersword, c, 
+			Items.phasesword, c, 
+			Items.silversword, c,
+				
+			Items.aetherstaff, c,
+			Items.fusionstaff, c,
+			Items.orbstaff, c,
+			Items.planestaff, c,
+			Items.scorchstaff, c
+		);
+	}
 
 	public Tentacolumn() {
 		hiteffect = "blood";
@@ -24,16 +47,18 @@ public class Tentacolumn extends Enemy{
 
 		height = 10;
 		hitoffsety = height;
-		hitsize = 10;
+		hitsize = 16;
 	}
 
 	public void drawRenderables(){
 		draw(p -> {
 			Draw.grect("tentacolumn", x, y - 2);
 			
-			Draw.grect("tentacolumntop", x, y-2);
-			Draw.grect("tentacolumnright", x, y-2);
-			Draw.grect("tentacolumnleft", x, y-2);
+			float raise = Mathf.sin(Timers.time(), 10f, 0.9f);
+			
+			Draw.grect("tentacolumntop", x, y-3-raise/1.5f);
+			Draw.grect("tentacolumnright", x, y-3+raise);
+			Draw.grect("tentacolumnleft", x, y-3+raise);
 
 			vector.set(0, 0);
 			if(target != null){
@@ -80,7 +105,7 @@ public class Tentacolumn extends Enemy{
 			eye = eye%3;
 		}
 		
-		if(Timers.get(this, "wave", 400)){
+		if(Timers.get(this, "wave", 500)){
 			Timers.runFor(30f, ()->{
 				if(Timers.get(this, "swave", 9f)){
 					Effects.effect("golemflash", this);

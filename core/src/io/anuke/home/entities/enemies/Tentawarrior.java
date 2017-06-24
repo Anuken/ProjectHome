@@ -15,9 +15,20 @@ public class Tentawarrior extends Enemy{
 	float reload = 130;
 	
 	static{
+		int c = 1;
 		setDrops(Tentawarrior.class, 
-			Items.icesword, 5,
-			Items.tentasword, 1
+			Items.densearmor, c,
+			Items.hellarmor, c,
+			Items.reflectarmor, c,
+				
+			Items.icesword, c,
+			Items.daggersword, c,
+			Items.silversword, c,
+			Items.tentasword, c,
+				
+			Items.aetherstaff, c,
+			Items.orbstaff, c,
+			Items.scorchstaff, c
 		);
 		
 		setDrops(Tentapod.class, Tentawarrior.class);
@@ -28,7 +39,7 @@ public class Tentawarrior extends Enemy{
 		hiteffect = "blood";
 		deatheffect = "purpleblood";
 
-		setMaxHealth(130);
+		setMaxHealth(170);
 
 		height = 11;
 		hitoffsety = 14;

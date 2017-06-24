@@ -42,13 +42,13 @@ public class World{
 		structmap.put(0xa6b3d4ff, "temple");
 		structmap.put(0xcad2e7ff, "dungeon");
 		structmap.put(0xd2b4ffff, "spawnpoint");
+		structmap.put(0x9fffc5ff, "2spawnpoint");
 		structmap.put(0x86deffff, "smalltemple");
 		structmap.put(0x4ccfffff, "obeliskaltar");
 		structmap.put(0x7b5cffff, "tentaboss");
 		structmap.put(0xff86dbff, "golemtemple");
+		structmap.put(0x4cff83ff, "golemaltar");
 		//map.put(0xaf6261ff, Blocks.redrock);
-
-		generate();
 	}
 	
 	public static void addDoors(){
@@ -168,10 +168,15 @@ public class World{
 					PlayerDoor door = new PlayerDoor(worldx, worldy);
 					door.width = 5;
 					doors.add(door);
-				}
-				
-				if(color == 0xffef80ff){
-					Vars.control.addCheckpoint(get(worldx, worldy));
+				}else if(color == 0x6ef3ffff){
+					PlayerDoor door = new PlayerDoor(worldx, worldy);
+					door.front = false;
+					door.width = 5;
+					doors.add(door);
+				}else if(color == 0xcaffadff){
+					PlayerDoor door = new PlayerDoor(worldx, worldy);
+					door.width = 4;
+					doors.add(door);
 				}
 				
 				if(color == 0xffdadcff){
@@ -193,7 +198,8 @@ public class World{
 		}
 	}
 
-	private static void generate(){
+	public static void generate(){
+		doors.clear();
 		Noise.setSeed(Mathf.random(0, 999999));
 		
 		if(pixmap == null)
@@ -267,7 +273,7 @@ public class World{
 				if(color == 0x7163afff){
 
 					if(tile.wall == Blocks.air){
-						if(Mathf.chance(0.0003)){
+						if(Mathf.chance(0.0002)){
 							int size = 6;
 							for(int dx = 0; dx <= size; dx++){
 								for(int dy = 0; dy <= size; dy++){

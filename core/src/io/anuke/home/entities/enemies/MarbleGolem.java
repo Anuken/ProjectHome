@@ -2,6 +2,7 @@ package io.anuke.home.entities.enemies;
 
 import io.anuke.home.entities.Enemy;
 import io.anuke.home.entities.Projectiles;
+import io.anuke.home.items.Items;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.util.Geometry;
@@ -10,6 +11,28 @@ import io.anuke.ucore.util.Timers;
 public class MarbleGolem extends Enemy{
 	float armraise = 0;
 	int smashes = 0;
+	
+	static{
+		int c = 2;
+		setDrops(MarbleGolem.class,
+			Items.ascendarmor, c,
+			Items.densearmor, c,
+			Items.hellarmor, c,
+			Items.juggarmor, c,
+			Items.reflectarmor, c,
+			
+			Items.icesword, c, 
+			Items.daggersword, c, 
+			Items.phasesword, c, 
+			Items.silversword, c,
+			
+			Items.aetherstaff, c,
+			Items.fusionstaff, c,
+			Items.orbstaff, c,
+			Items.planestaff, c,
+			Items.scorchstaff, c
+		);
+	}
 
 	public MarbleGolem() {
 		maxhealth = 200;

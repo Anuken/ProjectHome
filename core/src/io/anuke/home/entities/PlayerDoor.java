@@ -14,7 +14,7 @@ public class PlayerDoor extends Door{
 		if(Timers.get(this, "wallupdate", 30)){
 			Player p = Vars.control.player;
 			
-			if(p.y < tiley*Vars.tilesize+6){
+			if((front && p.y < tiley*Vars.tilesize+6) || (!front && p.y > (tiley+height)*Vars.tilesize+6)){
 				hideBlocks();
 			}else{
 				showBlocks();

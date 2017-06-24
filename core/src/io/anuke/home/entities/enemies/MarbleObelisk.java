@@ -10,6 +10,10 @@ import io.anuke.ucore.util.Timers;
 public class MarbleObelisk extends Enemy{
 	float ang = 0f;
 	
+	static{
+		setDrops(MarbleObelisk.class, MarbleGolem.class);
+	}
+	
 	public MarbleObelisk(){
 		height = 4;
 		setMaxHealth(250);

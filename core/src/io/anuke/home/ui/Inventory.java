@@ -42,20 +42,7 @@ public class Inventory extends Table{
 		
 		
 		addItem(new ItemStack(Items.marblesword));
-		addItem(new ItemStack(Items.icesword));
-		addItem(new ItemStack(Items.lancesword));
-		addItem(new ItemStack(Items.phasesword));
-		addItem(new ItemStack(Items.tentasword));
-		addItem(new ItemStack(Items.silversword));
 		addItem(new ItemStack(Items.amberstaff));
-		addItem(new ItemStack(Items.densearmor));
-		
-		
-		addItem(new ItemStack(Items.scorchstaff));
-		addItem(new ItemStack(Items.aetherstaff));
-		addItem(new ItemStack(Items.orbstaff));
-		addItem(new ItemStack(Items.planestaff));
-		addItem(new ItemStack(Items.fusionstaff));
 		/*
 		addItem(new ItemStack(Items.ascendarmor));
 		addItem(new ItemStack(Items.densearmor));

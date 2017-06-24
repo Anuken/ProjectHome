@@ -41,7 +41,8 @@ public class WeaponTypes{
 		public void altAttack(Player player){
 			Effects.shake(3f, 3f);
 			Geometry.circle(20, f->{
-				player.shoot(projectile, damage*2, vector.x, vector.y, f);
+				Angles.translation(f, 10f);
+				player.shoot(projectile, damage*2, vector.x + Angles.vector.x, vector.y + Angles.vector.y, f);
 			});
 		}
 		
@@ -66,6 +67,8 @@ public class WeaponTypes{
 			offset = Mathf.lerp(offset, charge/chargetime*4f, 0.3f*Mathf.delta());
 			
 			Draw.rect(item.name, player.x+vector.x, offset+player.y+player.height+vector.y+4);
+			Draw.rect("hand", player.x+vector.x, offset+player.y+player.height+vector.y);
+			Draw.rect("hand", player.x+vector.x, offset+player.y+player.height+vector.y+1);
 			Draw.reset();
 			
 			if(charge > 0){
@@ -153,10 +156,23 @@ public class WeaponTypes{
 		}
 		
 		@Override
+		public float getAngleOffset(){
+			return swingang+swingoffset;
+		}
+		
+		@Override
 		public void draw(Player player, Item item){
 			
-			vector.set(1,1).setAngle(player.angle()+swingang+swingoffset).setLength(5f);
+			vector.set(1,1).setAngle(player.angle()+swingang+swingoffset);
+			
 			Draw.borect(item.name, player.x, player.y+player.height, player.angle()-90+swingang+swingoffset);
+			
+			vector.setLength(2f);
+			Draw.rect("hand", player.x + vector.x, player.y+player.height+vector.y);
+			vector.setLength(1f);
+			Draw.rect("hand", player.x + vector.x, player.y+player.height+vector.y);
+			
+			vector.setAngle(player.angle()+swingang+swingoffset).setLength(5f);
 			
 			if(charge > 0){
 				Draw.color(Color.WHITE, Color.ORANGE, charge/chargetime);
