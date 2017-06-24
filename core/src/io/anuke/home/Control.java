@@ -87,7 +87,7 @@ public class Control extends RendererModule{
 	
 	public void respawn(){
 		player.heal();
-		player.set(checkpoint.worldx(), checkpoint.worldy()).add();
+		player.set(12*524, 12*(1024-432))/*.set(checkpoint.worldx(), checkpoint.worldy())*/.add();
 		player.oncheckpoint = true;
 		
 		for(Enemy enemy : killed){

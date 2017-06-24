@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import io.anuke.home.Vars;
 import io.anuke.home.entities.Door;
 import io.anuke.home.entities.Enemy;
+import io.anuke.home.entities.PlayerDoor;
 import io.anuke.home.entities.enemies.*;
 import io.anuke.ucore.entities.Entity;
 import io.anuke.ucore.noise.Noise;
@@ -36,9 +37,15 @@ public class World{
 		map.put(0x89878cff, Blocks.marbles2);
 		map.put(0xffef80ff, Blocks.checkpoint);
 		map.put(0xa297b1ff, Blocks.pwall4);
+		map.put(0x5c4f93ff, Blocks.psoil);
 		
 		structmap.put(0xa6b3d4ff, "temple");
 		structmap.put(0xcad2e7ff, "dungeon");
+		structmap.put(0xd2b4ffff, "spawnpoint");
+		structmap.put(0x86deffff, "smalltemple");
+		structmap.put(0x4ccfffff, "obeliskaltar");
+		structmap.put(0x7b5cffff, "tentaboss");
+		structmap.put(0xff86dbff, "golemtemple");
 		//map.put(0xaf6261ff, Blocks.redrock);
 
 		generate();
@@ -75,6 +82,16 @@ public class World{
 	public static void placeSquare(int x, int y, int size, Block block){
 		for(int dx = 0; dx <= size; dx++){
 			for(int dy = 0; dy <= size; dy++){
+				placeFloor(dx - size / 2 + x, dy - size / 2 + y, block);
+				placeWall(dx - size / 2 + x, dy - size / 2 + y, Blocks.air);
+			}
+		}
+	}
+	
+	public static void placeCircle(int x, int y, int size, Block block){
+		for(int dx = 0; dx <= size; dx++){
+			for(int dy = 0; dy <= size; dy++){
+				if(Vector2.dst(dx, dy, size/2f, size/2f) > size/2f) continue;
 				placeFloor(dx - size / 2 + x, dy - size / 2 + y, block);
 				placeWall(dx - size / 2 + x, dy - size / 2 + y, Blocks.air);
 			}
@@ -127,34 +144,34 @@ public class World{
 				
 				if(color == 0xff00ffff){
 					doors.add(new Door(true, worldx, worldy));
-				}
-				
-				if(color == 0x00ff00ff){
+				}else if(color == 0x00ff00ff){
 					doors.add(new Door(false, worldx, worldy));
-				}
-				
-				if(color == 0xff99feff){
+				}else if(color == 0xff99feff){
 					Door door = new Door(true, worldx, worldy);
 					door.width = 8;
 					door.height = 2;
 					door.areaw = door.areah = 39;
 					doors.add(door);
-				}
-				
-				if(color == 0x99ffaaff){
+				}else if(color == 0x99ffaaff){
 					Door door = new Door(false, worldx, worldy);
 					door.width = 8;
 					door.height = 4;
 					door.areaw = door.areah = 39;
 					doors.add(door);
-				}
-				
-				if(color == 0x00ffffff){
+				}else if(color == 0x00ffffff){
 					Door a = new Door(true, worldx, worldy+1);
 					Door b = new Door(false, worldx, worldy-1);
 					Door.link(a, b);
 					doors.add(a);
 					doors.add(b);
+				}else if(color == 0xa1ff6eff){
+					PlayerDoor door = new PlayerDoor(worldx, worldy);
+					door.width = 5;
+					doors.add(door);
+				}
+				
+				if(color == 0xffef80ff){
+					Vars.control.addCheckpoint(get(worldx, worldy));
 				}
 				
 				if(color == 0xffdadcff){
@@ -165,6 +182,12 @@ public class World{
 					placeSpawner(worldx, worldy, new MarbleDrone());
 				}else if(color == 0xf64e56ff){
 					placeSpawner(worldx, worldy, new MarbleObelisk());
+				}else if(color == 0xff51ccff){
+					placeSpawner(worldx, worldy, new Tentacolumn());
+				}
+				
+				if(name.equals("tentaboss")){
+					placeFloor(worldx, worldy+1, Blocks.psoil);
 				}
 			}
 		}
@@ -208,16 +231,14 @@ public class World{
 					if(Noise.nnoise(x, y, 10, 5) > 1.35)
 						tile.wall = Blocks.pwall4;
 
-					if(tile.wall == Blocks.air && Mathf.chance(0.0017)){
+					if(tile.wall == Blocks.air && Mathf.chance(0.0013)){
 						tile.wall = Blocks.spawner;
 						tile.data = Mathf.choose(new Tentapod(), new Tentawarrior(), new Tentafly());
 					}
 				}
 				
-				if(tile.floor == Blocks.checkpoint){
-					Vars.control.addCheckpoint(tile);
-					tile.wall = Blocks.checkpoint;
-					tile.floor = Blocks.marble;
+				if(color == 0x8579b5ff){
+					tile.floor = Blocks.pgrass;
 				}
 
 				tiles[x][y] = tile;
@@ -267,6 +288,14 @@ public class World{
 							tile.data = new MarbleDrone();
 							tile.wall = Blocks.spawner;
 							
+						}else if(Mathf.chance(0.0002)){
+							placeCircle(x, y, 6, Blocks.pgrassdk);
+							placeCircle(x, y, 4, Blocks.psoil);
+							for(int i = 0; i < 6; i ++){
+								int nx = x + Mathf.range(4);
+								int ny = y + Mathf.range(4);
+								placeSpawner(nx, ny, Mathf.choose(new Tentapod(), new Tentawarrior(), new Tentafly()));
+							}
 						}
 					}
 				}

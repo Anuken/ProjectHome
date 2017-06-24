@@ -244,6 +244,21 @@ public class Projectiles extends BaseBulletType<Projectile>{
 			Draw.color();
 		}
 	},
+	tentashot2 = new Projectiles(){
+		{
+			speed = 1.9f;
+			hiteffect = "golemflash";
+			despawneffect = "tentablip";
+			lifetime = 140;
+			damage = 5;
+		}
+		
+		public void draw(Projectile b){
+			Draw.color(Color.WHITE, tent, b.ifract());
+			Draw.polygon(3, b.x, b.y, 4, b.angle()-90);
+			Draw.color();
+		}
+	},
 	shadowshot = new Projectiles(){
 		{
 			speed = 1.7f;

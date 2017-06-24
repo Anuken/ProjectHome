@@ -20,8 +20,12 @@ public class Blocks{
 	pgrassdk = new Block("pgrassdk", BlockType.tile){{
 		edgecolor = Hue.rgb(0x5a4e8cff, 0.65f);
 	}}, 
+	psoil = new Block("psoil", BlockType.tile){{
+		edgecolor = Hue.rgb(0x5a4e8cff, 0.6f);
+	}}, 
 	marble = new Block("marble", BlockType.tile){{
 		variants = 4;
+		edgecolor = Hue.rgb(0x7f788cff, 0.7f);
 	}}, 
 	marbles = new Block("marbles", BlockType.tile){{
 		vary = false;
