@@ -82,11 +82,11 @@ public class Items{
 		reach = 14;
 		chargetime = 20;
 	}}),
-	amberstaff = new Item("amberstaff", new WeaponTypes.Staff(){{
+	amberstaff = new Item("amberstaff", "Amber Staff", new WeaponTypes.Staff(){{
 		damage = 3;
 		speed = 6f;
 	}}),
-	scorchstaff = new Item("scorchstaff", new WeaponTypes.Staff(){{
+	scorchstaff = new Item("scorchstaff", "Scorched Staff", new WeaponTypes.Staff(){{
 			damage = 4;
 			speed = 8f;
 			shooteffect = "scorchblap";
@@ -99,7 +99,7 @@ public class Items{
 			});
 		}
 	}),
-	aetherstaff = new Item("aetherstaff", new WeaponTypes.Staff(){{
+	aetherstaff = new Item("aetherstaff", "Staff of the Aether", new WeaponTypes.Staff(){{
 		damage = 6;
 		speed = 6f;
 		shooteffect = "aetherblap";
@@ -107,14 +107,14 @@ public class Items{
 		projectile = Projectiles.aethershot;
 		shotspacing = 7;
 	}}),
-	orbstaff = new Item("orbstaff", new WeaponTypes.Staff(){{
+	orbstaff = new Item("orbstaff", "Orbcaster", new WeaponTypes.Staff(){{
 		damage = 12;
 		speed = 18f;
 		shooteffect = "orbblap";
 		projectile = Projectiles.orbshot;
 		chargetime = 100;
 	}}),
-	planestaff = new Item("planestaff", new WeaponTypes.Staff(){{
+	planestaff = new Item("planestaff", "Planestaff", new WeaponTypes.Staff(){{
 			damage = 30;
 			speed = 20f;
 			shooteffect = "planeblap";
@@ -125,7 +125,7 @@ public class Items{
 			Effects.shake(2, 1);
 		}
 	}),
-	fusionstaff = new Item("fusionstaff", new WeaponTypes.Staff(){{
+	fusionstaff = new Item("fusionstaff", "Staff of Fused Cores", new WeaponTypes.Staff(){{
 		damage = 10;
 		speed = 6f;
 		shots = 3;

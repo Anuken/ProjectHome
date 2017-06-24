@@ -4,15 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
 
 import io.anuke.gif.GifRecorder;
 import io.anuke.home.GameState.State;
+import io.anuke.home.entities.Enemy;
 import io.anuke.home.entities.Player;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
-import io.anuke.ucore.core.Inputs;
-import io.anuke.ucore.core.KeyBinds;
-import io.anuke.ucore.core.Settings;
+import io.anuke.ucore.core.*;
 import io.anuke.ucore.entities.Entities;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
@@ -25,6 +25,7 @@ public class Control extends RendererModule{
 	public Player player;
 	private GifRecorder recorder = new GifRecorder(batch);
 	private Tile checkpoint;
+	private Array<Enemy> killed = new Array<>();
 	
 	public Control(){
 		atlas = new Atlas("projecthome.atlas");
@@ -71,27 +72,40 @@ public class Control extends RendererModule{
 		reset();
 	}
 	
+	public void addKill(Enemy e){
+		killed.add(e);
+	}
+	
 	public void onDeath(){
 		Vars.ui.showDeath();
 	}
 	
 	public void addCheckpoint(Tile tile){
 		checkpoint = tile;
+		killed.clear();
 	}
 	
 	public void respawn(){
 		player.heal();
-		//player.set(checkpoint.worldx(), checkpoint.worldy()).add();
+		player.set(checkpoint.worldx(), checkpoint.worldy()).add();
 		player.oncheckpoint = true;
+		
+		for(Enemy enemy : killed){
+			enemy.heal();
+			enemy.add();
+		}
+		
+		killed.clear();
 	}
 	
 	public void reset(){
+		killed.clear();
 		Entities.clear();
 		World.addDoors();
 		
 		float center = Vars.worldsize*Vars.tilesize/2f;
 		
-		player = new Player()/*.set(center, center)*/.set(12*569, 12*(1024-110)).add();
+		player = new Player().set(center, center)/*.set(12*569, 12*(1024-110))*/.add();
 		
 		respawn();
 		
@@ -139,6 +153,7 @@ public class Control extends RendererModule{
 		drawBackground();
 		Renderer.renderWorld();
 		
+		Draw.color();
 		RenderableHandler.instance().renderAll();
 		
 		Entities.draw();

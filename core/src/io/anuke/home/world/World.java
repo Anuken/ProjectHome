@@ -18,6 +18,7 @@ public class World{
 	private static Tile[][] tiles;
 	private static ObjectMap<Integer, Block> map = new ObjectMap<>();
 	private static ObjectMap<Integer, String> structmap = new ObjectMap<>();
+	private static ObjectMap<String, Pixmap> pixmaps = new ObjectMap<>();
 	private static Array<Door> doors = new Array<Door>();
 	private static Pixmap pixmap;
 
@@ -34,6 +35,7 @@ public class World{
 		map.put(0x9a979dff, Blocks.marbles);
 		map.put(0x89878cff, Blocks.marbles2);
 		map.put(0xffef80ff, Blocks.checkpoint);
+		map.put(0xa297b1ff, Blocks.pwall4);
 		
 		structmap.put(0xa6b3d4ff, "temple");
 		structmap.put(0xcad2e7ff, "dungeon");
@@ -94,9 +96,19 @@ public class World{
 		placeWall(x + rad, y + rad, block);
 	}
 	
+	public static Pixmap loadMap(String name){
+		if(pixmaps.containsKey(name)){
+			return pixmaps.get(name);
+		}else{
+			Pixmap pix = new Pixmap(Gdx.files.internal("maps/"+name + ".png"));
+			pixmaps.put(name, pix);
+			return pix;
+		}
+	}
+	
 	public static void placePix(String name, int cx, int cy){
-		Pixmap pix = new Pixmap(Gdx.files.internal("maps/"+name + ".png"));
-		Pixmap floor = new Pixmap(Gdx.files.internal("maps/"+name + "-floor.png"));
+		Pixmap pix = loadMap(name);
+		Pixmap floor = loadMap(name + "-floor");
 		
 		for(int x = 0; x < pix.getWidth(); x ++){
 			for(int y = 0; y < pix.getHeight(); y ++){
@@ -156,16 +168,13 @@ public class World{
 				}
 			}
 		}
-		
-		pix.dispose();
-		floor.dispose();
 	}
 
 	private static void generate(){
 		Noise.setSeed(Mathf.random(0, 999999));
 		
 		if(pixmap == null)
-			pixmap = new Pixmap(Gdx.files.internal("maps/map-debug.png"));
+			pixmap = loadMap("map-debug");
 
 		for(int x = 0; x < Vars.worldsize; x++){
 			for(int y = 0; y < Vars.worldsize; y++){

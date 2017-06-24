@@ -207,6 +207,25 @@ public class EffectLoader{
 			Draw.reset();
 		});
 		
+		Effect.create("wraithdie", 40, e->{
+			Draw.thickness(4f);
+			Draw.color(Hue.mix(tent, Color.CLEAR, e.ifract()));
+			
+			float rad = e.fract()*23f;
+			Geometry.randVectors(e.id, 8, e.ifract()*70f, (x, y)->{
+				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
+			});
+			
+			Draw.color(Hue.mix(Color.BLACK, tent, e.ifract()));
+			
+			float rad2 = e.fract()*18f;
+			Geometry.randVectors(e.id+1, 8, e.ifract()*60f, (x, y)->{
+				Draw.rect("circle", e.x+x, e.y+y, rad2, rad2);
+			});
+			
+			Draw.reset();
+		});
+		
 		Effect.create("dash", 7, e->{
 			Draw.thickness(1f);
 			Draw.color(Color.WHITE, Color.GRAY, e.ifract());

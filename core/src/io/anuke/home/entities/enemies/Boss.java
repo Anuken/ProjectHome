@@ -4,9 +4,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 import io.anuke.home.entities.Enemy;
+import io.anuke.home.entities.Projectile;
 import io.anuke.home.entities.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.entities.Entities;
 import io.anuke.ucore.util.Geometry;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
@@ -19,7 +21,7 @@ public class Boss extends Enemy{
 	private float startx, starty;
 	
 	private float rotation = 0f;
-	private Phase phase = Phase.values()[0];
+	private Phase phase = Phase.values()[3];
 	private float phasetime = 800f;
 	
 	public Boss(){
@@ -79,29 +81,56 @@ public class Boss extends Enemy{
 		});
 	}
 	
+	public void onDeath(){
+		Effects.shake(10, 60f);
+		Effects.effect("wraithdie", x, y+10);
+		
+		for(int i = 0; i < 40; i ++){
+			Timers.run(Mathf.random(55), ()->{
+				Effects.effect("purpleblood", x + Mathf.range(20), y + Mathf.range(20));
+			});
+			
+		}
+		
+		Entities.getNearby(x, y, 300, e->{
+			if(e instanceof Projectile && e != this){
+				Effects.effect("shotshrink", e);
+				e.remove();
+			}
+		});
+		
+		remove();
+	}
+	
 	public void reset(){
 		phase = Phase.values()[0];
-		set(startx, starty);
+		x = startx;
+		y = starty;
 	}
 	
 	public void move(){
 		//who needs actual state machines? /s
 		
+		float height = 12f;
+		
 		if(Timers.get(this, "changephase", phasetime)){
 			Phase next = Phase.values()[(phase.ordinal() + 1) % Phase.values().length];
+			if(next == Phase.idle)
+				next = Phase.values()[1];
 			phase = Phase.idle;
 			
+			Phase fin = next;
+			
 			Timers.run(120, ()->{
-				phase = next;
+				if(target != null) 
+					rotation = angleTo(target, height);
+				phase = fin;
 			});
 		}
-		
 		if(phase != Phase.chase && phase != Phase.spam){
 			x = Mathf.lerp(x, startx, 0.03f*delta);
 			y = Mathf.lerp(y, starty, 0.03f*delta);
 		}
-		
-		float height = 12f;
 		
 		if(phase == Phase.swirl){
 			if(Timers.get(this, "circle", 1)){
@@ -109,15 +138,16 @@ public class Boss extends Enemy{
 				rotation += 22f;
 			}
 		}else if(phase == Phase.blast){
-			if(Timers.get(this, "blast", 40)){
+			if(Timers.get(this, "blast", 30)){
 				eyeflash = 1f;
-				Geometry.circle(6, f->{
-					shoot(Projectiles.golemsplitshot, x, y+height, f);
+				rotation += 15f;
+				Geometry.circle(8, f->{
+					shoot(Projectiles.golemsplitshot, x, y+height, f + rotation);
 				});
 			}
 		}else if(phase == Phase.seek){
 			if(Timers.get(this, "seek", 2)){
-				shoot(Projectiles.tentashot, x, y+height, angleTo(target, height)+Mathf.range(40f));
+				shoot(Projectiles.tentashot, x, y+height, angleTo(target, height)+Mathf.range(50f));
 			}
 		}else if(phase == Phase.chase){
 			if(Timers.get(this, "chase", 90)){
@@ -172,11 +202,10 @@ public class Boss extends Enemy{
 		}else if(phase == Phase.lanes){
 			if(Timers.get(this, "lanes", 20)){
 				
-				float offset = 360f*(Timers.getTime(this, "changephase") / phasetime);
-				
+				float offset = rotation+360f*(Timers.getTime(this, "changephase") / phasetime);
 				
 				for(int i = 0; i < 2; i ++)
-				Geometry.shotgun(16, 10, i*180+offset, f->{
+				Geometry.shotgun(16, 10, i*180+offset+30, f->{
 					shoot(Projectiles.shadowshot, x, y+height, f);
 				});
 			}
@@ -186,8 +215,8 @@ public class Boss extends Enemy{
 	
 	public Boss set(float x, float y){
 		super.set(x-6f, y-12f);
-		startx = x;
-		starty = y;
+		startx = this.x;
+		starty = this.y;
 		return this;
 	}
 	

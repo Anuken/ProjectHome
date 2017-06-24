@@ -115,7 +115,7 @@ public enum BlockType{
 			String name = block.name + (block.vary ? Mathf.randomSeed(tile.x*tile.y, 1, block.variants) : "");
 			new SpriteRenderable(name).set(tile.worldx(), tile.worldy()-block.offset)
 			.layer(tile.worldy()+30)
-			.centerX().addShadow(list, name,block.offset+8).sort(Sorter.object).add(list);
+			.center().addShadow(list, name,block.offset+8).sort(Sorter.object).add(list);
 		}
 		
 		public void getHitbox(Tile tile, Block block, Rectangle out){

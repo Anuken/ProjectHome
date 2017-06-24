@@ -110,7 +110,7 @@ public class Enemy extends Creature{
 	}
 
 	public void onDeath(){
-
+		Vars.control.addKill(this);
 		for(int i = 0; i < 4; i++){
 			Effects.effect("hit", x + Mathf.range(5), y + Mathf.range(5) + height);
 		}

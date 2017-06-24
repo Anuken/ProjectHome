@@ -10,7 +10,7 @@ import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
 public abstract class Creature extends DestructibleEntity{
-	RenderableList list = new RenderableList();
+	protected RenderableList list = new RenderableList();
 	boolean drawn = false;
 	
 	public int frames(float scale, int amount){
