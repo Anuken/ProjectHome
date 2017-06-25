@@ -25,6 +25,6 @@ public class Vars{
 		"",
 		"Tools used:",
 		"- [lime]BFXR[] for sound effects",
-		"- [royal]freesoundarchive.org[] for music"
+		"- [royal]jukedeck.com[] for music"
 	};
 }

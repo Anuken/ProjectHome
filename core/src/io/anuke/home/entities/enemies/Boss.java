@@ -46,7 +46,7 @@ public class Boss extends Enemy{
 	}
 	
 	public Boss(){
-		setMaxHealth(3500);
+		setMaxHealth(4000);
 		hitsize = 20;
 		hitoffsety = 10;
 		
@@ -76,11 +76,17 @@ public class Boss extends Enemy{
 		
 		if(target == null){
 			Vars.ui.setBossBarVisible(false);
+			Vars.control.boss = null;
 		}else{
 			Vars.ui.setBossBarVisible(true);
 			Vars.ui.getBossBar().setEntity(this);
+			Vars.control.boss = this;
 		}
 	}
+	
+	//no health bar
+	@Override
+	public void draw(){}
 	
 	public void drawRenderables(){
 		draw(p->{

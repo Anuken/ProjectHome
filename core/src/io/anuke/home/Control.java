@@ -22,6 +22,7 @@ import io.anuke.ucore.util.Timers;
 
 public class Control extends RendererModule{
 	public Player player;
+	public Enemy boss;
 	
 	//boss starting coords
 	//private final int startx = 552, starty=1024-177;
@@ -63,7 +64,7 @@ public class Control extends RendererModule{
 		Sounds.load("blockdie.wav", "hurt.wav", "pickup.wav", "shoot.wav", "slash.wav", 
 				"slash2.wav", "tentadie.wav", "ult.wav", "walls.wav", "death.wav", "bossdie.wav", "respawn.wav");
 		
-		Musics.load("menu.ogg");
+		Musics.load("menu.ogg", "world1.mp3", "world2.mp3", "world3.mp3", "boss.mp3");
 
 		Entities.initPhysics();
 		Entities.setCollider(Vars.tilesize, (x, y)->{
@@ -164,8 +165,14 @@ public class Control extends RendererModule{
 		if(!GameState.is(State.menu)){
 			//setCamera(player.x, player.y);
 			smoothCamera(player.x, player.y+2f, 0.3f);
+			
+			if(boss != null){
+				Musics.loop("boss");
+			}else{
+				Musics.shuffle("world1", "world2", "world3");
+			}
 		}else{
-			Musics.fadeIn("menu");
+			Musics.loop("menu");
 			smoothCamera(startx*Vars.tilesize, starty*Vars.tilesize, 0.1f);
 		}
 		

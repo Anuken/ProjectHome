@@ -13,7 +13,7 @@ public class MarbleGolem extends Enemy{
 	int smashes = 0;
 	
 	static{
-		int c = 2;
+		float c = 1.7f;
 		setDrops(MarbleGolem.class,
 			Items.ascendarmor, c,
 			Items.densearmor, c,

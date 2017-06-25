@@ -23,7 +23,8 @@ public class Items{
 	}},
 	juggarmor = new Item("juggernautarmor", "Armor of the Juggernaut", ItemType.armor){{
 		defensebuff = 5;
-		speedbuff = -7;
+		speedbuff = -5;
+		attackbuff = 1;
 	}},
 	reflectarmor = new Item("reflectarmor", "Absorption Armor", ItemType.armor){{
 		defensebuff = -1;
