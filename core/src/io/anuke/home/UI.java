@@ -194,6 +194,10 @@ public class UI extends SceneModule{
 		build.end();
 	}
 	
+	public void clearInventory(){
+		inventory.clearItems();
+	}
+	
 	public Inventory getInventory(){
 		return inventory;
 	}

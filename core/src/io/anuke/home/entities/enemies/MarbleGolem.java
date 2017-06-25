@@ -42,7 +42,7 @@ public class MarbleGolem extends Enemy{
 
 		height = 6;
 		hitoffsety = height;
-
+		deathsound = "blockdie";
 	}
 
 	public void drawRenderables(){

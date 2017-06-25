@@ -23,7 +23,7 @@ import io.anuke.ucore.util.Timers;
 public class Control extends RendererModule{
 	public Player player;
 	
-	private final int startx = 525, starty = 1024-897;
+	private final int startx = 525, starty = 1024-898;
 	private Tile checkpoint;
 	private Array<Enemy> killed = new Array<>();
 	
@@ -53,6 +53,9 @@ public class Control extends RendererModule{
 		);
 		
 		Settings.loadAll("io.anuke.home");
+		
+		Sounds.load("blockdie.wav", "hurt.wav", "pickup.wav", "shoot.wav", "slash.wav", 
+				"slash2.wav", "tentadie.wav", "ult.wav", "walls.wav", "death.wav");
 
 		Entities.initPhysics();
 		Entities.setCollider(Vars.tilesize, (x, y)->{
@@ -103,6 +106,10 @@ public class Control extends RendererModule{
 	}
 	
 	public void reset(){
+		if(Vars.ui.inventory != null)
+			Vars.ui.clearInventory();
+		RenderableHandler.instance().clear();
+		Renderer.updateWalls();
 		killed.clear();
 		World.generate();
 		Entities.clear();
@@ -113,7 +120,7 @@ public class Control extends RendererModule{
 		
 		float center = Vars.worldsize*Vars.tilesize/2f;
 		
-		player = new Player()/*.set(12*569, 12*(1024-110))*/.add();
+		player = new Player().add();
 		
 		respawn();
 		
@@ -146,7 +153,7 @@ public class Control extends RendererModule{
 		
 		if(!GameState.is(State.menu)){
 			//setCamera(player.x, player.y);
-			smoothCamera(player.x, player.y, 0.3f);
+			smoothCamera(player.x, player.y+2f, 0.3f);
 		}else{
 			smoothCamera(startx*Vars.tilesize, starty*Vars.tilesize, 0.1f);
 		}

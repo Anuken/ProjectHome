@@ -8,14 +8,29 @@ import io.anuke.ucore.util.Geometry;
 
 public class Projectiles extends BaseBulletType<Projectile>{
 	static final Color tent = new Color(0x500680ff);
+	static final float pd = -0.3f;
+	static final float ld = -5;
 	
 	public static final Projectiles
-	
+	yellowshot = new Projectiles(){
+		{
+			speed = 3f+pd;
+			hiteffect = "yellowblap";
+			//despawneffect = "tentablip";
+			lifetime = 70+ld;
+		}
+		
+		public void draw(Projectile b){
+			Draw.color(Color.YELLOW, Color.WHITE, b.ifract());
+			Draw.polygon(4, b.x, b.y, 4, b.angle()-90);
+			Draw.color();
+		}
+	},
 	scorchshot = new Projectiles(){
 		{
-			speed = 2.6f;
+			speed = 2.6f+pd;
 			hiteffect = "scorchblap";
-			lifetime = 80;
+			lifetime = 70+ld;
 		}
 		
 		public void draw(Projectile b){
@@ -26,9 +41,9 @@ public class Projectiles extends BaseBulletType<Projectile>{
 	},
 	aethershot = new Projectiles(){
 		{
-			speed = 3f;
+			speed = 3f+pd;
 			hiteffect = "aetherblap";
-			lifetime = 80;
+			lifetime = 70+ld;
 		}
 		
 		public void draw(Projectile b){
@@ -39,10 +54,10 @@ public class Projectiles extends BaseBulletType<Projectile>{
 	},
 	orbshot = new Projectiles(){
 		{
-			speed = 1.9f;
+			speed = 2f+pd;
 			hiteffect = "orbshrink";
 			despawneffect = "orbshrink";
-			lifetime = 80;
+			lifetime = 70+ld;
 			hitsize = 14;
 		}
 		
@@ -54,10 +69,10 @@ public class Projectiles extends BaseBulletType<Projectile>{
 	},
 	planeshot = new Projectiles(){
 		{
-			speed = 4.2f;
+			speed = 4.2f+pd;
 			hiteffect = "planeblap";
 			despawneffect = "planeblap";
-			lifetime = 50;
+			lifetime = 40+ld;
 		}
 		
 		public void draw(Projectile b){
@@ -69,9 +84,9 @@ public class Projectiles extends BaseBulletType<Projectile>{
 	},
 	fusionshot = new Projectiles(){
 		{
-			speed = 2.6f;
+			speed = 2.6f+pd;
 			hiteffect = "fusionblap";
-			lifetime = 70;
+			lifetime = 50+ld;
 		}
 		
 		public void draw(Projectile b){
@@ -204,7 +219,7 @@ public class Projectiles extends BaseBulletType<Projectile>{
 			hiteffect = "golemflash";
 			despawneffect = "gshotshrink";
 			hitsize = 6;
-			damage = 6;
+			damage = 10;
 		}
 		
 		public void draw(Projectile b){
@@ -213,20 +228,6 @@ public class Projectiles extends BaseBulletType<Projectile>{
 			Draw.thick(2f);
 			Draw.polysegment(30, 0, 12, b.x, b.y, 5, b.angle()-360/5f-90);
 			Draw.reset();
-		}
-	},
-	yellowshot = new Projectiles(){
-		{
-			speed = 3f;
-			hiteffect = "yellowblap";
-			//despawneffect = "tentablip";
-			lifetime = 80;
-		}
-		
-		public void draw(Projectile b){
-			Draw.color(Color.YELLOW, Color.WHITE, b.ifract());
-			Draw.polygon(4, b.x, b.y, 4, b.angle()-90);
-			Draw.color();
 		}
 	},
 	tentashot = new Projectiles(){
@@ -334,7 +335,7 @@ public class Projectiles extends BaseBulletType<Projectile>{
 				new Projectile(tentashot, b.owner, f-90).set(b.x, b.y).add();
 			});
 		}
-	};;
+	};
 	
 	@Override
 	public void draw(Projectile b){

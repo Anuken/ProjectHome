@@ -78,6 +78,8 @@ public class Door extends Entity{
 		if(World.get(tilex, tiley).wall == block)
 			return;
 		
+		Effects.sound("walls", tilex*Vars.tilesize, tiley*Vars.tilesize);
+		
 		place(block);
 		
 		Renderer.updateWalls();
@@ -86,6 +88,8 @@ public class Door extends Entity{
 	void hideBlocks(){
 		if(World.get(tilex, tiley).wall == Blocks.air)
 			return;
+		
+		Effects.sound("walls", tilex*Vars.tilesize, tiley*Vars.tilesize);
 		
 		place(Blocks.air);
 		

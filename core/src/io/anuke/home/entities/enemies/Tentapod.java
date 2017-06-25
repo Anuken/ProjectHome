@@ -10,13 +10,13 @@ import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
 public class Tentapod  extends Enemy{
-	float reload = 70;
+	float reload = 75;
 	
 	public Tentapod(){
 		hiteffect = "blood";
 		deatheffect = "purpleblood";
 		
-		setMaxHealth(190);
+		setMaxHealth(170);
 		
 		height = 4;
 		hitoffsety = height;

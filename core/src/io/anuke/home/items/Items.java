@@ -31,18 +31,19 @@ public class Items{
 		attackbuff = 5;
 	}},
 	marblesword = new Item("marblesword", "Marble Sword", new WeaponTypes.Sword(){{
-		damage = 6;
+		damage = 7;
 		speed = 11f;
 	}}),
 	icesword = new Item("icesword", "Cryoblade", new WeaponTypes.Sword(){{
-		damage = 6;
+		damage = 7;
 		speed = 11f;
 		swingarc = 190f;
+		chargetime = 45f;
 		slash = "swingcryo";
 		alt = "swingaltcryo";
 	}}),
 	daggersword = new Item("lancesword", "Crimson Dagger", new WeaponTypes.Sword(){{
-		damage = 3;
+		damage = 4;
 		speed = 4f;
 		swingarc = 160f;
 		slash = "swingdagger";
@@ -53,7 +54,7 @@ public class Items{
 		reach = 9;
 	}}),
 	silversword = new Item("silversword", "Silver Blade", new WeaponTypes.Sword(){{
-		damage = 11;
+		damage = 12;
 		speed = 20f;
 		swingarc = 240f;
 		slash = "swingsilver";
@@ -61,7 +62,7 @@ public class Items{
 		reach = 13;
 	}}),
 	phasesword = new Item("phasesword", "Skyblade", new WeaponTypes.Sword(){{
-		damage = 11;
+		damage = 12;
 		speed = 13f;
 		swingarc = 250f;
 		slash = "swingphase";
@@ -70,12 +71,12 @@ public class Items{
 		altprojectile = Projectiles.phaseslashalt;
 		alpha = 0.3f;
 		reach = 10;
-		chargetime = 50;
+		chargetime = 45;
 	}}),
 	tentasword = new Item("tentasword", "The Rust", new WeaponTypes.Sword(){{
-		damage = 4;
+		damage = 5;
 		speed = 9f;
-		chargemult = 3;
+		chargemult = 7;
 		slash = "swingtenta";
 		alt = "swingalttenta";
 		altprojectile = Projectiles.tentaslash;
@@ -101,24 +102,25 @@ public class Items{
 	}),
 	aetherstaff = new Item("aetherstaff", "Staff of the Aether", new WeaponTypes.Staff(){{
 		damage = 3;
-		speed = 10f;
+		speed = 12f;
 		shooteffect = "aetherblap";
 		shots = 2;
 		projectile = Projectiles.aethershot;
-		shotspacing = 7;
+		shotspacing = 9;
 	}}),
 	orbstaff = new Item("orbstaff", "Orbcaster", new WeaponTypes.Staff(){{
-		damage = 12;
-		speed = 18f;
+		damage = 7;
+		speed = 17f;
 		shooteffect = "orbblap";
 		projectile = Projectiles.orbshot;
-		chargetime = 100;
+		chargetime = 120;
 	}}),
 	planestaff = new Item("planestaff", "Planestaff", new WeaponTypes.Staff(){{
-			damage = 22;
+			damage = 10;
 			speed = 30f;
 			shooteffect = "planeblap";
 			projectile = Projectiles.planeshot;
+			chargetime = 130;
 		}
 	
 		public void shot(){
@@ -127,16 +129,16 @@ public class Items{
 		
 		public void altAttack(Player player){
 			Geometry.shotgun(7, 10, player.angle(), f->{
-				player.shoot(Projectiles.scorchshot, damage*2, vector.x, vector.y, f);
+				player.shoot(projectile, damage*2, vector.x, vector.y, f);
 			});
 		}
 	}),
 	fusionstaff = new Item("fusionstaff", "Staff of Fused Cores", new WeaponTypes.Staff(){{
-		damage = 5;
-		speed = 10f;
+		damage = 4;
+		speed = 13f;
 		shots = 3;
 		shooteffect = "fusionblap";
-		shotspacing = 9;
+		shotspacing = 12;
 		projectile = Projectiles.fusionshot;
 	}});
 }

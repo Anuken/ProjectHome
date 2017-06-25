@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import io.anuke.home.entities.Player;
 import io.anuke.ucore.modules.Module;
-import io.anuke.ucore.util.Mathf;
 
 public class WeaponType{
 	protected static Vector2 vector = Module.vector;
@@ -13,7 +12,7 @@ public class WeaponType{
 	
 	public String getStatString(){
 		return "Damage: " + damage + 
-				"\n[firebrick]Attack Speed: " + Mathf.round(60f/speed, 0.1f);
+				"\n[firebrick]Attack Speed: " + String.format("%.1f", 60f/speed);
 	}
 	
 	public float getAngleOffset(){

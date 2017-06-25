@@ -28,7 +28,6 @@ public class WeaponTypes{
 		
 		float offset = 0f;
 		float charge = 0;
-	
 		
 		{
 			speed = 30f;
@@ -95,6 +94,7 @@ public class WeaponTypes{
 					Effects.effect(shooteffect, x, y+2);
 					setTip(player);
 					altAttack(player);
+					Effects.sound("ult", player);
 				}
 				charge = 0f;
 			}
@@ -106,10 +106,12 @@ public class WeaponTypes{
 					setTip(player);
 					altAttack(player);
 					charge = 0f;
+					Effects.sound("ult", player);
 				}
 			}else if(Inputs.buttonDown(Buttons.LEFT) && Timers.get(player, "weaponcooldown", speed)){
 				Effects.effect(shooteffect, x, y+2);
 				shot();
+				Effects.sound("shoot", player);
 				Geometry.shotgun(shots, shotspacing, Angles.mouseAngle(x, y), f->{
 					player.shoot(projectile, damage, x, y, f + Mathf.range(accuracy));
 				});
@@ -133,7 +135,7 @@ public class WeaponTypes{
 		int chargemult = 6;
 		
 		float charge = 0f;
-		float chargetime = 70f;
+		float chargetime = 60f;
 		
 		{
 			speed = 40f;
@@ -202,6 +204,7 @@ public class WeaponTypes{
 				if(charge >= chargetime){
 					swing = !swing;
 					slash(player, altprojectile, alt, damage*chargemult);
+					Effects.sound("slash2", player);
 					Effects.shake(4, 4);
 				}else{
 					swing = !swing;
@@ -220,6 +223,7 @@ public class WeaponTypes{
 					charge += Entity.delta;
 			}else if(Inputs.buttonDown(Buttons.LEFT) && Timers.get(player, "weaponcooldown", speed)){
 				slash(player, projectile, slash, damage);
+				Effects.sound("slash", player);
 				Effects.shake(1f, 1f);
 			}
 		}

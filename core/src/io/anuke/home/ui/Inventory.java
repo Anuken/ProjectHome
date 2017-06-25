@@ -1,5 +1,7 @@
 package io.anuke.home.ui;
 
+import java.util.Arrays;
+
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -40,17 +42,24 @@ public class Inventory extends Table{
 		filters[2] = ItemType.weapon;
 		filters[3] = ItemType.armor;
 		
+		clearItems();
+		setup();
+	}
+	
+	public void clearItems(){
+		Arrays.fill(stacks, null);
+		selected = null;
 		
 		addItem(new ItemStack(Items.marblesword));
 		addItem(new ItemStack(Items.amberstaff));
-		/*
-		addItem(new ItemStack(Items.ascendarmor));
-		addItem(new ItemStack(Items.densearmor));
-		addItem(new ItemStack(Items.hellarmor));
-		addItem(new ItemStack(Items.juggarmor));
-		addItem(new ItemStack(Items.reflectarmor));
-		*/
-		setup();
+		
+		if(Vars.debug){
+			addItem(new ItemStack(Items.tentasword));
+			addItem(new ItemStack(Items.silversword));
+			addItem(new ItemStack(Items.orbstaff));
+			addItem(new ItemStack(Items.planestaff));
+			addItem(new ItemStack(Items.fusionstaff));
+		}
 	}
 	
 	public boolean selectedItem(){
@@ -163,6 +172,13 @@ public class Inventory extends Table{
 
 	public boolean canPlace(ItemStack stack, int slot){
 		return filters[slot] == null || filters[slot] == stack.item.type;
+	}
+	
+	public boolean isFull(){
+		for(int i = 0; i < stacks.length; i ++){
+			if(stacks[i] == null) return false;
+		}
+		return true;
 	}
 
 	public boolean addItem(ItemStack add){

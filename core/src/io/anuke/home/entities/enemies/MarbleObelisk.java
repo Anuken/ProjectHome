@@ -17,6 +17,7 @@ public class MarbleObelisk extends Enemy{
 	public MarbleObelisk(){
 		height = 4;
 		setMaxHealth(250);
+		deathsound = "blockdie";
 	}
 	
 	public void drawRenderables(){

@@ -12,10 +12,10 @@ import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
 public class Tentawarrior extends Enemy{
-	float reload = 130;
+	float reload = 145;
 	
 	static{
-		int c = 1;
+		float c = 0.5f;
 		setDrops(Tentawarrior.class, 
 			Items.densearmor, c,
 			Items.hellarmor, c,
@@ -39,7 +39,7 @@ public class Tentawarrior extends Enemy{
 		hiteffect = "blood";
 		deatheffect = "purpleblood";
 
-		setMaxHealth(170);
+		setMaxHealth(150);
 
 		height = 11;
 		hitoffsety = 14;

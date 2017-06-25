@@ -18,7 +18,7 @@ public class Golem extends Enemy{
 		
 		height = 6;
 		hitoffsety = height;
-		
+		deathsound = "blockdie";
 	}
 	
 	public void drawRenderables(){

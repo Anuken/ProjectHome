@@ -1,5 +1,6 @@
 package io.anuke.home.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
@@ -9,6 +10,7 @@ import io.anuke.home.items.ItemStack;
 import io.anuke.home.world.Blocks;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
+import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.entities.DestructibleEntity;
 import io.anuke.ucore.entities.SolidEntity;
@@ -24,6 +26,7 @@ public class Enemy extends Creature{
 
 	public String deatheffect = "death";
 	public String hiteffect = "hit";
+	public String deathsound = "tentadie";
 
 	public float height = 4;
 	public float range = 230;
@@ -108,6 +111,25 @@ public class Enemy extends Creature{
 	public boolean collides(SolidEntity other){
 		return other instanceof Projectile && ((Projectile) other).owner instanceof Player;
 	}
+	
+	@Override
+	public void draw(){
+		float offsety = -3f;
+		float length = 9f;
+		float height = 1f;
+		float pad = 1f;
+		
+		Draw.color(new Color(0x3e2e50ff));
+		Draw.crect("blank", x-length/2f-pad, y+offsety-pad, length+pad*2f, height+pad*2f);
+		
+		Draw.color(Color.BLACK);
+		Draw.crect("blank", x-length/2f, y+offsety, length, height);
+		
+		Draw.color(Color.SCARLET);
+		Draw.crect("blank", x-length/2f, y+offsety, length*healthfrac(), height);
+		
+		Draw.color();
+	}
 
 	public void onDeath(){
 		Vars.control.addKill(this);
@@ -116,6 +138,7 @@ public class Enemy extends Creature{
 		}
 
 		Effects.effect(deatheffect, x, y + height);
+		Effects.sound(deathsound, this);
 		dropStuff();
 
 		remove();
@@ -140,6 +163,8 @@ public class Enemy extends Creature{
 			
 			if(objects[i + 1] instanceof Double){
 				drop.chance = (double)(objects[i + 1])/100.0;
+			}else if(objects[i + 1] instanceof Float){
+				drop.chance = (float)(objects[i + 1])/100.0;
 			}else{
 				drop.chance = (int)(objects[i + 1])/100.0;
 			}

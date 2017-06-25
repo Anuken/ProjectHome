@@ -113,6 +113,7 @@ public class Player extends Creature{
 	public void onDeath(){
 		clampHealth();
 		Effects.effect("explosion", this);
+		Effects.sound("death", this);
 		remove();
 		
 		Vars.control.onDeath();
@@ -121,12 +122,15 @@ public class Player extends Creature{
 	@Override
 	public void onHit(SolidEntity entity){
 		Effects.effect("blood", entity);
+		Effects.sound("hurt", this);
 		hittime = hitdur;
 		clampHealth();
 	}
 	
 	@Override
 	public void update(){
+		delta = Mathf.clamp(delta, 0, 2f);
+		
 		if(hittime > 0){
 			hittime -= delta;
 			hittime = Mathf.clamp(hittime, 0, hitdur);
@@ -203,8 +207,9 @@ public class Player extends Creature{
 		
 		ItemDrop drop = closestDrop();
 		
-		if(Inputs.keyUp(Keys.Q) && drop != null){
+		if(Inputs.keyUp(Keys.Q) && drop != null && !Vars.ui.getInventory().isFull()){
 			Vars.ui.getInventory().addItem(drop.stack);
+			Effects.sound("pickup", this);
 			drop.disappear();
 		}
 		

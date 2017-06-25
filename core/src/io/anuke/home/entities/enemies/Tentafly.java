@@ -11,10 +11,10 @@ import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
 public class Tentafly extends Enemy{
-	float reload = 120;
+	float reload = 135;
 	
 	public Tentafly(){
-		setMaxHealth(100);
+		setMaxHealth(90);
 		
 		hiteffect = "blood";
 		deatheffect = "purpleblood";

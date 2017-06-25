@@ -45,7 +45,7 @@ public class Boss extends Enemy{
 	}
 	
 	public Boss(){
-		setMaxHealth(2000);
+		setMaxHealth(4000);
 		hitsize = 20;
 		hitoffsety = 10;
 		
@@ -126,6 +126,7 @@ public class Boss extends Enemy{
 		phase = Phase.values()[0];
 		x = startx;
 		y = starty;
+		heal();
 	}
 	
 	public void update(){
@@ -148,7 +149,7 @@ public class Boss extends Enemy{
 			
 			Phase fin = next;
 			
-			Timers.run(120, ()->{
+			Timers.run(180, ()->{
 				if(target != null) 
 					rotation = angleTo(target, height);
 				phase = fin;
@@ -174,7 +175,7 @@ public class Boss extends Enemy{
 			}
 		}else if(phase == Phase.seek){
 			if(Timers.get(this, "seek", 2)){
-				shoot(Projectiles.tentashot, 10, x, y+height, angleTo(target, height)+Mathf.range(50f));
+				shoot(Projectiles.tentashot, 12, x, y+height, angleTo(target, height)+Mathf.range(50f));
 			}
 		}else if(phase == Phase.chase){
 			if(Timers.get(this, "chase", 90)){
