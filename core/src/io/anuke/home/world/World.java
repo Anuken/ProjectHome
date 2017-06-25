@@ -203,7 +203,7 @@ public class World{
 		Noise.setSeed(Mathf.random(0, 999999));
 		
 		if(pixmap == null)
-			pixmap = loadMap("map-debug");
+			pixmap = loadMap("map");
 
 		for(int x = 0; x < Vars.worldsize; x++){
 			for(int y = 0; y < Vars.worldsize; y++){

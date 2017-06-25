@@ -26,7 +26,7 @@ public class UI extends SceneModule{
 	SettingsDialog settings;
 	TextDialog about;
 	TextDialog tutorial;
-	Dialog paused, death;
+	Dialog paused, death, victory;
 	Inventory inventory;
 	
 	boolean hasreset = true;
@@ -35,6 +35,19 @@ public class UI extends SceneModule{
 	public void init(){
 		DrawContext.font.setUseIntegerPositions(true);
 		Dialog.closePadT = -1;
+		
+		victory = new Dialog("Congratulations!", "dialog");
+		victory.getTitleLabel().setColor(Color.YELLOW);
+		victory.content().pad(10);
+		victory.content().add("[green]You have beaten the game!\n[]Thanks for playing.");
+		victory.getButtonTable().addButton("Back to Menu", ()->{
+			victory.hide();
+			GameState.set(State.menu);
+		});
+		
+		victory.getButtonTable().addButton("Continue Playing", ()->{
+			victory.hide();
+		});
 		
 		death = new Dialog("You have died.", "dialog");
 		death.getTitleLabel().setColor(Color.SCARLET);
@@ -212,6 +225,10 @@ public class UI extends SceneModule{
 	
 	public void showPaused(){
 		paused.show();
+	}
+	
+	public void showVictory(){
+		victory.show();
 	}
 	
 }

@@ -3,6 +3,7 @@ package io.anuke.home.entities.enemies;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
+import io.anuke.home.Vars;
 import io.anuke.home.entities.Enemy;
 import io.anuke.home.entities.Projectile;
 import io.anuke.home.entities.Projectiles;
@@ -23,7 +24,7 @@ public class Boss extends Enemy{
 	
 	private float rotation = 0f;
 	private Phase phase = Phase.values()[0];
-	private float phasetime = 800f;
+	private float phasetime = 1000f;
 	
 	static{
 		int c = 15;
@@ -45,7 +46,7 @@ public class Boss extends Enemy{
 	}
 	
 	public Boss(){
-		setMaxHealth(4000);
+		setMaxHealth(4500);
 		hitsize = 20;
 		hitoffsety = 10;
 		
@@ -111,6 +112,10 @@ public class Boss extends Enemy{
 			});
 			
 		}
+		
+		Timers.run(120, ()->{
+			Vars.ui.showVictory();
+		});
 		
 		Entities.getNearby(x, y, 300, e->{
 			if(e instanceof Projectile && e != this){
@@ -214,17 +219,17 @@ public class Boss extends Enemy{
 					if(Timers.get(this, "chases", 1f))
 						Effects.effect("darkdash", x, y+10);
 				}, ()->{
-					Timers.run(0, ()->{
-						if(Mathf.chance(0.5)){
-							Geometry.circle(8, f->{
-								shoot(Projectiles.shadowsplit, x, y+height, f);
-							});
-						}else{
-							Geometry.circle(20, f->{
-								shoot(Projectiles.shadowshot, x, y+height, f);
-							});
-						}
-					});
+					eyeflash = 1f;
+					if(Mathf.chance(0.5)){
+						Geometry.circle(8, f->{
+							shoot(Projectiles.shadowsplit, x, y+height, f);
+						});
+					}else{
+						Geometry.circle(20, f->{
+							shoot(Projectiles.shadowshot, x, y+height, f);
+						});
+					}
+					
 				});
 			}
 		}else if(phase == Phase.lanes){
