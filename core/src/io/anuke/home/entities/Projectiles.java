@@ -9,7 +9,7 @@ import io.anuke.ucore.util.Geometry;
 public class Projectiles extends BaseBulletType<Projectile>{
 	static final Color tent = new Color(0x500680ff);
 	static final float pd = -0.3f;
-	static final float ld = -5;
+	static final float ld = -10;
 	
 	public static final Projectiles
 	yellowshot = new Projectiles(){

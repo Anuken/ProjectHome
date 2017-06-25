@@ -80,7 +80,7 @@ public class Enemy extends Creature{
 		
 	}
 
-	boolean targetValid(){
+	protected boolean targetValid(){
 		return target != null && !target.isDead() && distanceTo(target) < range;
 	}
 

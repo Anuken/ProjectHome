@@ -16,7 +16,7 @@ public class MarbleObelisk extends Enemy{
 	
 	public MarbleObelisk(){
 		height = 4;
-		setMaxHealth(250);
+		setMaxHealth(260);
 		deathsound = "blockdie";
 	}
 	
@@ -39,7 +39,7 @@ public class MarbleObelisk extends Enemy{
 			ang += 20f;
 		}
 		
-		if(Timers.get(this, "bigshot", 300)){
+		if(Timers.get(this, "bigshot", 240)){
 			Effects.effect("golemwave", this);
 			Effects.shake(3, 4f);
 			

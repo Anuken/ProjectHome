@@ -43,7 +43,7 @@ public class Tentacolumn extends Enemy{
 		hiteffect = "blood";
 		deatheffect = "purpleblood";
 
-		setMaxHealth(320);
+		setMaxHealth(450);
 
 		height = 10;
 		hitoffsety = height;

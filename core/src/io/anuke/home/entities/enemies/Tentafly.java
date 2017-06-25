@@ -14,7 +14,7 @@ public class Tentafly extends Enemy{
 	float reload = 135;
 	
 	public Tentafly(){
-		setMaxHealth(90);
+		setMaxHealth(100);
 		
 		hiteffect = "blood";
 		deatheffect = "purpleblood";

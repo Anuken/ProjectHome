@@ -24,7 +24,7 @@ public class Boss extends Enemy{
 	
 	private float rotation = 0f;
 	private Phase phase = Phase.values()[0];
-	private float phasetime = 1000f;
+	private float phasetime = 1200f;
 	
 	static{
 		int c = 15;
@@ -46,7 +46,7 @@ public class Boss extends Enemy{
 	}
 	
 	public Boss(){
-		setMaxHealth(4500);
+		setMaxHealth(4100);
 		hitsize = 20;
 		hitoffsety = 10;
 		
@@ -57,7 +57,26 @@ public class Boss extends Enemy{
 		}
 		
 		height = 20f;
-		range = 260;
+		range = 340;
+	}
+	
+	@Override
+	public void retarget(){
+		
+		target = Vars.control.player;
+		
+		if(targetValid()){
+			idletime = 0;
+			return;
+		}else{
+			target = null;
+			reset();
+		}
+
+		//TODO uncomment this for multiplayer, if needed
+		//target = (DestructibleEntity)Entities.getClosest(x, y, 100, e->{
+		//	return e instanceof Player;
+		//});
 	}
 	
 	public void drawRenderables(){
@@ -105,6 +124,7 @@ public class Boss extends Enemy{
 	public void onDeath(){
 		Effects.shake(10, 60f);
 		Effects.effect("wraithdie", x, y+10);
+		Effects.sound("bossdie", this);
 		
 		for(int i = 0; i < 40; i ++){
 			Timers.run(Mathf.random(55), ()->{
@@ -132,13 +152,6 @@ public class Boss extends Enemy{
 		x = startx;
 		y = starty;
 		heal();
-	}
-	
-	public void update(){
-		super.update();
-		if(target == null){
-			reset();
-		}
 	}
 	
 	public void move(){
@@ -205,6 +218,13 @@ public class Boss extends Enemy{
 				});
 				
 			}
+		}else if(phase == Phase.tentacles){
+			if(Timers.get(this, "circle2", 5)){
+				Geometry.circle(4,f->{
+					shoot(Projectiles.tentashot, 20, x, y+height, rotation+45+f);
+				});
+				rotation += 7f;
+			}
 		}else if(phase == Phase.spam){
 			if(Timers.get(this, "spam", 50)){
 				
@@ -254,7 +274,7 @@ public class Boss extends Enemy{
 	}
 	
 	private enum Phase{
-		idle, swirl, blast, seek, chase, spam, lanes;
+		idle, swirl, blast, seek, chase, tentacles, spam, lanes;
 	}
 	
 	private class Particle extends Vector2{

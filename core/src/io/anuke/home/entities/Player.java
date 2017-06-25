@@ -2,8 +2,6 @@ package io.anuke.home.entities;
 
 import static io.anuke.home.entities.Direction.*;
 
-import com.badlogic.gdx.Input.Keys;
-
 import io.anuke.home.Vars;
 import io.anuke.home.items.Item;
 import io.anuke.home.world.Blocks;
@@ -207,7 +205,7 @@ public class Player extends Creature{
 		
 		ItemDrop drop = closestDrop();
 		
-		if(Inputs.keyUp(Keys.Q) && drop != null && !Vars.ui.getInventory().isFull()){
+		if(Inputs.keyUp("pickup") && drop != null && !Vars.ui.getInventory().isFull()){
 			Vars.ui.getInventory().addItem(drop.stack);
 			Effects.sound("pickup", this);
 			drop.disappear();

@@ -30,6 +30,7 @@ public class UI extends SceneModule{
 	Inventory inventory;
 	
 	boolean hasreset = true;
+	boolean showntutorial = false;
 	
 	@Override
 	public void init(){
@@ -72,6 +73,10 @@ public class UI extends SceneModule{
 			cell.left();
 		}
 		tutorial = new TextDialog("Tutorial", tutorialText).padText(10);
+		tutorial.getButtonTable().addButton("OK", ()->{
+			GameState.set(State.playing);
+			tutorial.hide();
+		}).size(80, 40);
 		
 		keybind = new KeybindDialog();
 		settings = new SettingsDialog();
@@ -122,7 +127,14 @@ public class UI extends SceneModule{
 				}else{
 					Vars.control.reset();
 				}
-				GameState.set(State.playing);
+				
+				if(!showntutorial && !debug){
+					tutorial.show();
+					showntutorial = true;
+				}else{
+					GameState.set(State.playing);
+				}
+				
 			});
 			
 			row();

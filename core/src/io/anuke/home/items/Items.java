@@ -31,11 +31,11 @@ public class Items{
 		attackbuff = 5;
 	}},
 	marblesword = new Item("marblesword", "Marble Sword", new WeaponTypes.Sword(){{
-		damage = 7;
+		damage = 8;
 		speed = 11f;
 	}}),
 	icesword = new Item("icesword", "Cryoblade", new WeaponTypes.Sword(){{
-		damage = 7;
+		damage = 8;
 		speed = 11f;
 		swingarc = 190f;
 		chargetime = 45f;
@@ -54,7 +54,7 @@ public class Items{
 		reach = 9;
 	}}),
 	silversword = new Item("silversword", "Silver Blade", new WeaponTypes.Sword(){{
-		damage = 12;
+		damage = 13;
 		speed = 20f;
 		swingarc = 240f;
 		slash = "swingsilver";
@@ -62,7 +62,7 @@ public class Items{
 		reach = 13;
 	}}),
 	phasesword = new Item("phasesword", "Skyblade", new WeaponTypes.Sword(){{
-		damage = 12;
+		damage = 13;
 		speed = 13f;
 		swingarc = 250f;
 		slash = "swingphase";
@@ -74,7 +74,7 @@ public class Items{
 		chargetime = 45;
 	}}),
 	tentasword = new Item("tentasword", "The Rust", new WeaponTypes.Sword(){{
-		damage = 5;
+		damage = 6;
 		speed = 9f;
 		chargemult = 7;
 		slash = "swingtenta";
@@ -135,10 +135,10 @@ public class Items{
 	}),
 	fusionstaff = new Item("fusionstaff", "Staff of Fused Cores", new WeaponTypes.Staff(){{
 		damage = 4;
-		speed = 13f;
+		speed = 14f;
 		shots = 3;
 		shooteffect = "fusionblap";
-		shotspacing = 12;
+		shotspacing = 14;
 		projectile = Projectiles.fusionshot;
 	}});
 }

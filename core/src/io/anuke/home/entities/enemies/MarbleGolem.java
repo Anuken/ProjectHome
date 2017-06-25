@@ -35,7 +35,7 @@ public class MarbleGolem extends Enemy{
 	}
 
 	public MarbleGolem() {
-		maxhealth = 200;
+		maxhealth = 240;
 		heal();
 
 		speed = 0.4f;
@@ -104,6 +104,10 @@ public class MarbleGolem extends Enemy{
 							Effects.effect("purpleeyeflash", x, y + 7);
 							Effects.effect("purpleeyeflash", x, y + 9);
 							Effects.effect("golemwave", this);
+							
+							Geometry.circle(4, ang -> {
+								shoot(Projectiles.golemsplitshot, ang+45);
+							});
 
 							Geometry.circle(4, ang -> {
 								Geometry.shotgun(5, 9f, ang, out -> {

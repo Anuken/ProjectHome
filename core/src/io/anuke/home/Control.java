@@ -23,6 +23,12 @@ import io.anuke.ucore.util.Timers;
 public class Control extends RendererModule{
 	public Player player;
 	
+	//boss starting coords
+	//private final int startx = 552, starty=1024-177;
+	
+	//dungeon starting coords
+	//private final int startx = 522, starty=1024-414;
+	
 	private final int startx = 525, starty = 1024-898;
 	private Tile checkpoint;
 	private Array<Enemy> killed = new Array<>();
@@ -55,7 +61,9 @@ public class Control extends RendererModule{
 		Settings.loadAll("io.anuke.home");
 		
 		Sounds.load("blockdie.wav", "hurt.wav", "pickup.wav", "shoot.wav", "slash.wav", 
-				"slash2.wav", "tentadie.wav", "ult.wav", "walls.wav", "death.wav");
+				"slash2.wav", "tentadie.wav", "ult.wav", "walls.wav", "death.wav", "bossdie.wav", "respawn.wav");
+		
+		Musics.load("menu.ogg");
 
 		Entities.initPhysics();
 		Entities.setCollider(Vars.tilesize, (x, y)->{
@@ -93,6 +101,10 @@ public class Control extends RendererModule{
 	}
 	
 	public void respawn(){
+		
+		if(GameState.is(State.playing))
+			Effects.sound("respawn");
+		
 		player.heal();
 		player/*.set(12*522, 12*(1024-597))*/.set(checkpoint.worldx(), checkpoint.worldy()).add();
 		player.oncheckpoint = true;
@@ -130,10 +142,8 @@ public class Control extends RendererModule{
 	@Override
 	public void update(){
 		
-		//TODO remove
 		if(Inputs.keyDown(Keys.ESCAPE) && Vars.debug)
 			Gdx.app.exit();
-		
 		
 		if(GameState.is(State.playing)){
 			
@@ -155,6 +165,7 @@ public class Control extends RendererModule{
 			//setCamera(player.x, player.y);
 			smoothCamera(player.x, player.y+2f, 0.3f);
 		}else{
+			Musics.fadeIn("menu");
 			smoothCamera(startx*Vars.tilesize, starty*Vars.tilesize, 0.1f);
 		}
 		
