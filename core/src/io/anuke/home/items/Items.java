@@ -36,7 +36,7 @@ public class Items{
 	}}),
 	icesword = new Item("icesword", "Cryoblade", new WeaponTypes.Sword(){{
 		damage = 8;
-		speed = 11f;
+		speed = 10f;
 		swingarc = 190f;
 		chargetime = 45f;
 		slash = "swingcryo";
@@ -73,7 +73,7 @@ public class Items{
 		reach = 10;
 		chargetime = 45;
 	}}),
-	tentasword = new Item("tentasword", "The Rust", new WeaponTypes.Sword(){{
+	tentasword = new Item("tentasword", "Ruste", new WeaponTypes.Sword(){{
 		damage = 6;
 		speed = 9f;
 		chargemult = 7;

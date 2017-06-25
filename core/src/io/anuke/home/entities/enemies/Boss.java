@@ -27,7 +27,7 @@ public class Boss extends Enemy{
 	private float phasetime = 1200f;
 	
 	static{
-		int c = 15;
+		int c = 20;
 		setDrops(Boss.class,
 			Items.ascendarmor, c,
 			Items.hellarmor, c,
@@ -46,7 +46,7 @@ public class Boss extends Enemy{
 	}
 	
 	public Boss(){
-		setMaxHealth(4100);
+		setMaxHealth(3500);
 		hitsize = 20;
 		hitoffsety = 10;
 		
@@ -57,26 +57,29 @@ public class Boss extends Enemy{
 		}
 		
 		height = 20f;
-		range = 340;
+		range = 400;
 	}
 	
 	@Override
 	public void retarget(){
 		
+		//boolean wasvalid = targetValid();
+		
 		target = Vars.control.player;
 		
 		if(targetValid()){
 			idletime = 0;
-			return;
 		}else{
 			target = null;
 			reset();
 		}
-
-		//TODO uncomment this for multiplayer, if needed
-		//target = (DestructibleEntity)Entities.getClosest(x, y, 100, e->{
-		//	return e instanceof Player;
-		//});
+		
+		if(target == null){
+			Vars.ui.setBossBarVisible(false);
+		}else{
+			Vars.ui.setBossBarVisible(true);
+			Vars.ui.getBossBar().setEntity(this);
+		}
 	}
 	
 	public void drawRenderables(){
@@ -152,6 +155,7 @@ public class Boss extends Enemy{
 		x = startx;
 		y = starty;
 		heal();
+		Timers.reset(this, "changephase", phasetime);
 	}
 	
 	public void move(){

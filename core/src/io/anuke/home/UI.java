@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 
 import io.anuke.home.GameState.State;
+import io.anuke.home.ui.BossHealthBar;
 import io.anuke.home.ui.HealthBar;
 import io.anuke.home.ui.Inventory;
 import io.anuke.ucore.core.DrawContext;
@@ -28,6 +29,7 @@ public class UI extends SceneModule{
 	TextDialog tutorial;
 	Dialog paused, death, victory;
 	Inventory inventory;
+	BossHealthBar bossbar;
 	
 	boolean hasreset = true;
 	boolean showntutorial = false;
@@ -196,6 +198,14 @@ public class UI extends SceneModule{
 		new table(){{
 			abottom().aleft();
 			
+			new table("button"){{
+				HealthBar bar = new HealthBar();
+				
+				add(bar).fillX().expandX().height(24);//.size(370, 24);
+			}}.left().end().fillX();
+			
+			row();
+			
 			inventory = new Inventory();
 			
 			add(inventory);
@@ -204,19 +214,27 @@ public class UI extends SceneModule{
 		}}.end();
 		
 		new table(){{
-			HealthBar bar = new HealthBar();
+			
+			bossbar = new BossHealthBar();
 			atop().aleft();
 			
 			new table("button"){{
-				add(bar).size(370, 24);
-				row();
-					
-			}}.end();
+				add(bossbar).height(28).growX();
+				get().setVisible(false);	
+			}}.end().growX();
 			
 			visible(play);
 		}}.end();
 		
 		build.end();
+	}
+	
+	public void setBossBarVisible(boolean visible){
+		bossbar.getParent().setVisible(visible);
+	}
+	
+	public BossHealthBar getBossBar(){
+		return bossbar;
 	}
 	
 	public void clearInventory(){

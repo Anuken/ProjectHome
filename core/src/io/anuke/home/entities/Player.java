@@ -195,13 +195,14 @@ public class Player extends Creature{
 		
 		vector.limit(speed);
 		
-		move(vector.x, vector.y);
-		
 		if(vector.isZero()){
 			walktime = 0f;
 		}else{
 			walktime += walkspeed*delta*this.speed/basespeed;
 		}
+		
+		move(vector.x, vector.y);
+		
 		
 		ItemDrop drop = closestDrop();
 		

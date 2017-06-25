@@ -15,6 +15,7 @@ public class HealthBar extends Element{
 	private float frac = 0f;
 	
 	public HealthBar(){
+		
 	}
 	
 	public void draw(){

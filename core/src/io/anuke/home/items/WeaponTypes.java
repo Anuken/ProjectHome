@@ -142,7 +142,7 @@ public class WeaponTypes{
 		}
 		
 		public String getStatString(){
-			return super.getStatString() + "\n[royal]Reach: " + (int)reach;
+			return super.getStatString() + "\n[royal]Reach: " + (int)reach + "\n[purple]Arc: " + (int)swingarc;
 		}
 		
 		float maxswing(){
