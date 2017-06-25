@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
-import io.anuke.gif.GifRecorder;
 import io.anuke.home.GameState.State;
 import io.anuke.home.entities.Enemy;
 import io.anuke.home.entities.Player;
@@ -28,7 +27,7 @@ public class Control extends RendererModule{
 	private Tile checkpoint;
 	private Array<Enemy> killed = new Array<>();
 	
-	private GifRecorder recorder = new GifRecorder(batch);
+	//private GifRecorder recorder = new GifRecorder(batch);
 	
 	public Control(){
 		atlas = new Atlas("projecthome.atlas");
@@ -108,6 +107,7 @@ public class Control extends RendererModule{
 		World.generate();
 		Entities.clear();
 		World.addDoors();
+		Renderer.clearWorld();
 		
 		checkpoint = World.get(startx, starty);
 		
@@ -124,7 +124,7 @@ public class Control extends RendererModule{
 	public void update(){
 		
 		//TODO remove
-		if(Inputs.keyDown(Keys.ESCAPE))
+		if(Inputs.keyDown(Keys.ESCAPE) && Vars.debug)
 			Gdx.app.exit();
 		
 		
@@ -144,16 +144,26 @@ public class Control extends RendererModule{
 			}
 		}
 		
-		setCamera(player.x, player.y);
+		if(!GameState.is(State.menu)){
+			//setCamera(player.x, player.y);
+			smoothCamera(player.x, player.y, 0.3f);
+		}else{
+			smoothCamera(startx*Vars.tilesize, starty*Vars.tilesize, 0.1f);
+		}
+		
+		
 		updateShake();
 		clampCamera(0, 0, Vars.worldsize*Vars.tilesize-Vars.tilesize/2, Vars.worldsize*Vars.tilesize-Vars.tilesize/2);
 		camera.update();
 		
 		drawDefault();
 		
-		recorder.update();
+		//recorder.update();
 		
-		Timers.update();
+		if(!GameState.is(State.paused)){
+			Timers.update();
+		}
+		
 	}
 	
 	@Override
@@ -167,7 +177,13 @@ public class Control extends RendererModule{
 		Entities.draw();
 	}
 	
+	public void resize(){
+		setCamera(startx*Vars.tilesize, starty*Vars.tilesize);
+		camera.update();
+	}
+	
 	void drawBackground(){
+		Draw.color();
 		int s = 400;
 		float scl = 1f;
 		for(int i = 0; i < 4; i ++){

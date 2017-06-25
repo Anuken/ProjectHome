@@ -11,7 +11,7 @@ public class DesktopLauncher {
 		config.setTitle("ProjectHome");
 		config.setWindowedMode(800, 600);
 		config.setMaximized(true);
-		config.useVsync(false);
+		//config.useVsync(false);
 		new Lwjgl3Application(new ProjectHome(), config);
 	}
 }

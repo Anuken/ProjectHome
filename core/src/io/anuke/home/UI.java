@@ -29,6 +29,8 @@ public class UI extends SceneModule{
 	Dialog paused, death;
 	Inventory inventory;
 	
+	boolean hasreset = true;
+	
 	@Override
 	public void init(){
 		DrawContext.font.setUseIntegerPositions(true);
@@ -42,10 +44,14 @@ public class UI extends SceneModule{
 			if(k == Keys.SPACE){
 				death.hide();
 				Vars.control.respawn();
+			}else if(k == Keys.ESCAPE){
+				death.hide();
+				GameState.set(State.menu);
 			}
 		});
 		
-		paused = new Dialog("Paused", "dialog");
+		paused = new Dialog("Paused", "dialogclear");
+		paused.getTitleLabel().setColor(Color.SKY);
 		
 		about = new TextDialog("About", aboutText).padText(10);
 		about.left();
@@ -62,28 +68,28 @@ public class UI extends SceneModule{
 		
 		build.begin(paused.content());
 		
-		paused.content().defaults().width(200);
+		paused.content().defaults().width(300).height(60);
 		
-		new button("Resume", ()->{
+		new button("Resume", "clear",()->{
 			GameState.set(State.playing);
 			paused.hide();
 		});
 		
 		paused.content().row();
 		
-		new button("Settings", ()->{
+		new button("Settings", "clear",()->{
 			settings.show();
 		});
 		
 		paused.content().row();
 		
-		new button("Controls", ()->{
+		new button("Controls", "clear",()->{
 			keybind.show();
 		});
 		
 		paused.content().row();
 		
-		new button("Back to Menu", ()->{
+		new button("Back to Menu", "clear", ()->{
 			paused.hide();
 			//TODO back to menu code
 			GameState.set(State.menu);
@@ -93,11 +99,16 @@ public class UI extends SceneModule{
 		
 		build.begin(scene);
 		
-		new table(){{
+		new table("window-clear"){{
 			defaults().width(300).height(60);
 			
 			new button("Play", "clear", ()->{
 				//TODO playing setup code, call reset()
+				if(hasreset){
+					hasreset = false;
+				}else{
+					Vars.control.reset();
+				}
 				GameState.set(State.playing);
 			});
 			
@@ -141,6 +152,7 @@ public class UI extends SceneModule{
 			visible(inmenu);
 		}}.end();
 		
+		if(Vars.debug)
 		new table(){{
 			atop();
 			aright();
@@ -167,7 +179,7 @@ public class UI extends SceneModule{
 		}}.end();
 		
 		new table(){{
-			HealthBar bar = new HealthBar(Vars.control.player);
+			HealthBar bar = new HealthBar();
 			atop().aleft();
 			
 			new table("button"){{

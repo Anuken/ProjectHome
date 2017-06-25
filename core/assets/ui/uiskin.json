@@ -66,7 +66,8 @@ io.anuke.ucore.scene.ui.Window$WindowStyle: {
 	default: {titleFont: default-font, background: window, titleFontColor: sky },
 	resizable: {background: window-resizable, titleFont: default-font, titleFontColor: white },
 	noborder: {background: window-noborder, titleFont: default-font, titleFontColor: white },
-	dialog: {stageBackground: dialogDim, titleFont: default-font, background: window, titleFontColor: white }
+	dialog: {stageBackground: dialogDim, titleFont: default-font, background: window, titleFontColor: white },
+	dialogclear: {stageBackground: dialogDim, titleFont: default-font, background: window-clear, titleFontColor: white }
 },
 io.anuke.ucore.scene.ui.KeybindDialog$KeybindDialogStyle: {
 	default: {keyColor: green, keyNameColor: grey, controllerColor: yellow},

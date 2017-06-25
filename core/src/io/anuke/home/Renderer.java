@@ -23,14 +23,25 @@ public class Renderer{
 	public static void updateWalls(){
 		lastcamx = -100;
 	}
+	
+	public static void clearWorld(){
+		if(caches == null) return;
+		
+		for(int x = 0; x < caches.length; x ++){
+			for(int y = 0; y < caches[x].length; y ++){
+				if(caches[x][y] != null){
+					caches[x][y].dispose();
+					caches[x][y] = null;
+				}
+			}
+		}
+	}
 
 	public static void renderWorld(){
 		
 		if(caches == null){
 			int chunks = Vars.worldsize / chunksize;
 			caches = new Cache[chunks][chunks];
-			
-			//TODO render entire level?
 		}
 
 		OrthographicCamera camera = DrawContext.camera;

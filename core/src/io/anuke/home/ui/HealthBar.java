@@ -3,6 +3,7 @@ package io.anuke.home.ui;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
+import io.anuke.home.Vars;
 import io.anuke.home.entities.Player;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.DrawContext;
@@ -11,14 +12,14 @@ import io.anuke.ucore.scene.Element;
 import io.anuke.ucore.util.Mathf;
 
 public class HealthBar extends Element{
-	private Player entity;
 	private float frac = 0f;
 	
-	public HealthBar(Player entity){
-		this.entity = entity;
+	public HealthBar(){
 	}
 	
 	public void draw(){
+		Player entity = Vars.control.player;
+		
 		AtlasRegion region = (AtlasRegion)DrawContext.skin.getRegion("healthbar");
 		frac = Mathf.lerp(frac, entity.healthfrac(), 0.4f*Mathf.delta());
 		
