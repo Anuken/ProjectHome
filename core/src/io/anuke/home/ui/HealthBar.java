@@ -19,7 +19,7 @@ public class HealthBar extends Element{
 	}
 	
 	public void draw(){
-		Player entity = Vars.control.player;
+		Player entity = Vars.control.getPlayer();
 		
 		AtlasRegion region = (AtlasRegion)DrawContext.skin.getRegion("healthbar");
 		frac = Mathf.lerp(frac, entity.healthfrac(), 0.4f*Mathf.delta());
@@ -27,13 +27,15 @@ public class HealthBar extends Element{
 		Draw.color(Color.DARK_GRAY);
 		DrawContext.batch.draw(DrawContext.skin.getRegion("white"), x, y, width, height);
 		
-		Draw.color(Color.RED, Color.ORANGE, entity.hittime/Player.hitdur);
+		float hit = entity.getHitTime();
+		
+		Draw.color(Color.RED, Color.ORANGE, hit);
 		//region.setRegionWidth((int)(frac*region.getRotatedPackedWidth()));
 		DrawContext.batch.draw(region, x, y, width*frac, height);
 		
 		Draw.color();
 		
-		Draw.tcolor(Hue.mix(Color.WHITE, Color.RED, entity.hittime/Player.hitdur));
+		Draw.tcolor(Hue.mix(Color.WHITE, Color.RED, hit));
 		Draw.text(entity.health + "/" + entity.maxhealth, x+width/2, y+height-4);
 		Draw.tcolor();
 	}

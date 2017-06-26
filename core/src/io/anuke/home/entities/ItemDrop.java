@@ -28,7 +28,9 @@ public class ItemDrop extends SolidEntity{
 		new FuncRenderable(b->{
 			float raise = Mathf.sin(Timers.time(), 20f, 2f)+2f;
 			
-			if(Vector2.dst(x, y, Vars.control.player.x, Vars.control.player.y) < pickuprange && 
+			Player player = Vars.control.getPlayer();
+			
+			if(Vector2.dst(x, y, player.x, player.y) < pickuprange && 
 					Mathf.near2d(x, y+5, Graphics.mouseWorld().x, Graphics.mouseWorld().y, 4f)){
 				
 				Draw.color("purple");

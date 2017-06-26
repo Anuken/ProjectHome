@@ -96,7 +96,7 @@ public class Inventory extends Table{
 		super.act(delta);
 		
 		if(Inputs.scrolled()){
-			slotweapon += Inputs.scroll();
+			slotweapon -= Inputs.scroll();
 			slotweapon = Mathf.clamp(slotweapon, 0, 2);
 		}
 		
@@ -109,18 +109,17 @@ public class Inventory extends Table{
 		if(Inputs.keyUp("weapon3"))
 			slotweapon = 2;
 		
-		Player player = Vars.control.player;
+		Player player = Vars.control.getPlayer();
 		
 		player.weapon = (stacks[slotweapon] == null ? null : stacks[slotweapon].item);
 		
 		if(stacks[3] != null){
 			Item item = stacks[3].item;
-			player.speed = item.speedbuff/10f + player.basespeed;
+			player.speed = item.speedbuff/10f;
 			player.attack = item.attackbuff;
 			player.defense = item.defensebuff;
 		}else{
-			player.attack = player.defense = 0;
-			player.speed = player.basespeed;
+			player.speed = player.attack = player.defense = 0;
 		}
 		
 		Element e = getScene().hit(Graphics.mouse().x, Graphics.mouse().y, true);
@@ -143,7 +142,7 @@ public class Inventory extends Table{
 		
 		if(Inputs.buttonUp(Buttons.LEFT) && selected != null && any == null){
 			new ItemDrop(selected).randomVelocity()
-			.set(Vars.control.player.x, Vars.control.player.y).add();
+			.set(player.x, player.y).add();
 			
 			selected = null;
 			deselecting = true;

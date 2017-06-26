@@ -42,12 +42,14 @@ public class Enemy extends Creature{
 		}else{
 			target = null;
 		}
+		
+		Player player = Vars.control.getPlayer();
 
-		float dst = distanceTo(Vars.control.player);
+		float dst = distanceTo(player);
 
 		//optimization
-		if(dst < range && !Vars.control.player.isDead()){
-			target = Vars.control.player;
+		if(dst < range && !player.isDead()){
+			target = player;
 		}else{
 			target = null;
 

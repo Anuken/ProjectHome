@@ -12,6 +12,7 @@ import io.anuke.ucore.util.Mathf;
 public class BossHealthBar extends Element{
 	private Enemy entity;
 	private float frac;
+	private String name = "Dark Effigy";
 	
 	public void setEntity(Enemy e){
 		this.entity = e;
@@ -31,6 +32,11 @@ public class BossHealthBar extends Element{
 		
 		Draw.color(Color.PURPLE);
 		DrawContext.batch.draw(region, x, y, width*frac, height);
+		
+		Draw.tcolor(Color.DARK_GRAY);
+		Draw.text(name, x+width/2, y+height-6);
+		Draw.tcolor(Color.WHITE);
+		Draw.text(name, x+width/2, y+height-4);
 		
 		Draw.color();
 	}

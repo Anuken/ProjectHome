@@ -52,7 +52,7 @@ public class WeaponTypes{
 		/**sets vector to staff tip*/
 		public void setTip(Player player){
 			setVector(player);
-			vector.add(player.x, player.y+player.height+5);
+			vector.add(player.x, player.y+Player.height+5);
 		}
 		
 		public String getStatString(){
@@ -65,17 +65,17 @@ public class WeaponTypes{
 			
 			offset = Mathf.lerp(offset, charge/chargetime*4f, 0.3f*Mathf.delta());
 			
-			Draw.rect(item.name, player.x+vector.x, offset+player.y+player.height+vector.y+4);
-			Draw.rect("hand", player.x+vector.x, offset+player.y+player.height+vector.y);
-			Draw.rect("hand", player.x+vector.x, offset+player.y+player.height+vector.y+1);
+			Draw.rect(item.name, player.x+vector.x, offset+player.y+Player.height+vector.y+4);
+			Draw.rect("hand", player.x+vector.x, offset+player.y+Player.height+vector.y);
+			Draw.rect("hand", player.x+vector.x, offset+player.y+Player.height+vector.y+1);
 			Draw.reset();
 			
 			if(charge > 0){
 				Draw.color(Color.WHITE, chargecolor, charge/chargetime);
-				Draw.polygon(3, player.x+vector.x+0.5f, player.y+player.height+vector.y+6+offset, 3);
+				Draw.polygon(3, player.x+vector.x+0.5f, player.y+Player.height+vector.y+6+offset, 3);
 				if(charge >= chargetime){
 					Draw.color(Color.WHITE, Color.SKY, Mathf.absin(Timers.time(), 5f, 1f));
-					Draw.polygon(3, player.x+vector.x+0.5f, player.y+player.height+vector.y+6+offset, 3);
+					Draw.polygon(3, player.x+vector.x+0.5f, player.y+Player.height+vector.y+6+offset, 3);
 				}
 			}
 			
@@ -87,7 +87,7 @@ public class WeaponTypes{
 			setVector(player);
 			
 			float x = player.x + vector.x;
-			float y = player.y + player.height + vector.y + 5;
+			float y = player.y + Player.height + vector.y + 5;
 			
 			if(Inputs.buttonRelease(Buttons.RIGHT)){
 				if(charge >= chargetime){
@@ -167,24 +167,24 @@ public class WeaponTypes{
 			
 			vector.set(1,1).setAngle(player.angle()+swingang+swingoffset);
 			
-			Draw.borect(item.name, player.x, player.y+player.height, player.angle()-90+swingang+swingoffset);
+			Draw.borect(item.name, player.x, player.y+Player.height, player.angle()-90+swingang+swingoffset);
 			
 			vector.setLength(2f);
-			Draw.rect("hand", player.x + vector.x, player.y+player.height+vector.y);
+			Draw.rect("hand", player.x + vector.x, player.y+Player.height+vector.y);
 			vector.setLength(1f);
-			Draw.rect("hand", player.x + vector.x, player.y+player.height+vector.y);
+			Draw.rect("hand", player.x + vector.x, player.y+Player.height+vector.y);
 			
 			vector.setAngle(player.angle()+swingang+swingoffset).setLength(5f);
 			
 			if(charge > 0){
 				Draw.color(Color.WHITE, Color.ORANGE, charge/chargetime);
-				Draw.lineAngle(player.x+vector.x, player.y+player.height+vector.y, vector.angle(), reach-3f);
+				Draw.lineAngle(player.x+vector.x, player.y+Player.height+vector.y, vector.angle(), reach-3f);
 				//Draw.polygon(3, player.x+vector.x, player.y+player.height+vector.y, 1.4f, vector.angle()-30-180);
 			}
 			
 			if(charge >= chargetime){
 				Draw.color(Color.WHITE, Color.SKY, Mathf.absin(Timers.time(), 5f, 1f));
-				Draw.polygon(3, player.x+vector.x, player.y+player.height+vector.y, 3, vector.angle()-30-180);
+				Draw.polygon(3, player.x+vector.x, player.y+Player.height+vector.y, 3, vector.angle()-30-180);
 			}
 			
 			Draw.color();
@@ -231,7 +231,7 @@ public class WeaponTypes{
 		void slash(Player player, Projectiles projectile, String effect, int damage){
 			float delta = Entity.delta;
 			Vector2 vector = Module.vector;
-			float height = player.height;
+			float height = Player.height;
 			float x = player.x, y = player.y;
 			
 			int sdir = Mathf.sign(swing);

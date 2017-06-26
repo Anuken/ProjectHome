@@ -25,6 +25,7 @@ public class Boss extends Enemy{
 	private float rotation = 0f;
 	private Phase phase = Phase.values()[0];
 	private float phasetime = 1200f;
+	private float transitiontime = 260f;
 	
 	static{
 		int c = 20;
@@ -46,7 +47,7 @@ public class Boss extends Enemy{
 	}
 	
 	public Boss(){
-		setMaxHealth(4000);
+		setMaxHealth(4600);
 		hitsize = 20;
 		hitoffsety = 10;
 		
@@ -63,9 +64,7 @@ public class Boss extends Enemy{
 	@Override
 	public void retarget(){
 		
-		//boolean wasvalid = targetValid();
-		
-		target = Vars.control.player;
+		target = Vars.control.getPlayer();
 		
 		if(targetValid()){
 			idletime = 0;
@@ -75,12 +74,9 @@ public class Boss extends Enemy{
 		}
 		
 		if(target == null){
-			Vars.ui.setBossBarVisible(false);
-			Vars.control.boss = null;
+			Vars.control.resetBoss(this);
 		}else{
-			Vars.ui.setBossBarVisible(true);
-			Vars.ui.getBossBar().setEntity(this);
-			Vars.control.boss = this;
+			Vars.control.setBoss(this);
 		}
 	}
 	
@@ -177,7 +173,7 @@ public class Boss extends Enemy{
 			
 			Phase fin = next;
 			
-			Timers.run(180, ()->{
+			Timers.run(transitiontime, ()->{
 				if(target != null) 
 					rotation = angleTo(target, height);
 				phase = fin;

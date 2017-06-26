@@ -16,19 +16,19 @@ import io.anuke.ucore.util.Timers;
 
 public class Player extends Creature{
 	public static final float hitdur = 30;
-	public float height = 4;
-	public Direction direction = right;
+	public static final float basespeed = 1.8f;
+	public static final float height = 4;
+	
+	private Direction direction = right;
+	private float hittime;
+	private boolean oncheckpoint = false;
+	private float dashscl = 1f;
+	private float dashcharge = 15f;
+	
 	public Item weapon;
-	public float hittime;
-	public boolean oncheckpoint = false;
-	public float dashscl = 1f;
-	public float dashcharge = 15f;
-	
-	public final float basespeed = 1.8f;
-	
 	public int defense;
 	public int attack;
-	public float speed = basespeed;
+	public float speed;
 	
 	private float walktime;
 	private float walkspeed = 0.09f;
@@ -40,6 +40,17 @@ public class Player extends Creature{
 		hitoffsety = 4;
 	}
 	
+	public void reset(){
+		direction = right;
+		weapon = null;
+		speed = defense = attack = 0;
+	}
+	
+	public float getHitTime(){
+		return hittime/hitdur;
+	}
+	
+	@Override
 	public void drawRenderables(){
 		draw(b->{
 			String walk = "";
@@ -113,6 +124,7 @@ public class Player extends Creature{
 		Effects.effect("explosion", this);
 		Effects.sound("death", this);
 		remove();
+		oncheckpoint = true;
 		
 		Vars.control.onDeath();
 	}
@@ -153,7 +165,7 @@ public class Player extends Creature{
 		
 		vector.set(0, 0);
 		
-		float speed = this.speed*delta;
+		float speed = (this.speed+basespeed)*delta;
 		
 		if(Inputs.keyDown("dash")){
 			dashscl -= delta/dashcharge;

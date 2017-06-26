@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 
 import io.anuke.home.GameState.State;
+import io.anuke.home.entities.Enemy;
 import io.anuke.home.ui.BossHealthBar;
 import io.anuke.home.ui.HealthBar;
 import io.anuke.home.ui.Inventory;
@@ -201,7 +202,7 @@ public class UI extends SceneModule{
 			new table("button"){{
 				HealthBar bar = new HealthBar();
 				
-				add(bar).fillX().expandX().height(24);//.size(370, 24);
+				add(bar).fillX().expandX().height(24).padBottom(2);//.size(370, 24);
 			}}.left().end().fillX();
 			
 			row();
@@ -218,8 +219,18 @@ public class UI extends SceneModule{
 			bossbar = new BossHealthBar();
 			atop().aleft();
 			
+			bossbar.update(()->{
+				Enemy boss = Vars.control.getBoss();
+				if(boss == null){
+					bossbar.getParent().setVisible(false);
+				}else{
+					bossbar.setEntity(boss);
+					bossbar.getParent().setVisible(true);
+				}
+			});
+			
 			new table("button"){{
-				add(bossbar).height(28).growX();
+				add(bossbar).height(28).growX().padBottom(2);
 				get().setVisible(false);	
 			}}.end().growX();
 			
@@ -227,14 +238,6 @@ public class UI extends SceneModule{
 		}}.end();
 		
 		build.end();
-	}
-	
-	public void setBossBarVisible(boolean visible){
-		bossbar.getParent().setVisible(visible);
-	}
-	
-	public BossHealthBar getBossBar(){
-		return bossbar;
 	}
 	
 	public void clearInventory(){

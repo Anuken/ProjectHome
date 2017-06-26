@@ -21,18 +21,19 @@ import io.anuke.ucore.renderables.RenderableHandler;
 import io.anuke.ucore.util.Timers;
 
 public class Control extends RendererModule{
-	public Player player;
-	public Enemy boss;
+	private final int startx = 525, starty = 1024-898;
+	
+	private Player player;
+	private Enemy boss;
+	
+	private Tile checkpoint;
+	private Array<Enemy> killed = new Array<>();
 	
 	//boss starting coords
 	//private final int startx = 552, starty=1024-177;
 	
 	//dungeon starting coords
 	//private final int startx = 522, starty=1024-414;
-	
-	private final int startx = 525, starty = 1024-898;
-	private Tile checkpoint;
-	private Array<Enemy> killed = new Array<>();
 	
 	//private GifRecorder recorder = new GifRecorder(batch);
 	
@@ -65,7 +66,11 @@ public class Control extends RendererModule{
 				"slash2.wav", "tentadie.wav", "ult.wav", "walls.wav", "death.wav", "bossdie.wav", "respawn.wav");
 		
 		Musics.load("menu.ogg", "world1.mp3", "world2.mp3", "world3.mp3", "boss.mp3");
-
+		
+		Musics.createTracks("world", "world1", "world2", "world3");
+		Musics.createTracks("menu", "menu");
+		Musics.createTracks("boss", "boss");
+		
 		Entities.initPhysics();
 		Entities.setCollider(Vars.tilesize, (x, y)->{
 			Tile tile = World.get(x, y);
@@ -82,8 +87,23 @@ public class Control extends RendererModule{
 	
 	@Override
 	public void init(){
+		player = new Player();
+				
 		World.create();
 		reset();
+	}
+	
+	public void setBoss(Enemy boss){
+		this.boss = boss;
+	}
+	
+	public Enemy getBoss(){
+		return boss;
+	}
+	
+	public void resetBoss(Enemy boss){
+		if(boss == this.boss)
+			this.boss = null;
 	}
 	
 	public void addKill(Enemy e){
@@ -101,14 +121,17 @@ public class Control extends RendererModule{
 		killed.clear();
 	}
 	
+	public Player getPlayer(){
+		return player;
+	}
+	
 	public void respawn(){
 		
 		if(GameState.is(State.playing))
 			Effects.sound("respawn");
 		
 		player.heal();
-		player/*.set(12*522, 12*(1024-597))*/.set(checkpoint.worldx(), checkpoint.worldy()).add();
-		player.oncheckpoint = true;
+		player.set(checkpoint.worldx(), checkpoint.worldy()).add();
 		
 		for(Enemy enemy : killed){
 			enemy.heal();
@@ -133,7 +156,9 @@ public class Control extends RendererModule{
 		
 		float center = Vars.worldsize*Vars.tilesize/2f;
 		
-		player = new Player().add();
+		player.removed();
+		player.reset();
+		player.add();
 		
 		respawn();
 		
@@ -167,12 +192,12 @@ public class Control extends RendererModule{
 			smoothCamera(player.x, player.y+2f, 0.3f);
 			
 			if(boss != null){
-				Musics.loop("boss");
+				Musics.playTracks("boss");
 			}else{
-				Musics.shuffle("world1", "world2", "world3");
+				Musics.playTracks("world");
 			}
 		}else{
-			Musics.loop("menu");
+			Musics.playTracks("menu");
 			smoothCamera(startx*Vars.tilesize, starty*Vars.tilesize, 0.1f);
 		}
 		
