@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import io.anuke.home.GameState.State;
 import io.anuke.home.entities.Enemy;
 import io.anuke.home.entities.Player;
+import io.anuke.home.world.Generator;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.ucore.core.*;
@@ -147,9 +148,9 @@ public class Control extends RendererModule{
 		RenderableHandler.instance().clear();
 		Renderer.updateWalls();
 		killed.clear();
-		World.generate();
+		Generator.generate();
 		Entities.clear();
-		World.addDoors();
+		Generator.addDoors();
 		Renderer.clearWorld();
 		
 		checkpoint = World.get(startx, starty);
@@ -201,9 +202,9 @@ public class Control extends RendererModule{
 			smoothCamera(startx*Vars.tilesize, starty*Vars.tilesize, 0.1f);
 		}
 		
-		
 		updateShake();
 		clampCamera(0, 0, Vars.worldsize*Vars.tilesize-Vars.tilesize/2, Vars.worldsize*Vars.tilesize-Vars.tilesize/2);
+		
 		camera.update();
 		
 		drawDefault();

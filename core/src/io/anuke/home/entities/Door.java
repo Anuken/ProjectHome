@@ -5,9 +5,7 @@ import com.badlogic.gdx.utils.Array;
 
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
-import io.anuke.home.world.Block;
-import io.anuke.home.world.Blocks;
-import io.anuke.home.world.World;
+import io.anuke.home.world.*;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.entities.Entities;
 import io.anuke.ucore.entities.Entity;
@@ -100,7 +98,7 @@ public class Door extends Entity{
 		for(int x = 0; x < width; x ++){
 			for(int y = 0; y < height; y ++){
 				int worldx = tilex-x, worldy = front ? tiley-y : tiley + y;
-				World.placeWall(worldx, worldy, block);
+				Generator.placeWall(worldx, worldy, block);
 				Effects.effect("dust", (worldx)*Vars.tilesize, (worldy)*Vars.tilesize);
 			}
 		}
