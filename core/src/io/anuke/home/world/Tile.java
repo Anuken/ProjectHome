@@ -1,6 +1,7 @@
 package io.anuke.home.world;
 
 import io.anuke.home.Vars;
+import io.anuke.ucore.util.Mathf;
 
 public class Tile{
 	public Block floor, wall;
@@ -17,6 +18,10 @@ public class Tile{
 		this(x,y);
 		this.floor = floor;
 		this.wall = wall;
+	}
+	
+	public int rand(int max){
+		return Mathf.randomSeed(x*y, 1, max);
 	}
 	
 	public int worldx(){

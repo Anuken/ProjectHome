@@ -49,8 +49,8 @@ public class Renderer{
 		int camx = Mathf.scl(camera.position.x, tilesize);
 		int camy = Mathf.scl(camera.position.y, tilesize);
 
-		int crangex = Math.round(camera.viewportWidth / (chunksize * tilesize)) + 1;
-		int crangey = Math.round(camera.viewportHeight / (chunksize * tilesize)) + 1;
+		int crangex = Math.round(camera.viewportWidth * camera.zoom / (chunksize * tilesize)) + 1;
+		int crangey = Math.round(camera.viewportHeight * camera.zoom / (chunksize * tilesize)) + 1;
 
 		Draw.end();
 		
@@ -65,7 +65,7 @@ public class Renderer{
 				}
 
 				if(caches[worldx][worldy] == null){
-					renderChunk(worldx, worldy);
+					cacheChunk(worldx, worldy);
 				}
 
 				caches[worldx][worldy].render();
@@ -76,8 +76,8 @@ public class Renderer{
 		
 		int padding = 6;
 		//view range x/y (block only)
-		int vrx = Mathf.scl2(camera.viewportWidth, tilesize)+padding;
-		int vry = Mathf.scl2(camera.viewportHeight, tilesize)+padding;
+		int vrx = Mathf.scl2(camera.viewportWidth * camera.zoom, tilesize)+padding;
+		int vry = Mathf.scl2(camera.viewportHeight * camera.zoom, tilesize)+padding;
 		
 		//change renderable list size on screen resize/startup
 		if(renderables == null || renderables.length != vrx || renderables[0].length != vry){
@@ -130,9 +130,25 @@ public class Renderer{
 		}
 	}
 	
+	public static void updateWall(int x, int y){
+		//TODO optimization
+		updateWalls();
+	}
+	
+	public static void updateFloor(int x, int y){
+		int cx = x/chunksize;
+		int cy = y/chunksize;
+		
+		if(caches[cx][cy] != null){
+			caches[cx][cy].dispose();
+		}
+		
+		cacheChunk(cx, cy);
+	}
+	
 	private static void renderBottom(Tile tile){
-		float length =  2+Mathf.random(0, 5);
-		float rnd = 0.95f + 0.05f*Mathf.random(0, 2);
+		float length =  1 + tile.rand(6);
+		float rnd = 0.95f + 0.05f * (tile.rand(3)-1);
 		Caches.color(tile.floor.edgecolor.cpy().mul(rnd, rnd, rnd, 1f));
 		for(int i = 0; i < length; i ++){
 			Caches.draw(Draw.region("wall"), tile.worldx()-6, tile.worldy()-6-i*6, 12, -6);
@@ -140,7 +156,7 @@ public class Renderer{
 		Caches.draw("edge", tile.worldx(), tile.worldy() - 12 - length*6);
 	}
 
-	private static void renderChunk(int x, int y){
+	private static void cacheChunk(int x, int y){
 		Caches.begin(1600);
 		
 		for(int tilex = x * chunksize; tilex < (x + 1) * chunksize; tilex++){
@@ -157,8 +173,6 @@ public class Renderer{
 		for(int tilex = x * chunksize; tilex < (x + 1) * chunksize; tilex++){
 			for(int tiley = y * chunksize; tiley < (y + 1) * chunksize; tiley++){
 				World.get(tilex, tiley).floor.type.drawCache(World.get(tilex, tiley), World.get(tilex, tiley).floor);
-				
-				
 			}
 		}
 		caches[x][y] = Caches.end();

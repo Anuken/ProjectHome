@@ -6,7 +6,7 @@ public class Blocks{
 	public static final Block
 	
 	air = new Block("air", BlockType.empty),
-	sky = new Block("air", BlockType.empty){{
+	sky = new Block("sky", BlockType.empty){{
 		overrideSolid = true;
 		solid = true;
 	}},

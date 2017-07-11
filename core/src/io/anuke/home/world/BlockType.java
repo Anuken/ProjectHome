@@ -13,19 +13,19 @@ import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
 public enum BlockType{
-	empty{
+	empty(false){
 		public void drawCache(Tile tile, Block block){
 			BlockType.tile.drawCache(tile, block);
 		}
 	},
-	tile{
+	tile(true){
 		private TextureRegion temp = new TextureRegion();
 		
 		public void drawCache(Tile tile, Block block){
 			if(tile.wall.type == BlockType.wall) return;
 			
 			if(block != Blocks.air)
-				Caches.draw(block.name + (block.vary ? Mathf.random(1, block.variants) : ""), tile.worldx(), tile.worldy());
+				Caches.draw(block.name + (block.vary ? tile.rand(block.variants) : ""), tile.worldx(), tile.worldy());
 			
 			for(int dx = -1; dx <= 1; dx ++){
 				for(int dy = -1; dy <= 1; dy ++){
@@ -64,15 +64,15 @@ public enum BlockType{
 			}
 		}
 	},
-	wall(true){
+	wall(false, true){
 		public void draw(RenderableList list, Tile tile, Block block){
 			new SpriteRenderable(block.name).set(tile.worldx(), tile.worldy()-Vars.tilesize/2f)
 			.centerX().addShadow(list, "wallshadow", 6).sort(Sorter.object).add(list);
 		}
 	},
-	tree(true){
+	tree(false, true){
 		public void draw(RenderableList list, Tile tile, Block block){
-			new SpriteRenderable(block.name + (block.vary ? Mathf.randomSeed(tile.x*tile.y, 1, block.variants) : "")).set(tile.worldx(), tile.worldy()-block.offset)
+			new SpriteRenderable(block.name + (block.vary ? tile.rand(block.variants) : "")).set(tile.worldx(), tile.worldy()-block.offset)
 			.layer(tile.worldy())
 			.centerX().addShadow(list, block.offset).sort(Sorter.object).add(list);
 		}
@@ -82,7 +82,7 @@ public enum BlockType{
 			.setCenter(tile.worldx(), tile.worldy());
 		}
 	},
-	checkpoint{
+	checkpoint(false){
 		public void draw(RenderableList list, Tile tile, Block block){
 			
 			new SpriteRenderable("respawnpointedge").set(tile.worldx(), tile.worldy())
@@ -98,7 +98,7 @@ public enum BlockType{
 			}).add(list);
 		}
 	},
-	object(true){
+	object(false, true){
 		public void draw(RenderableList list, Tile tile, Block block){
 			new SpriteRenderable(block.name).set(tile.worldx(), tile.worldy()-block.offset)
 			.layer(tile.worldy())
@@ -110,9 +110,9 @@ public enum BlockType{
 			.setCenter(tile.worldx(), tile.worldy());
 		}
 	},
-	overlay(false){
+	overlay(false, false){
 		public void draw(RenderableList list, Tile tile, Block block){
-			String name = block.name + (block.vary ? Mathf.randomSeed(tile.x*tile.y, 1, block.variants) : "");
+			String name = block.name + (block.vary ? tile.rand(block.variants) : "");
 			new SpriteRenderable(name).set(tile.worldx(), tile.worldy()-block.offset)
 			.layer(tile.worldy()+30)
 			.center().addShadow(list, name,block.offset+8).sort(Sorter.object).add(list);
@@ -123,7 +123,7 @@ public enum BlockType{
 			.setCenter(tile.worldx(), tile.worldy());
 		}
 	},
-	spawner{
+	spawner(false){
 		public void draw(RenderableList list, Tile tile, Block block){
 			if(tile.data == null || !(tile.data instanceof Entity)){
 				throw new IllegalArgumentException("Spawner tile detected without any valid spawn data!");
@@ -137,12 +137,15 @@ public enum BlockType{
 		}
 	};
 	private final boolean solid;
+	public final boolean floor;
 	
-	private BlockType(){
+	private BlockType(boolean floor){
 		solid = false;
+		this.floor = floor;
 	}
-	private BlockType(boolean solid){
+	private BlockType(boolean floor, boolean solid){
 		this.solid = solid;
+		this.floor = floor;
 	}
 	
 	public boolean solid(Block block){

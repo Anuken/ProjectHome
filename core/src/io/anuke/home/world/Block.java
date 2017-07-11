@@ -25,6 +25,10 @@ public class Block{
 		blocks.add(this);
 	}
 	
+	public static Array<Block> getAllBlocks(){
+		return blocks;
+	}
+	
 	public static Block byID(int id){
 		return blocks.get(id);
 	}
