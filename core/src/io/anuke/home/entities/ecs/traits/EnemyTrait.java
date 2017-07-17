@@ -49,19 +49,7 @@ public class EnemyTrait extends Trait{
 		);
 		
 		type.traitEvent(Death.class, spark->{
-			Enemy enemy = (Enemy)spark.getType();
-			//TODO addKill fix
-			//Vars.control.addKill(this);
-			for(int i = 0; i < 4; i++){
-				Effects.effect("hit", spark.pos().x + Mathf.range(5), spark.pos().y + Mathf.range(5) + enemy.height);
-			}
-
-			Effects.effect(enemy.deatheffect, spark.pos().x, spark.pos().y + enemy.height);
-			Effects.sound(enemy.deathsound, spark);
-
-			spark.remove();
-			
-			dropStuff(spark);
+			((Enemy)spark.getType()).onDeath(spark);
 		});
 	}
 	
@@ -118,7 +106,7 @@ public class EnemyTrait extends Trait{
 						tile.wall = Blocks.spawner;
 						spark.health().heal();
 						spark.remove();
-						reset(spark);
+						((Enemy)spark.getType()).reset(spark);
 					}else{
 						idletime = 0f;
 					}
@@ -130,10 +118,6 @@ public class EnemyTrait extends Trait{
 		//target = (DestructibleEntity)Entities.getClosest(x, y, 100, e->{
 		//	return e instanceof Player;
 		//});
-	}
-	
-	public void reset(Spark spark){
-		spark.health().heal();
 	}
 	
 	public void moveToward(Spark spark){

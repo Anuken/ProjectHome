@@ -4,6 +4,7 @@ import io.anuke.home.entities.ecs.traits.EnemyTrait;
 import io.anuke.home.entities.ecs.traits.HealthBarTrait;
 import io.anuke.home.entities.ecs.traits.LootTrait;
 import io.anuke.home.items.Items;
+import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.*;
 import io.anuke.ucore.ecs.extend.traits.*;
 import io.anuke.ucore.ecs.extend.traits.ProjectileTrait.ProjectileType;
@@ -56,6 +57,25 @@ public abstract class Enemy extends Prototype{
 	public abstract void move(Spark spark);
 	public abstract void draw(Spark spark, RenderableTrait trait);
 	
+	public void onDeath(Spark spark){
+		//TODO addKill fix
+		//Vars.control.addKill(this);
+		for(int i = 0; i < 4; i++){
+			Effects.effect("hit", spark.pos().x + Mathf.range(5), spark.pos().y + Mathf.range(5) + height);
+		}
+		
+		Effects.effect(deatheffect, spark.pos().x, spark.pos().y + height);
+		Effects.sound(deathsound, spark);
+		
+		spark.remove();
+		
+		spark.get(EnemyTrait.class).dropStuff(spark);
+	}
+	
+	public void reset(Spark spark){
+		spark.health().heal();
+	}
+	
 	public Trait data(){
 		return null;
 	}
@@ -69,6 +89,11 @@ public abstract class Enemy extends Prototype{
 	}
 	
 	public static void shoot(Spark spark, ProjectileType type, float x, float y, float angle){
+		Projectile.create(type, spark, x, y, angle);
+	}
+	
+	public static void shoot(Spark spark, ProjectileType type, int damage, float x, float y, float angle){
+		//TODO
 		Projectile.create(type, spark, x, y, angle);
 	}
 }
