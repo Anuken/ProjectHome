@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 import io.anuke.home.entities.Enemy;
-import io.anuke.home.entities.Projectiles;
+import io.anuke.home.entities.ecs.types.Projectiles;
 import io.anuke.home.items.Items;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
@@ -93,8 +93,7 @@ public class Tentacolumn extends Enemy{
 	}
 
 	public void move(){
-		//moveToward();
-
+		
 		if(Timers.get(this, "reload", reload)){
 			Vector2 offset = offsets[eye];
 			

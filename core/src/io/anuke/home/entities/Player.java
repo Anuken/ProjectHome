@@ -3,6 +3,7 @@ package io.anuke.home.entities;
 import static io.anuke.home.entities.Direction.*;
 
 import io.anuke.home.Vars;
+import io.anuke.home.entities.ecs.types.Projectiles;
 import io.anuke.home.items.Item;
 import io.anuke.home.world.Blocks;
 import io.anuke.home.world.Tile;

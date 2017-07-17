@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 import io.anuke.home.entities.Player;
-import io.anuke.home.entities.Projectiles;
+import io.anuke.home.entities.ecs.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.core.Inputs;

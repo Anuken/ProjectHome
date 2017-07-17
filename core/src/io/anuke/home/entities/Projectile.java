@@ -1,5 +1,6 @@
 package io.anuke.home.entities;
 
+import io.anuke.home.entities.ecs.types.Projectiles;
 import io.anuke.ucore.entities.BulletEntity;
 import io.anuke.ucore.entities.Entity;
 

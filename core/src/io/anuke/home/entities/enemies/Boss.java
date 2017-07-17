@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import io.anuke.home.Vars;
 import io.anuke.home.entities.Enemy;
 import io.anuke.home.entities.Projectile;
-import io.anuke.home.entities.Projectiles;
+import io.anuke.home.entities.ecs.types.Projectiles;
 import io.anuke.home.items.Items;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
@@ -17,6 +17,7 @@ import io.anuke.ucore.util.Timers;
 
 public class Boss extends Enemy{
 	static final Color tent = new Color(0x500680ff);
+	
 	private Particle[] particles = new Particle[100];
 	private float plife = 80;
 	private float eyeflash = 0f;

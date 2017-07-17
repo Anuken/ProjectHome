@@ -58,10 +58,11 @@ public class ItemDrop extends Prototype{
 		);
 	}
 	
-	public static Spark create(ItemStack stack){
+	public static Spark create(ItemStack stack, float x, float y){
 		Spark spark = new Spark(Prototypes.itemdrop);
 		spark.get(VelocityTrait.class).vector.setToRandomDirection();
 		spark.get(DropTrait.class).stack = stack;
+		spark.pos().set(x, y);
 		return spark;
 	}
 
