@@ -20,8 +20,8 @@ public abstract class Enemy extends Prototype{
 	public int maxhealth = 100;
 	public float height = 8;
 	public float speed = 0.5f;
-	public float hitoffset = 12;
-	public float hitsize = 8;
+	public float hitoffset = 0;
+	public float hitsize = 10;
 	public String hiteffect = "hit", 
 			deatheffect = "death", 
 			deathsound = "tentadie";
@@ -66,7 +66,7 @@ public abstract class Enemy extends Prototype{
 		TraitList list = new TraitList(
 			new PosTrait(),
 			new TileCollideTrait(),
-			new ColliderTrait(hitsize, hitsize, 0, hitsize/2),
+			new ColliderTrait(hitsize, hitsize, 0, hitsize/2 + hitoffset),
 			new TileCollideTrait(1f, 2f, 5, 4),
 			new HealthTrait(maxhealth),
 			new HealthBarTrait(),

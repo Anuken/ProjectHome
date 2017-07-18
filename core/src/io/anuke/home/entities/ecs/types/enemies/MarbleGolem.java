@@ -1,6 +1,5 @@
 package io.anuke.home.entities.ecs.types.enemies;
 
-import io.anuke.home.entities.ecs.traits.EnemyTrait;
 import io.anuke.home.entities.ecs.types.Enemy;
 import io.anuke.home.entities.ecs.types.Projectiles;
 import io.anuke.ucore.core.Draw;
@@ -88,9 +87,11 @@ public class MarbleGolem extends Enemy{
 	@Override
 	public void draw(Spark spark, RenderableTrait trait){
 		trait.draw(p -> {
+			Data data = spark.get(Data.class);
+			
 			Draw.grect("marblegolem-armless", spark.pos().x, spark.pos().y);
 
-			Draw.grect("marblegolem-arms", spark.pos().x, spark.pos().y + spark.get(EnemyTrait.class).rot);
+			Draw.grect("marblegolem-arms", spark.pos().x, spark.pos().y + data.armraise);
 
 			p.layer = spark.pos().y;
 		});

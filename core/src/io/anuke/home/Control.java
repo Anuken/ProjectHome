@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 
 import io.anuke.home.GameState.State;
 import io.anuke.home.entities.ecs.Prototypes;
+import io.anuke.home.entities.ecs.processors.HealthBarProcessor;
 import io.anuke.home.entities.ecs.traits.PlayerTrait;
 import io.anuke.home.world.Generator;
 import io.anuke.home.world.Tile;
@@ -66,6 +67,7 @@ public class Control extends RendererModule{
 			tile.wall.type.getHitbox(tile, tile.wall, out);
 		}));
 		
+		basis.addProcessor(new HealthBarProcessor());
 		basis.addProcessor(new DrawProcessor());
 	
 		KeyBinds.defaults(
