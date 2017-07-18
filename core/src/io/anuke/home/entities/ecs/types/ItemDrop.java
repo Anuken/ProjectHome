@@ -3,7 +3,6 @@ package io.anuke.home.entities.ecs.types;
 import com.badlogic.gdx.math.Vector2;
 
 import io.anuke.home.Vars;
-import io.anuke.home.entities.Player;
 import io.anuke.home.entities.ecs.Prototypes;
 import io.anuke.home.entities.ecs.traits.DropTrait;
 import io.anuke.home.items.ItemStack;
@@ -34,9 +33,9 @@ public class ItemDrop extends Prototype{
 							x = spark.pos().x, y = spark.pos().y,
 							size = spark.get(DropTrait.class).size;
 					
-					Player player = Vars.control.getPlayer();
+					Spark player = Vars.control.getPlayer();
 					
-					if(Vector2.dst(x, y, player.x, player.y) < pickuprange && 
+					if(Vector2.dst(x, y, player.pos().x, player.pos().y) < pickuprange && 
 							Mathf.near2d(x, y+5, Graphics.mouseWorld().x, Graphics.mouseWorld().y, 4f)){
 						
 						Draw.color("purple");

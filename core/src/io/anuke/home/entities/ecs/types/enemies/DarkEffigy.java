@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 import io.anuke.home.Vars;
+import io.anuke.home.entities.ecs.traits.BossTrait;
 import io.anuke.home.entities.ecs.traits.EnemyTrait;
 import io.anuke.home.entities.ecs.types.Enemy;
 import io.anuke.home.entities.ecs.types.Projectiles;
@@ -11,6 +12,8 @@ import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
+import io.anuke.ucore.ecs.TraitList;
+import io.anuke.ucore.ecs.extend.Events.Death;
 import io.anuke.ucore.ecs.extend.traits.RenderableTrait;
 import io.anuke.ucore.util.Geometry;
 import io.anuke.ucore.util.Mathf;
@@ -26,38 +29,42 @@ public class DarkEffigy extends Enemy{
 		hitoffset = 10;
 		height = 20;
 		range = 400;
+		
+		event(Death.class, spark->{
+			float x = spark.pos().x, y = spark.pos().y;
+			
+			Effects.shake(10, 60f);
+			Effects.effect("wraithdie", x, y+10);
+			Effects.sound("bossdie", spark);
+			
+			for(int i = 0; i < 40; i ++){
+				Timers.run(Mathf.random(55), ()->{
+					Effects.effect("purpleblood", x + Mathf.range(20), y + Mathf.range(20));
+				});
+				
+			}
+			
+			Timers.run(120, ()->{
+				Vars.ui.showVictory();
+			});
+			
+			//TODO
+			/*
+			Entities.getNearby(x, y, 300, e->{
+				if(e instanceof Projectile && e != this){
+					Effects.effect("shotshrink", e);
+					e.remove();
+				}
+			});
+			*/
+			
+			spark.remove();
+		});
 	}
 	
 	@Override
-	public void onDeath(Spark spark){
-		float x = spark.pos().x, y = spark.pos().y;
-		
-		Effects.shake(10, 60f);
-		Effects.effect("wraithdie", x, y+10);
-		Effects.sound("bossdie", spark);
-		
-		for(int i = 0; i < 40; i ++){
-			Timers.run(Mathf.random(55), ()->{
-				Effects.effect("purpleblood", x + Mathf.range(20), y + Mathf.range(20));
-			});
-			
-		}
-		
-		Timers.run(120, ()->{
-			Vars.ui.showVictory();
-		});
-		
-		//TODO
-		/*
-		Entities.getNearby(x, y, 300, e->{
-			if(e instanceof Projectile && e != this){
-				Effects.effect("shotshrink", e);
-				e.remove();
-			}
-		});
-		*/
-		
-		spark.remove();
+	public TraitList traits(){
+		return super.traits().with(new BossTrait("Dark Effigy"));
 	}
 
 	@Override

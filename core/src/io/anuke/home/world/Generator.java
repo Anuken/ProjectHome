@@ -10,9 +10,10 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 import io.anuke.home.Vars;
 import io.anuke.home.entities.Door;
-import io.anuke.home.entities.Enemy;
 import io.anuke.home.entities.PlayerDoor;
-import io.anuke.home.entities.enemies.*;
+import io.anuke.home.entities.ecs.Prototypes;
+import io.anuke.ucore.ecs.Prototype;
+import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.entities.Entity;
 import io.anuke.ucore.noise.Noise;
 import io.anuke.ucore.util.Mathf;
@@ -20,6 +21,7 @@ import io.anuke.ucore.util.Mathf;
 public class Generator{
 	private static ObjectMap<Integer, Block> map = new ObjectMap<>();
 	private static ObjectMap<Integer, String> structmap = new ObjectMap<>();
+	private static ObjectMap<Integer, Prototype> protomap = new ObjectMap<>();
 	private static ObjectMap<String, Pixmap> pixmaps = new ObjectMap<>();
 	private static Array<Door> doors = new Array<Door>();
 	private static Pixmap pixmap;
@@ -47,6 +49,12 @@ public class Generator{
 		structmap.put(0x7b5cffff, "tentaboss");
 		structmap.put(0xff86dbff, "golemtemple");
 		structmap.put(0x4cff83ff, "golemaltar");
+		
+		protomap.put(0xffdadcff, Prototypes.marblegolem);
+		protomap.put(0xff874cff, Prototypes.darkeffigy);
+		protomap.put(0xae5b5fff, Prototypes.marbledrone);
+		protomap.put(0xf64e56ff, Prototypes.marbleobelisk);
+		protomap.put(0xff51ccff, Prototypes.tentacolumn);
 	}
 	
 	public static void addDoors(){
@@ -88,11 +96,11 @@ public class Generator{
 		}
 	}
 	
-	public static void placeSpawner(int x, int y, Enemy enemy){
+	public static void placeSpawner(int x, int y, Prototype enemy){
 		Tile tile = get(x, y);
 		if(tile != null){
 			tile.wall = Blocks.spawner;
-			tile.data = enemy;
+			tile.data = new Spark(enemy);
 		}
 	}
 
@@ -133,52 +141,42 @@ public class Generator{
 				}
 				
 				if(color == 0xff00ffff){
-					doors.add(new Door(true, worldx, worldy));
+					//doors.add(new Door(true, worldx, worldy));
 				}else if(color == 0x00ff00ff){
-					doors.add(new Door(false, worldx, worldy));
+					//doors.add(new Door(false, worldx, worldy));
 				}else if(color == 0xff99feff){
 					Door door = new Door(true, worldx, worldy);
 					door.width = 8;
 					door.height = 2;
 					door.areaw = door.areah = 39;
-					doors.add(door);
+					//doors.add(door);
 				}else if(color == 0x99ffaaff){
 					Door door = new Door(false, worldx, worldy);
 					door.width = 8;
 					door.height = 4;
 					door.areaw = door.areah = 39;
-					doors.add(door);
+					//doors.add(door);
 				}else if(color == 0x00ffffff){
 					Door a = new Door(true, worldx, worldy+1);
 					Door b = new Door(false, worldx, worldy-1);
 					Door.link(a, b);
-					doors.add(a);
-					doors.add(b);
+					//doors.add(a);
+					//doors.add(b);
 				}else if(color == 0xa1ff6eff){
 					PlayerDoor door = new PlayerDoor(worldx, worldy);
 					door.width = 5;
-					doors.add(door);
+					//doors.add(door);
 				}else if(color == 0x6ef3ffff){
 					PlayerDoor door = new PlayerDoor(worldx, worldy);
 					door.front = false;
 					door.width = 5;
-					doors.add(door);
+					//doors.add(door);
 				}else if(color == 0xcaffadff){
 					PlayerDoor door = new PlayerDoor(worldx, worldy);
 					door.width = 4;
-					doors.add(door);
-				}
-				
-				if(color == 0xffdadcff){
-					placeSpawner(worldx, worldy, new MarbleGolem());
-				}else if(color == 0xff874cff){
-					placeSpawner(worldx, worldy, new Boss());
-				}else if(color == 0xae5b5fff){
-					placeSpawner(worldx, worldy, new MarbleDrone());
-				}else if(color == 0xf64e56ff){
-					placeSpawner(worldx, worldy, new MarbleObelisk());
-				}else if(color == 0xff51ccff){
-					placeSpawner(worldx, worldy, new Tentacolumn());
+					//doors.add(door);
+				}else if(protomap.containsKey(color)){
+					placeSpawner(worldx, worldy, protomap.get(color));
 				}
 				
 				if(name.equals("tentaboss")){
@@ -229,8 +227,7 @@ public class Generator{
 						wall = Blocks.pwall4;
 
 					if(wall == Blocks.air && Mathf.chance(0.0013)){
-						wall = Blocks.spawner;
-						get(x,y).data = Mathf.choose(new Tentapod(), new Tentawarrior(), new Tentafly());
+						placeSpawner(x, y, Mathf.choose(Prototypes.tentapod, Prototypes.tentawarrior, Prototypes.tentafly));
 					}
 				}
 				
@@ -275,16 +272,14 @@ public class Generator{
 
 							placeRad(x, y, size / 2 - 1, Blocks.pwall4);
 							//placeRad(x, y, size/2-2, Blocks.marker);
-
-							tile.wall = Blocks.spawner;
-							tile.data = new MarbleGolem();
+							
+							placeSpawner(x, y, Prototypes.marblegolem);
 						}else if(Mathf.chance(0.0004)){
 							placeSquare(x, y+1, 2, Blocks.marble);
 							placeFloor(x, y+1, Blocks.marbles);
 							placeWall(x, y+1, Blocks.marker);
 							
-							tile.data = new MarbleDrone();
-							tile.wall = Blocks.spawner;
+							placeSpawner(x, y, Prototypes.marbledrone);
 							
 						}else if(Mathf.chance(0.0002)){
 							placeCircle(x, y, 6, Blocks.pgrassdk);
@@ -292,7 +287,7 @@ public class Generator{
 							for(int i = 0; i < 6; i ++){
 								int nx = x + Mathf.range(4);
 								int ny = y + Mathf.range(4);
-								placeSpawner(nx, ny, Mathf.choose(new Tentapod(), new Tentawarrior(), new Tentafly()));
+								placeSpawner(nx, ny, Mathf.choose(Prototypes.tentapod, Prototypes.tentawarrior, Prototypes.tentafly));
 							}
 						}
 					}

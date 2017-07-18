@@ -4,11 +4,13 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
-import io.anuke.home.entities.Player;
+import io.anuke.home.entities.ecs.traits.PlayerTrait;
+import io.anuke.home.entities.ecs.types.Projectile;
 import io.anuke.home.entities.ecs.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.core.Inputs;
+import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.entities.Entity;
 import io.anuke.ucore.modules.Module;
 import io.anuke.ucore.util.*;
@@ -33,15 +35,16 @@ public class WeaponTypes{
 			speed = 30f;
 		}
 		
-		void setVector(Player player){
-			vector.set(1, 1).setAngle(player.angle()).setLength(4);
+		void setVector(Spark player){
+			vector.set(1, 1).setAngle(player.get(PlayerTrait.class).angle(player)).setLength(4);
 		}
 		
-		public void altAttack(Player player){
+		public void altAttack(Spark player){
 			Effects.shake(3f, 3f);
 			Geometry.circle(20, f->{
 				Angles.translation(f, 10f);
-				player.shoot(projectile, damage*2, vector.x + Angles.vector.x, vector.y + Angles.vector.y, f);
+				Projectile.create(projectile, player, damage*2, vector.x + Angles.vector.x, vector.y + Angles.vector.y, f);
+				//player.shoot(projectile, damage*2, vector.x + Angles.vector.x, vector.y + Angles.vector.y, f);
 			});
 		}
 		
@@ -50,9 +53,9 @@ public class WeaponTypes{
 		}
 		
 		/**sets vector to staff tip*/
-		public void setTip(Player player){
+		public void setTip(Spark player){
 			setVector(player);
-			vector.add(player.x, player.y+Player.height+5);
+			vector.add(player.pos().x, player.pos().y+PlayerTrait.height+5);
 		}
 		
 		public String getStatString(){
@@ -60,22 +63,22 @@ public class WeaponTypes{
 		}
 		
 		@Override
-		public void draw(Player player, Item item){
+		public void draw(Spark player, Item item){
 			setVector(player);
 			
 			offset = Mathf.lerp(offset, charge/chargetime*4f, 0.3f*Mathf.delta());
 			
-			Draw.rect(item.name, player.x+vector.x, offset+player.y+Player.height+vector.y+4);
-			Draw.rect("hand", player.x+vector.x, offset+player.y+Player.height+vector.y);
-			Draw.rect("hand", player.x+vector.x, offset+player.y+Player.height+vector.y+1);
+			Draw.rect(item.name, player.pos().x+vector.x, offset+player.pos().y+PlayerTrait.height+vector.y+4);
+			Draw.rect("hand", player.pos().x+vector.x, offset+player.pos().y+PlayerTrait.height+vector.y);
+			Draw.rect("hand", player.pos().x+vector.x, offset+player.pos().y+PlayerTrait.height+vector.y+1);
 			Draw.reset();
 			
 			if(charge > 0){
 				Draw.color(Color.WHITE, chargecolor, charge/chargetime);
-				Draw.polygon(3, player.x+vector.x+0.5f, player.y+Player.height+vector.y+6+offset, 3);
+				Draw.polygon(3, player.pos().x+vector.x+0.5f, player.pos().y+PlayerTrait.height+vector.y+6+offset, 3);
 				if(charge >= chargetime){
 					Draw.color(Color.WHITE, Color.SKY, Mathf.absin(Timers.time(), 5f, 1f));
-					Draw.polygon(3, player.x+vector.x+0.5f, player.y+Player.height+vector.y+6+offset, 3);
+					Draw.polygon(3, player.pos().x+vector.x+0.5f, player.pos().y+PlayerTrait.height+vector.y+6+offset, 3);
 				}
 			}
 			
@@ -83,11 +86,11 @@ public class WeaponTypes{
 		}
 		
 		@Override
-		public void update(Player player){
+		public void update(Spark player){
 			setVector(player);
 			
-			float x = player.x + vector.x;
-			float y = player.y + Player.height + vector.y + 5;
+			float x = player.pos().x + vector.x;
+			float y = player.pos().y + PlayerTrait.height + vector.y + 5;
 			
 			if(Inputs.buttonRelease(Buttons.RIGHT)){
 				if(charge >= chargetime){
@@ -113,7 +116,7 @@ public class WeaponTypes{
 				shot();
 				Effects.sound("shoot", player);
 				Geometry.shotgun(shots, shotspacing, Angles.mouseAngle(x, y), f->{
-					player.shoot(projectile, damage, x, y, f + Mathf.range(accuracy));
+					Projectile.create(projectile, player, damage, x, y, f + Mathf.range(accuracy));
 				});
 				
 			}
@@ -163,35 +166,36 @@ public class WeaponTypes{
 		}
 		
 		@Override
-		public void draw(Player player, Item item){
+		public void draw(Spark player, Item item){
+			float angle = player.get(PlayerTrait.class).angle(player);
 			
-			vector.set(1,1).setAngle(player.angle()+swingang+swingoffset);
+			vector.set(1,1).setAngle(angle+swingang+swingoffset);
 			
-			Draw.borect(item.name, player.x, player.y+Player.height, player.angle()-90+swingang+swingoffset);
+			Draw.borect(item.name, player.pos().x, player.pos().y+PlayerTrait.height, angle-90+swingang+swingoffset);
 			
 			vector.setLength(2f);
-			Draw.rect("hand", player.x + vector.x, player.y+Player.height+vector.y);
+			Draw.rect("hand", player.pos().x + vector.x, player.pos().y+PlayerTrait.height+vector.y);
 			vector.setLength(1f);
-			Draw.rect("hand", player.x + vector.x, player.y+Player.height+vector.y);
+			Draw.rect("hand", player.pos().x + vector.x, player.pos().y+PlayerTrait.height+vector.y);
 			
-			vector.setAngle(player.angle()+swingang+swingoffset).setLength(5f);
+			vector.setAngle(angle+swingang+swingoffset).setLength(5f);
 			
 			if(charge > 0){
 				Draw.color(Color.WHITE, Color.ORANGE, charge/chargetime);
-				Draw.lineAngle(player.x+vector.x, player.y+Player.height+vector.y, vector.angle(), reach-3f);
-				//Draw.polygon(3, player.x+vector.x, player.y+player.height+vector.y, 1.4f, vector.angle()-30-180);
+				Draw.lineAngle(player.pos().x+vector.x, player.pos().y+PlayerTrait.height+vector.y, vector.angle(), reach-3f);
+				//Draw.polygon(3, player.pos().x+vector.x, player.pos().y+player.height+vector.y, 1.4f, vector.angle()-30-180);
 			}
 			
 			if(charge >= chargetime){
 				Draw.color(Color.WHITE, Color.SKY, Mathf.absin(Timers.time(), 5f, 1f));
-				Draw.polygon(3, player.x+vector.x, player.y+Player.height+vector.y, 3, vector.angle()-30-180);
+				Draw.polygon(3, player.pos().x+vector.x, player.pos().y+PlayerTrait.height+vector.y, 3, vector.angle()-30-180);
 			}
 			
 			Draw.color();
 		}
 		
 		@Override
-		public void update(Player player){
+		public void update(Spark player){
 			if(swingoffset > 0){
 				swingang = 0;
 				for(int i = 0; i < swingtime; i ++){
@@ -228,11 +232,12 @@ public class WeaponTypes{
 			}
 		}
 		
-		void slash(Player player, Projectiles projectile, String effect, int damage){
+		void slash(Spark player, Projectiles projectile, String effect, int damage){
+			
 			float delta = Entity.delta;
 			Vector2 vector = Module.vector;
-			float height = Player.height;
-			float x = player.x, y = player.y;
+			float height = PlayerTrait.height;
+			float x = player.pos().x, y = player.pos().y;
 			
 			int sdir = Mathf.sign(swing);
 			float target = swingarc/2f+swingarc/2f*sdir;
@@ -241,16 +246,17 @@ public class WeaponTypes{
 				swingang = Mathf.lerp(swingang, target, alpha*delta);
 				
 				if(Timers.get(this, "swings", 0.99f)){
+					float angle = player.get(PlayerTrait.class).angle(player);
 					
-					float wang = player.angle()+swingang+swingoffset;
+					float wang = angle+swingang+swingoffset;
 					
 					vector.set(1, 1).setAngle(wang).setLength(reach);
 					
 					Effects.effect(effect, x + vector.x, y + vector.y + height);
 					
-					player.shoot(projectile, damage, x + vector.x, y + vector.y + height, wang);
+					Projectile.create(projectile, player, damage, x + vector.x, y + vector.y + height, wang);
 					
-					vector.setAngle(player.angle()+Mathf.lerp(swingang, target, alpha*0.5f)+swingoffset);
+					vector.setAngle(angle+Mathf.lerp(swingang, target, alpha*0.5f)+swingoffset);
 					
 					Effects.effect(effect, x + vector.x, y + vector.y + height);
 				}

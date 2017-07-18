@@ -8,11 +8,11 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 
 import io.anuke.home.GameState.State;
-import io.anuke.home.entities.Enemy;
 import io.anuke.home.ui.BossHealthBar;
 import io.anuke.home.ui.HealthBar;
 import io.anuke.home.ui.Inventory;
 import io.anuke.ucore.core.DrawContext;
+import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.entities.Entities;
 import io.anuke.ucore.function.VisibilityProvider;
 import io.anuke.ucore.modules.SceneModule;
@@ -220,7 +220,7 @@ public class UI extends SceneModule{
 			atop().aleft();
 			
 			bossbar.update(()->{
-				Enemy boss = Vars.control.getBoss();
+				Spark boss = Vars.control.getBoss();
 				if(boss == null){
 					bossbar.getParent().setVisible(false);
 				}else{

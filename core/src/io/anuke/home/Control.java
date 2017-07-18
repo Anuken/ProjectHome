@@ -7,12 +7,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
 import io.anuke.home.GameState.State;
-import io.anuke.home.entities.Enemy;
-import io.anuke.home.entities.Player;
+import io.anuke.home.entities.ecs.Prototypes;
+import io.anuke.home.entities.ecs.traits.PlayerTrait;
 import io.anuke.home.world.Generator;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.ucore.core.*;
+import io.anuke.ucore.ecs.Basis;
+import io.anuke.ucore.ecs.Spark;
+import io.anuke.ucore.ecs.Trait;
+import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
+import io.anuke.ucore.ecs.extend.processors.DrawProcessor;
+import io.anuke.ucore.ecs.extend.processors.TileCollisionProcessor;
 import io.anuke.ucore.entities.Entities;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
@@ -22,13 +28,14 @@ import io.anuke.ucore.renderables.RenderableHandler;
 import io.anuke.ucore.util.Timers;
 
 public class Control extends RendererModule{
+	private Basis basis;
 	private final int startx = 525, starty = 1024-898;
 	
-	private Player player;
-	private Enemy boss;
+	private Spark player;
+	private Spark boss;
 	
 	private Tile checkpoint;
-	private Array<Enemy> killed = new Array<>();
+	private Array<Spark> killed = new Array<>();
 	
 	//boss starting coords
 	//private final int startx = 552, starty=1024-177;
@@ -47,6 +54,19 @@ public class Control extends RendererModule{
 		
 		cameraScale = 4;
 		pixelate();
+		
+		basis = new Basis();
+		basis.addProcessor(new CollisionProcessor());
+		
+		basis.addProcessor(new TileCollisionProcessor(Vars.tilesize, (x, y)->{
+			Tile tile = World.get(x, y);
+			return tile != null && tile.wall.type.solid(tile.wall);
+		}, (x, y, out)->{
+			Tile tile = World.get(x, y);
+			tile.wall.type.getHitbox(tile, tile.wall, out);
+		}));
+		
+		basis.addProcessor(new DrawProcessor());
 	
 		KeyBinds.defaults(
 			"up", Keys.W,
@@ -88,26 +108,26 @@ public class Control extends RendererModule{
 	
 	@Override
 	public void init(){
-		player = new Player();
+		player = new Spark(Prototypes.player);
 				
 		World.create();
 		reset();
 	}
 	
-	public void setBoss(Enemy boss){
+	public void setBoss(Spark boss){
 		this.boss = boss;
 	}
 	
-	public Enemy getBoss(){
+	public Spark getBoss(){
 		return boss;
 	}
 	
-	public void resetBoss(Enemy boss){
+	public void resetBoss(Spark boss){
 		if(boss == this.boss)
 			this.boss = null;
 	}
 	
-	public void addKill(Enemy e){
+	public void addKill(Spark e){
 		killed.add(e);
 	}
 	
@@ -122,7 +142,7 @@ public class Control extends RendererModule{
 		killed.clear();
 	}
 	
-	public Player getPlayer(){
+	public Spark getPlayer(){
 		return player;
 	}
 	
@@ -131,11 +151,12 @@ public class Control extends RendererModule{
 		if(GameState.is(State.playing))
 			Effects.sound("respawn");
 		
-		player.heal();
-		player.set(checkpoint.worldx(), checkpoint.worldy()).add();
+		player.health().heal();
+		player.pos().set(checkpoint.worldx(), checkpoint.worldy());
+		player.add();
 		
-		for(Enemy enemy : killed){
-			enemy.heal();
+		for(Spark enemy : killed){
+			enemy.health().heal();
 			enemy.add();
 		}
 		
@@ -157,8 +178,10 @@ public class Control extends RendererModule{
 		
 		float center = Vars.worldsize*Vars.tilesize/2f;
 		
-		player.removed();
-		player.reset();
+		for(Trait trait : player.getTraits()){
+			trait.removed(player);
+		}
+		player.get(PlayerTrait.class).reset();
 		player.add();
 		
 		respawn();
@@ -189,8 +212,9 @@ public class Control extends RendererModule{
 		}
 		
 		if(!GameState.is(State.menu)){
+			basis.setProcessorsEnabled(true);
 			//setCamera(player.x, player.y);
-			smoothCamera(player.x, player.y+2f, 0.3f);
+			smoothCamera(player.pos().x, player.pos().y+2f, 0.3f);
 			
 			if(boss != null){
 				Musics.playTracks("boss");
@@ -198,6 +222,7 @@ public class Control extends RendererModule{
 				Musics.playTracks("world");
 			}
 		}else{
+			basis.setProcessorsEnabled(false);
 			Musics.playTracks("menu");
 			smoothCamera(startx*Vars.tilesize, starty*Vars.tilesize, 0.1f);
 		}
@@ -224,6 +249,7 @@ public class Control extends RendererModule{
 		
 		Draw.color();
 		RenderableHandler.instance().renderAll();
+		basis.update();
 		
 		Entities.draw();
 	}

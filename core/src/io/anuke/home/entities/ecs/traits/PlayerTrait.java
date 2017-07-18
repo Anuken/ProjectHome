@@ -7,20 +7,17 @@ import com.badlogic.gdx.math.Vector2;
 import io.anuke.home.Vars;
 import io.anuke.home.entities.Direction;
 import io.anuke.home.entities.ItemDrop;
-import io.anuke.home.entities.ecs.types.Enemy;
 import io.anuke.home.items.Item;
 import io.anuke.home.world.Blocks;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.core.Inputs;
-import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
-import io.anuke.ucore.ecs.extend.Events.CollisionFilter;
-import io.anuke.ucore.ecs.extend.Events.Damaged;
-import io.anuke.ucore.ecs.extend.Events.Death;
-import io.anuke.ucore.ecs.extend.traits.*;
+import io.anuke.ucore.ecs.extend.traits.HealthTrait;
+import io.anuke.ucore.ecs.extend.traits.PosTrait;
+import io.anuke.ucore.ecs.extend.traits.TileCollideTrait;
 import io.anuke.ucore.util.*;
 
 public class PlayerTrait extends Trait{
@@ -43,29 +40,6 @@ public class PlayerTrait extends Trait{
 	public float walkspeed = 0.09f;
 	
 	@Override
-	public void registerEvents(Prototype type){
-		type.traitEvent(Death.class, spark->{
-			Effects.effect("explosion", spark);
-			Effects.sound("death", spark);
-			spark.remove();
-			spark.get(PlayerTrait.class).oncheckpoint = true;
-			
-			Vars.control.onDeath();
-		});
-		
-		type.traitEvent(Damaged.class, (spark, source, damage)->{
-			PlayerTrait player = spark.get(PlayerTrait.class);
-			Effects.effect("blood", spark);
-			Effects.sound("hurt", spark);
-			player.hittime = hitdur;
-		});
-		
-		type.traitEvent(CollisionFilter.class, (spark, other)->{
-			return other.has(ProjectileTrait.class) && other.get(ProjectileTrait.class).source.getType() instanceof Enemy;
-		});
-	}
-	
-	@Override
 	public void update(Spark spark){
 		HealthTrait ht = spark.get(HealthTrait.class);
 		PosTrait pos = spark.pos();
@@ -85,7 +59,7 @@ public class PlayerTrait extends Trait{
 		}
 		
 		Tile tile = World.get(Mathf.scl2(pos.x, Vars.tilesize), Mathf.scl2(pos.y, Vars.tilesize));
-		if(tile.wall == Blocks.checkpoint){
+		if(tile != null && tile.wall == Blocks.checkpoint){
 			if(!oncheckpoint){
 				Effects.effect("checkpoint", tile.worldx(), tile.worldy());
 				Vars.control.addCheckpoint(tile);
@@ -157,8 +131,19 @@ public class PlayerTrait extends Trait{
 		}
 		
 		if(weapon != null && !Vars.ui.hasMouse() && !Vars.ui.getInventory().selectedItem()){
-			//weapon.weapontype.update(this);
+			//TODO
+			weapon.weapontype.update(spark);
 		}
+	}
+	
+	public float getHitTime(){
+		return hittime/hitdur;
+	}
+	
+	public void reset(){
+		direction = right;
+		weapon = null;
+		speed = defense = attack = 0;
 	}
 	
 	public float angle(Spark spark){

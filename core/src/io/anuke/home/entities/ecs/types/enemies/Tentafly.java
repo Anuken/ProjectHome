@@ -60,10 +60,11 @@ public class Tentafly extends Enemy{
 			
 			vector.set(0, 0);
 			if(target != null){
-				vector.set(target.pos().x-x, target.pos().y- (y+height));
+				vector.set(target.pos().x - x, target.pos().y - (y+height));
 				vector.limit(0.9f);
 			}
 			
+			Draw.alpha(1f);
 			Draw.color(Color.SCARLET, Color.PURPLE, target == null ? 0f : Timers.getTime(this, "reload") / enemy.reload);
 			Draw.grect("tentaflyeye", x+vector.x, y+vector.y+raise);
 			if(target != null){

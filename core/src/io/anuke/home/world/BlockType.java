@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import io.anuke.home.Vars;
 import io.anuke.ucore.core.Draw;
-import io.anuke.ucore.entities.Entity;
+import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.graphics.Caches;
 import io.anuke.ucore.renderables.*;
 import io.anuke.ucore.util.Mathf;
@@ -125,12 +125,12 @@ public enum BlockType{
 	},
 	spawner(false){
 		public void draw(RenderableList list, Tile tile, Block block){
-			if(tile.data == null || !(tile.data instanceof Entity)){
+			if(tile.data == null || !(tile.data instanceof Spark)){
 				throw new IllegalArgumentException("Spawner tile detected without any valid spawn data!");
 			}
 			
-			Entity enemy = (Entity)tile.data;
-			enemy.set(tile.worldx(), tile.worldy());
+			Spark enemy = (Spark)tile.data;
+			enemy.pos().set(tile.worldx(), tile.worldy());
 			enemy.add();
 			tile.data = null;
 			tile.wall = Blocks.air;

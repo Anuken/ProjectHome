@@ -9,11 +9,12 @@ import com.badlogic.gdx.utils.Align;
 
 import io.anuke.home.Vars;
 import io.anuke.home.entities.ItemDrop;
-import io.anuke.home.entities.Player;
+import io.anuke.home.entities.ecs.traits.PlayerTrait;
 import io.anuke.home.items.*;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Graphics;
 import io.anuke.ucore.core.Inputs;
+import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.scene.Element;
 import io.anuke.ucore.scene.event.Touchable;
 import io.anuke.ucore.scene.style.TextureRegionDrawable;
@@ -109,7 +110,8 @@ public class Inventory extends Table{
 		if(Inputs.keyUp("weapon3"))
 			slotweapon = 2;
 		
-		Player player = Vars.control.getPlayer();
+		Spark spark = Vars.control.getPlayer();
+		PlayerTrait player = spark.get(PlayerTrait.class);
 		
 		player.weapon = (stacks[slotweapon] == null ? null : stacks[slotweapon].item);
 		
@@ -142,7 +144,7 @@ public class Inventory extends Table{
 		
 		if(Inputs.buttonUp(Buttons.LEFT) && selected != null && any == null){
 			new ItemDrop(selected).randomVelocity()
-			.set(player.x, player.y).add();
+			.set(spark.pos().x, spark.pos().y).add();
 			
 			selected = null;
 			deselecting = true;

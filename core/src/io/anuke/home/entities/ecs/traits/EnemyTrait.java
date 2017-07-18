@@ -4,19 +4,16 @@ import com.badlogic.gdx.utils.Array;
 
 import io.anuke.home.Vars;
 import io.anuke.home.entities.ecs.traits.LootTrait.Drop;
-import io.anuke.home.entities.ecs.types.*;
+import io.anuke.home.entities.ecs.types.Enemy;
+import io.anuke.home.entities.ecs.types.ItemDrop;
 import io.anuke.home.world.Blocks;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
-import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
-import io.anuke.ucore.ecs.extend.Events.CollisionFilter;
-import io.anuke.ucore.ecs.extend.Events.Damaged;
-import io.anuke.ucore.ecs.extend.Events.Death;
 import io.anuke.ucore.ecs.extend.traits.HealthTrait;
-import io.anuke.ucore.ecs.extend.traits.ProjectileTrait;
+import io.anuke.ucore.ecs.extend.traits.TileCollideTrait;
 import io.anuke.ucore.function.Consumer;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Tmp;
@@ -40,17 +37,7 @@ public class EnemyTrait extends Trait{
 	
 	@Override
 	public void registerEvents(Prototype type){
-		type.traitEvent(Damaged.class, (spark, source, damage)->{
-			Effects.effect(((Enemy)spark.getType()).hiteffect, source);
-		});
 		
-		type.traitEvent(CollisionFilter.class, (spark, other)->
-			other.getType() instanceof Projectile && other.get(ProjectileTrait.class).source.getType() instanceof Player
-		);
-		
-		type.traitEvent(Death.class, spark->{
-			((Enemy)spark.getType()).onDeath(spark);
-		});
 	}
 	
 	@Override
@@ -72,8 +59,6 @@ public class EnemyTrait extends Trait{
 		}
 	}
 	
-	//TODO
-	@SuppressWarnings("null")
 	public void retarget(Spark spark){
 		Enemy enemy = (Enemy)spark.getType();
 		
@@ -84,7 +69,7 @@ public class EnemyTrait extends Trait{
 			target = null;
 		}
 		
-		Spark player = null;//Vars.control.getPlayer();
+		Spark player = Vars.control.getPlayer();
 
 		//TODO player var change
 		float dst = spark.pos().dst(player.pos());
@@ -102,7 +87,7 @@ public class EnemyTrait extends Trait{
 					Tile tile = World.get(Mathf.scl(spark.pos().x, Vars.tilesize), Mathf.scl(spark.pos().y, Vars.tilesize));
 					
 					if(tile != null && tile.wall == Blocks.air){
-						tile.data = this;
+						tile.data = spark;
 						tile.wall = Blocks.spawner;
 						spark.health().heal();
 						spark.remove();
@@ -123,8 +108,7 @@ public class EnemyTrait extends Trait{
 	public void moveToward(Spark spark){
 		Tmp.v1.set(target.pos().x - spark.pos().x, target.pos().y - spark.pos().y);
 		Tmp.v1.setLength(((Enemy)spark.getType()).speed * Mathf.delta());
-		//TODO actually move somewhere
-		//move(Tmp.v1.x, Tmp.v1.y);
+		spark.get(TileCollideTrait.class).move(spark, Tmp.v1.x, Tmp.v1.y);
 	}
 	
 	protected boolean targetValid(Spark spark){

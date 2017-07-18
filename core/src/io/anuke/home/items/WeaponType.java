@@ -2,7 +2,7 @@ package io.anuke.home.items;
 
 import com.badlogic.gdx.math.Vector2;
 
-import io.anuke.home.entities.Player;
+import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.modules.Module;
 
 public class WeaponType{
@@ -19,11 +19,11 @@ public class WeaponType{
 		return 0f;
 	}
 	
-	public void draw(Player player, Item item){
+	public void draw(Spark player, Item item){
 		
 	}
 	
-	public void update(Player player){
+	public void update(Spark player){
 		
 	}
 	

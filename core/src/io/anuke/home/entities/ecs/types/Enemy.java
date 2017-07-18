@@ -1,11 +1,15 @@
 package io.anuke.home.entities.ecs.types;
 
+import io.anuke.home.Vars;
 import io.anuke.home.entities.ecs.traits.EnemyTrait;
 import io.anuke.home.entities.ecs.traits.HealthBarTrait;
 import io.anuke.home.entities.ecs.traits.LootTrait;
 import io.anuke.home.items.Items;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.*;
+import io.anuke.ucore.ecs.extend.Events.CollisionFilter;
+import io.anuke.ucore.ecs.extend.Events.Damaged;
+import io.anuke.ucore.ecs.extend.Events.Death;
 import io.anuke.ucore.ecs.extend.traits.*;
 import io.anuke.ucore.ecs.extend.traits.ProjectileTrait.ProjectileType;
 import io.anuke.ucore.util.Mathf;
@@ -25,6 +29,30 @@ public abstract class Enemy extends Prototype{
 	public float range = 230, reload = 150f;
 	public boolean despawn = true;
 	
+	public Enemy(){
+		event(Damaged.class, (spark, source, damage)->{
+			Effects.effect(((Enemy)spark.getType()).hiteffect, source);
+		});
+		
+		event(CollisionFilter.class, (spark, other)->
+			other.getType() instanceof Projectile && other.get(ProjectileTrait.class).source.getType() instanceof Player
+		);
+		
+		event(Death.class, spark->{
+			Vars.control.addKill(spark);
+			for(int i = 0; i < 4; i++){
+				Effects.effect("hit", spark.pos().x + Mathf.range(5), spark.pos().y + Mathf.range(5) + height);
+			}
+			
+			Effects.effect(deatheffect, spark.pos().x, spark.pos().y + height);
+			Effects.sound(deathsound, spark);
+			
+			spark.remove();
+			
+			spark.get(EnemyTrait.class).dropStuff(spark);
+		});
+	}
+	
 	@Override
 	public TraitList typeTraits(){
 		return new TraitList(
@@ -37,9 +65,11 @@ public abstract class Enemy extends Prototype{
 		Trait data = data();
 		TraitList list = new TraitList(
 			new PosTrait(),
+			new TileCollideTrait(),
 			new ColliderTrait(hitsize){{
 				offsety = hitoffset;
 			}},
+			new TileCollideTrait(1f, 2f, 5, 4),
 			new HealthTrait(maxhealth),
 			new HealthBarTrait(),
 			new EnemyTrait(spark->{
@@ -56,21 +86,6 @@ public abstract class Enemy extends Prototype{
 	
 	public abstract void move(Spark spark);
 	public abstract void draw(Spark spark, RenderableTrait trait);
-	
-	public void onDeath(Spark spark){
-		//TODO addKill fix
-		//Vars.control.addKill(this);
-		for(int i = 0; i < 4; i++){
-			Effects.effect("hit", spark.pos().x + Mathf.range(5), spark.pos().y + Mathf.range(5) + height);
-		}
-		
-		Effects.effect(deatheffect, spark.pos().x, spark.pos().y + height);
-		Effects.sound(deathsound, spark);
-		
-		spark.remove();
-		
-		spark.get(EnemyTrait.class).dropStuff(spark);
-	}
 	
 	public void reset(Spark spark){
 		spark.health().heal();
