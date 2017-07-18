@@ -202,7 +202,7 @@ public class UI extends SceneModule{
 			new table("button"){{
 				HealthBar bar = new HealthBar();
 				
-				add(bar).fillX().expandX().height(24).padBottom(2);//.size(370, 24);
+				add(bar).fillX().expandX().height(24);//.size(370, 24);
 			}}.left().end().fillX();
 			
 			row();

@@ -4,10 +4,23 @@ import io.anuke.home.entities.ecs.Prototypes;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.TraitList;
+import io.anuke.ucore.ecs.extend.Events.CollisionFilter;
+import io.anuke.ucore.ecs.extend.Events.TileCollision;
 import io.anuke.ucore.ecs.extend.traits.*;
 import io.anuke.ucore.ecs.extend.traits.ProjectileTrait.ProjectileType;
 
 public class Projectile extends Prototype{
+	
+	public Projectile(){
+		event(TileCollision.class, spark->{
+			spark.get(ProjectileTrait.class).type.removed(spark);
+			spark.remove();
+		});
+		
+		event(CollisionFilter.class, (spark, other)->{
+			return other.getType() != Prototypes.projectile;
+		});
+	}
 
 	@Override
 	public TraitList traits(){
@@ -18,6 +31,7 @@ public class Projectile extends Prototype{
 			new ColliderTrait(),
 			new LifetimeTrait(),
 			new ProjectileTrait(),
+			new TileCollideTrait(0, 0, 2, 2),
 			new DrawTrait(spark->{
 				spark.get(ProjectileTrait.class).type.draw(spark);
 			})

@@ -35,7 +35,7 @@ public abstract class Enemy extends Prototype{
 		});
 		
 		event(CollisionFilter.class, (spark, other)->
-			other.getType() instanceof Projectile && other.get(ProjectileTrait.class).source.getType() instanceof Player
+			other.getType() instanceof Projectile && !(other.get(ProjectileTrait.class).source.getType() instanceof Enemy)
 		);
 		
 		event(Death.class, spark->{
@@ -66,9 +66,7 @@ public abstract class Enemy extends Prototype{
 		TraitList list = new TraitList(
 			new PosTrait(),
 			new TileCollideTrait(),
-			new ColliderTrait(hitsize){{
-				offsety = hitoffset;
-			}},
+			new ColliderTrait(hitsize, hitsize, 0, hitsize/2),
 			new TileCollideTrait(1f, 2f, 5, 4),
 			new HealthTrait(maxhealth),
 			new HealthBarTrait(),
@@ -81,6 +79,7 @@ public abstract class Enemy extends Prototype{
 		);
 		if(data != null)
 			list.with(data);
+		
 		return list;
 	}
 	

@@ -187,6 +187,7 @@ public class Control extends RendererModule{
 		respawn();
 		
 		Entities.resizeTree(0, 0, center*2, center*2);
+		basis.getProcessor(CollisionProcessor.class).resizeTree(0, 0, center*2, center*2);
 	}
 	
 	@Override
@@ -196,6 +197,7 @@ public class Control extends RendererModule{
 			Gdx.app.exit();
 		
 		if(GameState.is(State.playing)){
+			basis.setProcessorsEnabled(true);
 			
 			if(Inputs.keyUp("pause")){
 				GameState.set(State.paused);
@@ -205,6 +207,8 @@ public class Control extends RendererModule{
 			Entities.update();
 			
 		}else if(GameState.is(State.paused)){
+			basis.setProcessorsEnabled(false);
+			
 			if(Inputs.keyUp("pause")){
 				GameState.set(State.playing);
 				Vars.ui.hidePaused();
@@ -212,7 +216,6 @@ public class Control extends RendererModule{
 		}
 		
 		if(!GameState.is(State.menu)){
-			basis.setProcessorsEnabled(true);
 			//setCamera(player.x, player.y);
 			smoothCamera(player.pos().x, player.pos().y+2f, 0.3f);
 			
