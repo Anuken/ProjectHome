@@ -3,7 +3,7 @@ package io.anuke.home.ui;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import io.anuke.home.entities.ecs.traits.BossTrait;
+import io.anuke.home.entities.traits.BossTrait;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.DrawContext;
 import io.anuke.ucore.ecs.Spark;

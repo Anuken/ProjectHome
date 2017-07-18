@@ -5,16 +5,12 @@ import static io.anuke.home.world.World.get;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
 import io.anuke.home.Vars;
-import io.anuke.home.entities.Door;
-import io.anuke.home.entities.PlayerDoor;
-import io.anuke.home.entities.ecs.Prototypes;
+import io.anuke.home.entities.Prototypes;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
-import io.anuke.ucore.entities.Entity;
 import io.anuke.ucore.noise.Noise;
 import io.anuke.ucore.util.Mathf;
 
@@ -23,7 +19,6 @@ public class Generator{
 	private static ObjectMap<Integer, String> structmap = new ObjectMap<>();
 	private static ObjectMap<Integer, Prototype> protomap = new ObjectMap<>();
 	private static ObjectMap<String, Pixmap> pixmaps = new ObjectMap<>();
-	private static Array<Door> doors = new Array<Door>();
 	private static Pixmap pixmap;
 	
 	static{
@@ -55,11 +50,6 @@ public class Generator{
 		protomap.put(0xae5b5fff, Prototypes.marbledrone);
 		protomap.put(0xf64e56ff, Prototypes.marbleobelisk);
 		protomap.put(0xff51ccff, Prototypes.tentacolumn);
-	}
-	
-	public static void addDoors(){
-		for(Entity e : doors)
-			e.add();
 	}
 	
 
@@ -140,42 +130,7 @@ public class Generator{
 					get(worldx, worldy).floor = map.get(fcolor);
 				}
 				
-				if(color == 0xff00ffff){
-					//doors.add(new Door(true, worldx, worldy));
-				}else if(color == 0x00ff00ff){
-					//doors.add(new Door(false, worldx, worldy));
-				}else if(color == 0xff99feff){
-					Door door = new Door(true, worldx, worldy);
-					door.width = 8;
-					door.height = 2;
-					door.areaw = door.areah = 39;
-					//doors.add(door);
-				}else if(color == 0x99ffaaff){
-					Door door = new Door(false, worldx, worldy);
-					door.width = 8;
-					door.height = 4;
-					door.areaw = door.areah = 39;
-					//doors.add(door);
-				}else if(color == 0x00ffffff){
-					Door a = new Door(true, worldx, worldy+1);
-					Door b = new Door(false, worldx, worldy-1);
-					Door.link(a, b);
-					//doors.add(a);
-					//doors.add(b);
-				}else if(color == 0xa1ff6eff){
-					PlayerDoor door = new PlayerDoor(worldx, worldy);
-					door.width = 5;
-					//doors.add(door);
-				}else if(color == 0x6ef3ffff){
-					PlayerDoor door = new PlayerDoor(worldx, worldy);
-					door.front = false;
-					door.width = 5;
-					//doors.add(door);
-				}else if(color == 0xcaffadff){
-					PlayerDoor door = new PlayerDoor(worldx, worldy);
-					door.width = 4;
-					//doors.add(door);
-				}else if(protomap.containsKey(color)){
+				if(protomap.containsKey(color)){
 					placeSpawner(worldx, worldy, protomap.get(color));
 				}
 				
@@ -187,7 +142,6 @@ public class Generator{
 	}
 
 	public static void generate(){
-		doors.clear();
 		Noise.setSeed(Mathf.random(0, 999999));
 		
 		if(pixmap == null)

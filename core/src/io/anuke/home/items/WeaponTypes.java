@@ -4,9 +4,9 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
-import io.anuke.home.entities.ecs.traits.PlayerTrait;
-import io.anuke.home.entities.ecs.types.Projectile;
-import io.anuke.home.entities.ecs.types.Projectiles;
+import io.anuke.home.entities.traits.PlayerTrait;
+import io.anuke.home.entities.types.Projectile;
+import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.core.Inputs;

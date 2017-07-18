@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
 import io.anuke.home.GameState.State;
-import io.anuke.home.entities.ecs.Prototypes;
-import io.anuke.home.entities.ecs.processors.HealthBarProcessor;
-import io.anuke.home.entities.ecs.traits.PlayerTrait;
+import io.anuke.home.entities.Prototypes;
+import io.anuke.home.entities.processors.HealthBarProcessor;
+import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.world.Generator;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
@@ -173,7 +173,6 @@ public class Control extends RendererModule{
 		killed.clear();
 		Generator.generate();
 		Entities.clear();
-		Generator.addDoors();
 		Renderer.clearWorld();
 		
 		checkpoint = World.get(startx, starty);

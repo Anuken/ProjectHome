@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 import io.anuke.home.Vars;
-import io.anuke.home.entities.ecs.traits.PlayerTrait;
+import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.DrawContext;
 import io.anuke.ucore.ecs.Spark;

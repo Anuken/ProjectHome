@@ -1,8 +1,10 @@
 package io.anuke.home.items;
 
-import io.anuke.home.entities.Player;
-import io.anuke.home.entities.ecs.types.Projectiles;
+import io.anuke.home.entities.traits.PlayerTrait;
+import io.anuke.home.entities.types.Projectile;
+import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.util.Geometry;
 
 public class Items{
@@ -95,9 +97,9 @@ public class Items{
 			projectile = Projectiles.scorchshot;
 		}
 	
-		public void altAttack(Player player){
-			Geometry.shotgun(7, 10, player.angle(), f->{
-				player.shoot(Projectiles.scorchshot, damage*2, vector.x, vector.y, f);
+		public void altAttack(Spark player){
+			Geometry.shotgun(7, 10, player.get(PlayerTrait.class).angle(player), f->{
+				Projectile.create(projectile, player, damage*2, vector.x, vector.y, f);
 			});
 		}
 	}),
@@ -128,9 +130,9 @@ public class Items{
 			Effects.shake(3, 2);
 		}
 		
-		public void altAttack(Player player){
-			Geometry.shotgun(7, 10, player.angle(), f->{
-				player.shoot(projectile, damage*2, vector.x, vector.y, f);
+		public void altAttack(Spark player){
+			Geometry.shotgun(7, 10, player.get(PlayerTrait.class).angle(player), f->{
+				Projectile.create(projectile, player, damage*2, vector.x, vector.y, f);
 			});
 		}
 	}),

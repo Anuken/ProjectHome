@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Align;
 
 import io.anuke.home.Vars;
-import io.anuke.home.entities.ItemDrop;
-import io.anuke.home.entities.ecs.traits.PlayerTrait;
+import io.anuke.home.entities.traits.PlayerTrait;
+import io.anuke.home.entities.types.ItemDrop;
 import io.anuke.home.items.*;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Graphics;
@@ -143,8 +143,7 @@ public class Inventory extends Table{
 		Element any = getScene().hit(Graphics.mouse().x, Graphics.mouse().y, true);
 		
 		if(Inputs.buttonUp(Buttons.LEFT) && selected != null && any == null){
-			new ItemDrop(selected).randomVelocity()
-			.set(spark.pos().x, spark.pos().y).add();
+			ItemDrop.create(selected, spark.pos().x, spark.pos().y);
 			
 			selected = null;
 			deselecting = true;
