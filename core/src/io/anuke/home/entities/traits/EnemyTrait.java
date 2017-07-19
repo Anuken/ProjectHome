@@ -87,7 +87,7 @@ public class EnemyTrait extends Trait{
 					Tile tile = World.get(Mathf.scl(spark.pos().x, Vars.tilesize), Mathf.scl(spark.pos().y, Vars.tilesize));
 					
 					if(tile != null && tile.wall == Blocks.air){
-						tile.data = spark;
+						tile.data = spark.getType().getTypeID();
 						tile.wall = Blocks.spawner;
 						spark.health().heal();
 						spark.remove();

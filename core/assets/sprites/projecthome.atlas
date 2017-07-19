@@ -1,1483 +1,1461 @@
 
 projecthome.png
-size: 64,32
+size: 1024,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 blank
   rotate: false
-  xy: 2, 2
+  xy: 593, 132
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 circle
   rotate: false
-  xy: 2, 5
+  xy: 399, 35
   size: 20, 20
   orig: 20, 20
   offset: 0, 0
   index: -1
-error
+enemies/corruption/darkeffigy
   rotate: false
-  xy: 24, 13
-  size: 12, 12
-  orig: 12, 12
+  xy: 629, 102
+  size: 14, 14
+  orig: 14, 14
   offset: 0, 0
   index: -1
-place
-  rotate: false
-  xy: 38, 13
-  size: 12, 12
-  orig: 12, 12
-  offset: 0, 0
-  index: -1
-player
-  rotate: false
-  xy: 52, 17
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-
-projecthome2.png
-size: 32,32
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-player/hand
-  rotate: false
-  xy: 29, 29
-  size: 1, 1
-  orig: 1, 1
-  offset: 0, 0
-  index: -1
-player/player-
-  rotate: false
-  xy: 2, 22
-  size: 7, 8
-  orig: 7, 8
-  offset: 0, 0
-  index: -1
-player/player-back
-  rotate: false
-  xy: 2, 12
-  size: 7, 8
-  orig: 7, 8
-  offset: 0, 0
-  index: -1
-player/player-backwalk1
-  rotate: false
-  xy: 2, 2
-  size: 7, 8
-  orig: 7, 8
-  offset: 0, 0
-  index: -1
-player/player-backwalk2
-  rotate: false
-  xy: 11, 22
-  size: 7, 8
-  orig: 7, 8
-  offset: 0, 0
-  index: -1
-player/player-front
-  rotate: false
-  xy: 11, 12
-  size: 7, 8
-  orig: 7, 8
-  offset: 0, 0
-  index: -1
-player/player-frontwalk1
-  rotate: false
-  xy: 11, 2
-  size: 7, 8
-  orig: 7, 8
-  offset: 0, 0
-  index: -1
-player/player-frontwalk2
-  rotate: false
-  xy: 20, 22
-  size: 7, 8
-  orig: 7, 8
-  offset: 0, 0
-  index: -1
-player/player-walk1
-  rotate: false
-  xy: 20, 12
-  size: 7, 8
-  orig: 7, 8
-  offset: 0, 0
-  index: -1
-player/player-walk2
-  rotate: false
-  xy: 20, 2
-  size: 7, 8
-  orig: 7, 8
-  offset: 0, 0
-  index: -1
-
-projecthome3.png
-size: 256,32
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-items/aetherstaff
-  rotate: false
-  xy: 2, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/aetherstaff-item
-  rotate: false
-  xy: 2, 2
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/amberstaff
-  rotate: false
-  xy: 13, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/amberstaff-item
-  rotate: false
-  xy: 156, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/ascendarmor-item
-  rotate: false
-  xy: 12, 2
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/densearmor-item
-  rotate: false
-  xy: 166, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/densearmoritem
-  rotate: false
-  xy: 166, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/fusionstaff
-  rotate: false
-  xy: 24, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/fusionstaff-item
-  rotate: false
-  xy: 22, 2
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/hellarmor-item
-  rotate: false
-  xy: 176, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/icesword
-  rotate: false
-  xy: 35, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/icesword-item
-  rotate: false
-  xy: 32, 2
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/icon-armor
-  rotate: false
-  xy: 186, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/icon-weapon
-  rotate: false
-  xy: 42, 2
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/juggernautarmor-item
-  rotate: false
-  xy: 196, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/lancesword
-  rotate: false
-  xy: 46, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/lancesword-item
-  rotate: false
-  xy: 52, 2
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/marblesword
-  rotate: false
-  xy: 57, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/marblesword-item
-  rotate: false
-  xy: 206, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/orbstaff
-  rotate: false
-  xy: 68, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/orbstaff-item
-  rotate: false
-  xy: 62, 2
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/phasesword
-  rotate: false
-  xy: 79, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/phasesword-item
-  rotate: false
-  xy: 216, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/planestaff
-  rotate: false
-  xy: 90, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/planestaff-item
-  rotate: false
-  xy: 72, 2
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/reflectarmor-item
-  rotate: false
-  xy: 226, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/scorchstaff
-  rotate: false
-  xy: 101, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/scorchstaff-item
-  rotate: false
-  xy: 82, 2
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/silversword
-  rotate: false
-  xy: 112, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/silversword-item
-  rotate: false
-  xy: 236, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/staff
-  rotate: false
-  xy: 123, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/staff-item
-  rotate: false
-  xy: 246, 19
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/sword
-  rotate: false
-  xy: 134, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/sword-item
-  rotate: false
-  xy: 92, 2
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-items/tentasword
-  rotate: false
-  xy: 145, 12
-  size: 9, 15
-  orig: 9, 15
-  offset: 0, 0
-  index: -1
-items/tentasword-item
-  rotate: false
-  xy: 102, 2
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
-
-projecthome4.png
-size: 64,16
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-enemies/golem
-  rotate: false
-  xy: 2, 2
-  size: 12, 12
-  orig: 12, 12
-  offset: 0, 0
-  index: -1
-enemies/golem-armless
-  rotate: false
-  xy: 16, 2
-  size: 12, 12
-  orig: 12, 12
-  offset: 0, 0
-  index: -1
-enemies/golem-arms
-  rotate: false
-  xy: 30, 2
-  size: 12, 12
-  orig: 12, 12
-  offset: 0, 0
-  index: -1
-
-projecthome5.png
-size: 512,64
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
 enemies/corruption/marbledrone
   rotate: false
-  xy: 77, 2
+  xy: 525, 85
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/corruption/marblegolem
   rotate: false
-  xy: 91, 2
+  xy: 539, 85
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/corruption/marblegolem-armless
   rotate: false
-  xy: 105, 2
+  xy: 553, 84
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/corruption/marblegolem-arms
   rotate: false
-  xy: 119, 2
+  xy: 567, 84
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 enemies/corruption/marbleobelisk
   rotate: false
-  xy: 200, 20
+  xy: 641, 161
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 enemies/corruption/tentacolumn
   rotate: false
-  xy: 2, 31
+  xy: 95, 1
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 enemies/corruption/tentacolumneye
   rotate: false
-  xy: 35, 31
+  xy: 987, 194
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 enemies/corruption/tentacolumneye2
   rotate: false
-  xy: 68, 31
+  xy: 461, 129
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 enemies/corruption/tentacolumnleft
   rotate: false
-  xy: 101, 31
+  xy: 560, 132
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 enemies/corruption/tentacolumnright
   rotate: false
-  xy: 134, 31
+  xy: 593, 135
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 enemies/corruption/tentacolumntop
   rotate: false
-  xy: 167, 31
+  xy: 596, 102
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 enemies/corruption/tentafly
   rotate: false
-  xy: 250, 49
+  xy: 344, 1
   size: 24, 13
   orig: 24, 13
   offset: 0, 0
   index: -1
 enemies/corruption/tentaflyeye
   rotate: false
-  xy: 77, 16
+  xy: 370, 1
   size: 24, 13
   orig: 24, 13
   offset: 0, 0
   index: -1
 enemies/corruption/tentaflyeye2
   rotate: false
-  xy: 276, 49
+  xy: 392, 20
   size: 24, 13
   orig: 24, 13
   offset: 0, 0
   index: -1
 enemies/corruption/tentaflyi1
   rotate: false
-  xy: 103, 16
-  size: 24, 13
-  orig: 24, 13
-  offset: 0, 0
-  index: -1
-enemies/corruption/tentaflyi3
-  rotate: false
-  xy: 103, 16
+  xy: 418, 98
   size: 24, 13
   orig: 24, 13
   offset: 0, 0
   index: -1
 enemies/corruption/tentaflyi5
   rotate: false
-  xy: 103, 16
+  xy: 418, 98
+  size: 24, 13
+  orig: 24, 13
+  offset: 0, 0
+  index: -1
+enemies/corruption/tentaflyi3
+  rotate: false
+  xy: 418, 98
   size: 24, 13
   orig: 24, 13
   offset: 0, 0
   index: -1
 enemies/corruption/tentaflyi2
   rotate: false
-  xy: 302, 49
+  xy: 416, 83
   size: 24, 13
   orig: 24, 13
   offset: 0, 0
   index: -1
 enemies/corruption/tentaflyi4
   rotate: false
-  xy: 129, 16
+  xy: 460, 96
   size: 24, 13
   orig: 24, 13
   offset: 0, 0
   index: -1
 enemies/corruption/tentaflyi6
   rotate: false
-  xy: 328, 49
+  xy: 832, 184
   size: 24, 13
   orig: 24, 13
   offset: 0, 0
   index: -1
 enemies/corruption/tentaflywingsbot
   rotate: false
-  xy: 155, 16
+  xy: 858, 184
   size: 24, 13
   orig: 24, 13
   offset: 0, 0
   index: -1
 enemies/corruption/tentaflywingstop
   rotate: false
-  xy: 354, 49
+  xy: 832, 169
   size: 24, 13
   orig: 24, 13
   offset: 0, 0
   index: -1
 enemies/corruption/tentaguardbottom
   rotate: false
-  xy: 181, 14
+  xy: 884, 182
   size: 17, 15
   orig: 17, 15
   offset: 0, 0
   index: -1
 enemies/corruption/tentaguardeye
   rotate: false
-  xy: 218, 21
+  xy: 903, 182
   size: 17, 15
   orig: 17, 15
   offset: 0, 0
   index: -1
 enemies/corruption/tentaguardeye2
   rotate: false
-  xy: 380, 47
+  xy: 922, 182
   size: 17, 15
   orig: 17, 15
   offset: 0, 0
   index: -1
 enemies/corruption/tentaguardi1
   rotate: false
-  xy: 399, 47
+  xy: 941, 182
   size: 17, 15
   orig: 17, 15
   offset: 0, 0
   index: -1
 enemies/corruption/tentaguardi3
   rotate: false
-  xy: 399, 47
+  xy: 941, 182
+  size: 17, 15
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+enemies/corruption/tentapod
+  rotate: false
+  xy: 941, 182
   size: 17, 15
   orig: 17, 15
   offset: 0, 0
   index: -1
 enemies/corruption/tentaguardi2
   rotate: false
-  xy: 418, 47
+  xy: 960, 182
   size: 17, 15
   orig: 17, 15
   offset: 0, 0
   index: -1
 enemies/corruption/tentaguardi4
   rotate: false
-  xy: 437, 47
+  xy: 858, 167
   size: 17, 15
   orig: 17, 15
   offset: 0, 0
   index: -1
 enemies/corruption/tentawarrioreye
   rotate: false
-  xy: 2, 5
+  xy: 323, 24
   size: 23, 24
   orig: 23, 24
   offset: 0, 0
   index: -1
 enemies/corruption/tentawarrioreye2
   rotate: false
-  xy: 200, 38
+  xy: 333, 104
   size: 23, 24
   orig: 23, 24
   offset: 0, 0
   index: -1
 enemies/corruption/tentawarriori1
   rotate: false
-  xy: 27, 5
+  xy: 591, 168
   size: 23, 24
   orig: 23, 24
   offset: 0, 0
   index: -1
 enemies/corruption/tentawarriori2
   rotate: false
-  xy: 225, 38
+  xy: 616, 183
   size: 23, 24
   orig: 23, 24
   offset: 0, 0
   index: -1
 enemies/corruption/tentawarriori4
   rotate: false
-  xy: 225, 38
+  xy: 616, 183
   size: 23, 24
   orig: 23, 24
   offset: 0, 0
   index: -1
 enemies/corruption/tentawarriori3
   rotate: false
-  xy: 52, 5
+  xy: 793, 167
   size: 23, 24
   orig: 23, 24
   offset: 0, 0
   index: -1
-
-projecthome6.png
-size: 1024,256
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
+enemies/golem
+  rotate: false
+  xy: 525, 99
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+enemies/golem-armless
+  rotate: false
+  xy: 539, 99
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+enemies/golem-arms
+  rotate: false
+  xy: 553, 98
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+error
+  rotate: false
+  xy: 511, 99
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+items/aetherstaff
+  rotate: false
+  xy: 198, 51
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/aetherstaff-item
+  rotate: false
+  xy: 111, 87
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/amberstaff
+  rotate: false
+  xy: 709, 180
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/amberstaff-item
+  rotate: false
+  xy: 367, 137
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/ascendarmor-item
+  rotate: false
+  xy: 111, 77
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/densearmor-item
+  rotate: false
+  xy: 111, 67
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/densearmoritem
+  rotate: false
+  xy: 111, 67
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/fusionstaff
+  rotate: false
+  xy: 630, 166
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/fusionstaff-item
+  rotate: false
+  xy: 170, 4
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/hellarmor-item
+  rotate: false
+  xy: 497, 168
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/icesword
+  rotate: false
+  xy: 439, 40
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/icesword-item
+  rotate: false
+  xy: 180, 4
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/icon-armor
+  rotate: false
+  xy: 648, 137
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/icon-weapon
+  rotate: false
+  xy: 979, 183
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/juggernautarmor-item
+  rotate: false
+  xy: 989, 184
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/lancesword
+  rotate: false
+  xy: 626, 135
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/lancesword-item
+  rotate: false
+  xy: 999, 184
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/marblesword
+  rotate: false
+  xy: 629, 118
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/marblesword-item
+  rotate: false
+  xy: 1009, 184
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/orbstaff
+  rotate: false
+  xy: 486, 94
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/orbstaff-item
+  rotate: false
+  xy: 421, 29
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/phasesword
+  rotate: false
+  xy: 113, 50
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/phasesword-item
+  rotate: false
+  xy: 431, 29
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/planestaff
+  rotate: false
+  xy: 637, 135
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/planestaff-item
+  rotate: false
+  xy: 441, 30
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/reflectarmor-item
+  rotate: false
+  xy: 470, 86
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/scorchstaff
+  rotate: false
+  xy: 640, 118
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/scorchstaff-item
+  rotate: false
+  xy: 462, 76
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/silversword
+  rotate: false
+  xy: 451, 66
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/silversword-item
+  rotate: false
+  xy: 462, 66
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/staff
+  rotate: false
+  xy: 645, 101
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/staff-item
+  rotate: false
+  xy: 695, 138
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/sword
+  rotate: false
+  xy: 656, 102
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/sword-item
+  rotate: false
+  xy: 705, 138
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/tentasword
+  rotate: false
+  xy: 667, 102
+  size: 9, 15
+  orig: 9, 15
+  offset: 0, 0
+  index: -1
+items/tentasword-item
+  rotate: false
+  xy: 595, 78
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+place
+  rotate: false
+  xy: 665, 119
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 460, 86
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+player/hand
+  rotate: false
+  xy: 1, 1
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+player/player-
+  rotate: false
+  xy: 472, 76
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player/player-back
+  rotate: false
+  xy: 472, 66
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player/player-backwalk1
+  rotate: false
+  xy: 686, 137
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player/player-backwalk2
+  rotate: false
+  xy: 605, 78
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player/player-front
+  rotate: false
+  xy: 614, 78
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player/player-frontwalk1
+  rotate: false
+  xy: 623, 78
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player/player-frontwalk2
+  rotate: false
+  xy: 632, 78
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player/player-walk1
+  rotate: false
+  xy: 985, 173
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+player/player-walk2
+  rotate: false
+  xy: 985, 163
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
 shadows/shadow10
   rotate: false
-  xy: 314, 47
+  xy: 825, 199
   size: 10, 6
   orig: 10, 6
   offset: 0, 0
   index: -1
 shadows/shadow100
   rotate: false
-  xy: 510, 193
+  xy: 509, 194
   size: 100, 29
   orig: 100, 29
   offset: 0, 0
   index: -1
 shadows/shadow102
   rotate: false
-  xy: 378, 161
+  xy: 377, 162
   size: 102, 29
   orig: 102, 29
   offset: 0, 0
   index: -1
 shadows/shadow104
   rotate: false
-  xy: 248, 129
+  xy: 247, 130
   size: 104, 29
   orig: 104, 29
   offset: 0, 0
   index: -1
 shadows/shadow106
   rotate: false
-  xy: 122, 97
+  xy: 121, 98
   size: 106, 29
   orig: 106, 29
   offset: 0, 0
   index: -1
 shadows/shadow108
   rotate: false
-  xy: 2, 64
+  xy: 1, 65
   size: 108, 30
   orig: 108, 30
   offset: 0, 0
   index: -1
 shadows/shadow110
   rotate: false
-  xy: 530, 224
+  xy: 529, 225
   size: 110, 30
   orig: 110, 30
   offset: 0, 0
   index: -1
 shadows/shadow112
   rotate: false
-  xy: 396, 192
+  xy: 395, 193
   size: 112, 30
   orig: 112, 30
   offset: 0, 0
   index: -1
 shadows/shadow114
   rotate: false
-  xy: 262, 160
+  xy: 261, 161
   size: 114, 30
   orig: 114, 30
   offset: 0, 0
   index: -1
 shadows/shadow116
   rotate: false
-  xy: 130, 128
+  xy: 129, 129
   size: 116, 30
   orig: 116, 30
   offset: 0, 0
   index: -1
 shadows/shadow118
   rotate: false
-  xy: 2, 96
+  xy: 1, 97
   size: 118, 30
   orig: 118, 30
   offset: 0, 0
   index: -1
 shadows/shadow12
   rotate: false
-  xy: 170, 30
+  xy: 442, 83
   size: 12, 7
   orig: 12, 7
   offset: 0, 0
   index: -1
 shadows/shadow120
   rotate: false
-  xy: 408, 224
+  xy: 407, 225
   size: 120, 30
   orig: 120, 30
   offset: 0, 0
   index: -1
 shadows/shadow122
   rotate: false
-  xy: 272, 192
+  xy: 271, 193
   size: 122, 30
   orig: 122, 30
   offset: 0, 0
   index: -1
 shadows/shadow124
   rotate: false
-  xy: 136, 160
+  xy: 135, 161
   size: 124, 30
   orig: 124, 30
   offset: 0, 0
   index: -1
 shadows/shadow126
   rotate: false
-  xy: 2, 128
+  xy: 1, 129
   size: 126, 30
   orig: 126, 30
   offset: 0, 0
   index: -1
 shadows/shadow128
   rotate: false
-  xy: 278, 224
+  xy: 277, 225
   size: 128, 30
   orig: 128, 30
   offset: 0, 0
   index: -1
 shadows/shadow130
   rotate: false
-  xy: 140, 192
+  xy: 139, 193
   size: 130, 30
   orig: 130, 30
   offset: 0, 0
   index: -1
 shadows/shadow132
   rotate: false
-  xy: 2, 160
+  xy: 1, 161
   size: 132, 30
   orig: 132, 30
   offset: 0, 0
   index: -1
 shadows/shadow134
   rotate: false
-  xy: 142, 224
+  xy: 141, 225
   size: 134, 30
   orig: 134, 30
   offset: 0, 0
   index: -1
 shadows/shadow136
   rotate: false
-  xy: 2, 192
+  xy: 1, 193
   size: 136, 30
   orig: 136, 30
   offset: 0, 0
   index: -1
 shadows/shadow138
   rotate: false
-  xy: 2, 224
+  xy: 1, 225
   size: 138, 30
   orig: 138, 30
   offset: 0, 0
   index: -1
 shadows/shadow14
   rotate: false
-  xy: 98, 2
+  xy: 481, 168
   size: 14, 8
   orig: 14, 8
   offset: 0, 0
   index: -1
 shadows/shadow16
   rotate: false
-  xy: 230, 117
+  xy: 229, 100
   size: 16, 9
   orig: 16, 9
   offset: 0, 0
   index: -1
 shadows/shadow18
   rotate: false
-  xy: 722, 213
+  xy: 150, 2
   size: 18, 10
   orig: 18, 10
   offset: 0, 0
   index: -1
 shadows/shadow2
   rotate: false
-  xy: 326, 93
+  xy: 979, 193
   size: 6, 4
   orig: 6, 4
   offset: 0, 0
   index: -1
 shadows/shadow20
   rotate: false
-  xy: 482, 164
+  xy: 128, 1
   size: 20, 11
   orig: 20, 11
   offset: 0, 0
   index: -1
 shadows/shadow22
   rotate: false
-  xy: 354, 146
+  xy: 353, 147
   size: 22, 12
   orig: 22, 12
   offset: 0, 0
   index: -1
 shadows/shadow24
   rotate: false
-  xy: 612, 194
+  xy: 799, 193
   size: 24, 12
   orig: 24, 12
   offset: 0, 0
   index: -1
 shadows/shadow26
   rotate: false
-  xy: 482, 177
+  xy: 481, 178
   size: 26, 13
   orig: 26, 13
   offset: 0, 0
   index: -1
 shadows/shadow28
   rotate: false
-  xy: 612, 208
+  xy: 611, 209
   size: 28, 14
   orig: 28, 14
   offset: 0, 0
   index: -1
 shadows/shadow30
   rotate: false
-  xy: 314, 55
+  xy: 677, 180
   size: 30, 15
   orig: 30, 15
   offset: 0, 0
   index: -1
 shadows/shadow32
   rotate: false
-  xy: 334, 93
+  xy: 460, 111
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 shadows/shadow34
   rotate: false
-  xy: 334, 111
+  xy: 641, 179
   size: 34, 16
   orig: 34, 16
   offset: 0, 0
   index: -1
 shadows/shadow36
   rotate: false
-  xy: 332, 3
+  xy: 799, 207
   size: 36, 17
   orig: 36, 17
   offset: 0, 0
   index: -1
 shadows/shadow38
   rotate: false
-  xy: 292, 2
+  xy: 556, 112
   size: 38, 18
   orig: 38, 18
   offset: 0, 0
   index: -1
 shadows/shadow4
   rotate: false
-  xy: 360, 87
+  xy: 640, 155
   size: 6, 4
   orig: 6, 4
   offset: 0, 0
   index: -1
 shadows/shadow40
   rotate: false
-  xy: 250, 2
+  xy: 418, 113
   size: 40, 18
   orig: 40, 18
   offset: 0, 0
   index: -1
 shadows/shadow42
   rotate: false
-  xy: 316, 72
+  xy: 348, 16
   size: 42, 19
   orig: 42, 19
   offset: 0, 0
   index: -1
 shadows/shadow44
   rotate: false
-  xy: 368, 86
+  xy: 298, 2
   size: 44, 20
   orig: 44, 20
   offset: 0, 0
   index: -1
 shadows/shadow46
   rotate: false
-  xy: 426, 87
+  xy: 351, 37
   size: 46, 20
   orig: 46, 20
   offset: 0, 0
   index: -1
 shadows/shadow48
   rotate: false
-  xy: 426, 109
+  xy: 248, 1
   size: 48, 21
   orig: 48, 21
   offset: 0, 0
   index: -1
 shadows/shadow50
   rotate: false
-  xy: 970, 179
+  xy: 196, 1
   size: 50, 21
   orig: 50, 21
   offset: 0, 0
   index: -1
 shadows/shadow52
   rotate: false
-  xy: 970, 202
+  xy: 351, 59
   size: 52, 22
   orig: 52, 22
   offset: 0, 0
   index: -1
 shadows/shadow54
   rotate: false
-  xy: 370, 108
+  xy: 198, 24
   size: 54, 22
   orig: 54, 22
   offset: 0, 0
   index: -1
 shadows/shadow56
   rotate: false
-  xy: 312, 22
+  xy: 358, 83
   size: 56, 23
   orig: 56, 23
   offset: 0, 0
   index: -1
 shadows/shadow58
   rotate: false
-  xy: 252, 22
+  xy: 358, 108
   size: 58, 23
   orig: 58, 23
   offset: 0, 0
   index: -1
 shadows/shadow6
   rotate: false
-  xy: 360, 81
+  xy: 713, 174
   size: 6, 4
   orig: 6, 4
   offset: 0, 0
   index: -1
 shadows/shadow60
   rotate: false
-  xy: 252, 47
+  xy: 494, 113
   size: 60, 24
   orig: 60, 24
   offset: 0, 0
   index: -1
 shadows/shadow62
   rotate: false
-  xy: 252, 73
+  xy: 259, 24
   size: 62, 24
   orig: 62, 24
   offset: 0, 0
   index: -1
 shadows/shadow64
   rotate: false
-  xy: 184, 14
+  xy: 494, 139
   size: 64, 24
   orig: 64, 24
   offset: 0, 0
   index: -1
 shadows/shadow66
   rotate: false
-  xy: 184, 40
+  xy: 128, 14
   size: 66, 25
   orig: 66, 25
   offset: 0, 0
   index: -1
 shadows/shadow68
   rotate: false
-  xy: 100, 12
+  xy: 128, 41
   size: 68, 25
   orig: 68, 25
   offset: 0, 0
   index: -1
 shadows/shadow70
   rotate: false
-  xy: 112, 39
+  xy: 721, 170
   size: 70, 26
   orig: 70, 26
   offset: 0, 0
   index: -1
 shadows/shadow72
   rotate: false
-  xy: 896, 198
+  xy: 913, 199
   size: 72, 26
   orig: 72, 26
   offset: 0, 0
   index: -1
 shadows/shadow74
   rotate: false
-  xy: 820, 198
+  xy: 837, 199
   size: 74, 26
   orig: 74, 26
   offset: 0, 0
   index: -1
 shadows/shadow76
   rotate: false
-  xy: 742, 198
+  xy: 721, 198
   size: 76, 26
   orig: 76, 26
   offset: 0, 0
   index: -1
 shadows/shadow78
   rotate: false
-  xy: 642, 196
+  xy: 641, 197
   size: 78, 27
   orig: 78, 27
   offset: 0, 0
   index: -1
 shadows/shadow8
   rotate: false
-  xy: 316, 93
+  xy: 481, 162
   size: 8, 4
   orig: 8, 4
   offset: 0, 0
   index: -1
 shadows/shadow80
   rotate: false
-  xy: 510, 164
+  xy: 509, 165
   size: 80, 27
   orig: 80, 27
   offset: 0, 0
   index: -1
 shadows/shadow82
   rotate: false
-  xy: 378, 132
+  xy: 377, 133
   size: 82, 27
   orig: 82, 27
   offset: 0, 0
   index: -1
 shadows/shadow84
   rotate: false
-  xy: 248, 99
+  xy: 247, 100
   size: 84, 28
   orig: 84, 28
   offset: 0, 0
   index: -1
 shadows/shadow86
   rotate: false
-  xy: 122, 67
+  xy: 121, 68
   size: 86, 28
   orig: 86, 28
   offset: 0, 0
   index: -1
 shadows/shadow88
   rotate: false
-  xy: 928, 226
+  xy: 929, 227
   size: 88, 28
   orig: 88, 28
   offset: 0, 0
   index: -1
 shadows/shadow90
   rotate: false
-  xy: 836, 226
+  xy: 837, 227
   size: 90, 28
   orig: 90, 28
   offset: 0, 0
   index: -1
 shadows/shadow92
   rotate: false
-  xy: 742, 226
+  xy: 1, 4
   size: 92, 28
   orig: 92, 28
   offset: 0, 0
   index: -1
 shadows/shadow94
   rotate: false
-  xy: 2, 2
+  xy: 741, 226
   size: 94, 29
   orig: 94, 29
   offset: 0, 0
   index: -1
 shadows/shadow96
   rotate: false
-  xy: 2, 33
+  xy: 1, 34
   size: 96, 29
   orig: 96, 29
   offset: 0, 0
   index: -1
 shadows/shadow98
   rotate: false
-  xy: 642, 225
+  xy: 641, 226
   size: 98, 29
   orig: 98, 29
   offset: 0, 0
   index: -1
-
-projecthome7.png
-size: 512,64
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
 tiles/blocks1
   rotate: false
-  xy: 370, 50
+  xy: 353, 133
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/blocks2
   rotate: false
-  xy: 384, 50
+  xy: 616, 169
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/blocks3
   rotate: false
-  xy: 398, 50
+  xy: 626, 152
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/bluesapling1
   rotate: false
-  xy: 344, 45
+  xy: 396, 1
   size: 11, 17
   orig: 11, 17
   offset: 0, 0
   index: -1
 tiles/bluesapling2
   rotate: false
-  xy: 357, 45
+  xy: 409, 1
   size: 11, 17
   orig: 11, 17
   offset: 0, 0
   index: -1
 tiles/bluesapling3
   rotate: false
-  xy: 144, 17
+  xy: 444, 92
   size: 14, 19
   orig: 14, 19
   offset: 0, 0
   index: -1
 tiles/bluetree1
   rotate: false
-  xy: 2, 14
+  xy: 209, 48
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 tiles/bluetree2
   rotate: false
-  xy: 52, 14
+  xy: 259, 50
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 tiles/edge
   rotate: false
-  xy: 412, 50
+  xy: 497, 99
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/grass
   rotate: false
-  xy: 426, 50
+  xy: 567, 98
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/grassedge
   rotate: false
-  xy: 200, 46
+  xy: 229, 111
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tiles/marble1
   rotate: false
-  xy: 440, 50
+  xy: 581, 98
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/marble2
   rotate: false
-  xy: 454, 50
+  xy: 113, 36
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/marble3
   rotate: false
-  xy: 468, 50
+  xy: 497, 85
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/marble4
   rotate: false
-  xy: 482, 50
+  xy: 511, 85
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/marbleblock
   rotate: false
-  xy: 144, 38
+  xy: 99, 39
   size: 12, 24
   orig: 12, 24
   offset: 0, 0
   index: -1
 tiles/marbleedge
   rotate: false
-  xy: 160, 20
+  xy: 421, 39
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tiles/marblepillar
   rotate: false
-  xy: 158, 38
+  xy: 405, 57
   size: 12, 24
   orig: 12, 24
   offset: 0, 0
   index: -1
 tiles/marbles
   rotate: false
-  xy: 496, 50
+  xy: 581, 84
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/marbles2
   rotate: false
-  xy: 200, 32
+  xy: 595, 88
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/marbles2edge
   rotate: false
-  xy: 160, 2
+  xy: 659, 161
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tiles/marblesedge
   rotate: false
-  xy: 218, 46
+  xy: 677, 162
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tiles/marker
   rotate: false
-  xy: 178, 20
+  xy: 695, 162
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tiles/pgrass1
   rotate: false
-  xy: 214, 32
+  xy: 609, 88
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/pgrass2
   rotate: false
-  xy: 228, 32
+  xy: 623, 88
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/pgrass3
   rotate: false
-  xy: 242, 32
+  xy: 648, 147
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/pgrassdk1
   rotate: false
-  xy: 256, 32
+  xy: 662, 147
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/pgrassdk2
   rotate: false
-  xy: 270, 32
+  xy: 658, 133
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/pgrassdk3
   rotate: false
-  xy: 284, 32
+  xy: 651, 119
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/pgrassdkedge
   rotate: false
-  xy: 178, 2
+  xy: 433, 65
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tiles/pgrassedge
   rotate: false
-  xy: 236, 46
+  xy: 877, 164
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tiles/psoil1
   rotate: false
-  xy: 298, 32
+  xy: 672, 133
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/psoil2
   rotate: false
-  xy: 312, 32
+  xy: 676, 147
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/psoil3
   rotate: false
-  xy: 326, 32
+  xy: 690, 148
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/psoiledge
   rotate: false
-  xy: 254, 46
+  xy: 895, 164
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tiles/pwall
   rotate: false
-  xy: 172, 38
+  xy: 818, 167
   size: 12, 24
   orig: 12, 24
   offset: 0, 0
   index: -1
 tiles/pwall2
   rotate: false
-  xy: 102, 14
+  xy: 309, 50
   size: 12, 48
   orig: 12, 48
   offset: 0, 0
   index: -1
 tiles/pwall3
   rotate: false
-  xy: 116, 14
+  xy: 323, 50
   size: 12, 48
   orig: 12, 48
   offset: 0, 0
   index: -1
 tiles/pwall4
   rotate: false
-  xy: 130, 14
+  xy: 337, 54
   size: 12, 48
   orig: 12, 48
   offset: 0, 0
   index: -1
 tiles/redrock
   rotate: false
-  xy: 196, 18
+  xy: 704, 148
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/redrockedge
   rotate: false
-  xy: 272, 46
+  xy: 913, 164
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tiles/respawnpoint
   rotate: false
-  xy: 196, 4
+  xy: 679, 119
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/respawnpointedge
   rotate: false
-  xy: 290, 46
+  xy: 931, 164
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tiles/stone
   rotate: false
-  xy: 210, 18
+  xy: 678, 105
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 tiles/stoneedge
   rotate: false
-  xy: 308, 46
+  xy: 949, 164
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tiles/stonewall
   rotate: false
-  xy: 186, 38
+  xy: 419, 57
   size: 12, 24
   orig: 12, 24
   offset: 0, 0
   index: -1
 tiles/wall
   rotate: false
-  xy: 2, 6
+  xy: 433, 57
   size: 12, 6
   orig: 12, 6
   offset: 0, 0
   index: -1
 tiles/wallshadow
   rotate: false
-  xy: 326, 46
+  xy: 967, 164
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

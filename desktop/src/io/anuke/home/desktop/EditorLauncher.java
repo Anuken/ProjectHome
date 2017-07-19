@@ -12,6 +12,7 @@ public class EditorLauncher{
 		config.setTitle("Project Home Editor");
 		config.setWindowedMode(800, 600);
 		config.setMaximized(true);
+		//config.useVsync(false);
 		new Lwjgl3Application(new Editor(), config);
 	}
 }

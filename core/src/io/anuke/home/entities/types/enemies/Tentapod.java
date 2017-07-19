@@ -53,9 +53,9 @@ public class Tentapod extends Enemy{
 				vector.limit(0.9f);
 			}
 			
-			Draw.color(Color.SCARLET, Color.PURPLE, Timers.getTime(this, "reload")/reload);
+			Draw.color(Color.SCARLET, Color.PURPLE, target == null ? 0 : Timers.getTime(this, "reload")/reload);
 			Draw.grect("tentaguardeye", x+vector.x, y+vector.y);
-			Draw.alpha((Timers.getTime(this, "reload")-5f)/reload);
+			Draw.alpha(target == null ? 0 : (Timers.getTime(this, "reload")-5f)/reload);
 			Draw.grect("tentaguardeye2", x+vector.x, y+vector.y);
 			
 			Draw.reset();

@@ -81,7 +81,7 @@ public class Tentacolumn extends Enemy{
 				
 				//hahahaha
 				if(data.eye == i){
-					Draw.color(Color.SCARLET, Color.PURPLE, Timers.getTime(this, "reload") / reload);
+					Draw.color(Color.SCARLET, Color.PURPLE, enemy.target == null ? 0 : Timers.getTime(this, "reload") / reload);
 				}else{
 					Draw.color("purple");
 				}
@@ -89,7 +89,7 @@ public class Tentacolumn extends Enemy{
 				Draw.grect("tentacolumneye", x + vector.x + offset.x, y + vector.y + offset.y);
 				
 				if(data.eye == i){
-					Draw.alpha((Timers.getTime(this, "reload") - 5f) / reload);
+					Draw.alpha(enemy.target == null ? 0 : (Timers.getTime(this, "reload") - 5f) / reload);
 					Draw.grect("tentacolumneye2", x + vector.x + offset.x, y + vector.y + offset.y);
 				}
 			}

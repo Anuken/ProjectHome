@@ -1,14 +1,19 @@
 package io.anuke.home.editor;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
-import io.anuke.home.world.*;
+import io.anuke.home.world.Block;
+import io.anuke.home.world.Generator;
+import io.anuke.home.world.World;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Graphics;
 import io.anuke.ucore.core.Inputs;
+import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
 import io.anuke.ucore.modules.RendererModule;
@@ -18,7 +23,9 @@ import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
 public class EditorControl extends RendererModule{
-	public Block selected = Blocks.air;
+	public Block selected = null;
+	public Prototype seltype = null;
+	public View view = View.none;
 	
 	public EditorControl(){
 		atlas = new Atlas("projecthome.atlas");
@@ -42,6 +49,8 @@ public class EditorControl extends RendererModule{
 	
 	@Override
 	public void update(){
+		if(Inputs.keyUp(Keys.ESCAPE))
+			Gdx.app.exit();
 		
 		drawDefault();
 		
@@ -63,6 +72,8 @@ public class EditorControl extends RendererModule{
 		Draw.color(Color.CORAL);
 		Draw.linerect(-6, -6, Vars.tilesize*Vars.worldsize, Vars.tilesize*Vars.worldsize);
 		Draw.reset();
+		
+		view.draw();
 		
 		Draw.rect("place", mousex, mousey);
 	}

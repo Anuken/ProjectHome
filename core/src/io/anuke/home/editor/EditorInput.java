@@ -7,10 +7,12 @@ import com.badlogic.gdx.math.Vector3;
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
 import io.anuke.home.world.Block;
+import io.anuke.home.world.Blocks;
 import io.anuke.home.world.World;
 import io.anuke.ucore.core.DrawContext;
 import io.anuke.ucore.core.Graphics;
 import io.anuke.ucore.core.Inputs;
+import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.modules.Module;
 import io.anuke.ucore.util.Mathf;
 
@@ -41,9 +43,25 @@ public class EditorInput extends Module{
 		}
 	}
 	
+	void placeType(){
+		int mousex = Mathf.scl2(Graphics.mouseWorld().x, Vars.tilesize),
+				mousey = Mathf.scl2(Graphics.mouseWorld().y, Vars.tilesize);
+		
+		if(World.get(mousex, mousey) == null) return;
+		
+		Prototype type = Evar.control.seltype;
+		World.get(mousex, mousey).data = type.getTypeID();
+		World.get(mousex, mousey).wall = Blocks.spawner;
+		Renderer.updateWall(mousex, mousey);
+	}
+	
 	public boolean touchDown (int screenX, int screenY, int pointer, int button) {
 		if(button == Buttons.LEFT && !Evar.ui.hasMouse()){
-			placeBlock();
+			if(Evar.control.selected != null){
+				placeBlock();
+			}else if(Evar.control.seltype != null){
+				placeType();
+			}
 		}
 		
 		if(button == Buttons.MIDDLE){
@@ -61,7 +79,11 @@ public class EditorInput extends Module{
 			position.x -= Gdx.input.getDeltaX()/scale;
 			position.y += Gdx.input.getDeltaY()/scale;
 		}else if(Gdx.input.isButtonPressed(Buttons.LEFT)){
-			placeBlock();
+			if(Evar.control.selected != null){
+				placeBlock();
+			}else if(Evar.control.seltype != null){
+				placeType();
+			}
 		}
 		return false;
 	}

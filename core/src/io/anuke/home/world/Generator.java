@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.ObjectMap;
 import io.anuke.home.Vars;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.ucore.ecs.Prototype;
-import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.noise.Noise;
 import io.anuke.ucore.util.Mathf;
 
@@ -90,7 +89,7 @@ public class Generator{
 		Tile tile = get(x, y);
 		if(tile != null){
 			tile.wall = Blocks.spawner;
-			tile.data = new Spark(enemy);
+			tile.data = enemy.getTypeID();
 		}
 	}
 
