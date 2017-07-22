@@ -26,6 +26,8 @@ public class EditorControl extends RendererModule{
 	public Block selected = null;
 	public Prototype seltype = null;
 	public View view = View.none;
+	public boolean walls;
+	public Tool tool = Tool.place;
 	
 	public EditorControl(){
 		atlas = new Atlas("projecthome.atlas");

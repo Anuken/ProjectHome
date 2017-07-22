@@ -1,5 +1,10 @@
 package io.anuke.home.editor;
 
 public enum Tool{
-	place, erase
+	place, 
+	erase;
+	
+	public void clicked(int x, int y){
+		
+	}
 }

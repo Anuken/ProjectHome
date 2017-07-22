@@ -9,7 +9,6 @@ public class Editor extends Core{
 		addModule(new EditorInput());
 		addModule(Evar.control = new EditorControl());
 		addModule(Evar.ui = new EditorUI());
-		
 		/*
 		try{
 			Timers.mark();

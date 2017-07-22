@@ -13,9 +13,7 @@ import io.anuke.ucore.core.DrawContext;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.modules.SceneModule;
 import io.anuke.ucore.renderables.RenderableHandler;
-import io.anuke.ucore.scene.builders.build;
-import io.anuke.ucore.scene.builders.label;
-import io.anuke.ucore.scene.builders.table;
+import io.anuke.ucore.scene.builders.*;
 import io.anuke.ucore.scene.ui.*;
 import io.anuke.ucore.scene.ui.layout.Stack;
 import io.anuke.ucore.scene.ui.layout.Table;
@@ -100,6 +98,30 @@ public class EditorUI extends SceneModule{
 				
 			}}.end();
 			
+			new table(){{
+				atop();
+				
+				new imagebutton("view-hitboxes", "toggle", 32, ()->{
+					Evar.control.walls = !Evar.control.walls;
+				}).size(50).get();
+				
+				row();
+				
+				ButtonGroup<ImageButton> group = new ButtonGroup<>();
+				
+				for(Tool tool : Tool.values()){
+					ImageButton button = new ImageButton("view-none", "toggle");
+					button.clicked(()->{
+						Evar.control.tool = tool;
+					});
+					button.resizeImage(32);
+					add(button).size(50);
+					group.add(button);
+					
+					row();
+				}
+			}}.top().end();
+			
 		}}.end();
 		
 		//fps and info
@@ -127,6 +149,13 @@ public class EditorUI extends SceneModule{
 				group.add(button);
 				add(button).size(42);
 			}
+		}}.end();
+		
+		new table(){{
+			abottom();
+			
+			
+			
 		}}.end();
 		
 		build.end();
@@ -178,12 +207,6 @@ public class EditorUI extends SceneModule{
 			pane.setVisible(()->button.isChecked());
 			
 			//end
-			
-			/*
-			Element elem = (Element)objects[i+1];
-			elem.setVisible(()->button.isChecked());
-			stack.add(elem);
-			*/
 		}
 		
 		table.row();

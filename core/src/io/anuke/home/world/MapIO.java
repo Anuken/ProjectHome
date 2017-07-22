@@ -9,14 +9,15 @@ import com.badlogic.gdx.utils.compression.Lzma;
  * Loads and saves maps.
  * <h2>Format:</h2>
  * <p>
- * Header: two ints, height and width, respectively.
+ * All the data is compressed using LZMA. Decompress before reading.
+ * Header: two ints, width and height, respectively.
  * Everything after: a flattened 2D array, in row-major order, with tile data.
  * Tile data format: wall (int), floor (int), data(int)
  * </p>
- * @author anuke
+ * @author Anuke
  *
  */
-public class MapLoader{
+public class MapIO{
 	
 	public static Tile[][] load(FileHandle file) throws IOException, FileNotFoundException{
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
