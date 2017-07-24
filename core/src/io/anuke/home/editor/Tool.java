@@ -2,6 +2,7 @@ package io.anuke.home.editor;
 
 import java.util.Stack;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -11,6 +12,7 @@ import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
 import io.anuke.home.world.*;
 import io.anuke.ucore.core.Draw;
+import io.anuke.ucore.core.Inputs;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.function.SegmentConsumer;
@@ -95,7 +97,6 @@ public enum Tool{
 
 			Renderer.clearWorld();
 			Renderer.updateWalls();
-
 		}
 
 		int asInt(int x, int y, int width){
@@ -193,15 +194,15 @@ public enum Tool{
 		}
 
 		public void up(int x, int y){
+			//TODO fix grabbing clearing tiles on top
 			if(!up){
 				selection = new Tile[Math.abs(x1-x2)][Math.abs(y1-y2)];
 				over = new Tile[Math.abs(x1-x2)][Math.abs(y1-y2)];
 				grabSelection();
+				up = true;
 			}
 			
 			cleared = false;
-			
-			up = true;
 			selecting = false;
 		}
 
@@ -222,6 +223,26 @@ public enum Tool{
 			}
 			
 			Draw.reset();
+		}
+		
+		public void update(){
+			if(Inputs.keyUp(Keys.FORWARD_DEL)){
+				iterateRect((x, y, wx, wy)->{
+					Tile tile = World.get(wx, wy);
+					
+					if(tile != null){
+						if(tile.wall == Blocks.emptySpawner)
+							Basis.instance().removeSpark(tile.data2);
+						
+						tile.wall = Blocks.air;
+						tile.floor = Blocks.air;
+					}
+				});
+				Renderer.updateWalls();
+				Renderer.clearWorld();
+				selecting = false;
+				x1 = x2 = y1 = y2 = 0;
+			}
 		}
 		
 		void clearWorldSel(){
@@ -308,17 +329,11 @@ public enum Tool{
 		return true;
 	}
 
-	public void down(int x, int y){
+	public void down(int x, int y){}
 
-	}
+	public void up(int x, int y){}
 
-	public void up(int x, int y){
-
-	}
-
-	public void spawnClicked(int x, int y){
-
-	}
+	public void spawnClicked(int x, int y){}
 
 	public void draw(int x, int y){
 		int brushsize = (!radius() || Evar.control.seltype != null ? 1 : Evar.control.brushsize);
@@ -329,14 +344,11 @@ public enum Tool{
 					Draw.rect("place", rx * Vars.tilesize + x * Vars.tilesize, ry * Vars.tilesize + y * Vars.tilesize);
 			}
 		}
-
 	}
 
-	public void clicked(int x, int y){
-
-	}
+	public void clicked(int x, int y){}
 	
-	public void moved(){
-		
-	}
+	public void moved(){}
+	
+	public void update(){}
 }

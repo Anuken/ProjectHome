@@ -8,9 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
 import io.anuke.home.world.*;
-import io.anuke.ucore.core.Draw;
-import io.anuke.ucore.core.Graphics;
-import io.anuke.ucore.core.Inputs;
+import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.extend.processors.TileCollisionProcessor;
@@ -30,11 +28,22 @@ public class EditorControl extends RendererModule{
 	public Tool tool = Tool.pencil;
 	public int brushsize = 1;
 	
+	public int offsetx1, offsety1, offsetx2, offsety2;
+	public int line = -1;
+	float mousedx, mousedy, lmousex, lmousey;
+	
 	public EditorControl(){
 		atlas = new Atlas("projecthome.atlas");
 		
 		Textures.load("textures/");
 		Textures.repeatWrap("fog1", "fog2", "fog3", "fog4");
+		
+		Settings.defaultList(
+			"lastexport", System.getProperty("user.home"),
+			"lastimport", System.getProperty("user.home")
+		);
+		
+		Settings.load("io.anuke.home.editor");
 		
 		clearColor = new Color(0x889dabff);
 		
@@ -42,7 +51,7 @@ public class EditorControl extends RendererModule{
 		
 		RenderableHandler.instance().setLayerManager(new DrawLayerManager());
 		
-		Basis.instance().addProcessor(new TileCollisionProcessor(Vars.tilesize, (x, y)->false));
+		Basis.instance().addProcessor(new TileCollisionProcessor(Vars.tilesize, (x, y) -> false));
 	}
 	
 	@Override
@@ -78,9 +87,29 @@ public class EditorControl extends RendererModule{
 		int mousex = Mathf.scl2(Graphics.mouseWorld().x, Vars.tilesize),
 				mousey = Mathf.scl2(Graphics.mouseWorld().y, Vars.tilesize);
 		
-		Draw.thick(3f);
+		Draw.thick(4f);
 		Draw.color(Color.CORAL);
-		Draw.linerect(-6, -6, Vars.tilesize*World.width(), Vars.tilesize*World.height());
+		
+		int bottomx = -Vars.tilesize/2 + offsetx1*Vars.tilesize;
+		int bottomy = -Vars.tilesize/2 + offsety1*Vars.tilesize;
+		int topx = -Vars.tilesize/2 + (offsetx2+World.width())*Vars.tilesize;
+		int topy = -Vars.tilesize/2 + (offsety2+World.height())*Vars.tilesize;
+		
+		Color select = Color.PURPLE, normal = Color.CORAL;
+		
+		Draw.color(line == 0 ? select : normal);
+		Draw.line(bottomx, bottomy, topx, bottomy);
+		
+		Draw.color(line == 1 ? select : normal);
+		Draw.line(topx, bottomy, topx, topy);
+		
+		Draw.color(line == 2 ? select : normal);
+		Draw.line(topx, topy, bottomx, topy);
+		
+		Draw.color(line == 3 ? select : normal);
+		Draw.line(bottomx, topy, bottomx, bottomy);
+		
+		//Draw.linerect(-6, -6, Vars.tilesize*World.width(), Vars.tilesize*World.height());
 		Draw.reset();
 		
 		view.draw();
@@ -99,6 +128,10 @@ public class EditorControl extends RendererModule{
 		
 		Basis.instance().update();
 		//Draw.rect("place", mousex, mousey);
+	}
+	
+	void doResize(){
+		
 	}
 	
 	public void resize(){

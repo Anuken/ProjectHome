@@ -36,7 +36,7 @@ public class MapIO{
 				int floor = stream.readInt();
 				short data1 = stream.readShort();
 				short data2 = stream.readShort();
-				tiles[x][y] = new Tile(x, y, Block.byID(wall), Block.byID(floor));
+				tiles[x][y] = new Tile(x, y, Block.byID(floor), Block.byID(wall));
 				tiles[x][y].data1 = data1;
 				tiles[x][y].data2 = data2;
 			}

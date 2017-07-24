@@ -1,5 +1,7 @@
 package io.anuke.home.editor;
 
+import static io.anuke.home.editor.Evar.control;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.math.Vector2;
@@ -17,6 +19,7 @@ import io.anuke.ucore.util.Mathf;
 
 public class EditorInput extends Module{
 	int lworldx, lworldy;
+	float mousedx, mousedy, lmousex, lmousey;
 
 	public EditorInput() {
 		Inputs.addProcessor(this);
@@ -28,6 +31,72 @@ public class EditorInput extends Module{
 			int worldy = Mathf.scl2(Graphics.mouseWorld().y, Vars.tilesize);
 			Evar.control.tool.up(worldx, worldy);
 		}
+		
+		Evar.control.tool.update();
+		
+		int bottomx = -Vars.tilesize/2 + control.offsetx1*Vars.tilesize;
+		int bottomy = -Vars.tilesize/2 + control.offsety1*Vars.tilesize;
+		int topx = -Vars.tilesize/2 + (control.offsetx2+World.width())*Vars.tilesize;
+		int topy = -Vars.tilesize/2 + (control.offsety2+World.height())*Vars.tilesize;
+		
+		if(Inputs.buttonUp(Buttons.LEFT)){
+			float x = Graphics.mouseWorld().x;
+			float y = Graphics.mouseWorld().y;
+			float range = 20;
+			
+			mousedx = mousedy = 0;
+			
+			lmousex = x;
+			lmousey = y;
+			
+			int line = -1;
+			
+			if(Mathf.in(y, bottomy, range)){
+				line = 0;
+			}else if(Mathf.in(x, topx, range)){
+				line = 1;
+			}else if(Mathf.in(y, topy, range)){
+				line = 2;
+			}else if(Mathf.in(x, bottomx, range)){
+				line = 3;
+			}
+			
+			control.line = line;
+		}
+		
+		mousedx += Graphics.mouseWorld().x-lmousex;
+		mousedy += Graphics.mouseWorld().y-lmousey;
+		
+		lmousex = Graphics.mouseWorld().x;
+		lmousey = Graphics.mouseWorld().y;
+		
+		int sclx = Mathf.scl(mousedx, Vars.tilesize);
+		int scly = Mathf.scl(mousedy, Vars.tilesize);
+		
+		if(control.line == 0){
+			control.offsety1 = scly;
+		}else if(control.line == 1){
+			control.offsetx2 = sclx;
+		}else if(control.line == 2){
+			control.offsety2 = scly;
+		}else if(control.line == 3){
+			control.offsetx1 = sclx;
+		}
+		
+		if(Inputs.buttonRelease(Buttons.LEFT)){
+			control.line = -1;
+			doResize();
+			control.offsetx1 = control.offsety1 = control.offsetx2 = control.offsety2 = 0;
+		}
+	}
+	
+	void doResize(){
+		World.resize(World.width() - control.offsetx1 + control.offsetx2, 
+				World.height() - control.offsety1 + control.offsety2, 
+				control.offsetx1, control.offsety1);
+		
+		Renderer.clearWorld();
+		Renderer.updateWalls();
 	}
 
 	void placeBlock(){

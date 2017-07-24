@@ -36,6 +36,12 @@ public class Renderer{
 			}
 		}
 	}
+	
+	public static void clearAll(){
+		caches = null;
+		clearWorld();
+		updateWalls();
+	}
 
 	public static void renderWorld(){
 		
@@ -161,7 +167,7 @@ public class Renderer{
 		for(int tilex = x * chunksize; tilex < (x + 1) * chunksize; tilex++){
 			for(int tiley = y * chunksize; tiley < (y + 1) * chunksize; tiley++){
 				Tile tile = World.get(tilex, tiley);
-				if(tile.floor != Blocks.air && World.get(tilex, tiley-1) != null && World.get(tilex, tiley-1).floor == Blocks.air){
+				if(tile != null && tile.floor != Blocks.air && World.get(tilex, tiley-1) != null && World.get(tilex, tiley-1).floor == Blocks.air){
 					renderBottom(tile);
 				}
 			}
@@ -171,7 +177,9 @@ public class Renderer{
 		
 		for(int tilex = x * chunksize; tilex < (x + 1) * chunksize; tilex++){
 			for(int tiley = y * chunksize; tiley < (y + 1) * chunksize; tiley++){
-				World.get(tilex, tiley).floor.type.drawCache(World.get(tilex, tiley), World.get(tilex, tiley).floor);
+				if(World.get(tilex, tiley) != null){
+					World.get(tilex, tiley).floor.type.drawCache(World.get(tilex, tiley), World.get(tilex, tiley).floor);
+				}
 			}
 		}
 		caches[x][y] = Caches.end();

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import io.anuke.home.Vars;
 import io.anuke.ucore.core.Draw;
+import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.graphics.Caches;
@@ -140,7 +141,10 @@ public enum BlockType{
 		}
 	},
 	emptySpawner(false){
-		
+		public void cleanup(Tile tile){
+			Basis.instance().removeSpark(tile.data2);
+			tile.wall = Blocks.spawner;
+		}
 	};
 	private final boolean solid;
 	public final boolean floor;
@@ -152,6 +156,10 @@ public enum BlockType{
 	private BlockType(boolean floor, boolean solid){
 		this.solid = solid;
 		this.floor = floor;
+	}
+	
+	public void cleanup(Tile tile){
+		
 	}
 	
 	public boolean solid(Block block){
