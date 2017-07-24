@@ -1,6 +1,7 @@
 package io.anuke.home.entities.types;
 
 import io.anuke.home.Vars;
+import io.anuke.home.entities.Direction;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.items.Item;
 import io.anuke.ucore.core.Draw;
@@ -66,9 +67,13 @@ public class Player extends Prototype{
 					
 					if(weapon != null){
 						weapon.weapontype.draw(spark, weapon);
+					}else{
+						int ox = player.direction == Direction.left ? -1 : 0;
+						Draw.rect("hand", spark.pos().x - 2 + ox, spark.pos().y + 2);
+						Draw.rect("hand", spark.pos().x + 2 + ox, spark.pos().y + 2);
 					}
 					
-					if(angle > 0 && angle < 180){
+					if(angle > 0 && angle < 180 && weapon != null){
 						b.layer = spark.pos().y+1;
 					}else{
 						b.layer = spark.pos().y-0.1f;

@@ -118,7 +118,7 @@ public class PlayerTrait extends Trait{
 		if(vector.isZero()){
 			walktime = 0f;
 		}else{
-			walktime += walkspeed*delta*speed/basespeed;
+			walktime += walkspeed*delta*(this.speed+basespeed)/basespeed;
 		}
 		
 		spark.get(TileCollideTrait.class).move(spark, vector.x, vector.y);

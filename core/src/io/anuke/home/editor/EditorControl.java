@@ -7,7 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
-import io.anuke.home.world.*;
+import io.anuke.home.entities.Prototypes;
+import io.anuke.home.world.Block;
+import io.anuke.home.world.Blocks;
+import io.anuke.home.world.World;
 import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
@@ -35,6 +38,9 @@ public class EditorControl extends RendererModule{
 	public EditorControl(){
 		atlas = new Atlas("projecthome.atlas");
 		
+		//load prototypes
+		Prototypes.player.getClass();
+		
 		Textures.load("textures/");
 		Textures.repeatWrap("fog1", "fog2", "fog3", "fog4");
 		
@@ -57,7 +63,7 @@ public class EditorControl extends RendererModule{
 	@Override
 	public void init(){
 		World.create();
-		Generator.generate();
+		World.loadMap("corruption");
 		camera.position.set(World.width()*Vars.tilesize/2, World.height()*Vars.tilesize/2, 0);
 	}
 	

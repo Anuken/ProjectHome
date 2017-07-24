@@ -2,6 +2,7 @@ package io.anuke.home.world;
 
 import java.io.*;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.compression.Lzma;
 
@@ -21,7 +22,8 @@ public class MapIO{
 	
 	public static Tile[][] load(FileHandle file) throws IOException, FileNotFoundException{
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		Lzma.decompress(new FileInputStream(file.file()), out);
+		Lzma.decompress(file.type() == FileType.Internal ? MapIO.class.getResourceAsStream("/"+file.toString()) : 
+			new FileInputStream(file.file()), out);
 		
 		DataInputStream stream = new DataInputStream(new ByteArrayInputStream(out.toByteArray()));
 		

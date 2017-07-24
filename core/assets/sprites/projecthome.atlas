@@ -377,7 +377,7 @@ items/hellarmor-item
   index: -1
 items/icesword
   rotate: false
-  xy: 439, 40
+  xy: 626, 135
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
@@ -412,7 +412,7 @@ items/juggernautarmor-item
   index: -1
 items/lancesword
   rotate: false
-  xy: 626, 135
+  xy: 629, 118
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
@@ -426,7 +426,7 @@ items/lancesword-item
   index: -1
 items/marblesword
   rotate: false
-  xy: 629, 118
+  xy: 486, 94
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
@@ -440,112 +440,112 @@ items/marblesword-item
   index: -1
 items/orbstaff
   rotate: false
-  xy: 486, 94
+  xy: 113, 50
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
   index: -1
 items/orbstaff-item
   rotate: false
-  xy: 421, 29
+  xy: 711, 138
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 items/phasesword
   rotate: false
-  xy: 113, 50
+  xy: 637, 135
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
   index: -1
 items/phasesword-item
   rotate: false
-  xy: 431, 29
+  xy: 711, 128
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 items/planestaff
   rotate: false
-  xy: 637, 135
+  xy: 640, 118
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
   index: -1
 items/planestaff-item
   rotate: false
-  xy: 441, 30
+  xy: 421, 29
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 items/reflectarmor-item
   rotate: false
-  xy: 470, 86
+  xy: 441, 29
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 items/scorchstaff
   rotate: false
-  xy: 640, 118
+  xy: 451, 66
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
   index: -1
 items/scorchstaff-item
   rotate: false
-  xy: 462, 76
+  xy: 460, 86
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 items/silversword
   rotate: false
-  xy: 451, 66
+  xy: 645, 101
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
   index: -1
 items/silversword-item
   rotate: false
-  xy: 462, 66
+  xy: 470, 86
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 items/staff
   rotate: false
-  xy: 645, 101
+  xy: 656, 102
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
   index: -1
 items/staff-item
   rotate: false
-  xy: 695, 138
+  xy: 462, 76
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 items/sword
   rotate: false
-  xy: 656, 102
+  xy: 667, 102
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
   index: -1
 items/sword-item
   rotate: false
-  xy: 705, 138
+  xy: 462, 66
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 items/tentasword
   rotate: false
-  xy: 667, 102
+  xy: 700, 131
   size: 9, 15
   orig: 9, 15
   offset: 0, 0
@@ -566,7 +566,7 @@ place
   index: -1
 player
   rotate: false
-  xy: 460, 86
+  xy: 431, 29
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -580,21 +580,21 @@ player/hand
   index: -1
 player/player-
   rotate: false
-  xy: 472, 76
+  xy: 451, 29
   size: 7, 8
   orig: 7, 8
   offset: 0, 0
   index: -1
 player/player-back
   rotate: false
-  xy: 472, 66
+  xy: 472, 76
   size: 7, 8
   orig: 7, 8
   offset: 0, 0
   index: -1
 player/player-backwalk1
   rotate: false
-  xy: 686, 137
+  xy: 472, 66
   size: 7, 8
   orig: 7, 8
   offset: 0, 0
@@ -1425,16 +1425,30 @@ tiles/respawnpointedge
   orig: 16, 16
   offset: 0, 0
   index: -1
-tiles/stone
+tiles/startpoint
   rotate: false
   xy: 678, 105
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
-tiles/stoneedge
+tiles/startpointedge
   rotate: false
   xy: 949, 164
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/stone
+  rotate: false
+  xy: 686, 133
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+tiles/stoneedge
+  rotate: false
+  xy: 967, 164
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -1455,7 +1469,7 @@ tiles/wall
   index: -1
 tiles/wallshadow
   rotate: false
-  xy: 967, 164
+  xy: 439, 39
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

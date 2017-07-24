@@ -56,5 +56,7 @@ public class Blocks{
 		offset = 1;
 		variants = 3;
 		overrideSolid = true;
-	}};;
+	}},
+	
+	startcheckpoint = new Block("startpoint", BlockType.startcheckpoint);
 }

@@ -100,6 +100,22 @@ public enum BlockType{
 			}).add(list);
 		}
 	},
+	startcheckpoint(false){
+		public void draw(RenderableList list, Tile tile, Block block){
+			
+			new SpriteRenderable("startpointedge").set(tile.worldx(), tile.worldy())
+			.center().sort(Sorter.tile).add(list);
+			
+			new FuncRenderable(p->{
+				Draw.color(Color.valueOf("dc997e"));
+				Draw.polygon(4, tile.worldx(), tile.worldy() + Mathf.sin(Timers.time(), 16f, 2f)+10f, 4f, Timers.time()/1f);
+				Draw.color(Color.valueOf("ffb294"));
+				Draw.polygon(4, tile.worldx(), tile.worldy() + Mathf.sin(Timers.time(), 16f, 2f)+11f, 4f, Timers.time()/1f);
+				Draw.color();
+				p.layer = tile.worldy() - 2;
+			}).add(list);
+		}
+	},
 	object(false, true){
 		public void draw(RenderableList list, Tile tile, Block block){
 			new SpriteRenderable(block.name).set(tile.worldx(), tile.worldy()-block.offset)

@@ -10,7 +10,6 @@ import io.anuke.home.GameState.State;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.home.entities.processors.HealthBarProcessor;
 import io.anuke.home.entities.traits.PlayerTrait;
-import io.anuke.home.world.Generator;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.ucore.core.*;
@@ -30,7 +29,6 @@ import io.anuke.ucore.util.Timers;
 
 public class Control extends RendererModule{
 	private Basis basis;
-	private final int startx = 525, starty = 1024-898;
 	
 	private Spark player;
 	private Spark boss;
@@ -171,11 +169,11 @@ public class Control extends RendererModule{
 		RenderableHandler.instance().clear();
 		Renderer.updateWalls();
 		killed.clear();
-		Generator.generate();
+		World.loadMap("corruption");
 		Entities.clear();
 		Renderer.clearWorld();
 		
-		checkpoint = World.get(startx, starty);
+		checkpoint = World.get(World.getStartX(), World.getStartY());
 		
 		float center = World.width()*Vars.tilesize/2f;
 		
@@ -228,7 +226,7 @@ public class Control extends RendererModule{
 		}else{
 			basis.setProcessorsEnabled(false);
 			Musics.playTracks("menu");
-			smoothCamera(startx*Vars.tilesize, starty*Vars.tilesize, 0.1f);
+			smoothCamera(World.getStartX()*Vars.tilesize, World.getStartY()*Vars.tilesize, 0.1f);
 		}
 		
 		updateShake();
@@ -259,7 +257,7 @@ public class Control extends RendererModule{
 	}
 	
 	public void resize(){
-		setCamera(startx*Vars.tilesize, starty*Vars.tilesize);
+		setCamera(World.getStartX()*Vars.tilesize, World.getStartY()*Vars.tilesize);
 		camera.update();
 	}
 	
