@@ -275,8 +275,11 @@ public class EditorUI extends SceneModule{
 			//begin
 			Table content = new Table();
 			content.top().left();
+			content.padRight(34);
 			
 			ScrollPane pane = new ScrollPane(content);
+			pane.setFadeScrollBars(false);
+			pane.setScrollingDisabled(true, false);
 			
 			stack.add(pane);
 			
@@ -289,7 +292,7 @@ public class EditorUI extends SceneModule{
 				current.top().left();
 				
 				sgroup.add(ib);
-				current.add(ib).padBottom(4).size(60);
+				current.add(ib).size(60);
 				current.row();
 				
 				counter ++;
