@@ -4,9 +4,9 @@ import io.anuke.home.Vars;
 import io.anuke.ucore.util.Mathf;
 
 public class Tile{
-	public final int x, y;
+	public int x, y;
 	public Block floor, wall;
-	public int data = -1;
+	public short data1 = -1, data2 = -1;
 	
 	public Tile(int x, int y){
 		floor = wall = Blocks.air;
@@ -32,8 +32,16 @@ public class Tile{
 		return y*Vars.tilesize;
 	}
 	
+	public void setBlock(Block selected){
+		if(selected.type.floor)
+			floor = selected;
+		else
+			wall = selected;
+	}
+	
 	@Override
 	public String toString(){
-		return "tile{"+floor.name + ", " + wall.name + ", " + data +"}";
+		return "tile{"+floor.name + ", " + wall.name + ", " + data1 + ":" + data2 +"}";
 	}
+
 }

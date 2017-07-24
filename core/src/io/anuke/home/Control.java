@@ -177,7 +177,7 @@ public class Control extends RendererModule{
 		
 		checkpoint = World.get(startx, starty);
 		
-		float center = Vars.worldsize*Vars.tilesize/2f;
+		float center = World.width()*Vars.tilesize/2f;
 		
 		for(Trait trait : player.getTraits()){
 			trait.removed(player);
@@ -232,7 +232,7 @@ public class Control extends RendererModule{
 		}
 		
 		updateShake();
-		clampCamera(0, 0, Vars.worldsize*Vars.tilesize-Vars.tilesize/2, Vars.worldsize*Vars.tilesize-Vars.tilesize/2);
+		clampCamera(0, 0, World.width()*Vars.tilesize-Vars.tilesize/2, World.height()*Vars.tilesize-Vars.tilesize/2);
 		
 		camera.update();
 		

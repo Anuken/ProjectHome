@@ -6,7 +6,7 @@ public class Vars{
 	public static Control control;
 	public static UI ui;
 	
-	public static final int worldsize = 1024, tilesize = 12;
+	public static final int tilesize = 12;
 	
 	public static String[] tutorialText = {
 		"[yellow]Controls:",

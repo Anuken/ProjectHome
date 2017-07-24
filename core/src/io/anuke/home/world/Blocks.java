@@ -47,6 +47,7 @@ public class Blocks{
 		offset = 1;
 	}},
 	spawner = new Block("spawner", BlockType.spawner),
+	emptySpawner = new Block("spawner", BlockType.emptySpawner),
 	bluetree = new Block("bluetree", BlockType.tree){{
 		offset = 4;
 		variants = 2;

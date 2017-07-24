@@ -34,9 +34,11 @@ public class MapIO{
 			for(int y = 0; y < height; y ++){
 				int wall = stream.readInt();
 				int floor = stream.readInt();
-				int data = stream.readInt();
+				short data1 = stream.readShort();
+				short data2 = stream.readShort();
 				tiles[x][y] = new Tile(x, y, Block.byID(wall), Block.byID(floor));
-				tiles[x][y].data = data;
+				tiles[x][y].data1 = data1;
+				tiles[x][y].data2 = data2;
 			}
 		}
 		
@@ -60,7 +62,8 @@ public class MapIO{
 				Tile tile = tiles[x][y];
 				stream.writeInt(tile.wall.id);
 				stream.writeInt(tile.floor.id);
-				stream.writeInt(tile.data);
+				stream.writeShort(tile.data1);
+				stream.writeShort(tile.data2);
 			}
 		}
 		

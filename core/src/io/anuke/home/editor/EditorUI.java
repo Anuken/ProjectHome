@@ -19,6 +19,7 @@ import io.anuke.ucore.scene.ui.layout.Stack;
 import io.anuke.ucore.scene.ui.layout.Table;
 
 public class EditorUI extends SceneModule{
+	ImageButton wallbutton;
 	
 	@Override
 	public void init(){
@@ -101,7 +102,7 @@ public class EditorUI extends SceneModule{
 			new table(){{
 				atop();
 				
-				new imagebutton("view-hitboxes", "toggle", 32, ()->{
+				wallbutton = new imagebutton("view-hitboxes", "toggle", 32, ()->{
 					Evar.control.walls = !Evar.control.walls;
 				}).size(50).get();
 				
@@ -110,7 +111,7 @@ public class EditorUI extends SceneModule{
 				ButtonGroup<ImageButton> group = new ButtonGroup<>();
 				
 				for(Tool tool : Tool.values()){
-					ImageButton button = new ImageButton("view-none", "toggle");
+					ImageButton button = new ImageButton("icon-"+tool.name(), "toggle");
 					button.clicked(()->{
 						Evar.control.tool = tool;
 					});
@@ -121,6 +122,19 @@ public class EditorUI extends SceneModule{
 					row();
 				}
 			}}.top().end();
+			
+			new table(){{
+				top();
+				
+				Slider slider = new Slider(1, 9, 1, true);
+				slider.moved(f->{
+					Evar.control.brushsize = (int)(float)f;
+				});
+				
+				new label(()->(int)slider.getValue() + "").center();
+				row();
+				add(slider);
+			}}.pad(4).end();
 			
 		}}.end();
 		
@@ -153,9 +167,6 @@ public class EditorUI extends SceneModule{
 		
 		new table(){{
 			abottom();
-			
-			
-			
 		}}.end();
 		
 		build.end();
@@ -211,5 +222,9 @@ public class EditorUI extends SceneModule{
 		
 		table.row();
 		table.add(stack).colspan(group.getButtons().size).growY().fillX().fillY();
+	}
+	
+	public void updateWallButton(){
+		wallbutton.setChecked(Evar.control.walls);
 	}
 }

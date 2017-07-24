@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.Texture;
 
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
-import io.anuke.home.world.Block;
-import io.anuke.home.world.Generator;
-import io.anuke.home.world.World;
+import io.anuke.home.world.*;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Graphics;
 import io.anuke.ucore.core.Inputs;
+import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
+import io.anuke.ucore.ecs.extend.processors.TileCollisionProcessor;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
 import io.anuke.ucore.modules.RendererModule;
@@ -23,11 +23,12 @@ import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
 public class EditorControl extends RendererModule{
-	public Block selected = null;
+	public Block selected = Blocks.air;
 	public Prototype seltype = null;
 	public View view = View.none;
 	public boolean walls;
-	public Tool tool = Tool.place;
+	public Tool tool = Tool.pencil;
+	public int brushsize = 1;
 	
 	public EditorControl(){
 		atlas = new Atlas("projecthome.atlas");
@@ -40,19 +41,26 @@ public class EditorControl extends RendererModule{
 		cameraScale = 4;
 		
 		RenderableHandler.instance().setLayerManager(new DrawLayerManager());
+		
+		Basis.instance().addProcessor(new TileCollisionProcessor(Vars.tilesize, (x, y)->false));
 	}
 	
 	@Override
 	public void init(){
 		World.create();
 		Generator.generate();
-		camera.position.set(Vars.worldsize*Vars.tilesize/2, Vars.worldsize*Vars.tilesize/2, 0);
+		camera.position.set(World.width()*Vars.tilesize/2, World.height()*Vars.tilesize/2, 0);
 	}
 	
 	@Override
 	public void update(){
 		if(Inputs.keyUp(Keys.ESCAPE))
 			Gdx.app.exit();
+		
+		if(Inputs.keyUp(Keys.SPACE)){
+			walls = !walls;
+			Evar.ui.updateWallButton();
+		}
 		
 		drawDefault();
 		
@@ -67,21 +75,34 @@ public class EditorControl extends RendererModule{
 		Renderer.renderWorld();
 		RenderableHandler.instance().renderAll();
 		
-		float mousex = Mathf.round2(Graphics.mouseWorld().x, Vars.tilesize),
-				mousey = Mathf.round2(Graphics.mouseWorld().y, Vars.tilesize);
+		int mousex = Mathf.scl2(Graphics.mouseWorld().x, Vars.tilesize),
+				mousey = Mathf.scl2(Graphics.mouseWorld().y, Vars.tilesize);
 		
 		Draw.thick(3f);
 		Draw.color(Color.CORAL);
-		Draw.linerect(-6, -6, Vars.tilesize*Vars.worldsize, Vars.tilesize*Vars.worldsize);
+		Draw.linerect(-6, -6, Vars.tilesize*World.width(), Vars.tilesize*World.height());
 		Draw.reset();
 		
 		view.draw();
 		
-		Draw.rect("place", mousex, mousey);
+		/*
+		int brushsize = (!tool.radius() || seltype != null ? 1 : this.brushsize);
+		
+		for(int rx = -brushsize; rx <= brushsize; rx++){
+			for(int ry = -brushsize; ry <= brushsize; ry++){
+				if(Vector2.dst(rx, ry, 0, 0) < brushsize)
+					Draw.rect("place", rx*Vars.tilesize + mousex, ry*Vars.tilesize + mousey);
+			}
+		}
+		*/
+		tool.draw(mousex, mousey);
+		
+		Basis.instance().update();
+		//Draw.rect("place", mousex, mousey);
 	}
 	
 	public void resize(){
-		setCamera(Vars.worldsize*Vars.tilesize/2, Vars.worldsize*Vars.tilesize/2);
+		setCamera(World.width()*Vars.tilesize/2, World.height()*Vars.tilesize/2);
 		camera.update();
 	}
 	

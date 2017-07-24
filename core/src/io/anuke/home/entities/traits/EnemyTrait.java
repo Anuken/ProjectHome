@@ -69,7 +69,9 @@ public class EnemyTrait extends Trait{
 			target = null;
 		}
 		
-		Spark player = Vars.control.getPlayer();
+		Spark player = Vars.control == null ? null : Vars.control.getPlayer();
+		
+		if(player == null) return;
 
 		//TODO player var change
 		float dst = spark.pos().dst(player.pos());
@@ -87,8 +89,7 @@ public class EnemyTrait extends Trait{
 					Tile tile = World.get(Mathf.scl(spark.pos().x, Vars.tilesize), Mathf.scl(spark.pos().y, Vars.tilesize));
 					
 					if(tile != null && tile.wall == Blocks.air){
-						tile.data = spark.getType().getTypeID();
-						tile.wall = Blocks.spawner;
+						World.placeSpawner(tile.x, tile.y, spark.getType());
 						spark.health().heal();
 						spark.remove();
 						((Enemy)spark.getType()).reset(spark);

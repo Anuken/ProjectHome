@@ -40,8 +40,7 @@ public class Renderer{
 	public static void renderWorld(){
 		
 		if(caches == null){
-			int chunks = Vars.worldsize / chunksize;
-			caches = new Cache[chunks][chunks];
+			caches = new Cache[World.width()/chunksize][World.height()/chunksize];
 		}
 
 		OrthographicCamera camera = DrawContext.camera;
@@ -143,7 +142,7 @@ public class Renderer{
 			caches[cx][cy].dispose();
 		}
 		
-		cacheChunk(cx, cy);
+		caches[cx][cy] = null;
 	}
 	
 	private static void renderBottom(Tile tile){

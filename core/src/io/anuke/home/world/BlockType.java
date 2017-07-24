@@ -125,17 +125,22 @@ public enum BlockType{
 		}
 	},
 	spawner(false){
+		//data1 = prototype ID
+		//data2 = entity spawned ID
 		public void draw(RenderableList list, Tile tile, Block block){
-			if(tile.data == -1){
+			if(tile.data1 == -1){
 				throw new IllegalArgumentException("Spawner tile detected without any valid spawn data!");
 			}
 			
-			Spark enemy = new Spark(Prototype.getAllTypes().get(tile.data));
+			Spark enemy = new Spark(Prototype.getAllTypes().get(tile.data1));
 			enemy.pos().set(tile.worldx(), tile.worldy());
 			enemy.add();
-			tile.data = -1;
-			tile.wall = Blocks.air;
+			tile.data2 = (short)enemy.getID();
+			tile.wall = Blocks.emptySpawner;
 		}
+	},
+	emptySpawner(false){
+		
 	};
 	private final boolean solid;
 	public final boolean floor;

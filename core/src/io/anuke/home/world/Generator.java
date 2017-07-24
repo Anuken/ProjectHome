@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 
-import io.anuke.home.Vars;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.noise.Noise;
@@ -84,14 +83,6 @@ public class Generator{
 			}
 		}
 	}
-	
-	public static void placeSpawner(int x, int y, Prototype enemy){
-		Tile tile = get(x, y);
-		if(tile != null){
-			tile.wall = Blocks.spawner;
-			tile.data = enemy.getTypeID();
-		}
-	}
 
 	public static void placeRad(int x, int y, int rad, Block block){
 		placeWall(x - rad, y - rad, block);
@@ -130,7 +121,7 @@ public class Generator{
 				}
 				
 				if(protomap.containsKey(color)){
-					placeSpawner(worldx, worldy, protomap.get(color));
+					World.placeSpawner(worldx, worldy, protomap.get(color));
 				}
 				
 				if(name.equals("tentaboss")){
@@ -146,8 +137,8 @@ public class Generator{
 		if(pixmap == null)
 			pixmap = loadMap("map");
 
-		for(int x = 0; x < Vars.worldsize; x++){
-			for(int y = 0; y < Vars.worldsize; y++){
+		for(int x = 0; x < World.width(); x++){
+			for(int y = 0; y < World.height(); y++){
 				Block floor = Blocks.air;
 				Block wall = Blocks.air;
 
@@ -180,7 +171,7 @@ public class Generator{
 						wall = Blocks.pwall4;
 
 					if(wall == Blocks.air && Mathf.chance(0.0013)){
-						placeSpawner(x, y, Mathf.choose(Prototypes.tentapod, Prototypes.tentawarrior, Prototypes.tentafly));
+						World.placeSpawner(x, y, Mathf.choose(Prototypes.tentapod, Prototypes.tentawarrior, Prototypes.tentafly));
 					}
 				}
 				
@@ -195,8 +186,8 @@ public class Generator{
 
 		genStructures();
 		
-		for(int x = 0; x < Vars.worldsize; x++){
-			for(int y = 0; y < Vars.worldsize; y++){
+		for(int x = 0; x < World.width(); x++){
+			for(int y = 0; y < World.height(); y++){
 				Tile tile = get(x, y);
 				if(tile.floor == Blocks.air){
 					tile.wall = Blocks.sky;
@@ -206,8 +197,8 @@ public class Generator{
 	}
 
 	private static void genStructures(){
-		for(int x = 0; x < Vars.worldsize; x++){
-			for(int y = 0; y < Vars.worldsize; y++){
+		for(int x = 0; x < World.width(); x++){
+			for(int y = 0; y < World.height(); y++){
 				int color = pixmap.getPixel(x, pixmap.getHeight() - 1 - y);
 				Tile tile = World.get(x, y);
 
@@ -226,13 +217,13 @@ public class Generator{
 							placeRad(x, y, size / 2 - 1, Blocks.pwall4);
 							//placeRad(x, y, size/2-2, Blocks.marker);
 							
-							placeSpawner(x, y, Prototypes.marblegolem);
+							World.placeSpawner(x, y, Prototypes.marblegolem);
 						}else if(Mathf.chance(0.0004)){
 							placeSquare(x, y+1, 2, Blocks.marble);
 							placeFloor(x, y+1, Blocks.marbles);
 							placeWall(x, y+1, Blocks.marker);
 							
-							placeSpawner(x, y, Prototypes.marbledrone);
+							World.placeSpawner(x, y, Prototypes.marbledrone);
 							
 						}else if(Mathf.chance(0.0002)){
 							placeCircle(x, y, 6, Blocks.pgrassdk);
@@ -240,7 +231,7 @@ public class Generator{
 							for(int i = 0; i < 6; i ++){
 								int nx = x + Mathf.range(4);
 								int ny = y + Mathf.range(4);
-								placeSpawner(nx, ny, Mathf.choose(Prototypes.tentapod, Prototypes.tentawarrior, Prototypes.tentafly));
+								World.placeSpawner(nx, ny, Mathf.choose(Prototypes.tentapod, Prototypes.tentawarrior, Prototypes.tentafly));
 							}
 						}
 					}
@@ -248,8 +239,8 @@ public class Generator{
 			}
 		}
 		
-		for(int x = 0; x < Vars.worldsize; x++){
-			for(int y = 0; y < Vars.worldsize; y++){
+		for(int x = 0; x < World.width(); x++){
+			for(int y = 0; y < World.height(); y++){
 				int color = pixmap.getPixel(x, pixmap.getHeight() - 1 - y);
 				
 				if(structmap.containsKey(color)){
