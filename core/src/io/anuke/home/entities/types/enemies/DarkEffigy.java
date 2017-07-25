@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import io.anuke.home.Vars;
 import io.anuke.home.entities.traits.BossTrait;
 import io.anuke.home.entities.traits.EnemyTrait;
+import io.anuke.home.entities.traits.HealthBarTrait;
 import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
@@ -26,7 +27,7 @@ public class DarkEffigy extends Enemy{
 	public DarkEffigy(){
 		maxhealth = 4600;
 		hitsize = 20;
-		hitoffset = 10;
+		hitoffset = 0;
 		height = 20;
 		range = 400;
 		
@@ -63,8 +64,22 @@ public class DarkEffigy extends Enemy{
 	}
 	
 	@Override
+	public void retarget(Spark spark){
+		EnemyTrait enemy = spark.get(EnemyTrait.class);
+		
+		enemy.target = Vars.control.getPlayer();
+		
+		if(enemy.targetValid(spark)){
+			enemy.idletime = 0;
+		}else{
+			enemy.target = null;
+			reset(spark);
+		}
+	}
+	
+	@Override
 	public TraitList traits(){
-		return super.traits().with(new BossTrait("Dark Effigy"));
+		return super.traits().with(new BossTrait("Dark Effigy")).exclude(HealthBarTrait.class);
 	}
 
 	@Override
@@ -115,20 +130,21 @@ public class DarkEffigy extends Enemy{
 				
 				Timers.runFor(40f, ()->{
 					float a = 0.05f*Mathf.delta();
-					spark.pos().x = Mathf.lerp(x, target.pos().x, a);
-					spark.pos().y = Mathf.lerp(y, target.pos().y, a);
+					spark.pos().x = Mathf.lerp(spark.pos().x, target.pos().x, a);
+					spark.pos().y = Mathf.lerp(spark.pos().y, target.pos().y, a);
 					if(Timers.get(this, "chases", 1f))
-						Effects.effect("darkdash", x, y+10);
+						Effects.effect("darkdash", spark.pos().x, spark.pos().y+10);
 				}, ()->{
+					float cx = spark.pos().x, cy = spark.pos().y;
 					data.eyeflash = 1f;
 					Effects.shake(4f, 4f);
 					
 					Geometry.circle(4, f->{
-						shoot(spark, Projectiles.shadowsplit, x, y+height, f);
+						shoot(spark, Projectiles.shadowsplit, cx, cy+height, f);
 					});
 					
 					Geometry.circle(25, f->{
-						shoot(spark, Projectiles.shadowshot, x, y+height, f);
+						shoot(spark, Projectiles.shadowshot, cx, cy+height, f);
 					});
 				});
 				
@@ -148,20 +164,21 @@ public class DarkEffigy extends Enemy{
 				Timers.runFor(20f, ()->{
 					float a = 0.1f*Mathf.delta();
 					
-					spark.pos().x = Mathf.lerp(x, targetx, a);
-					spark.pos().y = Mathf.lerp(y, targety, a);
+					spark.pos().x = Mathf.lerp(spark.pos().x, targetx, a);
+					spark.pos().y = Mathf.lerp(spark.pos().y, targety, a);
 					
 					if(Timers.get(this, "chases", 1f))
-						Effects.effect("darkdash", x, y+10);
+						Effects.effect("darkdash", spark.pos().x, spark.pos().y+10);
 				}, ()->{
+					float cx = spark.pos().x, cy = spark.pos().y;
 					data.eyeflash = 1f;
 					if(Mathf.chance(0.5)){
 						Geometry.circle(8, f->{
-							shoot(spark, Projectiles.shadowsplit, x, y+height, f);
+							shoot(spark, Projectiles.shadowsplit, cx, cy+height, f);
 						});
 					}else{
 						Geometry.circle(20, f->{
-							shoot(spark, Projectiles.shadowshot, x, y+height, f);
+							shoot(spark, Projectiles.shadowshot, cx, cy+height, f);
 						});
 					}
 					
@@ -239,7 +256,7 @@ public class DarkEffigy extends Enemy{
 		Data data = spark.get(Data.class);
 		data.phase = Phase.values()[0];
 		//TODO
-		spark.pos().set(data.startx, data.starty);
+		//spark.pos().set(data.startx, data.starty);
 		spark.health().heal();
 		Timers.reset(this, "changephase", data.phasetime);
 	}

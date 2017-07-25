@@ -5,6 +5,9 @@ import io.anuke.home.entities.traits.EnemyTrait;
 import io.anuke.home.entities.traits.HealthBarTrait;
 import io.anuke.home.entities.traits.LootTrait;
 import io.anuke.home.items.Items;
+import io.anuke.home.world.Blocks;
+import io.anuke.home.world.Tile;
+import io.anuke.home.world.World;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.*;
 import io.anuke.ucore.ecs.extend.Events.CollisionFilter;
@@ -22,6 +25,7 @@ public abstract class Enemy extends Prototype{
 	public float speed = 0.5f;
 	public float hitoffset = 0;
 	public float hitsize = 10;
+	public float timeout = 600;
 	public String hiteffect = "hit", 
 			deatheffect = "death", 
 			deathsound = "tentadie";
@@ -88,6 +92,48 @@ public abstract class Enemy extends Prototype{
 	
 	public void reset(Spark spark){
 		spark.health().heal();
+	}
+	
+	public void retarget(Spark spark){
+		EnemyTrait enemy = spark.get(EnemyTrait.class);
+		
+		if(enemy.targetValid(spark)){
+			enemy.idletime = 0;
+			return;
+		}else{
+			enemy.target = null;
+		}
+		
+		Spark player = Vars.control == null ? null : Vars.control.getPlayer();
+		
+		if(player == null) return;
+
+		//TODO player var change
+		float dst = spark.pos().dst(player.pos());
+
+		//optimization
+		if(dst < range && !player.get(HealthTrait.class).dead){
+			enemy.target = player;
+		}else{
+			enemy.target = null;
+
+			if(dst > 300 && despawn){
+				enemy.idletime += Mathf.delta();
+
+				if(enemy.idletime >= timeout){
+					Tile tile = World.get(Mathf.scl(spark.pos().x, Vars.tilesize), Mathf.scl(spark.pos().y, Vars.tilesize));
+					
+					if(tile != null && tile.wall == Blocks.air){
+						World.placeSpawner(tile.x, tile.y, spark.getType());
+						spark.health().heal();
+						spark.remove();
+						((Enemy)spark.getType()).reset(spark);
+					}else{
+						enemy.idletime = 0f;
+					}
+				}
+			}
+		}
 	}
 	
 	public Trait data(){

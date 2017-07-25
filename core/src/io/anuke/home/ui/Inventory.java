@@ -51,8 +51,9 @@ public class Inventory extends Table{
 		Arrays.fill(stacks, null);
 		selected = null;
 		
-		addItem(new ItemStack(Items.marblesword));
-		addItem(new ItemStack(Items.amberstaff));
+		addItem(new ItemStack(Items.phasesword));
+		addItem(new ItemStack(Items.fusionstaff));
+		addItem(new ItemStack(Items.hellarmor));
 		
 		if(Vars.debug){
 			addItem(new ItemStack(Items.tentasword));

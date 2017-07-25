@@ -40,7 +40,7 @@ public class EditorUI extends SceneModule{
 			imtext = text;
 			Settings.putString("lastimport", imtext);
 			Settings.save();
-		}).size(450, 50);
+		}).size(550, 50);
 		
 		importDialog.getButtonTable().addButton("Cancel", ()->{
 			importDialog.hide();
@@ -68,7 +68,7 @@ public class EditorUI extends SceneModule{
 			extext = text;
 			Settings.putString("lastexport", extext);
 			Settings.save();
-		}).size(450, 50);
+		}).size(550, 50);
 		
 		exportDialog.getButtonTable().addButton("Cancel", ()->{
 			exportDialog.hide();

@@ -2,13 +2,9 @@ package io.anuke.home.entities.traits;
 
 import com.badlogic.gdx.utils.Array;
 
-import io.anuke.home.Vars;
 import io.anuke.home.entities.traits.LootTrait.Drop;
 import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.ItemDrop;
-import io.anuke.home.world.Blocks;
-import io.anuke.home.world.Tile;
-import io.anuke.home.world.World;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
@@ -20,7 +16,6 @@ import io.anuke.ucore.util.Tmp;
 
 /**Base enemy trait. Not absolutely needed in an enemy, yet still convenient. Requires type to be an Enemy!*/
 public class EnemyTrait extends Trait{
-	static final float timeout = 600;
 	
 	public Spark target;
 
@@ -42,7 +37,7 @@ public class EnemyTrait extends Trait{
 	
 	@Override
 	public void update(Spark spark){
-		retarget(spark);
+		((Enemy)spark.getType()).retarget(spark);
 
 		if(targetValid(spark)){
 			mover.accept(spark);
@@ -59,60 +54,13 @@ public class EnemyTrait extends Trait{
 		}
 	}
 	
-	public void retarget(Spark spark){
-		Enemy enemy = (Enemy)spark.getType();
-		
-		if(targetValid(spark)){
-			idletime = 0;
-			return;
-		}else{
-			target = null;
-		}
-		
-		Spark player = Vars.control == null ? null : Vars.control.getPlayer();
-		
-		if(player == null) return;
-
-		//TODO player var change
-		float dst = spark.pos().dst(player.pos());
-
-		//optimization
-		if(dst < enemy.range && !player.get(HealthTrait.class).dead){
-			target = player;
-		}else{
-			target = null;
-
-			if(dst > 300 && enemy.despawn){
-				idletime += Mathf.delta();
-
-				if(idletime >= timeout){
-					Tile tile = World.get(Mathf.scl(spark.pos().x, Vars.tilesize), Mathf.scl(spark.pos().y, Vars.tilesize));
-					
-					if(tile != null && tile.wall == Blocks.air){
-						World.placeSpawner(tile.x, tile.y, spark.getType());
-						spark.health().heal();
-						spark.remove();
-						((Enemy)spark.getType()).reset(spark);
-					}else{
-						idletime = 0f;
-					}
-				}
-			}
-		}
-
-		//TODO uncomment this for multiplayer, if needed
-		//target = (DestructibleEntity)Entities.getClosest(x, y, 100, e->{
-		//	return e instanceof Player;
-		//});
-	}
-	
 	public void moveToward(Spark spark){
 		Tmp.v1.set(target.pos().x - spark.pos().x, target.pos().y - spark.pos().y);
 		Tmp.v1.setLength(((Enemy)spark.getType()).speed * Mathf.delta());
 		spark.get(TileCollideTrait.class).move(spark, Tmp.v1.x, Tmp.v1.y);
 	}
 	
-	protected boolean targetValid(Spark spark){
+	public boolean targetValid(Spark spark){
 		return target != null && !target.get(HealthTrait.class).dead && spark.pos().dst(target.pos()) < ((Enemy)spark.getType()).range;
 	}
 }

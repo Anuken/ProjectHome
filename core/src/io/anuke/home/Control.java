@@ -169,7 +169,7 @@ public class Control extends RendererModule{
 		RenderableHandler.instance().clear();
 		Renderer.updateWalls();
 		killed.clear();
-		World.loadMap("corruption");
+		World.loadMap("corruption-arena");
 		Entities.clear();
 		Renderer.clearWorld();
 		
@@ -207,6 +207,7 @@ public class Control extends RendererModule{
 			
 		}else if(GameState.is(State.paused)){
 			basis.setProcessorsEnabled(false);
+			basis.getProcessor(DrawProcessor.class).setEnabled(true);
 			
 			if(Inputs.keyUp("pause")){
 				GameState.set(State.playing);
@@ -235,6 +236,10 @@ public class Control extends RendererModule{
 		camera.update();
 		
 		drawDefault();
+		
+		if(boss != null && boss.health().dead){
+			boss = null;
+		}
 		
 		//recorder.update();
 		

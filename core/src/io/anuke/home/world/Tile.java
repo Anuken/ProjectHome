@@ -21,7 +21,7 @@ public class Tile{
 	}
 	
 	public int rand(int max){
-		return Mathf.randomSeed(x*y, 1, max);
+		return Mathf.randomSeed(x+x*y+y, 1, max);
 	}
 	
 	public int worldx(){
