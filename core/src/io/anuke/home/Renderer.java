@@ -46,7 +46,7 @@ public class Renderer{
 	public static void renderWorld(){
 		
 		if(caches == null){
-			caches = new Cache[World.width()/chunksize][World.height()/chunksize];
+			caches = new Cache[World.width()/chunksize+1][World.height()/chunksize+1];
 		}
 
 		OrthographicCamera camera = DrawContext.camera;

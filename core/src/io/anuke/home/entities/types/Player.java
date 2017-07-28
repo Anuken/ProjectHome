@@ -6,11 +6,13 @@ import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.items.Item;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.TraitList;
 import io.anuke.ucore.ecs.extend.Events.CollisionFilter;
 import io.anuke.ucore.ecs.extend.Events.Damaged;
 import io.anuke.ucore.ecs.extend.Events.Death;
+import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
 import io.anuke.ucore.ecs.extend.traits.*;
 
 public class Player extends Prototype{
@@ -23,6 +25,14 @@ public class Player extends Prototype{
 			spark.get(PlayerTrait.class).oncheckpoint = true;
 			
 			Vars.control.onDeath();
+			
+			Basis.instance().getProcessor(CollisionProcessor.class)
+			.getNearby(spark.pos().x, spark.pos().y, 300, e->{
+				if(e.getType() instanceof Projectile){
+					Effects.effect("shotshrink", e);
+					e.remove();
+				}
+			});
 		});
 		
 		event(Damaged.class, (spark, source, damage)->{

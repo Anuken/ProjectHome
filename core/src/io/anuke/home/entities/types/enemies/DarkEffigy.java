@@ -8,13 +8,13 @@ import io.anuke.home.entities.traits.BossTrait;
 import io.anuke.home.entities.traits.EnemyTrait;
 import io.anuke.home.entities.traits.HealthBarTrait;
 import io.anuke.home.entities.types.Enemy;
+import io.anuke.home.entities.types.Projectile;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
-import io.anuke.ucore.ecs.Spark;
-import io.anuke.ucore.ecs.Trait;
-import io.anuke.ucore.ecs.TraitList;
+import io.anuke.ucore.ecs.*;
 import io.anuke.ucore.ecs.extend.Events.Death;
+import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
 import io.anuke.ucore.ecs.extend.traits.RenderableTrait;
 import io.anuke.ucore.util.Geometry;
 import io.anuke.ucore.util.Mathf;
@@ -49,6 +49,14 @@ public class DarkEffigy extends Enemy{
 				Vars.ui.showVictory();
 			});
 			
+			Basis.instance().getProcessor(CollisionProcessor.class)
+			.getNearby(x, y, 300, e->{
+				if(e.getType() instanceof Projectile){
+					Effects.effect("shotshrink", e);
+					e.remove();
+				}
+			});
+			
 			//TODO
 			/*
 			Entities.getNearby(x, y, 300, e->{
@@ -66,6 +74,8 @@ public class DarkEffigy extends Enemy{
 	@Override
 	public void retarget(Spark spark){
 		EnemyTrait enemy = spark.get(EnemyTrait.class);
+		
+		if(Vars.control == null) return;
 		
 		enemy.target = Vars.control.getPlayer();
 		
