@@ -261,9 +261,11 @@ public class Control extends RendererModule{
 		Entities.draw();
 	}
 	
+	@Override
 	public void resize(){
 		setCamera(World.getStartX()*Vars.tilesize, World.getStartY()*Vars.tilesize);
 		camera.update();
+		Renderer.resetWeather();
 	}
 	
 	void drawBackground(){

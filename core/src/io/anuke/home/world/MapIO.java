@@ -2,7 +2,6 @@ package io.anuke.home.world;
 
 import java.io.*;
 
-import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.compression.Lzma;
 
@@ -13,7 +12,7 @@ import com.badlogic.gdx.utils.compression.Lzma;
  * All the data is compressed using LZMA. Decompress before reading.
  * Header: two ints, width and height, respectively.
  * Everything after: a flattened 2D array, in row-major order, with tile data.
- * Tile data format: wall (int), floor (int), data(int)
+ * Tile data format: wall (int), floor (int), data (int)
  * </p>
  * @author Anuke
  *
@@ -22,8 +21,7 @@ public class MapIO{
 	
 	public static Tile[][] load(FileHandle file) throws IOException, FileNotFoundException{
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		Lzma.decompress(file.type() == FileType.Internal ? MapIO.class.getResourceAsStream("/"+file.toString()) : 
-			new FileInputStream(file.file()), out);
+		Lzma.decompress(file.read(), out);
 		
 		DataInputStream stream = new DataInputStream(new ByteArrayInputStream(out.toByteArray()));
 		
@@ -72,7 +70,7 @@ public class MapIO{
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
 		
-		Lzma.compress(in, new FileOutputStream(file.file()));
+		Lzma.compress(in, file.write(false));
 		
 		stream.close();
 	}

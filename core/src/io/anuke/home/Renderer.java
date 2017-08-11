@@ -3,7 +3,10 @@ package io.anuke.home;
 import static io.anuke.home.Vars.tilesize;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.Array;
 
+import io.anuke.home.effect.Rain;
+import io.anuke.home.effect.WeatherEffect;
 import io.anuke.home.world.Blocks;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
@@ -18,13 +21,30 @@ public class Renderer{
 	private static int chunksize = 32;
 	private static Cache[][] caches;
 	private static RenderableList[][] renderables;
+	private static Array<WeatherEffect> weather = new Array<>();
 	private static int lastcamx = -100, lastcamy = -100;
 	
 	public static void updateWalls(){
 		lastcamx = -100;
 	}
 	
+	public static void resetWeather(){
+		for(WeatherEffect w : weather){
+			w.clear();
+		}
+		
+		weather.clear();
+		
+		weather.add(new Rain());
+		
+		for(WeatherEffect w : weather){
+			w.init();
+		}
+	}
+	
 	public static void clearWorld(){
+		resetWeather();
+		
 		if(caches == null) return;
 		
 		for(int x = 0; x < caches.length; x ++){
@@ -44,6 +64,10 @@ public class Renderer{
 	}
 
 	public static void renderWorld(){
+		
+		for(WeatherEffect effect : weather){
+			effect.update();
+		}
 		
 		if(caches == null){
 			caches = new Cache[World.width()/chunksize+1][World.height()/chunksize+1];
