@@ -3,10 +3,10 @@ package io.anuke.home;
 import static io.anuke.home.Vars.tilesize;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.utils.Array;
 
+import io.anuke.home.effect.Darkness;
 import io.anuke.home.effect.Rain;
-import io.anuke.home.effect.WeatherEffect;
+import io.anuke.home.effect.RenderEffect;
 import io.anuke.home.world.Blocks;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
@@ -15,35 +15,41 @@ import io.anuke.ucore.core.DrawContext;
 import io.anuke.ucore.graphics.Cache;
 import io.anuke.ucore.graphics.Caches;
 import io.anuke.ucore.renderables.RenderableList;
+import io.anuke.ucore.util.ClassMap;
 import io.anuke.ucore.util.Mathf;
 
 public class Renderer{
 	private static int chunksize = 32;
 	private static Cache[][] caches;
 	private static RenderableList[][] renderables;
-	private static Array<WeatherEffect> weather = new Array<>();
+	private static ClassMap<RenderEffect> effects = new ClassMap<>();
 	private static int lastcamx = -100, lastcamy = -100;
 	
 	public static void updateWalls(){
 		lastcamx = -100;
 	}
 	
-	public static void resetWeather(){
-		for(WeatherEffect w : weather){
+	public static void resetEffects(){
+		for(RenderEffect w : effects){
 			w.clear();
 		}
 		
-		weather.clear();
+		effects.clear();
 		
-		weather.add(new Rain());
+		effects.add(new Rain());
+		effects.add(new Darkness());
 		
-		for(WeatherEffect w : weather){
+		for(RenderEffect w : effects){
 			w.init();
 		}
 	}
 	
+	public static <N extends RenderEffect> N getEffect(Class<N> c){
+		return effects.get(c);
+	}
+	
 	public static void clearWorld(){
-		resetWeather();
+		resetEffects();
 		
 		if(caches == null) return;
 		
@@ -62,10 +68,14 @@ public class Renderer{
 		clearWorld();
 		updateWalls();
 	}
+	
+	public static void renderEffects(){
+		
+	}
 
 	public static void renderWorld(){
 		
-		for(WeatherEffect effect : weather){
+		for(RenderEffect effect : effects){
 			effect.update();
 		}
 		

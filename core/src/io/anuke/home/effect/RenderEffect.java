@@ -4,7 +4,7 @@ import io.anuke.ucore.renderables.FuncRenderable;
 import io.anuke.ucore.renderables.FuncRenderable.DrawFunc;
 import io.anuke.ucore.renderables.RenderableList;
 
-public abstract class WeatherEffect{
+public abstract class RenderEffect{
 	RenderableList list = new RenderableList();
 	
 	public void clear(){

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
+import io.anuke.gif.GifRecorder;
 import io.anuke.home.GameState.State;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.home.entities.processors.HealthBarProcessor;
@@ -36,13 +37,7 @@ public class Control extends RendererModule{
 	private Tile checkpoint;
 	private Array<Spark> killed = new Array<>();
 	
-	//boss starting coords
-	//private final int startx = 552, starty=1024-177;
-	
-	//dungeon starting coords
-	//private final int startx = 522, starty=1024-414;
-	
-	//private GifRecorder recorder = new GifRecorder(batch);
+	private GifRecorder recorder = new GifRecorder(batch);
 	
 	public Control(){
 		atlas = new Atlas("projecthome.atlas");
@@ -241,7 +236,7 @@ public class Control extends RendererModule{
 			boss = null;
 		}
 		
-		//recorder.update();
+		recorder.update();
 		
 		if(!GameState.is(State.paused)){
 			Timers.update();
@@ -251,6 +246,8 @@ public class Control extends RendererModule{
 	
 	@Override
 	public void draw(){
+		//Renderer.getEffect(Darkness.class).intensity = 1f;
+		
 		drawBackground();
 		Renderer.renderWorld();
 		
@@ -259,13 +256,14 @@ public class Control extends RendererModule{
 		basis.update();
 		
 		Entities.draw();
+		Renderer.renderEffects();
 	}
 	
 	@Override
 	public void resize(){
 		setCamera(World.getStartX()*Vars.tilesize, World.getStartY()*Vars.tilesize);
 		camera.update();
-		Renderer.resetWeather();
+		Renderer.resetEffects();
 	}
 	
 	void drawBackground(){

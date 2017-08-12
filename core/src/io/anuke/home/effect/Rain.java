@@ -4,20 +4,25 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 
+import io.anuke.home.Vars;
+import io.anuke.home.world.Blocks;
+import io.anuke.home.world.Tile;
+import io.anuke.home.world.World;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.DrawContext;
 import io.anuke.ucore.renderables.Sorter;
 import io.anuke.ucore.util.Mathf;
 
-public class Rain extends WeatherEffect{
-	Color color = Color.ROYAL;
-	Vector2 fall = new Vector2(1f, 3f);
-	Particle[] particles = new Particle[1000];
-	float height = 900;
-	int sections = 8;
+public class Rain extends RenderEffect{
+	float multiplier = 1f;
+	
+	Color color = Color.valueOf("5075de");
+	Vector2 fall = new Vector2(1f, 3f).scl(multiplier);
+	Particle[] particles = new Particle[400];
 
 	@Override
 	public void init(){
+		color.a = 0.7f;
 		
 		OrthographicCamera cam = DrawContext.camera;
 		
@@ -36,10 +41,14 @@ public class Rain extends WeatherEffect{
 			
 			for(Particle part : particles){
 				if(part.splash.lifetime > 0){
-					Draw.color(color);
-					Draw.thick(part.splash.lifetime);
-					Draw.circle(part.splash.x, part.splash.y, (1f-part.splash.lifetime)*3f);
-					Draw.reset();
+					Tile tile = World.get(Mathf.scl2(part.splash.x, Vars.tilesize), Mathf.scl2(part.splash.y, Vars.tilesize));
+					
+					if(tile != null && tile.floor != Blocks.air){
+						Draw.color(color);
+						Draw.thick(part.splash.lifetime);
+						Draw.circle(part.splash.x, part.splash.y, (1f-part.splash.lifetime)*3f);
+						Draw.reset();
+					}
 				}
 			}
 		});
@@ -52,7 +61,7 @@ public class Rain extends WeatherEffect{
 				 Draw.color(color); 
 				 Draw.thick(1f);
 				 
-				 Draw.lineAngle(part.x, part.y, fall.angle() + 180, /*fall.len()*2000f*/4f);
+				 Draw.lineAngle(part.x, part.y, fall.angle() + 180, 4f);
 				 
 				 Draw.reset();
 			}
@@ -63,7 +72,7 @@ public class Rain extends WeatherEffect{
 	public void update(){
 		OrthographicCamera cam = DrawContext.camera;
 
-		float xrange = cam.viewportWidth * 1.5f;
+		float xrange = cam.viewportWidth * 1.4f;
 
 		for(Particle part : particles){
 

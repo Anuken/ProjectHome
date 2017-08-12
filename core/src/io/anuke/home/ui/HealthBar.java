@@ -24,6 +24,7 @@ public class HealthBar extends Element{
 		
 		AtlasRegion region = (AtlasRegion)DrawContext.skin.getRegion("healthbar");
 		frac = Mathf.lerp(frac, entity.health().healthfrac(), 0.4f*Mathf.delta());
+		frac = Mathf.clamp(frac, 0, 1f);
 		
 		Draw.color(Color.DARK_GRAY);
 		DrawContext.batch.draw(DrawContext.skin.getRegion("white"), x, y, width, height);
