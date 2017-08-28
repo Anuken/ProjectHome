@@ -9,6 +9,7 @@ public class World{
 	private static Tile[][] tiles;
 	private static int width = 1024, height = 1024;
 	private static int startx, starty;
+	private static boolean dark;
 
 	public static void create(){
 		tiles = new Tile[width][height];
@@ -26,6 +27,10 @@ public class World{
 
 	public static int height(){
 		return height;
+	}
+	
+	public static boolean isDark(){
+		return dark;
 	}
 
 	public static void resize(int nwidth, int nheight, int offsetx, int offsety){

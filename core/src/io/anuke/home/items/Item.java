@@ -38,6 +38,13 @@ public class Item{
 		this.weapontype = weapon;
 	}
 	
+	public Item(String name, String fname, ItemType type, WeaponType weapon){
+		this.name = name;
+		this.type = type;
+		this.formalName = fname;
+		this.weapontype = weapon;
+	}
+	
 	public String getStats(){
 		String out = "";
 		if(weapontype != null){

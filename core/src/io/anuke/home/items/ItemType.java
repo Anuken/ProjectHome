@@ -1,7 +1,7 @@
 package io.anuke.home.items;
 
 public enum ItemType{
-	material(true), weapon, consumable(true), armor;
+	material(true), consumable(true), weapon, ranged_weapon, armor, soul /*soul???*/;
 	
 	private ItemType(){
 		

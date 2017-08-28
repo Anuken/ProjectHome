@@ -3,7 +3,6 @@ package io.anuke.home.ui;
 import java.util.Arrays;
 
 import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Align;
 
@@ -39,8 +38,8 @@ public class Inventory extends Table{
 
 	public Inventory() {
 		filters[0] = ItemType.weapon;
-		filters[1] = ItemType.weapon;
-		filters[2] = ItemType.weapon;
+		filters[1] = ItemType.ranged_weapon;
+		filters[2] = ItemType.soul;
 		filters[3] = ItemType.armor;
 		
 		clearItems();
@@ -76,10 +75,10 @@ public class Inventory extends Table{
 		
 		Table slots = new Table();
 		
-		add("Inventory", Color.DARK_GRAY).padBottom(-32).left();
-		row();
-		add("Inventory").left().padBottom(4);
-		row();
+		//add("Inventory", Color.DARK_GRAY).padBottom(-32).left();
+		//row();
+		//add("Inventory").left().padBottom(4);
+		//row();
 		add(slots);
 		
 		pad(10);
@@ -99,7 +98,11 @@ public class Inventory extends Table{
 		
 		if(Inputs.scrolled()){
 			slotweapon -= Inputs.scroll();
-			slotweapon = Mathf.clamp(slotweapon, 0, 2);
+			slotweapon = Mathf.clamp(slotweapon, 0, 1);
+		}
+		
+		if(Inputs.keyUp("weaponswitch")){
+			slotweapon = slotweapon == 0 ? 1 : 0;
 		}
 		
 		if(Inputs.keyUp("weapon1"))
@@ -107,9 +110,6 @@ public class Inventory extends Table{
 		
 		if(Inputs.keyUp("weapon2"))
 			slotweapon = 1;
-		
-		if(Inputs.keyUp("weapon3"))
-			slotweapon = 2;
 		
 		Spark spark = Vars.control.getPlayer();
 		PlayerTrait player = spark.get(PlayerTrait.class);

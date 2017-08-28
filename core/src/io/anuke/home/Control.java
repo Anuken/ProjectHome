@@ -40,7 +40,7 @@ public class Control extends RendererModule{
 	private GifRecorder recorder = new GifRecorder(batch);
 	
 	public Control(){
-		atlas = new Atlas("projecthome.atlas");
+		atlas = new Atlas("sprites.atlas");
 		Textures.load("textures/");
 		Textures.repeatWrap("fog1", "fog2", "fog3", "fog4");
 		
@@ -73,7 +73,7 @@ public class Control extends RendererModule{
 			"pickup", Keys.Q,
 			"weapon1", Keys.NUM_1,
 			"weapon2", Keys.NUM_2,
-			"weapon3", Keys.NUM_3
+			"weaponswitch", Keys.SPACE
 		);
 		
 		Settings.loadAll("io.anuke.home");

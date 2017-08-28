@@ -136,7 +136,7 @@ public class Items{
 			});
 		}
 	}),
-	fusionstaff = new Item("fusionstaff", "Staff of Fused Cores", new WeaponTypes.Staff(){{
+	fusionstaff = new Item("fusionstaff", "Staff of Fused Cores", ItemType.ranged_weapon, new WeaponTypes.Staff(){{
 		damage = 4;
 		speed = 14f;
 		shots = 3;

@@ -33,12 +33,12 @@ public enum Tool{
 				}
 			}else{
 				if(World.get(x, y).wall != block){
+					World.get(x, y).wall.type.cleanup(World.get(x, y));
 					World.get(x, y).wall = block;
 					Renderer.updateWall(x, y);
 					Renderer.updateFloor(x, y);
 				}
 			}
-
 		}
 
 		public void spawnClicked(int x, int y){
@@ -123,6 +123,7 @@ public enum Tool{
 				return;
 
 			if(Evar.control.walls){
+				World.get(x, y).wall.type.cleanup(World.get(x, y));
 				World.get(x, y).wall = Blocks.air;
 				Renderer.updateFloor(x, y);
 				Renderer.updateWall(x, y);

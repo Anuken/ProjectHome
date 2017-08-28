@@ -1,5 +1,5 @@
 
-projecthome.png
+sprites.png
 size: 1024,256
 format: RGBA8888
 filter: Nearest,Nearest
@@ -396,16 +396,30 @@ items/icon-armor
   orig: 8, 8
   offset: 0, 0
   index: -1
-items/icon-weapon
+items/icon-ranged_weapon
   rotate: false
   xy: 979, 183
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
-items/juggernautarmor-item
+items/icon-soul
   rotate: false
   xy: 989, 184
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/icon-weapon
+  rotate: false
+  xy: 999, 184
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+items/juggernautarmor-item
+  rotate: false
+  xy: 1009, 184
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -419,7 +433,7 @@ items/lancesword
   index: -1
 items/lancesword-item
   rotate: false
-  xy: 999, 184
+  xy: 711, 138
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -433,7 +447,7 @@ items/marblesword
   index: -1
 items/marblesword-item
   rotate: false
-  xy: 1009, 184
+  xy: 711, 128
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -447,7 +461,7 @@ items/orbstaff
   index: -1
 items/orbstaff-item
   rotate: false
-  xy: 711, 138
+  xy: 421, 29
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -461,7 +475,7 @@ items/phasesword
   index: -1
 items/phasesword-item
   rotate: false
-  xy: 711, 128
+  xy: 431, 29
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -475,14 +489,14 @@ items/planestaff
   index: -1
 items/planestaff-item
   rotate: false
-  xy: 421, 29
+  xy: 441, 29
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 items/reflectarmor-item
   rotate: false
-  xy: 441, 29
+  xy: 460, 86
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -496,7 +510,7 @@ items/scorchstaff
   index: -1
 items/scorchstaff-item
   rotate: false
-  xy: 460, 86
+  xy: 470, 86
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -510,7 +524,7 @@ items/silversword
   index: -1
 items/silversword-item
   rotate: false
-  xy: 470, 86
+  xy: 462, 76
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -524,7 +538,7 @@ items/staff
   index: -1
 items/staff-item
   rotate: false
-  xy: 462, 76
+  xy: 462, 66
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -538,7 +552,7 @@ items/sword
   index: -1
 items/sword-item
   rotate: false
-  xy: 462, 66
+  xy: 595, 78
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -552,7 +566,7 @@ items/tentasword
   index: -1
 items/tentasword-item
   rotate: false
-  xy: 595, 78
+  xy: 605, 78
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -566,7 +580,7 @@ place
   index: -1
 player
   rotate: false
-  xy: 431, 29
+  xy: 451, 29
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -580,63 +594,63 @@ player/hand
   index: -1
 player/player-
   rotate: false
-  xy: 451, 29
+  xy: 472, 76
   size: 7, 8
   orig: 7, 8
   offset: 0, 0
   index: -1
 player/player-back
   rotate: false
-  xy: 472, 76
+  xy: 472, 66
   size: 7, 8
   orig: 7, 8
   offset: 0, 0
   index: -1
 player/player-backwalk1
   rotate: false
-  xy: 472, 66
+  xy: 615, 78
   size: 7, 8
   orig: 7, 8
   offset: 0, 0
   index: -1
 player/player-backwalk2
   rotate: false
-  xy: 605, 78
+  xy: 624, 78
   size: 7, 8
   orig: 7, 8
   offset: 0, 0
   index: -1
 player/player-front
   rotate: false
-  xy: 614, 78
+  xy: 633, 78
   size: 7, 8
   orig: 7, 8
   offset: 0, 0
   index: -1
 player/player-frontwalk1
   rotate: false
-  xy: 623, 78
+  xy: 985, 173
   size: 7, 8
   orig: 7, 8
   offset: 0, 0
   index: -1
 player/player-frontwalk2
   rotate: false
-  xy: 632, 78
+  xy: 985, 163
   size: 7, 8
   orig: 7, 8
   offset: 0, 0
   index: -1
 player/player-walk1
   rotate: false
-  xy: 985, 173
+  xy: 994, 174
   size: 7, 8
   orig: 7, 8
   offset: 0, 0
   index: -1
 player/player-walk2
   rotate: false
-  xy: 985, 163
+  xy: 994, 164
   size: 7, 8
   orig: 7, 8
   offset: 0, 0

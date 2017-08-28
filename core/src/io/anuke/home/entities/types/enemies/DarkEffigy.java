@@ -57,16 +57,6 @@ public class DarkEffigy extends Enemy{
 				}
 			});
 			
-			//TODO
-			/*
-			Entities.getNearby(x, y, 300, e->{
-				if(e instanceof Projectile && e != this){
-					Effects.effect("shotshrink", e);
-					e.remove();
-				}
-			});
-			*/
-			
 			spark.remove();
 		});
 	}

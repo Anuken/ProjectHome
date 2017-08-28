@@ -49,6 +49,20 @@ task dist(dependsOn: [clean, compileGwt]) {
     }
 }
 
+task distZip(type: Zip, dependsOn: dist){
+	from "build/dist"
+    archiveName appName + "-html5.zip"
+    destinationDir(file("build/dist-zipped"))
+}
+
+//DIE, SCUM
+eclipseWtpFacet.doLast{
+	delete{
+		delete '.settings/org.eclipse.wst.common.project.facet.core.xml'
+	}
+}
+
+
 draftWar {
    from "war"
 }
