@@ -36,6 +36,8 @@ public class Rain extends RenderEffect{
 		}
 		
 		draw(p -> {
+			if(!enabled) return;
+			
 			p.sort(Sorter.tile);
 			p.layer = 0;
 			
@@ -54,6 +56,8 @@ public class Rain extends RenderEffect{
 		});
 
 		draw(p -> {
+			if(!enabled) return;
+			
 			p.layer = cam.position.y - cam.viewportHeight * 2;
 
 			for(Particle part : particles){

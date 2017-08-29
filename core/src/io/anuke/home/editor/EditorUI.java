@@ -10,7 +10,9 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
 import io.anuke.home.entities.types.Enemy;
-import io.anuke.home.world.*;
+import io.anuke.home.world.Block;
+import io.anuke.home.world.MapIO;
+import io.anuke.home.world.World;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.DrawContext;
 import io.anuke.ucore.core.Settings;
@@ -49,8 +51,7 @@ public class EditorUI extends SceneModule{
 		importDialog.getButtonTable().addButton("OK", ()->{
 			
 			try{
-				Tile[][] tiles = MapIO.load(Gdx.files.absolute(imtext));
-				World.setTiles(tiles);
+				MapIO.load(Gdx.files.absolute(imtext));
 				Renderer.clearAll();
 				DrawContext.camera.position.set(World.width()*Vars.tilesize/2, World.height()*Vars.tilesize/2, 0);
 			}catch (Exception e){
@@ -239,16 +240,31 @@ public class EditorUI extends SceneModule{
 		
 		new table(){{
 			atop().aright();
-			ButtonGroup group = new ButtonGroup();
-			for(View view : View.values()){
-				ImageButton button = new ImageButton("view-" + view.name(), "toggle");
-				button.resizeImage(24);
-				button.clicked(()->{
-					Evar.control.view = view;
-				});
-				group.add(button);
-				add(button).size(42);
-			}
+			new table(){{
+				ButtonGroup group = new ButtonGroup();
+				for(View view : View.values()){
+					ImageButton button = new ImageButton("view-" + view.name(), "toggle");
+					button.resizeImage(24);
+					button.clicked(()->{
+						Evar.control.view = view;
+					});
+					group.add(button);
+					add(button).size(42);
+				}
+			}}.right().end();
+			row();
+			
+			new label("Properties").right();
+			row();
+			
+			ImageButton button = new ImageButton("icon-eye", "toggle");
+			button.resizeImage(32);
+			button.setChecked(World.data().dark);
+			button.clicked(()->{
+				World.data().dark = button.isChecked();
+			});
+			
+			add(button).right().size(42);
 		}}.end();
 		
 		new table(){{

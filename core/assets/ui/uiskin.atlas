@@ -13,7 +13,7 @@ blank
   index: -1
 border
   rotate: false
-  xy: 414, 72
+  xy: 432, 72
   size: 12, 12
   split: 4, 4, 4, 4
   orig: 12, 12
@@ -219,7 +219,7 @@ cursor-normal
   index: -1
 default-pane
   rotate: false
-  xy: 488, 81
+  xy: 611, 65
   size: 5, 3
   split: 1, 1, 1, 1
   orig: 5, 3
@@ -286,7 +286,7 @@ icon-arrow-left
   index: -1
 icon-arrow-right
   rotate: false
-  xy: 428, 74
+  xy: 446, 74
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
@@ -328,7 +328,7 @@ icon-copy
   index: -1
 icon-cursor
   rotate: false
-  xy: 440, 74
+  xy: 458, 74
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
@@ -342,14 +342,14 @@ icon-dots
   index: -1
 icon-dots-down
   rotate: false
-  xy: 452, 74
+  xy: 470, 74
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 icon-down
   rotate: false
-  xy: 464, 74
+  xy: 412, 56
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
@@ -364,6 +364,13 @@ icon-drive
 icon-erase
   rotate: false
   xy: 360, 68
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+icon-eye
+  rotate: false
+  xy: 378, 68
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -391,14 +398,14 @@ icon-file-pdf
   index: -1
 icon-file-text
   rotate: false
-  xy: 476, 74
+  xy: 482, 74
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 icon-fill
   rotate: false
-  xy: 378, 68
+  xy: 396, 68
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -503,7 +510,7 @@ icon-open-gray
   index: -1
 icon-pencil
   rotate: false
-  xy: 396, 68
+  xy: 414, 68
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -517,63 +524,63 @@ icon-pick
   index: -1
 icon-plus
   rotate: false
-  xy: 733, 71
+  xy: 424, 56
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 icon-redo
   rotate: false
-  xy: 745, 74
+  xy: 733, 71
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 icon-rename
   rotate: false
-  xy: 757, 74
+  xy: 745, 74
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 icon-select
   rotate: false
-  xy: 769, 74
+  xy: 757, 74
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 icon-tap
   rotate: false
-  xy: 781, 74
+  xy: 769, 74
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 icon-trash
   rotate: false
-  xy: 793, 74
+  xy: 781, 74
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 icon-undo
   rotate: false
-  xy: 805, 74
+  xy: 793, 74
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 icon-up
   rotate: false
-  xy: 817, 74
+  xy: 805, 74
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 icon-zoom
   rotate: false
-  xy: 829, 74
+  xy: 817, 74
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
@@ -588,7 +595,7 @@ inventory
   index: -1
 list-selection
   rotate: false
-  xy: 414, 69
+  xy: 376, 53
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -679,14 +686,14 @@ scroll-knob-vertical
   index: -1
 select-box-list-bg
   rotate: false
-  xy: 376, 53
+  xy: 649, 71
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 window-bg
   rotate: false
-  xy: 376, 53
+  xy: 649, 71
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -707,28 +714,28 @@ select-up
   index: -1
 selection
   rotate: false
-  xy: 649, 71
+  xy: 195, 17
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 separator
   rotate: false
-  xy: 195, 17
+  xy: 209, 43
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 tree-over
   rotate: false
-  xy: 195, 17
+  xy: 209, 43
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 separator-menu
   rotate: false
-  xy: 209, 43
+  xy: 432, 69
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -854,7 +861,7 @@ tooltip
   index: -1
 tooltip-bg
   rotate: false
-  xy: 611, 65
+  xy: 183, 3
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -869,7 +876,7 @@ touchpad-knob
   index: -1
 tree-minus
   rotate: false
-  xy: 841, 74
+  xy: 829, 74
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
@@ -883,7 +890,7 @@ tree-plus
   index: -1
 tree-selection
   rotate: false
-  xy: 183, 3
+  xy: 841, 81
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -905,7 +912,7 @@ view-none
   index: -1
 white
   rotate: false
-  xy: 853, 81
+  xy: 618, 65
   size: 3, 3
   orig: 3, 3
   offset: 0, 0
@@ -920,7 +927,7 @@ window
   index: -1
 window-border-bg
   rotate: false
-  xy: 488, 76
+  xy: 68, 21
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3

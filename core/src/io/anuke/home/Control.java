@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 
 import io.anuke.gif.GifRecorder;
 import io.anuke.home.GameState.State;
+import io.anuke.home.effect.LightEffect;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.home.entities.processors.HealthBarProcessor;
 import io.anuke.home.entities.traits.PlayerTrait;
@@ -187,6 +188,9 @@ public class Control extends RendererModule{
 	@Override
 	public void update(){
 		
+		World.data().dark = true;
+		Renderer.getEffect(LightEffect.class).setEnabled(World.data().dark);
+		
 		if(Inputs.keyDown(Keys.ESCAPE) && Vars.debug)
 			Gdx.app.exit();
 		
@@ -234,6 +238,10 @@ public class Control extends RendererModule{
 		
 		if(boss != null && boss.health().dead){
 			boss = null;
+		}
+		
+		if(Renderer.getEffect(LightEffect.class).isEnabled()){
+			Renderer.getEffect(LightEffect.class).drawLight();
 		}
 		
 		recorder.update();

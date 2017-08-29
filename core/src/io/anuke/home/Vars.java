@@ -1,7 +1,7 @@
 package io.anuke.home;
 
 public class Vars{
-	public static boolean debug = false;
+	public static boolean debug = true;
 	
 	public static Control control;
 	public static UI ui;

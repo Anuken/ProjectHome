@@ -9,7 +9,7 @@ public class World{
 	private static Tile[][] tiles;
 	private static int width = 1024, height = 1024;
 	private static int startx, starty;
-	private static boolean dark;
+	private static WorldData data = new WorldData();
 
 	public static void create(){
 		tiles = new Tile[width][height];
@@ -29,8 +29,8 @@ public class World{
 		return height;
 	}
 	
-	public static boolean isDark(){
-		return dark;
+	public static WorldData data(){
+		return data;
 	}
 
 	public static void resize(int nwidth, int nheight, int offsetx, int offsety){
@@ -70,7 +70,7 @@ public class World{
 
 	public static void loadMap(String name){
 		try{
-			setTiles(MapIO.load(Gdx.files.internal("maps/" + name + ".hsv")));
+			MapIO.load(Gdx.files.internal("maps/" + name + ".hsv"));
 		}catch(Exception e){
 			throw new RuntimeException(e);
 		}

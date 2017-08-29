@@ -4,9 +4,7 @@ import static io.anuke.home.Vars.tilesize;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import io.anuke.home.effect.Darkness;
-import io.anuke.home.effect.Rain;
-import io.anuke.home.effect.RenderEffect;
+import io.anuke.home.effect.*;
 import io.anuke.home.world.Blocks;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
@@ -25,27 +23,33 @@ public class Renderer{
 	private static ClassMap<RenderEffect> effects = new ClassMap<>();
 	private static int lastcamx = -100, lastcamy = -100;
 	
-	public static void updateWalls(){
-		lastcamx = -100;
+	static{
+		addEffects();
+	}
+	
+	private static void addEffects(){
+		effects.add(new LightEffect());
+		effects.add(new Rain());
+		effects.add(new Darkness());
 	}
 	
 	public static void resetEffects(){
 		for(RenderEffect w : effects){
-			w.clear();
-		}
-		
-		effects.clear();
-		
-		effects.add(new Rain());
-		effects.add(new Darkness());
-		
-		for(RenderEffect w : effects){
 			w.init();
+			w.reset();
 		}
 	}
 	
 	public static <N extends RenderEffect> N getEffect(Class<N> c){
 		return effects.get(c);
+	}
+	
+	public static void setEffectEnabled(Class<? extends RenderEffect> type, boolean enabled){
+		effects.get(type).setEnabled(enabled);
+	}
+	
+	public static void updateWalls(){
+		lastcamx = -100;
 	}
 	
 	public static void clearWorld(){
@@ -76,7 +80,8 @@ public class Renderer{
 	public static void renderWorld(){
 		
 		for(RenderEffect effect : effects){
-			effect.update();
+			if(effect.isEnabled())
+				effect.update();
 		}
 		
 		if(caches == null){

@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.compression.Lzma;
  */
 public class MapIO{
 	
-	public static Tile[][] load(FileHandle file) throws IOException, FileNotFoundException{
+	public static void load(FileHandle file) throws IOException, FileNotFoundException{
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		Lzma.decompress(file.read(), out);
 		
@@ -43,9 +43,11 @@ public class MapIO{
 			}
 		}
 		
+		World.data().read(stream);
+		
 		stream.close();
 		
-		return tiles;
+		World.setTiles(tiles);
 	}
 	
 	public static void save(Tile[][] tiles, FileHandle file) throws IOException, FileNotFoundException{
@@ -67,6 +69,8 @@ public class MapIO{
 				stream.writeShort(tile.data2);
 			}
 		}
+		
+		World.data().write(stream);
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
 		

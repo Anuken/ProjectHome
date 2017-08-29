@@ -36,7 +36,7 @@ public class EditorControl extends RendererModule{
 	float mousedx, mousedy, lmousex, lmousey;
 	
 	public EditorControl(){
-		atlas = new Atlas("projecthome.atlas");
+		atlas = new Atlas("sprites.atlas");
 		
 		//load prototypes
 		Prototypes.player.getClass();

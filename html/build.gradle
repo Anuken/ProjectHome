@@ -55,14 +55,6 @@ task distZip(type: Zip, dependsOn: dist){
     destinationDir(file("build/dist-zipped"))
 }
 
-//DIE, SCUM
-eclipseWtpFacet.doLast{
-	delete{
-		delete '.settings/org.eclipse.wst.common.project.facet.core.xml'
-	}
-}
-
-
 draftWar {
    from "war"
 }
