@@ -53,10 +53,10 @@ public class Control extends RendererModule{
 		
 		basis.addProcessor(new TileCollisionProcessor(Vars.tilesize, (x, y)->{
 			Tile tile = World.get(x, y);
-			return tile != null && tile.wall.type.solid(tile.wall);
+			return tile != null && tile.wall.solid;
 		}, (x, y, out)->{
 			Tile tile = World.get(x, y);
-			tile.wall.type.getHitbox(tile, tile.wall, out);
+			tile.wall.getHitbox(tile, out);
 		}));
 		
 		basis.addProcessor(new HealthBarProcessor());
@@ -89,10 +89,10 @@ public class Control extends RendererModule{
 		Entities.initPhysics();
 		Entities.setCollider(Vars.tilesize, (x, y)->{
 			Tile tile = World.get(x, y);
-			return tile != null && tile.wall.type.solid(tile.wall);
+			return tile != null && tile.wall.solid;
 		}, (x, y, out)->{
 			Tile tile = World.get(x, y);
-			tile.wall.type.getHitbox(tile, tile.wall, out);
+			tile.wall.getHitbox(tile, out);
 		});
 		
 		EffectLoader.load();

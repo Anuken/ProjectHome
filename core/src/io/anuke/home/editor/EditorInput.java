@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
 import io.anuke.home.world.Block;
+import io.anuke.home.world.BlockType;
 import io.anuke.home.world.World;
 import io.anuke.ucore.core.DrawContext;
 import io.anuke.ucore.core.Graphics;
@@ -105,7 +106,7 @@ public class EditorInput extends Module{
 			return;
 
 		Block block = Evar.control.selected;
-		if(block.type.floor){
+		if(block.type == BlockType.floor){
 			if(World.get(mousex, mousey).floor != block){
 				World.get(mousex, mousey).floor = block;
 				Renderer.updateFloor(mousex, mousey);

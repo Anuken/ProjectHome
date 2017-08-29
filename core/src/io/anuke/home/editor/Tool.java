@@ -26,14 +26,14 @@ public enum Tool{
 				return;
 
 			Block block = Evar.control.selected;
-			if(block.type.floor){
+			if(block.type == BlockType.floor){
 				if(World.get(x, y).floor != block){
 					World.get(x, y).floor = block;
 					Renderer.updateFloor(x, y);
 				}
 			}else{
 				if(World.get(x, y).wall != block){
-					World.get(x, y).wall.type.cleanup(World.get(x, y));
+					World.get(x, y).wall.cleanup(World.get(x, y));
 					World.get(x, y).wall = block;
 					Renderer.updateWall(x, y);
 					Renderer.updateFloor(x, y);
@@ -62,7 +62,7 @@ public enum Tool{
 
 			Tile tile = World.get(x, y);
 
-			boolean wall = !Evar.control.selected.type.floor;
+			boolean wall = Evar.control.selected.type == BlockType.wall;
 
 			Block dest = wall ? tile.wall : tile.floor;
 
@@ -104,11 +104,7 @@ public enum Tool{
 		}
 
 		void set(int x, int y, Block block){
-			if(block.type.floor){
-				World.get(x, y).floor = block;
-			}else{
-				World.get(x, y).wall = block;
-			}
+			World.get(x, y).setBlock(block);
 		}
 
 		public boolean radius(){
@@ -123,7 +119,7 @@ public enum Tool{
 				return;
 
 			if(Evar.control.walls){
-				World.get(x, y).wall.type.cleanup(World.get(x, y));
+				World.get(x, y).wall.cleanup(World.get(x, y));
 				World.get(x, y).wall = Blocks.air;
 				Renderer.updateFloor(x, y);
 				Renderer.updateWall(x, y);
@@ -252,7 +248,7 @@ public enum Tool{
 				
 				World.set(wx, wy, new Tile(wx, wy));
 				
-				if(tile != null && tile.wall.type == BlockType.emptySpawner){
+				if(tile != null && tile.wall == Blocks.emptySpawner){
 					Basis.instance().removeSpark(tile.data2);
 				}
 			});
@@ -267,11 +263,11 @@ public enum Tool{
 					
 					World.set(wx, wy, tile);
 					
-					if(tile.wall.type == BlockType.emptySpawner){
+					if(tile.wall == Blocks.emptySpawner){
 						tile.wall = Blocks.spawner;
 					}
 					
-					if(prev != null && prev.wall.type == BlockType.emptySpawner){
+					if(prev != null && prev.wall == Blocks.emptySpawner){
 						Basis.instance().removeSpark(prev.data2);
 					}
 				}
@@ -287,11 +283,11 @@ public enum Tool{
 					
 					World.set(wx, wy, tile);
 					
-					if(tile.wall.type == BlockType.emptySpawner){
+					if(tile.wall == Blocks.emptySpawner){
 						tile.wall = Blocks.spawner;
 					}
 					
-					if(prev != null && prev.wall.type == BlockType.emptySpawner){
+					if(prev != null && prev.wall == Blocks.emptySpawner){
 						Basis.instance().removeSpark(prev.data2);
 					}
 				}

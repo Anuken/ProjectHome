@@ -164,7 +164,7 @@ public class Renderer{
 						continue;
 
 					if(tile.wall != Blocks.air){
-						tile.wall.type.draw(renderables[x][y], tile, tile.wall);
+						tile.wall.draw(renderables[x][y], tile);
 					}
 				}
 			}
@@ -217,7 +217,7 @@ public class Renderer{
 		for(int tilex = x * chunksize; tilex < (x + 1) * chunksize; tilex++){
 			for(int tiley = y * chunksize; tiley < (y + 1) * chunksize; tiley++){
 				if(World.get(tilex, tiley) != null){
-					World.get(tilex, tiley).floor.type.drawCache(World.get(tilex, tiley), World.get(tilex, tiley).floor);
+					World.get(tilex, tiley).floor.drawCache(World.get(tilex, tiley));
 				}
 			}
 		}

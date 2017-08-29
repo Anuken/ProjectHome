@@ -35,8 +35,8 @@ public enum View{
 
 					Tile tile = World.get(worldx, worldy);
 					
-					if(tile.wall.type.solid(tile.wall)){
-						tile.wall.type.getHitbox(tile, tile.wall, Rectangle.tmp);
+					if(tile.wall.solid){
+						tile.wall.getHitbox(tile, Rectangle.tmp);
 					}
 					
 					Draw.color(Color.GREEN);

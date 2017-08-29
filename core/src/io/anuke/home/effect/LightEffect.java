@@ -58,7 +58,7 @@ public class LightEffect extends RenderEffect{
 					
 					if(tile != null && !tile.passable() && checkSurround(tile)){
 						Rectangle rect = Pools.obtain(Rectangle.class);
-						tile.wall.type.getHitbox(tile, tile.wall, rect);
+						tile.wall.getHitbox(tile, rect);
 						rays.addRect(rect);
 					}
 				}

@@ -1,84 +1,95 @@
 package io.anuke.home.world;
 
+import com.badlogic.gdx.graphics.Color;
+
+import io.anuke.home.world.blocks.BlockTypes.*;
+import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.graphics.Hue;
 
 public class Blocks{
 	public static final Block
 	
-	air = new Block("air", BlockType.empty),
-	sky = new Block("sky", BlockType.empty){{
-		overrideSolid = true;
+	air = new Block("air", BlockType.floor){
+		
+	},
+	sky = new Block("sky", BlockType.floor){{
 		solid = true;
 	}},
 	
-	grass = new Block("grass", BlockType.tile){{
+	grass = new Floor("grass"){{
 		vary = false;
 	}},
-	pgrass = new Block("pgrass", BlockType.tile){{
+	pgrass = new Floor("pgrass"){{
 		edgecolor = Hue.rgb(0x63569bff, 0.65f);
 	}}, 
-	pgrassdk = new Block("pgrassdk", BlockType.tile){{
+	pgrassdk = new Floor("pgrassdk"){{
 		edgecolor = Hue.rgb(0x5a4e8cff, 0.65f);
 	}}, 
-	psoil = new Block("psoil", BlockType.tile){{
+	psoil = new Floor("psoil"){{
 		edgecolor = Hue.rgb(0x5a4e8cff, 0.6f);
 	}}, 
-	marble = new Block("marble", BlockType.tile){{
+	marble = new Floor("marble"){{
 		variants = 4;
 		edgecolor = Hue.rgb(0x7f788cff, 0.7f);
 	}}, 
-	marbles = new Block("marbles", BlockType.tile){{
+	marbles = new Floor("marbles"){{
 		vary = false;
 	}}, 
-	marbles2 = new Block("marbles2", BlockType.tile){{
+	marbles2 = new Floor("marbles2"){{
 		vary = false;
 	}}, 
-	blocks = new Block("blocks", BlockType.overlay),
-	checkpoint = new Block("respawnpoint", BlockType.checkpoint),
-	redrock = new Block("redrock", BlockType.tile), 
-	stonewall = new Block("stonewall", BlockType.wall),
-	pwall = new Block("pwall", BlockType.wall),
-	pwall2 = new Block("pwall2", BlockType.wall),
-	pwall3 = new Block("pwall3", BlockType.wall),
-	pwall4 = new Block("pwall4", BlockType.wall),
-	marblepillar = new Block("marblepillar", BlockType.wall),
-	marbleblock = new Block("marbleblock", BlockType.wall),
-	marker = new Block("marker", BlockType.object){{
+	blocks = new Overlay("blocks"),
+	checkpoint = new Checkpoint("respawnpoint"),
+	redrock = new Floor("redrock"), 
+	stonewall = new Wall("stonewall"),
+	pwall = new Wall("pwall"),
+	pwall2 = new Wall("pwall2"),
+	pwall3 = new Wall("pwall3"),
+	pwall4 = new Wall("pwall4"),
+	marblepillar = new Wall("marblepillar"),
+	marbleblock = new Wall("marbleblock"),
+	marker = new Prop("marker"){{
 		offset = 1;
 	}},
-	spawner = new Block("spawner", BlockType.spawner),
-	emptySpawner = new Block("spawner", BlockType.emptySpawner),
-	bluetree = new Block("bluetree", BlockType.tree){{
+	spawner = new Spawner("spawner"),
+	emptySpawner = new Block("spawner", BlockType.wall){
+		@Override
+		public void cleanup(Tile tile){
+			Basis.instance().removeSpark(tile.data2);
+			tile.wall = Blocks.spawner;
+		}
+	},
+	bluetree = new Tree("bluetree"){{
 		offset = 4;
 		variants = 2;
 	}},
-	bluesapling = new Block("bluesapling", BlockType.tree){{
+	bluesapling = new Tree("bluesapling"){{
 		offset = 1;
 		variants = 3;
-		overrideSolid = true;
 	}},
-	
-	startcheckpoint = new Block("startpoint", BlockType.startcheckpoint),
-	brickwall = new Block("brickwall", BlockType.wall){{
+	startcheckpoint = new Checkpoint("startpoint"){{
+		sides = 4;
+		darkColor = Color.valueOf("dc997e");
+		lightColor = Color.valueOf("ffb294");
+	}},
+	brickwall = new Wall("brickwall"){{
 		height = 13;
 	}},
-	stonefloor = new Block("stonefloor", BlockType.tile){{
+	stonefloor = new Floor("stonefloor"){{
 		variants = 5;
 	}},
-	bottles = new Block("bottles", BlockType.overlay){{
+	bottles = new Overlay("bottles"){{
 		vary = false;
 	}},
-	barrel = new Block("barrel", BlockType.object){{
+	barrel = new Prop("barrel"){{
 		offset = 3;
-		overrideSolid = true;
 	}},
-	rocks = new Block("rocks", BlockType.overlay),
-	table = new Block("table", BlockType.object){{
+	rocks = new Overlay("rocks"),
+	table = new Prop("table"){{
 		offset = 3;
-		overrideSolid = true;
 	}},
 	
-	cobweb = new Block("cobweb", BlockType.wallOverlay),
+	cobweb = new WallOverlay("cobweb"),
 	
 	end = null
 	;

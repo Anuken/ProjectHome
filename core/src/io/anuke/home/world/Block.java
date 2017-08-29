@@ -20,16 +20,16 @@ public class Block{
 	public boolean vary = true;
 	public int variants = 3;
 	
-	public boolean overrideSolid = false, solid = false;
+	public boolean solid = false;
 	public Color edgecolor = Color.DARK_GRAY;
 	
 	public int height = 9;
 	
 	protected Block(String name, BlockType type){
 		this.name = name;
-		this.type = type;
 		this.id = lastid++;
 		this.edge = name;
+		this.type = type;
 		blocks.add(this);
 	}
 	

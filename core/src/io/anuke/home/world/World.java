@@ -46,7 +46,7 @@ public class World{
 					tile = new Tile(x, y);
 				}else{
 					tile = tiles[targetx][targety];
-					tile.wall.type.cleanup(tile);
+					tile.wall.cleanup(tile);
 					tile.x = x;
 					tile.y = y;
 				}
@@ -80,7 +80,7 @@ public class World{
 	public static void setTiles(Tile[][] tiles){
 		for(int x = 0; x < width; x++){
 			for(int y = 0; y < height; y++){
-				World.tiles[x][y].wall.type.cleanup(World.tiles[x][y]);
+				World.tiles[x][y].wall.cleanup(World.tiles[x][y]);
 			}
 		}
 		width = tiles.length;
@@ -88,7 +88,7 @@ public class World{
 		
 		for(int x = 0; x < width; x++){
 			for(int y = 0; y < height; y++){
-				if(tiles[x][y].wall.type == BlockType.startcheckpoint){
+				if(tiles[x][y].wall == Blocks.startcheckpoint){
 					startx = x;
 					starty = y;
 				}

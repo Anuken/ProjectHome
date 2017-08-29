@@ -39,7 +39,7 @@ public class MapIO{
 				tiles[x][y] = new Tile(x, y, Block.byID(floor), Block.byID(wall));
 				tiles[x][y].data1 = data1;
 				tiles[x][y].data2 = data2;
-				tiles[x][y].wall.type.cleanup(tiles[x][y]);
+				tiles[x][y].wall.cleanup(tiles[x][y]);
 			}
 		}
 		

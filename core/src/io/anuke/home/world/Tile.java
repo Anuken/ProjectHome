@@ -21,7 +21,7 @@ public class Tile{
 	}
 	
 	public boolean passable(){
-		return !wall.type.solid(wall);
+		return !wall.solid;
 	}
 	
 	public int rand(int max){
@@ -37,7 +37,7 @@ public class Tile{
 	}
 	
 	public void setBlock(Block selected){
-		if(selected.type.floor)
+		if(selected.type == BlockType.floor)
 			floor = selected;
 		else
 			wall = selected;
