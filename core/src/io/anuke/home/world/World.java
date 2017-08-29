@@ -70,7 +70,8 @@ public class World{
 
 	public static void loadMap(String name){
 		try{
-			MapIO.load(Gdx.files.internal("maps/" + name + ".hsv"));
+			String filename = "maps/" + name + (name.endsWith(".hsv") ? "" : ".hsv");
+			MapIO.load(Gdx.files.internal(filename));
 		}catch(Exception e){
 			throw new RuntimeException(e);
 		}
@@ -114,6 +115,16 @@ public class World{
 		tile.x = x;
 		tile.y = y;
 		tiles[x][y] = tile;
+	}
+	
+	public static boolean isWall(int x, int y, Block wall){
+		Tile tile = get(x, y);
+		return tile != null && tile.wall == wall;
+	}
+	
+	public static boolean solid(int x, int y){
+		Tile tile = get(x, y);
+		return tile == null || !tile.passable();
 	}
 
 	public static void placeSpawner(int x, int y, Prototype enemy){

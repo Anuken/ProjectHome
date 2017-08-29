@@ -1,10 +1,14 @@
 package io.anuke.home;
 
+import com.badlogic.gdx.graphics.Color;
+
 public class Vars{
 	public static boolean debug = true;
 	
 	public static Control control;
 	public static UI ui;
+	
+	public static final Color skyColor = new Color(0x889dabff);
 	
 	public static final int tilesize = 12;
 	

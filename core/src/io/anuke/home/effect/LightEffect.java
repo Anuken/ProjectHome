@@ -56,7 +56,7 @@ public class LightEffect extends RenderEffect{
 					int wx = camx + x - cwidth/2, wy = camy + y - cheight/2;
 					Tile tile = World.get(wx, wy);
 					
-					if(tile != null && tile.wall.type.solid(tile.wall)){
+					if(tile != null && !tile.passable() && checkSurround(tile)){
 						Rectangle rect = Pools.obtain(Rectangle.class);
 						tile.wall.type.getHitbox(tile, tile.wall, rect);
 						rays.addRect(rect);
@@ -75,6 +75,25 @@ public class LightEffect extends RenderEffect{
 		lastcamy = camcy;
 		
 		//rays.setTint(Hue.rgb(0.65, 0.5, 0.3).mul(1.1f + MathUtils.sin(Timers.time() / 10f) / 30f));
+	}
+	
+	boolean checkSurround(Tile tile){
+		int x = tile.x;
+		int y = tile.y;
+		return !(
+				solid(x+1, y+1) &&
+				solid(x+1, y) &&
+				solid(x+1, y-1) &&
+				solid(x, y+1) &&
+				solid(x, y-1) &&
+				solid(x-1, y+1) &&
+				solid(x-1, y) &&
+				solid(x-1, y-1)
+				);
+	}
+	
+	boolean solid(int x, int y){
+		return World.get(x, y) == null || !World.get(x, y).passable();
 	}
 	
 	public Light addLight(float radius){

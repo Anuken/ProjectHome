@@ -95,8 +95,7 @@ public class EditorInput extends Module{
 				World.height() - control.offsety1 + control.offsety2, 
 				control.offsetx1, control.offsety1);
 		
-		Renderer.clearWorld();
-		Renderer.updateWalls();
+		Renderer.clearAll();
 	}
 
 	void placeBlock(){
@@ -193,7 +192,7 @@ public class EditorInput extends Module{
 			return false;
 
 		DrawContext.camera.zoom += amount / 5f;
-		DrawContext.camera.zoom = Mathf.clamp(DrawContext.camera.zoom, 0.05f, 10f);
+		DrawContext.camera.zoom = Mathf.clamp(DrawContext.camera.zoom, 0.05f, 20f);
 		return false;
 	}
 }

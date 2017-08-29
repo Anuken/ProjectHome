@@ -58,5 +58,28 @@ public class Blocks{
 		overrideSolid = true;
 	}},
 	
-	startcheckpoint = new Block("startpoint", BlockType.startcheckpoint);
+	startcheckpoint = new Block("startpoint", BlockType.startcheckpoint),
+	brickwall = new Block("brickwall", BlockType.wall){{
+		height = 13;
+	}},
+	stonefloor = new Block("stonefloor", BlockType.tile){{
+		variants = 5;
+	}},
+	bottles = new Block("bottles", BlockType.overlay){{
+		vary = false;
+	}},
+	barrel = new Block("barrel", BlockType.object){{
+		offset = 3;
+		overrideSolid = true;
+	}},
+	rocks = new Block("rocks", BlockType.overlay),
+	table = new Block("table", BlockType.object){{
+		offset = 3;
+		overrideSolid = true;
+	}},
+	
+	cobweb = new Block("cobweb", BlockType.wallOverlay),
+	
+	end = null
+	;
 }

@@ -20,6 +20,10 @@ public class Tile{
 		this.wall = wall;
 	}
 	
+	public boolean passable(){
+		return !wall.type.solid(wall);
+	}
+	
 	public int rand(int max){
 		return Mathf.randomSeed(x+x*y+y, 1, max);
 	}

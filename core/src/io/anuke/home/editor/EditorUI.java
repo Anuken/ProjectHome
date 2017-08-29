@@ -23,6 +23,7 @@ import io.anuke.ucore.scene.builders.*;
 import io.anuke.ucore.scene.ui.*;
 import io.anuke.ucore.scene.ui.layout.Stack;
 import io.anuke.ucore.scene.ui.layout.Table;
+import io.anuke.ucore.scene.utils.Elements;
 
 public class EditorUI extends SceneModule{
 	ImageButton wallbutton;
@@ -257,14 +258,17 @@ public class EditorUI extends SceneModule{
 			new label("Properties").right();
 			row();
 			
-			ImageButton button = new ImageButton("icon-eye", "toggle");
-			button.resizeImage(32);
-			button.setChecked(World.data().dark);
-			button.clicked(()->{
-				World.data().dark = button.isChecked();
-			});
+			defaults().right().size(42);
 			
-			add(button).right().size(42);
+			add(Elements.newToggleImageButton("icon-eye", 32, World.data().dark, b->{
+				World.data().dark = b;
+			}));
+			
+			row();
+			
+			add(Elements.newToggleImageButton("icon-sky", 32, World.data().sky, b->{
+				World.data().sky = b;
+			}));
 		}}.end();
 		
 		new table(){{

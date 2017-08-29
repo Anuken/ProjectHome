@@ -45,8 +45,6 @@ public class Control extends RendererModule{
 		Textures.load("textures/");
 		Textures.repeatWrap("fog1", "fog2", "fog3", "fog4");
 		
-		clearColor = new Color(0x889dabff);
-		
 		cameraScale = 4;
 		pixelate();
 		
@@ -165,7 +163,7 @@ public class Control extends RendererModule{
 		RenderableHandler.instance().clear();
 		Renderer.updateWalls();
 		killed.clear();
-		World.loadMap("corruption-arena");
+		World.loadMap("library-filled");
 		Entities.clear();
 		Renderer.clearWorld();
 		
@@ -188,7 +186,8 @@ public class Control extends RendererModule{
 	@Override
 	public void update(){
 		
-		World.data().dark = true;
+		clearColor = World.data().sky ? Vars.skyColor : Color.BLACK;
+		
 		Renderer.getEffect(LightEffect.class).setEnabled(World.data().dark);
 		
 		if(Inputs.keyDown(Keys.ESCAPE) && Vars.debug)
@@ -275,13 +274,15 @@ public class Control extends RendererModule{
 	}
 	
 	void drawBackground(){
-		Draw.color();
-		int s = 400;
-		float scl = 1f;
-		for(int i = 0; i < 4; i ++){
-			Texture t = Textures.get("fog" + (i+1));
-			int offset = (int)(Timers.time()/20*(i+1));
-			batch.draw(t, camera.position.x-s/2, camera.position.y-s/2, s/2, s/2, s, s, scl, scl, 0f, offset, 0, s, s, false, false);
+		if(World.data().sky){
+			Draw.color();
+			int s = 400;
+			float scl = 1f;
+			for(int i = 0; i < 4; i ++){
+				Texture t = Textures.get("fog" + (i+1));
+				int offset = (int)(Timers.time()/20*(i+1));
+				batch.draw(t, camera.position.x-s/2, camera.position.y-s/2, s/2, s/2, s, s, scl, scl, 0f, offset, 0, s, s, false, false);
+			}
 		}
 	}
 }

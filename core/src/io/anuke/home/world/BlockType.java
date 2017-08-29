@@ -2,6 +2,7 @@ package io.anuke.home.world;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 
 import io.anuke.home.Vars;
@@ -11,6 +12,7 @@ import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.graphics.Caches;
 import io.anuke.ucore.renderables.*;
+import io.anuke.ucore.util.Geometry;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
@@ -70,6 +72,40 @@ public enum BlockType{
 		public void draw(RenderableList list, Tile tile, Block block){
 			new SpriteRenderable(block.name).set(tile.worldx(), tile.worldy()-Vars.tilesize/2f)
 			.centerX().addShadow(list, "wallshadow", 6).sort(Sorter.object).add(list);
+			
+			if(Draw.hasRegion(block.name + "edge")){
+				new FuncRenderable(p->{
+					p.layer = tile.worldy()-Vars.tilesize/2f - 0.001f;
+					float posx = tile.x * Vars.tilesize, posy = tile.y * Vars.tilesize + block.height;
+					
+					int dir = 0;
+					
+					for(GridPoint2 point : Geometry.getD4Points()){
+						if(!World.isWall(tile.x + point.x, tile.y + point.y, block)){
+							Draw.rect(block.name + "edge", posx, posy, dir*90);
+						}
+						
+						dir ++;
+					}
+					
+					dir = 0;
+					
+					for(GridPoint2 point : Geometry.getD8EdgePoints()){
+						if(!World.isWall(tile.x + point.x, tile.y + point.y, block)){
+							Draw.rect(block.name + "edgecorner", posx, posy, dir*90);
+						}
+						
+						dir ++;
+					}
+					
+				}).sort(Sorter.object).add(list);
+			}
+		}
+	},
+	wallOverlay(false, false){
+		public void draw(RenderableList list, Tile tile, Block block){
+			new SpriteRenderable(block.name).set(tile.worldx(), tile.worldy()+Vars.tilesize/2f-0.001f)
+			.centerX().sort(Sorter.object).add(list);
 		}
 	},
 	tree(false, true){
@@ -132,7 +168,7 @@ public enum BlockType{
 		public void draw(RenderableList list, Tile tile, Block block){
 			String name = block.name + (block.vary ? tile.rand(block.variants) : "");
 			new SpriteRenderable(name).set(tile.worldx(), tile.worldy()-block.offset)
-			.layer(tile.worldy()+30)
+			.layer(tile.worldy()+5)
 			.center().addShadow(list, name,block.offset+8).sort(Sorter.object).add(list);
 		}
 		

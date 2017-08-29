@@ -8,9 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
 import io.anuke.home.entities.Prototypes;
-import io.anuke.home.world.Block;
-import io.anuke.home.world.Blocks;
-import io.anuke.home.world.World;
+import io.anuke.home.world.*;
 import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
@@ -51,8 +49,6 @@ public class EditorControl extends RendererModule{
 		
 		Settings.load("io.anuke.home.editor");
 		
-		clearColor = new Color(0x889dabff);
-		
 		cameraScale = 4;
 		
 		RenderableHandler.instance().setLayerManager(new DrawLayerManager());
@@ -63,7 +59,12 @@ public class EditorControl extends RendererModule{
 	@Override
 	public void init(){
 		World.create();
-		World.loadMap("corruption");
+		try{
+			MapIO.load(Gdx.files.internal(Settings.has("lastimport") ? Settings.getString("lastimport") : "maps/corruption.hsv"));
+		}catch(Exception e){
+			e.printStackTrace();
+			World.loadMap("corruption");
+		}
 		camera.position.set(World.width()*Vars.tilesize/2, World.height()*Vars.tilesize/2, 0);
 	}
 	
@@ -76,6 +77,8 @@ public class EditorControl extends RendererModule{
 			walls = !walls;
 			Evar.ui.updateWallButton();
 		}
+		
+		clearColor = World.data().sky ? Vars.skyColor : Color.BLACK;
 		
 		drawDefault();
 		
@@ -136,23 +139,21 @@ public class EditorControl extends RendererModule{
 		//Draw.rect("place", mousex, mousey);
 	}
 	
-	void doResize(){
-		
-	}
-	
 	public void resize(){
 		setCamera(World.width()*Vars.tilesize/2, World.height()*Vars.tilesize/2);
 		camera.update();
 	}
 	
 	void drawBackground(){
-		Draw.color();
-		int s = 400;
-		float scl = 1f*camera.zoom;
-		for(int i = 0; i < 4; i ++){
-			Texture t = Textures.get("fog" + (i+1));
-			int offset = (int)(Timers.time()/20*(i+1));
-			batch.draw(t, camera.position.x-s/2, camera.position.y-s/2, s/2, s/2, s, s, scl, scl, 0f, offset, 0, s, s, false, false);
+		if(World.data().sky){
+			Draw.color();
+			int s = 400;
+			float scl = 1f*camera.zoom;
+			for(int i = 0; i < 4; i ++){
+				Texture t = Textures.get("fog" + (i+1));
+				int offset = (int)(Timers.time()/20*(i+1));
+				batch.draw(t, camera.position.x-s/2, camera.position.y-s/2, s/2, s/2, s, s, scl, scl, 0f, offset, 0, s, s, false, false);
+			}
 		}
 	}
 }
