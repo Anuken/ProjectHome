@@ -3,6 +3,7 @@ package io.anuke.home.world;
 import java.io.*;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.compression.Lzma;
 
 /**
@@ -10,9 +11,13 @@ import com.badlogic.gdx.utils.compression.Lzma;
  * <h2>Format:</h2>
  * <p>
  * All the data is compressed using LZMA. Decompress before reading.
- * Header: two ints, width and height, respectively.
- * Everything after: a flattened 2D array, in row-major order, with tile data.
- * Tile data format: wall (int), floor (int), data (int)
+ * Saved block data:
+ *     # of blocks (int)
+ *     List of block name Strings, going by ID
+ * Map data: 
+ *     two ints, width and height, respectively.
+ *     Everything after: a flattened 2D array, in row-major order, with tile data.
+ *     Tile data format: wall (int), floor (int), data (int)
  * </p>
  * @author Anuke
  *
@@ -25,6 +30,13 @@ public class MapIO{
 		
 		DataInputStream stream = new DataInputStream(new ByteArrayInputStream(out.toByteArray()));
 		
+		ObjectMap<Integer, Block> blockmap = new ObjectMap<>();
+		int blocks = stream.readInt();
+		for(int i = 0; i < blocks; i ++){
+			String name = stream.readUTF();
+			blockmap.put(i, Block.byName(name));
+		}
+		
 		int width = stream.readInt();
 		int height = stream.readInt();
 		
@@ -36,7 +48,7 @@ public class MapIO{
 				int floor = stream.readInt();
 				short data1 = stream.readShort();
 				short data2 = stream.readShort();
-				tiles[x][y] = new Tile(x, y, Block.byID(floor), Block.byID(wall));
+				tiles[x][y] = new Tile(x, y, blockmap.get(floor, Blocks.air), blockmap.get(wall, Blocks.air));
 				tiles[x][y].data1 = data1;
 				tiles[x][y].data2 = data2;
 				tiles[x][y].wall.cleanup(tiles[x][y]);
@@ -53,6 +65,11 @@ public class MapIO{
 	public static void save(Tile[][] tiles, FileHandle file) throws IOException, FileNotFoundException{
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		DataOutputStream stream = new DataOutputStream(out);
+		
+		stream.writeInt(Block.getAllBlocks().size);
+		for(Block block : Block.getAllBlocks()){
+			stream.writeUTF(block.name);
+		}
 		
 		int width = tiles.length;
 		int height = tiles[0].length;

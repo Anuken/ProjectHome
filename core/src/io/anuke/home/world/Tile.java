@@ -28,6 +28,10 @@ public class Tile{
 		return Mathf.randomSeed(x+x*y+y, 1, max);
 	}
 	
+	public int rand(int offset, int max){
+		return Mathf.randomSeed(offset + x+x*y+y, 1, max);
+	}
+	
 	public int worldx(){
 		return x*Vars.tilesize;
 	}

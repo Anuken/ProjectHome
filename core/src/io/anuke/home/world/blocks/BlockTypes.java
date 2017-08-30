@@ -200,7 +200,7 @@ public class BlockTypes{
 		@Override
 		public void draw(RenderableList list, Tile tile){
 			
-			new SpriteRenderable("respawnpointedge").set(tile.worldx(), tile.worldy())
+			new SpriteRenderable(name).set(tile.worldx(), tile.worldy())
 			.center().sort(Sorter.tile).add(list);
 			
 			new FuncRenderable(p->{

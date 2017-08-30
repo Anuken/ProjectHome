@@ -3,6 +3,7 @@ package io.anuke.home.world;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 
 import io.anuke.home.Vars;
 import io.anuke.ucore.renderables.RenderableList;
@@ -10,6 +11,7 @@ import io.anuke.ucore.renderables.RenderableList;
 public class Block{
 	private static int lastid;
 	private static Array<Block> blocks = new Array<>();
+	private static ObjectMap<String, Block> blockmap = new ObjectMap<>();
 	
 	public final int id;
 	public final String name;
@@ -31,6 +33,12 @@ public class Block{
 		this.edge = name;
 		this.type = type;
 		blocks.add(this);
+		
+		if(blockmap.containsKey(name)){
+			throw new RuntimeException("Duplicate block name: " + name + ". Block names must be unique!");
+		}else{
+			blockmap.put(name, this);
+		}
 	}
 	
 	public void cleanup(Tile tile){
@@ -47,6 +55,11 @@ public class Block{
 	
 	public static Array<Block> getAllBlocks(){
 		return blocks;
+	}
+	
+	/**Returns AIR if the block name is not used.s*/
+	public static Block byName(String name){
+		return blockmap.get(name, Blocks.air);
 	}
 	
 	/**Returns AIR if the block index is out of bounds.*/

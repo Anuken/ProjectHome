@@ -303,7 +303,7 @@ public class EditorUI extends SceneModule{
 			
 			stack.add(pane);
 			
-			int maxblocks = 14;
+			int maxblocks = 18;
 			
 			int counter = 0;
 			Table current = new Table();
