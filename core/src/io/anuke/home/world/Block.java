@@ -30,6 +30,12 @@ public class Block{
 	
 	public Rectangle hitbox = new Rectangle(0, 0, Vars.tilesize, Vars.tilesize);
 	
+	public boolean destructible = false;
+	public int destoyDamage = 4;
+	public Block destroyBlock = Blocks.air;
+	public String destroyParticle;
+	public String hitParticle;
+	
 	protected Block(String name, BlockType type){
 		this.name = name;
 		this.id = lastid++;

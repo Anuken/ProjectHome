@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Pools;
 import io.anuke.home.Vars;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
+import io.anuke.home.world.blocks.BlockTypes.Wall;
 import io.anuke.ucore.core.DrawContext;
 import io.anuke.ucore.graphics.Hue;
 import io.anuke.ucore.lights.Light;
@@ -44,39 +45,41 @@ public class LightEffect extends RenderEffect{
 	public void update(){
 		OrthographicCamera cam = DrawContext.camera;
 		int camcx = Mathf.scl(cam.position.x, chunksize), camcy = Mathf.scl(cam.position.y, chunksize);
-		int cwidth = Mathf.scl(cam.viewportWidth, Vars.tilesize) + 1, cheight = Mathf.scl(cam.viewportHeight, Vars.tilesize) + 1;
-		int camx = Mathf.scl(cam.position.x, Vars.tilesize), camy = Mathf.scl(cam.position.y, Vars.tilesize);
-		
+
 		if(camcx != lastcamx || camcy != lastcamy){
-			for(Rectangle rect : rays.getRects()){
-				Pools.free(rect);
-			}
-			rays.clearRects();
-			
-			for(int x = 0; x < cwidth; x ++){
-				for(int y = 0; y < cheight; y ++){
-					int wx = camx + x - cwidth/2, wy = camy + y - cheight/2;
-					Tile tile = World.get(wx, wy);
-					
-					if(tile != null && !tile.passable() && checkSurround(tile)){
-						Rectangle rect = Pools.obtain(Rectangle.class);
-						tile.wall.getHitbox(tile, rect);
-						rays.addRect(rect);
-					}
-				}
-			}
-			
-			
-			//rays.setBounds(cam.position.x - cam.viewportWidth/2, 
-			//		cam.position.y - cam.viewportHeight/2, cam.viewportWidth, cam.viewportHeight);
-			
-			rays.updateRects();
+			updateRects();
 		}
 		
 		lastcamx = camcx;
 		lastcamy = camcy;
+	}
+	
+	public void updateRects(){
+		OrthographicCamera cam = DrawContext.camera;
+		int cwidth = Mathf.scl(cam.viewportWidth, Vars.tilesize) + 1, cheight = Mathf.scl(cam.viewportHeight, Vars.tilesize) + 1;
+		int camx = Mathf.scl(cam.position.x, Vars.tilesize), camy = Mathf.scl(cam.position.y, Vars.tilesize);
 		
-		//rays.setTint(Hue.rgb(0.65, 0.5, 0.3).mul(1.1f + MathUtils.sin(Timers.time() / 10f) / 30f));
+		
+		for(Rectangle rect : rays.getRects()){
+			Pools.free(rect);
+		}
+		rays.clearRects();
+		
+		for(int x = 0; x < cwidth; x ++){
+			for(int y = 0; y < cheight; y ++){
+				int wx = camx + x - cwidth/2, wy = camy + y - cheight/2;
+				Tile tile = World.get(wx, wy);
+				
+				if(tile != null && !tile.passable() && checkSurround(tile)){
+					Rectangle rect = Pools.obtain(Rectangle.class);
+					tile.wall.getHitbox(tile, rect);
+					if(tile.wall instanceof Wall)
+						rect.y += 4;
+					rays.addRect(rect);
+				}
+			}
+		}
+		rays.updateRects();
 	}
 	
 	boolean checkSurround(Tile tile){

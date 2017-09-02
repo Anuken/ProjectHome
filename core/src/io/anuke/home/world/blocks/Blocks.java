@@ -78,10 +78,17 @@ public class Blocks{
 	brickwall = new Wall("brickwall"){{
 		height = 13;
 	}},
+	brickshelf = new Wall("brickshelf"){{
+		height = 13;
+		variants = 3;
+		vary = true;
+		edge = "brickwall";
+	}},
 	stonefloor = new Floor("stonefloor"){{
 		variants = 5;
 	}},
 	bottles = new Overlay("bottles"){
+		Color color = new Color(0.9f, 0.9f, 0.9f, 0.86f);
 		{
 			vary = true;
 			variants = 5;
@@ -92,6 +99,7 @@ public class Blocks{
 		public void draw(RenderableList list, Tile tile){
 			String name = this.name + (vary ? tile.rand(variants) : "");
 			new SpriteRenderable(name).set(tile.worldx(), tile.worldy()-offset)
+			.color(color)
 			.layer(tile.worldy())
 			.center().sort(Sorter.object).add(list);
 			
@@ -136,9 +144,14 @@ public class Blocks{
 		vary = false;
 		solid = true;
 		hitbox.setSize(10, 10);
+		destructible = true;
+		destoyDamage = 12;
+		destroyBlock = Blocks.rocks;
+		destroyParticle = "rockbreak";
+		hitParticle = "rockspark";
 	}},
 	table = new Prop("table"){{
-			offset = 3;
+		offset = 3;
 	}},
 	booktable = new Prop("booktable"){
 		Color[] colors = {Color.valueOf("4c5f3e"), Color.valueOf("7b6844"), Color.valueOf("445e6d"), Color.valueOf("704533"), Color.valueOf("8f875f")};

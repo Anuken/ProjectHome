@@ -12,6 +12,28 @@ public class EffectLoader{
 	
 	public static void load(){
 		
+		Effects.create("rockbreak", 40, e->{
+			Draw.color(Color.LIGHT_GRAY, Color.DARK_GRAY, e.ifract());
+			
+			float rad = e.fract()*8f;
+			Geometry.randLenVectors(e.id, 5, e.powfract()*20f, (x, y)->{
+				Draw.rect("rockparticle", e.x+x, e.y+y, rad, rad);
+			});
+			
+			Draw.reset();
+		});
+		
+		Effects.create("rockspark", 18, e->{
+			Draw.color(Color.WHITE, Color.DARK_GRAY, e.ifract());
+			
+			float rad = e.fract()*3f;
+			Geometry.randLenVectors(e.id, 5, e.powfract()*12f, (x, y)->{
+				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
+			});
+			
+			Draw.reset();
+		});
+		
 		Effects.create("scorchblap", 8, e->{
 			Draw.thickness(2f);
 			Draw.color(Hue.mix(Color.CORAL, Color.WHITE, e.ifract()));

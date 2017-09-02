@@ -71,10 +71,12 @@ public class BlockTypes{
 	}
 	
 	public static class Wall extends Block{
+		String edge;
 
 		public Wall(String name) {
 			super(name, BlockType.wall);
-			
+			edge = name;
+			vary = false;
 			solid = true;
 		}
 		
@@ -83,7 +85,7 @@ public class BlockTypes{
 			new SpriteRenderable(name + (vary ? tile.rand(variants) : "")).set(tile.worldx(), tile.worldy()-Vars.tilesize/2f)
 			.centerX().addShadow(list, "wallshadow", 6).sort(Sorter.object).add(list);
 			
-			if(Draw.hasRegion(name + "edge")){
+			if(Draw.hasRegion(edge + "edge")){
 				new FuncRenderable(p->{
 					p.layer = tile.worldy()-Vars.tilesize/2f - 0.001f;
 					float posx = tile.x * Vars.tilesize, posy = tile.y * Vars.tilesize + height;
@@ -92,7 +94,7 @@ public class BlockTypes{
 					
 					for(GridPoint2 point : Geometry.getD4Points()){
 						if(!World.isWall(tile.x + point.x, tile.y + point.y, this)){
-							Draw.rect(name + "edge", posx, posy, dir*90);
+							Draw.rect(edge + "edge", posx, posy, dir*90);
 						}
 						
 						dir ++;
@@ -102,7 +104,7 @@ public class BlockTypes{
 					
 					for(GridPoint2 point : Geometry.getD8EdgePoints()){
 						if(!World.isWall(tile.x + point.x, tile.y + point.y, this)){
-							Draw.rect(name + "edgecorner", posx, posy, dir*90);
+							Draw.rect(edge + "edgecorner", posx, posy, dir*90);
 						}
 						
 						dir ++;

@@ -1,6 +1,11 @@
 package io.anuke.home.entities.types;
 
+import io.anuke.home.Renderer;
+import io.anuke.home.effect.LightEffect;
 import io.anuke.home.entities.Prototypes;
+import io.anuke.home.world.Tile;
+import io.anuke.home.world.World;
+import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.TraitList;
@@ -12,7 +17,26 @@ import io.anuke.ucore.ecs.extend.traits.ProjectileTrait.ProjectileType;
 public class Projectile extends Prototype{
 	
 	public Projectile(){
-		event(TileCollision.class, spark->{
+		event(TileCollision.class, (spark, x, y)->{
+			Tile tile = World.get(x, y);
+			if(tile.wall.destructible){
+				
+				if(spark.get(ContactDamageTrait.class).damage < tile.wall.destoyDamage){
+					if(tile.wall.hitParticle != null){
+						Effects.effect(tile.wall.hitParticle, spark.pos().x, spark.pos().y);
+					}
+				}else{
+				
+					if(tile.wall.destroyParticle != null){
+						Effects.effect(tile.wall.destroyParticle, tile.worldx(), tile.worldy());
+					}
+					
+					tile.wall = tile.wall.destroyBlock;
+					Renderer.updateWall(tile.x, tile.y);
+					Renderer.getEffect(LightEffect.class).updateRects();
+				}
+			}
+			
 			spark.get(ProjectileTrait.class).type.removed(spark);
 			spark.remove();
 		});

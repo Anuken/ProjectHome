@@ -2,6 +2,7 @@ package io.anuke.home.world;
 
 import com.badlogic.gdx.Gdx;
 
+import io.anuke.home.world.blocks.BlockTypes.Wall;
 import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.util.Mathf;
@@ -120,7 +121,7 @@ public class World{
 	
 	public static boolean isWall(int x, int y, Block wall){
 		Tile tile = get(x, y);
-		return tile != null && tile.wall == wall;
+		return tile != null && tile.wall instanceof Wall;
 	}
 	
 	public static boolean solid(int x, int y){
