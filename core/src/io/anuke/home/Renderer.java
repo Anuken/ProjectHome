@@ -5,9 +5,9 @@ import static io.anuke.home.Vars.tilesize;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import io.anuke.home.effect.*;
-import io.anuke.home.world.Blocks;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
+import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.DrawContext;
 import io.anuke.ucore.graphics.Cache;
@@ -218,6 +218,14 @@ public class Renderer{
 			for(int tiley = y * chunksize; tiley < (y + 1) * chunksize; tiley++){
 				if(World.get(tilex, tiley) != null){
 					World.get(tilex, tiley).floor.drawCache(World.get(tilex, tiley));
+				}
+			}
+		}
+		
+		for(int tilex = x * chunksize; tilex < (x + 1) * chunksize; tilex++){
+			for(int tiley = y * chunksize; tiley < (y + 1) * chunksize; tiley++){
+				if(World.get(tilex, tiley) != null){
+					World.get(tilex, tiley).decal.drawCache(World.get(tilex, tiley));
 				}
 			}
 		}

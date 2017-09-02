@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 
 import io.anuke.home.Vars;
-import io.anuke.home.world.Blocks;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
+import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.DrawContext;
 import io.anuke.ucore.renderables.Sorter;

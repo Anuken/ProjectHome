@@ -2,6 +2,7 @@ package io.anuke.home.world;
 
 import com.badlogic.gdx.Gdx;
 
+import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.util.Mathf;
 

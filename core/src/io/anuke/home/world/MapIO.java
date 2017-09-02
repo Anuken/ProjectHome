@@ -6,6 +6,8 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.compression.Lzma;
 
+import io.anuke.home.world.blocks.Blocks;
+
 /**
  * Loads and saves maps.
  * <h2>Format:</h2>
@@ -46,9 +48,11 @@ public class MapIO{
 			for(int y = 0; y < height; y ++){
 				int wall = stream.readInt();
 				int floor = stream.readInt();
+				int decal = stream.readInt();
 				short data1 = stream.readShort();
 				short data2 = stream.readShort();
 				tiles[x][y] = new Tile(x, y, blockmap.get(floor, Blocks.air), blockmap.get(wall, Blocks.air));
+				tiles[x][y].decal = blockmap.get(decal, Blocks.air);
 				tiles[x][y].data1 = data1;
 				tiles[x][y].data2 = data2;
 				tiles[x][y].wall.cleanup(tiles[x][y]);
@@ -82,6 +86,7 @@ public class MapIO{
 				Tile tile = tiles[x][y];
 				stream.writeInt(tile.wall.id);
 				stream.writeInt(tile.floor.id);
+				stream.writeInt(tile.decal.id);
 				stream.writeShort(tile.data1);
 				stream.writeShort(tile.data2);
 			}

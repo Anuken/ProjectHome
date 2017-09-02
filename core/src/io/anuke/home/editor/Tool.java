@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.IntSet;
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
 import io.anuke.home.world.*;
+import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Inputs;
 import io.anuke.ucore.ecs.Basis;
@@ -29,6 +30,11 @@ public enum Tool{
 			if(block.type == BlockType.floor){
 				if(World.get(x, y).floor != block){
 					World.get(x, y).floor = block;
+					Renderer.updateFloor(x, y);
+				}
+			}else if(block.type == BlockType.decal){
+				if(World.get(x, y).decal != block){
+					World.get(x, y).decal = block;
 					Renderer.updateFloor(x, y);
 				}
 			}else{
@@ -118,12 +124,14 @@ public enum Tool{
 			if(World.get(x, y) == null)
 				return;
 
-			if(Evar.control.walls){
+			if(Evar.control.blocktype == BlockType.wall){
 				World.get(x, y).wall.cleanup(World.get(x, y));
 				World.get(x, y).wall = Blocks.air;
 				Renderer.updateFloor(x, y);
 				Renderer.updateWall(x, y);
-
+			}else if(Evar.control.blocktype == BlockType.decal){ //TODO
+				World.get(x, y).decal = Blocks.air;
+				Renderer.updateFloor(x, y);
 			}else{
 				World.get(x, y).floor = Blocks.air;
 				Renderer.updateFloor(x, y);

@@ -1,15 +1,17 @@
 package io.anuke.home.world;
 
 import io.anuke.home.Vars;
+import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.util.Mathf;
 
+//TODO make coords shorts?
 public class Tile{
+	public Block floor, wall, decal;
 	public int x, y;
-	public Block floor, wall;
 	public short data1 = -1, data2 = -1;
 	
 	public Tile(int x, int y){
-		floor = wall = Blocks.air;
+		floor = wall = decal = Blocks.air;
 		this.x = x;
 		this.y = y;
 	}
@@ -43,8 +45,10 @@ public class Tile{
 	public void setBlock(Block selected){
 		if(selected.type == BlockType.floor)
 			floor = selected;
-		else
+		else if(selected.type == BlockType.decal)
 			wall = selected;
+		else
+			decal = selected;
 	}
 	
 	@Override

@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
 import io.anuke.home.Vars;
+import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.renderables.RenderableList;
 
 public class Block{
@@ -27,6 +28,8 @@ public class Block{
 	
 	public int height = 9;
 	
+	public Rectangle hitbox = new Rectangle(0, 0, Vars.tilesize, Vars.tilesize);
+	
 	protected Block(String name, BlockType type){
 		this.name = name;
 		this.id = lastid++;
@@ -46,7 +49,7 @@ public class Block{
 	}
 	
 	public void getHitbox(Tile tile, Rectangle out){
-		out.setSize(Vars.tilesize).setCenter(tile.worldx(), tile.worldy());
+		out.setSize(hitbox.width, hitbox.height).setCenter(hitbox.x + tile.worldx(), hitbox.y + tile.worldy());
 	}
 	
 	public void draw(RenderableList list, Tile tile){}

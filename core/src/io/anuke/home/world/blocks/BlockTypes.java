@@ -3,7 +3,6 @@ package io.anuke.home.world.blocks;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Rectangle;
 
 import io.anuke.home.Vars;
 import io.anuke.home.world.*;
@@ -118,6 +117,7 @@ public class BlockTypes{
 
 		public Tree(String name) {
 			super(name, BlockType.wall);
+			hitbox.setSize(12, 2);
 		}
 		
 		@Override
@@ -126,18 +126,13 @@ public class BlockTypes{
 			.layer(tile.worldy())
 			.centerX().addShadow(list, offset).sort(Sorter.object).add(list);
 		}
-		
-		@Override
-		public void getHitbox(Tile tile, Rectangle out){
-			out.setSize(12, 2)
-			.setCenter(tile.worldx(), tile.worldy());
-		}
 	}
 	
 	public static class Prop extends Block{
 
 		public Prop(String name) {
 			super(name, BlockType.wall);
+			hitbox.setSize(12, 2);
 		}
 		
 		@Override
@@ -146,18 +141,13 @@ public class BlockTypes{
 			.layer(tile.worldy())
 			.centerX().addShadow(list, offset).sort(Sorter.object).add(list);
 		}
-		
-		@Override
-		public void getHitbox(Tile tile, Rectangle out){
-			out.setSize(12, 2)
-			.setCenter(tile.worldx(), tile.worldy());
-		}
 	}
 	
 	public static class Overlay extends Block{
 
 		public Overlay(String name) {
 			super(name, BlockType.wall);
+			hitbox.setSize(8, 8);
 		}
 		
 		@Override
@@ -166,12 +156,6 @@ public class BlockTypes{
 			new SpriteRenderable(name).set(tile.worldx(), tile.worldy()-offset)
 			.layer(tile.worldy()+5)
 			.center().addShadow(list, name, offset+8).sort(Sorter.object).add(list);
-		}
-		
-		@Override
-		public void getHitbox(Tile tile, Rectangle out){
-			out.setSize(12, 2)
-			.setCenter(tile.worldx(), tile.worldy());
 		}
 	}
 	
@@ -234,5 +218,51 @@ public class BlockTypes{
 		}
 	}
 	
+	public static class Decal extends Block{
+
+		protected Decal(String name) {
+			super(name, BlockType.decal);
+			vary = false;
+		}
+		
+		@Override
+		public void drawCache(Tile tile){
+			Caches.draw(name + (vary ? tile.rand(variants) : ""), tile.worldx(), tile.worldy());
+		}
+	}
 	
+	public static class Moss extends Decal{
+		Color color = new Color();
+		boolean rotate = true;
+
+		protected Moss(String name) {
+			super(name);
+		}
+		
+		@Override
+		public void drawCache(Tile tile){
+			int i = 0;
+			boolean any = false;
+			
+			Caches.color(color);
+			
+			for(GridPoint2 point : Geometry.getD4Points()){
+				Tile other = World.get(point.x + tile.x, point.y + tile.y);
+				
+				if(other != null && other.decal == this){
+					int rot = tile.rand(i*2, 5)-1;
+					
+					Caches.draw(name + "" + (i + (rotate ? rot : 0)) % 4, tile.worldx(), tile.worldy(), rotate ? -rot*90 : 0);
+					any = true;
+				}
+				i ++;
+			}
+			
+			if(!any){
+				Caches.draw(name + "none", tile.worldx(), tile.worldy());
+			}
+			
+			Caches.color();
+		}
+	}
 }

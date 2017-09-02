@@ -9,6 +9,7 @@ import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.home.world.*;
+import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
@@ -25,7 +26,7 @@ public class EditorControl extends RendererModule{
 	public Block selected = Blocks.air;
 	public Prototype seltype = null;
 	public View view = View.none;
-	public boolean walls;
+	public BlockType blocktype = BlockType.wall;
 	public Tool tool = Tool.pencil;
 	public int brushsize = 1;
 	
@@ -65,7 +66,9 @@ public class EditorControl extends RendererModule{
 			e.printStackTrace();
 			World.loadMap("corruption");
 		}
-		camera.position.set(World.width()*Vars.tilesize/2, World.height()*Vars.tilesize/2, 0);
+		
+		camera.position.set(World.getStartX() * Vars.tilesize, World.getStartY() * Vars.tilesize, 0);
+		camera.update();
 	}
 	
 	@Override
@@ -74,7 +77,7 @@ public class EditorControl extends RendererModule{
 			Gdx.app.exit();
 		
 		if(Inputs.keyUp(Keys.SPACE)){
-			walls = !walls;
+			switchBlockType();
 			Evar.ui.updateWallButton();
 		}
 		
@@ -139,9 +142,14 @@ public class EditorControl extends RendererModule{
 		//Draw.rect("place", mousex, mousey);
 	}
 	
+	@Override
 	public void resize(){
-		setCamera(World.width()*Vars.tilesize/2, World.height()*Vars.tilesize/2);
+		camera.position.set(World.getStartX() * Vars.tilesize, World.getStartY() * Vars.tilesize, 0);
 		camera.update();
+	}
+	
+	public void switchBlockType(){
+		blocktype = BlockType.values()[(blocktype.ordinal() + 1) % BlockType.values().length];
 	}
 	
 	void drawBackground(){

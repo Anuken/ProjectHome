@@ -111,6 +111,11 @@ public class EditorInput extends Module{
 				World.get(mousex, mousey).floor = block;
 				Renderer.updateFloor(mousex, mousey);
 			}
+		}else if(block.type == BlockType.decal){
+			if(World.get(mousex, mousey).decal != block){
+				World.get(mousex, mousey).decal = block;
+				Renderer.updateFloor(mousex, mousey);
+			}
 		}else{
 			if(World.get(mousex, mousey).wall != block){
 				World.get(mousex, mousey).wall = block;

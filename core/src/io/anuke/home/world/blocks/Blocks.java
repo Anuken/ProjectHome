@@ -1,8 +1,11 @@
-package io.anuke.home.world;
+package io.anuke.home.world.blocks;
 
 import com.badlogic.gdx.graphics.Color;
 
 import io.anuke.home.Vars;
+import io.anuke.home.world.Block;
+import io.anuke.home.world.BlockType;
+import io.anuke.home.world.Tile;
 import io.anuke.home.world.blocks.BlockTypes.*;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.ecs.Basis;
@@ -106,33 +109,87 @@ public class Blocks{
 					int rot = tile.rand(i*2 + 2, 360);
 					float mul = 1f + (tile.rand(i*2 + 3, 255)/255f-0.5f)/6f;
 					
-					temp.set(colors[i]).mul(mul, mul, mul, 1f);
-					
-					Draw.color(0f, 0f, 0f, 0.14f);
-					Draw.rect("blank", tile.worldx() + dx-Vars.tilesize/2, tile.worldy() + dy - Vars.tilesize/2 - 1.8f, w, h, rot);
-					
-					Draw.color(temp.mul(0.8f, 0.8f, 0.8f, 1f));
-					
-					Draw.rect("blank", tile.worldx() + dx-Vars.tilesize/2, tile.worldy() + dy - Vars.tilesize/2 - 0.7f, w, h, rot);
-					
-					temp.set(colors[i]).mul(mul, mul, mul, 1f);
-					
-					Draw.color(temp);
-					
-					Draw.rect("blank", tile.worldx() + dx-Vars.tilesize/2, tile.worldy() + dy - Vars.tilesize/2, w, h, rot);
-					
-					Draw.color();
+					drawBook(w, h, tile.worldx() + dx-Vars.tilesize/2, tile.worldy() + dy - Vars.tilesize/2,
+							rot, colors[i], mul);
 				}
 			}).add(list);
 		}
 	},
 	rocks = new Overlay("rocks"),
-	table = new Prop("table"){{
-		offset = 3;
+	bigrock = new Overlay("bigrocks"){{
+		vary = false;
+		solid = true;
+		hitbox.setSize(10, 10);
 	}},
+	table = new Prop("table"){{
+			offset = 3;
+	}},
+	booktable = new Prop("booktable"){
+		Color[] colors = {Color.valueOf("4c5f3e"), Color.valueOf("7b6844"), Color.valueOf("445e6d"), Color.valueOf("704533"), Color.valueOf("8f875f")};
+		
+		{
+			offset = 3;
+		}
+		
+		@Override
+		public void draw(RenderableList list, Tile tile){
+			table.draw(list, tile);
+			new FuncRenderable(p->{
+				p.layer = tile.worldy() - offset;
+				
+				int amount = tile.rand(-1, 3)-1;
+				
+				for(int i = 0; i < amount; i ++){
+					
+					int index = tile.rand(-2, colors.length) - 1;
+					int dx = tile.rand(i*2 + 0, 14);
+					int dy = tile.rand(i*2 + 2, 4);
+					int rot = tile.rand(i*2 + 4, 360);
+					float mul = 1f + (tile.rand(i*2 + 8, 255)/255f-0.5f)/5f;
+					
+					drawBook(3, 4, 
+							tile.worldx() + dx-7, 
+							tile.worldy() + dy + 7 - 2 - offset,
+							rot, colors[index], mul);
+				}
+			}).add(list);
+		}
+	},
 	
 	cobweb = new WallOverlay("cobweb"),
 	
+	moss = new Moss("moss"){
+		{
+			color = Color.valueOf("515c14");
+		}
+	},
+	thickmoss = new Moss("thickmoss"){
+		{
+			color = Color.valueOf("515c14");
+		}
+	},
+	
 	end = null
 	;
+	
+	static Color temp = new Color();
+	
+	static void drawBook(int w, int h, float x, float y, float rot, Color color, float mul){
+		
+		temp.set(color).mul(mul, mul, mul, 1f);
+		
+		Draw.color(0f, 0f, 0f, 0.16f);
+		Draw.rect("blank", x, y - 2f, w, h, rot);
+		
+		Draw.color(temp.mul(0.8f, 0.8f, 0.8f, 1f));
+		Draw.rect("blank", x, y - 0.7f, w, h, rot);
+		
+		//Draw.color(Hue.lightness(0.7f));
+		//Draw.rect("blank", x, y - 1f, w, h, rot);
+		
+		Draw.color(temp.set(color).mul(mul, mul, mul, 1f));
+		Draw.rect("blank", x, y, w, h, rot);
+		
+		Draw.color();
+	}
 }

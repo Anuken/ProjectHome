@@ -54,7 +54,7 @@ public class EditorUI extends SceneModule{
 			try{
 				MapIO.load(Gdx.files.absolute(imtext));
 				Renderer.clearAll();
-				DrawContext.camera.position.set(World.width()*Vars.tilesize/2, World.height()*Vars.tilesize/2, 0);
+				DrawContext.camera.position.set(World.getStartX() * Vars.tilesize, World.getStartY() * Vars.tilesize, 0);
 			}catch (Exception e){
 				e.printStackTrace();
 				new TextDialog("Error loading file, ", e.getClass().getSimpleName() + ": "+ e.getCause() + "").show();
@@ -116,6 +116,8 @@ public class EditorUI extends SceneModule{
 								i.clicked(()->{
 									Evar.control.seltype = null;
 									Evar.control.selected = block;
+									Evar.control.blocktype = block.type;
+									updateWallButton();
 								});
 								
 								Table info = new Table();
@@ -179,8 +181,9 @@ public class EditorUI extends SceneModule{
 			new table(){{
 				atop();
 				
-				wallbutton = new imagebutton("view-hitboxes", "toggle", 32, ()->{
-					Evar.control.walls = !Evar.control.walls;
+				wallbutton = new imagebutton("icon-wall", 32, ()->{
+					Evar.control.switchBlockType();
+					updateWallButton();
 				}).size(50).get();
 				
 				row();
@@ -334,6 +337,6 @@ public class EditorUI extends SceneModule{
 	}
 	
 	public void updateWallButton(){
-		wallbutton.setChecked(Evar.control.walls);
+		wallbutton.getStyle().imageUp = DrawContext.skin.getDrawable("icon-" + Evar.control.blocktype.name());
 	}
 }
