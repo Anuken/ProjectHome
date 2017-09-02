@@ -14,6 +14,7 @@ import io.anuke.ucore.graphics.Hue;
 import io.anuke.ucore.lights.Light;
 import io.anuke.ucore.lights.PointLight;
 import io.anuke.ucore.lights.RayHandler;
+import io.anuke.ucore.modules.ModuleController;
 import io.anuke.ucore.util.Mathf;
 
 public class LightEffect extends RenderEffect{
@@ -30,7 +31,8 @@ public class LightEffect extends RenderEffect{
 	
 	@Override
 	public void reset(){
-		rays.resizeFBO(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/4);
+		int scl = ModuleController.renderer().cameraScale;
+		rays.resizeFBO(Gdx.graphics.getWidth()/scl, Gdx.graphics.getHeight()/scl);
 		rays.pixelate();
 		rays.setBounds(0, 0, World.width()*Vars.tilesize, World.height()*Vars.tilesize);
 		rays.updateRects();

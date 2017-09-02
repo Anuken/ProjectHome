@@ -80,7 +80,7 @@ public class BlockTypes{
 		
 		@Override
 		public void draw(RenderableList list, Tile tile){
-			new SpriteRenderable(name).set(tile.worldx(), tile.worldy()-Vars.tilesize/2f)
+			new SpriteRenderable(name + (vary ? tile.rand(variants) : "")).set(tile.worldx(), tile.worldy()-Vars.tilesize/2f)
 			.centerX().addShadow(list, "wallshadow", 6).sort(Sorter.object).add(list);
 			
 			if(Draw.hasRegion(name + "edge")){
@@ -144,6 +144,7 @@ public class BlockTypes{
 	}
 	
 	public static class Overlay extends Block{
+		boolean shadow = true;
 
 		public Overlay(String name) {
 			super(name, BlockType.wall);
@@ -153,13 +154,19 @@ public class BlockTypes{
 		@Override
 		public void draw(RenderableList list, Tile tile){
 			String name = this.name + (vary ? tile.rand(variants) : "");
-			new SpriteRenderable(name).set(tile.worldx(), tile.worldy()-offset)
+			SpriteRenderable sprite = new SpriteRenderable(name).set(tile.worldx(), tile.worldy()-offset)
 			.layer(tile.worldy()+5)
-			.center().addShadow(list, name, offset+8).sort(Sorter.object).add(list);
+			.center().sort(Sorter.object).sprite();
+			
+			if(shadow)
+				sprite.addShadow(list, name, offset+8);
+			
+			sprite.add(list);
 		}
 	}
 	
 	public static class WallOverlay extends Block{
+		Color color = Color.WHITE.cpy();
 
 		public WallOverlay(String name) {
 			super(name, BlockType.wall);
@@ -167,10 +174,39 @@ public class BlockTypes{
 		
 		@Override
 		public void draw(RenderableList list, Tile tile){
-			new SpriteRenderable(name).set(tile.worldx(), tile.worldy()+Vars.tilesize/2f-0.001f)
+			new SpriteRenderable(name + (vary ? tile.rand(variants) : "")).color(color).set(tile.worldx(), tile.worldy()+Vars.tilesize/2f-0.001f)
 			.centerX().sort(Sorter.object).add(list);
 		}
 		
+	}
+	
+	public static abstract class SpellCircle extends Block{
+		TextureRegion region = new TextureRegion();
+		
+		public SpellCircle(String name){
+			super(name, BlockType.wall);
+		}
+		
+		@Override
+		public void draw(RenderableList list, Tile tile){
+			new FuncRenderable(b->{
+				b.provider = Sorter.tile;
+				draw(tile, tile.worldx(), tile.worldy());
+			}).add(list);
+		}
+		
+		public TextureRegion randGlyph(int index, Tile tile){
+			int max = 15;
+			int rand = tile.rand(index, max)-1;
+			region.setRegion(Draw.region("language"));
+			region.setRegionX(region.getRegionX() + rand*7 + 1);
+			region.setRegionY(region.getRegionY());
+			region.setRegionWidth(5);
+			region.setRegionHeight(5);
+			return region;
+		}
+		
+		public abstract void draw(Tile tile, float x, float y);
 	}
 	
 	public static class Checkpoint extends Block{
@@ -183,6 +219,7 @@ public class BlockTypes{
 		
 		@Override
 		public void draw(RenderableList list, Tile tile){
+			if(list != null) return;
 			
 			new SpriteRenderable(name).set(tile.worldx(), tile.worldy())
 			.center().sort(Sorter.tile).add(list);

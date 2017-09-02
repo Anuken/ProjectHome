@@ -10,8 +10,8 @@ import io.anuke.home.world.blocks.BlockTypes.*;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.graphics.Hue;
-import io.anuke.ucore.renderables.FuncRenderable;
-import io.anuke.ucore.renderables.RenderableList;
+import io.anuke.ucore.renderables.*;
+import io.anuke.ucore.util.Geometry;
 
 public class Blocks{
 	public static final Block
@@ -81,9 +81,25 @@ public class Blocks{
 	stonefloor = new Floor("stonefloor"){{
 		variants = 5;
 	}},
-	bottles = new Overlay("bottles"){{
-		vary = false;
-	}},
+	bottles = new Overlay("bottles"){
+		{
+			vary = true;
+			variants = 5;
+			shadow = false;
+		}
+		
+		@Override
+		public void draw(RenderableList list, Tile tile){
+			String name = this.name + (vary ? tile.rand(variants) : "");
+			new SpriteRenderable(name).set(tile.worldx(), tile.worldy()-offset)
+			.layer(tile.worldy())
+			.center().sort(Sorter.object).add(list);
+			
+			new SpriteRenderable(name + "shadow").set(tile.worldx(), tile.worldy()-offset)
+				.layer(tile.worldy()+5)
+				.center().shadow().add(list);
+		}
+	},
 	barrel = new Prop("barrel"){{
 		offset = 3;
 	}},
@@ -165,7 +181,33 @@ public class Blocks{
 	},
 	thickmoss = new Moss("thickmoss"){
 		{
-			color = Color.valueOf("515c14");
+			color = Color.valueOf("5f6639");
+		}
+	},
+	wallmoss = new WallOverlay("wallmoss"){
+		{
+			color = Color.valueOf("66741b");
+		}
+	},
+	spawncircle = new SpellCircle("spawncircle"){
+		
+		@Override
+		public void draw(Tile tile, float x, float y){
+			Draw.color(Color.DARK_GRAY);
+			Draw.thick(2f);
+			
+			Draw.rect("spawncircle", x, y);
+			
+			Geometry.circleVectors(16, 40, (ox, oy)->{
+				Draw.rect(randGlyph((int)(ox+oy*100), tile), (int)(x + ox), (int)(y + oy));
+			});
+			
+			//Draw.rect(randGlyph(23, tile), (int)x, (int)y);
+			//Geometry.circleVectors(8, 15, (ox, oy)->{
+			//	Draw.rect(randGlyph((int)(oy*100), tile), (int)(x + ox), (int)(y + oy));
+			//});
+			
+			Draw.reset();
 		}
 	},
 	
