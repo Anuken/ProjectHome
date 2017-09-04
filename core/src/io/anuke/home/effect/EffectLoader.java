@@ -1,4 +1,4 @@
-package io.anuke.home;
+package io.anuke.home.effect;
 
 import com.badlogic.gdx.graphics.Color;
 
@@ -12,11 +12,11 @@ public class EffectLoader{
 	
 	public static void load(){
 		
-		Effects.create("rockbreak", 40, e->{
+		Effects.create("rockbreak", 38, e->{
 			Draw.color(Color.LIGHT_GRAY, Color.DARK_GRAY, e.ifract());
 			
-			float rad = e.fract()*8f;
-			Geometry.randLenVectors(e.id, 5, e.powfract()*20f, (x, y)->{
+			float rad = e.fract()*7f;
+			Geometry.randLenVectors(e.id, 5, e.powfract()*24f, (x, y)->{
 				Draw.rect("rockparticle", e.x+x, e.y+y, rad, rad);
 			});
 			

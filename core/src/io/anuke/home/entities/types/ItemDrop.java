@@ -12,7 +12,7 @@ import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.TraitList;
 import io.anuke.ucore.ecs.extend.traits.*;
-import io.anuke.ucore.renderables.Sorter;
+import io.anuke.ucore.facet.Sorter;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
@@ -26,7 +26,7 @@ public class ItemDrop extends Prototype{
 			new VelocityTrait(0.08f),
 			new ColliderTrait(4),
 			new DropTrait(),
-			new RenderableTrait((trait, spark)->{
+			new FacetTrait((trait, spark)->{
 				
 				trait.draw(b->{
 					float raise = Mathf.sin(Timers.time(), 20f, 2f)+2f,

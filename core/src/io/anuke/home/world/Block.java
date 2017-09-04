@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 import io.anuke.home.Vars;
 import io.anuke.home.world.blocks.Blocks;
-import io.anuke.ucore.renderables.RenderableList;
+import io.anuke.ucore.facet.FacetList;
 
 public class Block{
 	private static int lastid;
@@ -58,7 +58,7 @@ public class Block{
 		out.setSize(hitbox.width, hitbox.height).setCenter(hitbox.x + tile.worldx(), hitbox.y + tile.worldy());
 	}
 	
-	public void draw(RenderableList list, Tile tile){}
+	public void draw(FacetList list, Tile tile){}
 	
 	public void drawCache(Tile tile){}
 	

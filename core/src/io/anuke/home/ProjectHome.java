@@ -1,9 +1,9 @@
 package io.anuke.home;
 
 import io.anuke.ucore.core.Inputs;
-import io.anuke.ucore.modules.Core;
+import io.anuke.ucore.modules.ModuleCore;
 
-public class ProjectHome extends Core {
+public class ProjectHome extends ModuleCore {
 	
 	@Override
 	public void init(){

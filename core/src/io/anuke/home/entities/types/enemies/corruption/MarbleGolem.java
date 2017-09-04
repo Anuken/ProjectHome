@@ -1,4 +1,4 @@
-package io.anuke.home.entities.types.enemies;
+package io.anuke.home.entities.types.enemies.corruption;
 
 import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.Projectiles;
@@ -6,7 +6,7 @@ import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
-import io.anuke.ucore.ecs.extend.traits.RenderableTrait;
+import io.anuke.ucore.ecs.extend.traits.FacetTrait;
 import io.anuke.ucore.util.Geometry;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
@@ -85,7 +85,7 @@ public class MarbleGolem extends Enemy{
 	}
 
 	@Override
-	public void draw(Spark spark, RenderableTrait trait){
+	public void draw(Spark spark, FacetTrait trait){
 		trait.draw(p -> {
 			Data data = spark.get(Data.class);
 			

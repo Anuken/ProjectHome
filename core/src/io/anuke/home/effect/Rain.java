@@ -9,8 +9,8 @@ import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.core.Draw;
-import io.anuke.ucore.core.DrawContext;
-import io.anuke.ucore.renderables.Sorter;
+import io.anuke.ucore.core.Core;
+import io.anuke.ucore.facet.Sorter;
 import io.anuke.ucore.util.Mathf;
 
 public class Rain extends RenderEffect{
@@ -24,7 +24,7 @@ public class Rain extends RenderEffect{
 	public void init(){
 		color.a = 0.7f;
 		
-		OrthographicCamera cam = DrawContext.camera;
+		OrthographicCamera cam = Core.camera;
 		
 		float xrange = cam.viewportWidth * 1.5f;
 
@@ -74,7 +74,7 @@ public class Rain extends RenderEffect{
 
 	@Override
 	public void update(){
-		OrthographicCamera cam = DrawContext.camera;
+		OrthographicCamera cam = Core.camera;
 
 		float xrange = cam.viewportWidth * 1.4f;
 

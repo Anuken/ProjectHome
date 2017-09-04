@@ -8,7 +8,9 @@ import com.badlogic.gdx.utils.Array;
 
 import io.anuke.gif.GifRecorder;
 import io.anuke.home.GameState.State;
+import io.anuke.home.effect.EffectLoader;
 import io.anuke.home.effect.LightEffect;
+import io.anuke.home.effect.Shaders;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.home.entities.processors.HealthBarProcessor;
 import io.anuke.home.entities.traits.PlayerTrait;
@@ -22,11 +24,11 @@ import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
 import io.anuke.ucore.ecs.extend.processors.DrawProcessor;
 import io.anuke.ucore.ecs.extend.processors.TileCollisionProcessor;
 import io.anuke.ucore.entities.Entities;
+import io.anuke.ucore.facet.FacetLayerHandler;
+import io.anuke.ucore.facet.Facets;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
 import io.anuke.ucore.modules.RendererModule;
-import io.anuke.ucore.renderables.DrawLayerManager;
-import io.anuke.ucore.renderables.RenderableHandler;
 import io.anuke.ucore.util.Timers;
 
 public class Control extends RendererModule{
@@ -45,8 +47,10 @@ public class Control extends RendererModule{
 		Textures.load("textures/");
 		Textures.repeatWrap("fog1", "fog2", "fog3", "fog4");
 		
-		cameraScale = 4;
+		Core.cameraScale = 4;
 		pixelate();
+		
+		Shaders.create();
 		
 		basis = new Basis();
 		basis.addProcessor(new CollisionProcessor());
@@ -97,7 +101,7 @@ public class Control extends RendererModule{
 		
 		EffectLoader.load();
 		
-		RenderableHandler.instance().setLayerManager(new DrawLayerManager());
+		Facets.instance().setLayerManager(new FacetLayerHandler());
 	}
 	
 	@Override
@@ -160,7 +164,7 @@ public class Control extends RendererModule{
 	public void reset(){
 		if(Vars.ui.inventory != null)
 			Vars.ui.clearInventory();
-		RenderableHandler.instance().clear();
+		Facets.instance().clear();
 		Renderer.updateWalls();
 		killed.clear();
 		World.loadMap("library-filled");
@@ -259,7 +263,7 @@ public class Control extends RendererModule{
 		Renderer.renderWorld();
 		
 		Draw.color();
-		RenderableHandler.instance().renderAll();
+		Facets.instance().renderAll();
 		basis.update();
 		
 		Entities.draw();

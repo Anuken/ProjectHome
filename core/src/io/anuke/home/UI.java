@@ -11,9 +11,9 @@ import io.anuke.home.GameState.State;
 import io.anuke.home.ui.BossHealthBar;
 import io.anuke.home.ui.HealthBar;
 import io.anuke.home.ui.Inventory;
-import io.anuke.ucore.core.DrawContext;
+import io.anuke.ucore.core.Core;
+import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Spark;
-import io.anuke.ucore.entities.Entities;
 import io.anuke.ucore.function.VisibilityProvider;
 import io.anuke.ucore.modules.SceneModule;
 import io.anuke.ucore.scene.builders.*;
@@ -37,7 +37,7 @@ public class UI extends SceneModule{
 	
 	@Override
 	public void init(){
-		DrawContext.font.setUseIntegerPositions(true);
+		Core.font.setUseIntegerPositions(true);
 		Dialog.closePadT = -1;
 		
 		victory = new Dialog("Congratulations!", "dialog");
@@ -192,7 +192,7 @@ public class UI extends SceneModule{
 			row();
 			
 			new label(()->{
-				return Entities.amount() + " entities";
+				return Basis.instance().getSparks().size + " entities";
 			});
 		}}.end().visible(play);;
 		

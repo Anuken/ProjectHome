@@ -1,6 +1,10 @@
 package io.anuke.home.entities.types;
 
+import com.badlogic.gdx.graphics.Color;
+
 import io.anuke.home.Vars;
+import io.anuke.home.effect.Shaders.Distort;
+import io.anuke.home.effect.Shaders.Outline;
 import io.anuke.home.entities.Direction;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.items.Item;
@@ -14,6 +18,7 @@ import io.anuke.ucore.ecs.extend.Events.Damaged;
 import io.anuke.ucore.ecs.extend.Events.Death;
 import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
 import io.anuke.ucore.ecs.extend.traits.*;
+import io.anuke.ucore.function.Callable;
 
 public class Player extends Prototype{
 	
@@ -55,9 +60,40 @@ public class Player extends Prototype{
 			new HealthTrait(100),
 			new ColliderTrait(4),
 			new TileCollideTrait(0.5f, 1.5f, 4, 3),
-			new RenderableTrait((trait, spark)->{
+			new FacetTrait((trait, spark)->{
+				
 				trait.draw(b->{
+					
 					PlayerTrait player = spark.get(PlayerTrait.class);
+					Item weapon = player.weapon;
+					float angle = player.angle(spark) + (weapon == null ? 0f : weapon.weapontype.getAngleOffset());
+					
+					Callable drawWeapon = ()->{
+						if(weapon != null){
+							weapon.weapontype.draw(spark, weapon);
+						}else{
+							int ox = player.direction == Direction.left ? -1 : 0;
+							Draw.rect("hand", spark.pos().x - 2 + ox, spark.pos().y + 2);
+							Draw.rect("hand", spark.pos().x + 2 + ox, spark.pos().y + 2);
+						}
+						
+						if(angle > 0 && angle < 180 && weapon != null){
+							b.layer = spark.pos().y+1;
+						}else{
+							b.layer = spark.pos().y-0.1f;
+						}
+					};
+					
+					boolean drawBefore = angle > 0 && angle < 180 && weapon != null;
+					
+					
+					Draw.getShader(Outline.class).color = Color.PURPLE;
+					Draw.beginShaders(Distort.class);
+					
+					if(drawBefore){
+						drawWeapon.run();
+					}
+					
 					float walktime = player.walktime;
 					String walk = "";
 					
@@ -68,26 +104,13 @@ public class Player extends Prototype{
 					Draw.grect("player-" + player.direction.name+walk, spark.pos().x, spark.pos().y, player.direction.flipped);
 					
 					b.layer = spark.pos().y;
-				});
-				
-				trait.draw(b->{
-					PlayerTrait player = spark.get(PlayerTrait.class);
-					Item weapon = player.weapon;
-					float angle = player.angle(spark) + (weapon == null ? 0f : weapon.weapontype.getAngleOffset());
 					
-					if(weapon != null){
-						weapon.weapontype.draw(spark, weapon);
-					}else{
-						int ox = player.direction == Direction.left ? -1 : 0;
-						Draw.rect("hand", spark.pos().x - 2 + ox, spark.pos().y + 2);
-						Draw.rect("hand", spark.pos().x + 2 + ox, spark.pos().y + 2);
+					if(!drawBefore){
+						drawWeapon.run();
 					}
 					
-					if(angle > 0 && angle < 180 && weapon != null){
-						b.layer = spark.pos().y+1;
-					}else{
-						b.layer = spark.pos().y-0.1f;
-					}
+					Draw.endShaders();
+					
 				});
 				
 				trait.drawShadow(spark, 8, 0);

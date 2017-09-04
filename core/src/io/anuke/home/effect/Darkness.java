@@ -3,7 +3,7 @@ package io.anuke.home.effect;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import io.anuke.ucore.core.Draw;
-import io.anuke.ucore.core.DrawContext;
+import io.anuke.ucore.core.Core;
 
 public class Darkness extends RenderEffect{
 	public static final int layer = -999999;
@@ -13,7 +13,7 @@ public class Darkness extends RenderEffect{
 	@Override
 	public void init(){
 		
-		OrthographicCamera cam = DrawContext.camera;
+		OrthographicCamera cam = Core.camera;
 		
 		draw(p->{
 			p.layer = layer+1;

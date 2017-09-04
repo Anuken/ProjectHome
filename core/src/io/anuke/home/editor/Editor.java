@@ -1,8 +1,8 @@
 package io.anuke.home.editor;
 
-import io.anuke.ucore.modules.Core;
+import io.anuke.ucore.modules.ModuleCore;
 
-public class Editor extends Core{
+public class Editor extends ModuleCore{
 
 	@Override
 	public void init(){

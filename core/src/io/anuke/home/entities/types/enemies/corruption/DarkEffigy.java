@@ -1,4 +1,4 @@
-package io.anuke.home.entities.types.enemies;
+package io.anuke.home.entities.types.enemies.corruption;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -15,7 +15,7 @@ import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.*;
 import io.anuke.ucore.ecs.extend.Events.Death;
 import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
-import io.anuke.ucore.ecs.extend.traits.RenderableTrait;
+import io.anuke.ucore.ecs.extend.traits.FacetTrait;
 import io.anuke.ucore.util.Geometry;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
@@ -198,7 +198,7 @@ public class DarkEffigy extends Enemy{
 	}
 
 	@Override
-	public void draw(Spark spark, RenderableTrait trait){
+	public void draw(Spark spark, FacetTrait trait){
 		Data data = spark.get(Data.class);
 		data.startx = spark.pos().x;
 		data.starty = spark.pos().y;

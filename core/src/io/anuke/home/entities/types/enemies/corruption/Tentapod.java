@@ -1,4 +1,4 @@
-package io.anuke.home.entities.types.enemies;
+package io.anuke.home.entities.types.enemies.corruption;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -9,7 +9,7 @@ import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.Spark;
-import io.anuke.ucore.ecs.extend.traits.RenderableTrait;
+import io.anuke.ucore.ecs.extend.traits.FacetTrait;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 import io.anuke.ucore.util.Tmp;
@@ -38,7 +38,7 @@ public class Tentapod extends Enemy{
 	}
 
 	@Override
-	public void draw(Spark spark, RenderableTrait trait){
+	public void draw(Spark spark, FacetTrait trait){
 		trait.draw(p->{
 			float x = spark.pos().x, y = spark.pos().y;
 			Spark target = spark.get(EnemyTrait.class).target;

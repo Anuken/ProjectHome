@@ -12,7 +12,7 @@ import io.anuke.home.Vars;
 import io.anuke.home.world.Block;
 import io.anuke.home.world.BlockType;
 import io.anuke.home.world.World;
-import io.anuke.ucore.core.DrawContext;
+import io.anuke.ucore.core.Core;
 import io.anuke.ucore.core.Graphics;
 import io.anuke.ucore.core.Inputs;
 import io.anuke.ucore.modules.Module;
@@ -170,8 +170,8 @@ public class EditorInput extends Module{
 			return false;
 
 		if(Gdx.input.isButtonPressed(Buttons.MIDDLE)){
-			float scale = 4f / DrawContext.camera.zoom;
-			Vector3 position = DrawContext.camera.position;
+			float scale = 4f / Core.camera.zoom;
+			Vector3 position = Core.camera.position;
 			position.x -= Gdx.input.getDeltaX() / scale;
 			position.y += Gdx.input.getDeltaY() / scale;
 		}else if(Gdx.input.isButtonPressed(Buttons.LEFT)){
@@ -197,8 +197,8 @@ public class EditorInput extends Module{
 		if(Evar.ui.hasMouse())
 			return false;
 
-		DrawContext.camera.zoom += amount / 5f;
-		DrawContext.camera.zoom = Mathf.clamp(DrawContext.camera.zoom, 0.05f, 20f);
+		Core.camera.zoom += amount / 5f;
+		Core.camera.zoom = Mathf.clamp(Core.camera.zoom, 0.05f, 20f);
 		return false;
 	}
 }

@@ -9,8 +9,8 @@ import io.anuke.home.world.*;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
+import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Caches;
-import io.anuke.ucore.renderables.*;
 import io.anuke.ucore.util.Geometry;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
@@ -78,15 +78,17 @@ public class BlockTypes{
 			edge = name;
 			vary = false;
 			solid = true;
+			hitbox.setSize(12, 18);
+			hitbox.y = 3;
 		}
 		
 		@Override
-		public void draw(RenderableList list, Tile tile){
-			new SpriteRenderable(name + (vary ? tile.rand(variants) : "")).set(tile.worldx(), tile.worldy()-Vars.tilesize/2f)
+		public void draw(FacetList list, Tile tile){
+			new SpriteFacet(name + (vary ? tile.rand(variants) : "")).set(tile.worldx(), tile.worldy()-Vars.tilesize/2f)
 			.centerX().addShadow(list, "wallshadow", 6).sort(Sorter.object).add(list);
 			
 			if(Draw.hasRegion(edge + "edge")){
-				new FuncRenderable(p->{
+				new BaseFacet(p->{
 					p.layer = tile.worldy()-Vars.tilesize/2f - 0.001f;
 					float posx = tile.x * Vars.tilesize, posy = tile.y * Vars.tilesize + height;
 					
@@ -123,8 +125,8 @@ public class BlockTypes{
 		}
 		
 		@Override
-		public void draw(RenderableList list, Tile tile){
-			new SpriteRenderable(name + (vary ? tile.rand(variants) : "")).set(tile.worldx(), tile.worldy()-offset)
+		public void draw(FacetList list, Tile tile){
+			new SpriteFacet(name + (vary ? tile.rand(variants) : "")).set(tile.worldx(), tile.worldy()-offset)
 			.layer(tile.worldy())
 			.centerX().addShadow(list, offset).sort(Sorter.object).add(list);
 		}
@@ -138,8 +140,8 @@ public class BlockTypes{
 		}
 		
 		@Override
-		public void draw(RenderableList list, Tile tile){
-			new SpriteRenderable(name).set(tile.worldx(), tile.worldy()-offset)
+		public void draw(FacetList list, Tile tile){
+			new SpriteFacet(name).set(tile.worldx(), tile.worldy()-offset)
 			.layer(tile.worldy())
 			.centerX().addShadow(list, offset).sort(Sorter.object).add(list);
 		}
@@ -154,9 +156,9 @@ public class BlockTypes{
 		}
 		
 		@Override
-		public void draw(RenderableList list, Tile tile){
+		public void draw(FacetList list, Tile tile){
 			String name = this.name + (vary ? tile.rand(variants) : "");
-			SpriteRenderable sprite = new SpriteRenderable(name).set(tile.worldx(), tile.worldy()-offset)
+			SpriteFacet sprite = new SpriteFacet(name).set(tile.worldx(), tile.worldy()-offset)
 			.layer(tile.worldy()+5)
 			.center().sort(Sorter.object).sprite();
 			
@@ -175,8 +177,8 @@ public class BlockTypes{
 		}
 		
 		@Override
-		public void draw(RenderableList list, Tile tile){
-			new SpriteRenderable(name + (vary ? tile.rand(variants) : "")).color(color).set(tile.worldx(), tile.worldy()+Vars.tilesize/2f-0.001f)
+		public void draw(FacetList list, Tile tile){
+			new SpriteFacet(name + (vary ? tile.rand(variants) : "")).color(color).set(tile.worldx(), tile.worldy()+Vars.tilesize/2f-0.001f)
 			.centerX().sort(Sorter.object).add(list);
 		}
 		
@@ -190,8 +192,8 @@ public class BlockTypes{
 		}
 		
 		@Override
-		public void draw(RenderableList list, Tile tile){
-			new FuncRenderable(b->{
+		public void draw(FacetList list, Tile tile){
+			new BaseFacet(b->{
 				b.provider = Sorter.tile;
 				draw(tile, tile.worldx(), tile.worldy());
 			}).add(list);
@@ -220,13 +222,13 @@ public class BlockTypes{
 		}
 		
 		@Override
-		public void draw(RenderableList list, Tile tile){
+		public void draw(FacetList list, Tile tile){
 			if(list != null) return;
 			
-			new SpriteRenderable(name).set(tile.worldx(), tile.worldy())
+			new SpriteFacet(name).set(tile.worldx(), tile.worldy())
 			.center().sort(Sorter.tile).add(list);
 			
-			new FuncRenderable(p->{
+			new BaseFacet(p->{
 				Draw.color(darkColor);
 				Draw.polygon(sides, tile.worldx(), tile.worldy() + Mathf.sin(Timers.time(), 16f, 2f)+10f, 4f, Timers.time()/1f);
 				Draw.color(lightColor);
@@ -244,7 +246,7 @@ public class BlockTypes{
 		}
 		
 		@Override
-		public void draw(RenderableList list, Tile tile){
+		public void draw(FacetList list, Tile tile){
 			if(tile.data1 == -1){
 				throw new IllegalArgumentException("Spawner tile detected without any valid spawn data!");
 			}

@@ -9,14 +9,14 @@ import com.badlogic.gdx.math.Rectangle;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.ucore.core.Draw;
-import io.anuke.ucore.core.DrawContext;
+import io.anuke.ucore.core.Core;
 import io.anuke.ucore.util.Mathf;
 
 public enum View{
 	none, 
 	hitboxes{
 		public void draw(){
-			OrthographicCamera camera = DrawContext.camera;
+			OrthographicCamera camera = Core.camera;
 
 			int camx = Mathf.scl(camera.position.x, tilesize);
 			int camy = Mathf.scl(camera.position.y, tilesize);

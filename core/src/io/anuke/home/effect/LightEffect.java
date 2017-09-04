@@ -10,16 +10,15 @@ import io.anuke.home.Vars;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.home.world.blocks.BlockTypes.Wall;
-import io.anuke.ucore.core.DrawContext;
+import io.anuke.ucore.core.Core;
 import io.anuke.ucore.graphics.Hue;
 import io.anuke.ucore.lights.Light;
 import io.anuke.ucore.lights.PointLight;
 import io.anuke.ucore.lights.RayHandler;
-import io.anuke.ucore.modules.ModuleController;
 import io.anuke.ucore.util.Mathf;
 
 public class LightEffect extends RenderEffect{
-	private final int rayamount = 140;
+	private final int rayamount = 130;
 	private final int chunksize = 3 * Vars.tilesize;
 	private RayHandler rays = new RayHandler();
 	
@@ -32,7 +31,7 @@ public class LightEffect extends RenderEffect{
 	
 	@Override
 	public void reset(){
-		int scl = ModuleController.renderer().cameraScale;
+		int scl = Core.cameraScale;
 		rays.resizeFBO(Gdx.graphics.getWidth()/scl, Gdx.graphics.getHeight()/scl);
 		rays.pixelate();
 		rays.setBounds(0, 0, World.width()*Vars.tilesize, World.height()*Vars.tilesize);
@@ -43,7 +42,7 @@ public class LightEffect extends RenderEffect{
 
 	@Override
 	public void update(){
-		OrthographicCamera cam = DrawContext.camera;
+		OrthographicCamera cam = Core.camera;
 		int camcx = Mathf.scl(cam.position.x, chunksize), camcy = Mathf.scl(cam.position.y, chunksize);
 
 		if(camcx != lastcamx || camcy != lastcamy){
@@ -55,7 +54,7 @@ public class LightEffect extends RenderEffect{
 	}
 	
 	public void updateRects(){
-		OrthographicCamera cam = DrawContext.camera;
+		OrthographicCamera cam = Core.camera;
 		int cwidth = Mathf.scl(cam.viewportWidth, Vars.tilesize) + 1, cheight = Mathf.scl(cam.viewportHeight, Vars.tilesize) + 1;
 		int camx = Mathf.scl(cam.position.x, Vars.tilesize), camy = Mathf.scl(cam.position.y, Vars.tilesize);
 		
@@ -73,8 +72,10 @@ public class LightEffect extends RenderEffect{
 				if(tile != null && !tile.passable() && checkSurround(tile)){
 					Rectangle rect = Pools.obtain(Rectangle.class);
 					tile.wall.getHitbox(tile, rect);
-					if(tile.wall instanceof Wall)
+					if(tile.wall instanceof Wall){
 						rect.y += 4;
+						rect.height -= 4;
+					}
 					rays.addRect(rect);
 				}
 			}
@@ -109,7 +110,7 @@ public class LightEffect extends RenderEffect{
 	}
 	
 	public void drawLight(){
-		rays.setCombinedMatrix(DrawContext.camera);
+		rays.setCombinedMatrix(Core.camera);
 		rays.updateAndRender();
 	}
 	

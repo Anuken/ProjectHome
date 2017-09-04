@@ -9,8 +9,8 @@ import io.anuke.home.world.Tile;
 import io.anuke.home.world.blocks.BlockTypes.*;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.ecs.Basis;
+import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Hue;
-import io.anuke.ucore.renderables.*;
 import io.anuke.ucore.util.Geometry;
 
 public class Blocks{
@@ -96,14 +96,14 @@ public class Blocks{
 		}
 		
 		@Override
-		public void draw(RenderableList list, Tile tile){
+		public void draw(FacetList list, Tile tile){
 			String name = this.name + (vary ? tile.rand(variants) : "");
-			new SpriteRenderable(name).set(tile.worldx(), tile.worldy()-offset)
+			new SpriteFacet(name).set(tile.worldx(), tile.worldy()-offset)
 			.color(color)
 			.layer(tile.worldy())
 			.center().sort(Sorter.object).add(list);
 			
-			new SpriteRenderable(name + "shadow").set(tile.worldx(), tile.worldy()-offset)
+			new SpriteFacet(name + "shadow").set(tile.worldx(), tile.worldy()-offset)
 				.layer(tile.worldy()+5)
 				.center().shadow().add(list);
 		}
@@ -120,8 +120,8 @@ public class Blocks{
 		int w = 3, h = 4;
 		
 		@Override
-		public void draw(RenderableList list, Tile tile){
-			new FuncRenderable(p->{
+		public void draw(FacetList list, Tile tile){
+			new BaseFacet(p->{
 				p.layer = tile.worldy()+24;
 				
 				int amount = tile.rand(-1, colors.length+1)-1;
@@ -161,9 +161,9 @@ public class Blocks{
 		}
 		
 		@Override
-		public void draw(RenderableList list, Tile tile){
+		public void draw(FacetList list, Tile tile){
 			table.draw(list, tile);
-			new FuncRenderable(p->{
+			new BaseFacet(p->{
 				p.layer = tile.worldy() - offset;
 				
 				int amount = tile.rand(-1, 3)-1;
@@ -206,6 +206,7 @@ public class Blocks{
 		
 		@Override
 		public void draw(Tile tile, float x, float y){
+			
 			Draw.color(Color.DARK_GRAY);
 			Draw.thick(2f);
 			

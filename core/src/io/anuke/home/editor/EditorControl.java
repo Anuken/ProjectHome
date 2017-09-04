@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
+import io.anuke.home.effect.Shaders;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.home.world.*;
 import io.anuke.home.world.blocks.Blocks;
@@ -14,11 +15,11 @@ import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.extend.processors.TileCollisionProcessor;
+import io.anuke.ucore.facet.FacetLayerHandler;
+import io.anuke.ucore.facet.Facets;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
 import io.anuke.ucore.modules.RendererModule;
-import io.anuke.ucore.renderables.DrawLayerManager;
-import io.anuke.ucore.renderables.RenderableHandler;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
@@ -39,6 +40,7 @@ public class EditorControl extends RendererModule{
 		
 		//load prototypes
 		Prototypes.player.getClass();
+		Shaders.create();
 		
 		Textures.load("textures/");
 		Textures.repeatWrap("fog1", "fog2", "fog3", "fog4");
@@ -50,9 +52,9 @@ public class EditorControl extends RendererModule{
 		
 		Settings.load("io.anuke.home.editor");
 		
-		cameraScale = 4;
+		Core.cameraScale = 4;
 		
-		RenderableHandler.instance().setLayerManager(new DrawLayerManager());
+		Facets.instance().setLayerManager(new FacetLayerHandler());
 		
 		Basis.instance().addProcessor(new TileCollisionProcessor(Vars.tilesize, (x, y) -> false));
 	}
@@ -94,7 +96,7 @@ public class EditorControl extends RendererModule{
 		camera.update();
 		drawBackground();
 		Renderer.renderWorld();
-		RenderableHandler.instance().renderAll();
+		Facets.instance().renderAll();
 		
 		int mousex = Mathf.scl2(Graphics.mouseWorld().x, Vars.tilesize),
 				mousey = Mathf.scl2(Graphics.mouseWorld().y, Vars.tilesize);

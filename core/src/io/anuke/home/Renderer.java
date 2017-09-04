@@ -9,17 +9,17 @@ import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.core.Draw;
-import io.anuke.ucore.core.DrawContext;
+import io.anuke.ucore.core.Core;
+import io.anuke.ucore.facet.FacetList;
 import io.anuke.ucore.graphics.Cache;
 import io.anuke.ucore.graphics.Caches;
-import io.anuke.ucore.renderables.RenderableList;
 import io.anuke.ucore.util.ClassMap;
 import io.anuke.ucore.util.Mathf;
 
 public class Renderer{
 	private static int chunksize = 32;
 	private static Cache[][] caches;
-	private static RenderableList[][] renderables;
+	private static FacetList[][] renderables;
 	private static ClassMap<RenderEffect> effects = new ClassMap<>();
 	private static int lastcamx = -100, lastcamy = -100;
 	
@@ -88,7 +88,7 @@ public class Renderer{
 			caches = new Cache[World.width()/chunksize+1][World.height()/chunksize+1];
 		}
 
-		OrthographicCamera camera = DrawContext.camera;
+		OrthographicCamera camera = Core.camera;
 
 		int camx = Mathf.scl(camera.position.x, tilesize);
 		int camy = Mathf.scl(camera.position.y, tilesize);
@@ -134,7 +134,7 @@ public class Renderer{
 				}
 			}
 
-			renderables = new RenderableList[vrx][vry];
+			renderables = new FacetList[vrx][vry];
 			
 			//invalidate cam position
 			lastcamx = -1;
@@ -142,7 +142,7 @@ public class Renderer{
 
 			for(int rx = 0; rx < vrx; rx++){
 				for(int ry = 0; ry < vry; ry++){
-					renderables[rx][ry] = new RenderableList();
+					renderables[rx][ry] = new FacetList();
 				}
 			}
 		}

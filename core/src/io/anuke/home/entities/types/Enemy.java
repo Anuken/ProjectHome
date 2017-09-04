@@ -77,7 +77,7 @@ public abstract class Enemy extends Prototype{
 			new EnemyTrait(spark->{
 				move(spark);
 			}),
-			new RenderableTrait((trait, spark)->{
+			new FacetTrait((trait, spark)->{
 				draw(spark, trait);
 			})
 		);
@@ -88,7 +88,7 @@ public abstract class Enemy extends Prototype{
 	}
 	
 	public abstract void move(Spark spark);
-	public abstract void draw(Spark spark, RenderableTrait trait);
+	public abstract void draw(Spark spark, FacetTrait trait);
 	
 	public void reset(Spark spark){
 		spark.health().heal();

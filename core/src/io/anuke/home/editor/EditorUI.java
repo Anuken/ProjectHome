@@ -13,12 +13,12 @@ import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.world.Block;
 import io.anuke.home.world.MapIO;
 import io.anuke.home.world.World;
+import io.anuke.ucore.core.Core;
 import io.anuke.ucore.core.Draw;
-import io.anuke.ucore.core.DrawContext;
 import io.anuke.ucore.core.Settings;
 import io.anuke.ucore.ecs.Prototype;
+import io.anuke.ucore.facet.Facets;
 import io.anuke.ucore.modules.SceneModule;
-import io.anuke.ucore.renderables.RenderableHandler;
 import io.anuke.ucore.scene.builders.*;
 import io.anuke.ucore.scene.ui.*;
 import io.anuke.ucore.scene.ui.layout.Stack;
@@ -32,7 +32,7 @@ public class EditorUI extends SceneModule{
 	
 	@Override
 	public void init(){
-		DrawContext.skin.font().setUseIntegerPositions(true);
+		Core.skin.font().setUseIntegerPositions(true);
 		Dialog.closePadT -= 1;
 		TooltipManager.getInstance().animations = false;
 		
@@ -54,7 +54,7 @@ public class EditorUI extends SceneModule{
 			try{
 				MapIO.load(Gdx.files.absolute(imtext));
 				Renderer.clearAll();
-				DrawContext.camera.position.set(World.getStartX() * Vars.tilesize, World.getStartY() * Vars.tilesize, 0);
+				Core.camera.position.set(World.getStartX() * Vars.tilesize, World.getStartY() * Vars.tilesize, 0);
 			}catch (Exception e){
 				e.printStackTrace();
 				new TextDialog("Error loading file, ", e.getClass().getSimpleName() + ": "+ e.getCause() + "").show();
@@ -229,7 +229,7 @@ public class EditorUI extends SceneModule{
 				
 				row();
 				
-				new label(()->RenderableHandler.instance().getSize() + " renderables"){{
+				new label(()->Facets.instance().getSize() + " renderables"){{
 					get().setAlignment(Align.right);
 				}}
 				.color(Color.CORAL).minWidth(200).right();
@@ -337,6 +337,6 @@ public class EditorUI extends SceneModule{
 	}
 	
 	public void updateWallButton(){
-		wallbutton.getStyle().imageUp = DrawContext.skin.getDrawable("icon-" + Evar.control.blocktype.name());
+		wallbutton.getStyle().imageUp = Core.skin.getDrawable("icon-" + Evar.control.blocktype.name());
 	}
 }
