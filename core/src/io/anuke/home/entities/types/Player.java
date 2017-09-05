@@ -1,10 +1,6 @@
 package io.anuke.home.entities.types;
 
-import com.badlogic.gdx.graphics.Color;
-
 import io.anuke.home.Vars;
-import io.anuke.home.effect.Shaders.Distort;
-import io.anuke.home.effect.Shaders.Outline;
 import io.anuke.home.entities.Direction;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.items.Item;
@@ -86,10 +82,6 @@ public class Player extends Prototype{
 					
 					boolean drawBefore = angle > 0 && angle < 180 && weapon != null;
 					
-					
-					Draw.getShader(Outline.class).color = Color.PURPLE;
-					Draw.beginShaders(Distort.class);
-					
 					if(drawBefore){
 						drawWeapon.run();
 					}
@@ -108,8 +100,6 @@ public class Player extends Prototype{
 					if(!drawBefore){
 						drawWeapon.run();
 					}
-					
-					Draw.endShaders();
 					
 				});
 				

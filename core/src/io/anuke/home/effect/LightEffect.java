@@ -74,7 +74,7 @@ public class LightEffect extends RenderEffect{
 					tile.wall.getHitbox(tile, rect);
 					if(tile.wall instanceof Wall){
 						rect.y += 4;
-						rect.height -= 4;
+						rect.height -= 5;
 					}
 					rays.addRect(rect);
 				}

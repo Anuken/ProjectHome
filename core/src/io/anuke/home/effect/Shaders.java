@@ -1,8 +1,9 @@
 package io.anuke.home.effect;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
-import io.anuke.ucore.UCore;
+import io.anuke.ucore.core.Core;
 import io.anuke.ucore.graphics.Shader;
 import io.anuke.ucore.util.Timers;
 import io.anuke.ucore.util.Tmp;
@@ -30,6 +31,7 @@ public class Shaders{
 	}
 	
 	public static class Distort extends Shader{
+		public float offsetx, offsety;
 		
 		public Distort(){
 			super("distort", "outline");
@@ -37,8 +39,9 @@ public class Shaders{
 		
 		@Override
 		public void apply(){
-			UCore.log("applying");
-			shader.setUniformf("u_time", Timers.time());
+			Core.camera.project(Tmp.v31.set(offsetx, offsety, 0));
+			shader.setUniformf("time", Timers.time());
+			shader.setUniformf("offset", Tmp.v31.x/Gdx.graphics.getWidth(), Tmp.v31.y/Gdx.graphics.getHeight());
 		}
 		
 	}
