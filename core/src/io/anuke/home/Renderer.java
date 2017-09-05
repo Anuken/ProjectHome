@@ -8,8 +8,8 @@ import io.anuke.home.effect.*;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.home.world.blocks.Blocks;
-import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Core;
+import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.facet.FacetList;
 import io.anuke.ucore.graphics.Cache;
 import io.anuke.ucore.graphics.Caches;
@@ -76,9 +76,9 @@ public class Renderer{
 	public static void renderEffects(){
 		
 	}
+	
+	public static void renderTiles(){
 
-	public static void renderWorld(){
-		
 		for(RenderEffect effect : effects){
 			if(effect.isEnabled())
 				effect.update();
@@ -89,9 +89,6 @@ public class Renderer{
 		}
 
 		OrthographicCamera camera = Core.camera;
-
-		int camx = Mathf.scl(camera.position.x, tilesize);
-		int camy = Mathf.scl(camera.position.y, tilesize);
 
 		int crangex = Math.round(camera.viewportWidth * camera.zoom / (chunksize * tilesize)) + 1;
 		int crangey = Math.round(camera.viewportHeight * camera.zoom / (chunksize * tilesize)) + 1;
@@ -117,7 +114,15 @@ public class Renderer{
 		}
 
 		Draw.begin();
-		
+
+	}
+	
+	public static void updateFacets(){
+		OrthographicCamera camera = Core.camera;
+
+		int camx = Mathf.scl(camera.position.x, tilesize);
+		int camy = Mathf.scl(camera.position.y, tilesize);
+
 		int padding = 6;
 		//view range x/y (block only)
 		int vrx = Mathf.scl2(camera.viewportWidth * camera.zoom, tilesize)+padding;
@@ -125,7 +130,7 @@ public class Renderer{
 		
 		//change renderable list size on screen resize/startup
 		if(renderables == null || renderables.length != vrx || renderables[0].length != vry){
-
+			
 			if(renderables != null){
 				for(int rx = 0; rx < renderables.length; rx++){
 					for(int ry = 0; ry < renderables[0].length; ry++){
@@ -150,7 +155,6 @@ public class Renderer{
 		
 		//if the camera moved, re-render everything
 		if(lastcamx != camx || lastcamy != camy){
-
 			for(int x = 0; x < vrx; x++){
 				for(int y = 0; y < vry; y++){
 					int worldx = x - vrx / 2 + camx;
@@ -172,6 +176,11 @@ public class Renderer{
 			lastcamx = camx;
 			lastcamy = camy;
 		}
+	}
+
+	public static void renderWorld(){
+		renderTiles();
+		updateFacets();
 	}
 	
 	public static void updateWall(int x, int y){

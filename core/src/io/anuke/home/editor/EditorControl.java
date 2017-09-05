@@ -1,6 +1,7 @@
 package io.anuke.home.editor;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -95,6 +96,16 @@ public class EditorControl extends RendererModule{
 	public void draw(){
 		camera.update();
 		drawBackground();
+		
+		if(Inputs.buttonRelease(Buttons.LEFT)){
+			Renderer.updateFacets();
+			Facets.instance().renderAll();
+		}
+		
+		//Renderer.renderWorld();
+		//Facets.instance().renderAll();
+		//Renderer.updateFacets();
+		//Facets.instance().renderAll();
 		Renderer.renderWorld();
 		Facets.instance().renderAll();
 		

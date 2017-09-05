@@ -29,6 +29,7 @@ import io.anuke.ucore.facet.Facets;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
 import io.anuke.ucore.modules.RendererModule;
+import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
 public class Control extends RendererModule{
@@ -218,8 +219,21 @@ public class Control extends RendererModule{
 		}
 		
 		if(!GameState.is(State.menu)){
-			//setCamera(player.x, player.y);
-			smoothCamera(player.pos().x, player.pos().y+2f, 0.3f);
+			basis.getProcessor(DrawProcessor.class).setEnabled(false);
+			basis.getProcessor(HealthBarProcessor.class).setEnabled(false);
+			basis.update();
+			
+			smoothCamera(player.pos().x, player.pos().y+2f, 0.2f);
+			
+			float lim = 3;
+			
+			if(Math.abs(player.pos().x - camera.position.x) > lim){
+				camera.position.x = player.pos().x - Mathf.clamp(player.pos().x - camera.position.x, -lim, lim);
+			}
+			
+			if(Math.abs(player.pos().y - camera.position.y) > lim){
+				camera.position.y = player.pos().y - Mathf.clamp(player.pos().y - camera.position.y, -lim, lim);
+			}
 			
 			if(boss != null){
 				Musics.playTracks("boss");
@@ -235,9 +249,14 @@ public class Control extends RendererModule{
 		updateShake();
 		clampCamera(0, 0, World.width()*Vars.tilesize-Vars.tilesize/2, World.height()*Vars.tilesize-Vars.tilesize/2);
 		
+		float bx = camera.position.x, by = camera.position.y;
+		camera.position.set((int)bx, (int)by, 0);
+		
 		camera.update();
 		
 		drawDefault();
+		
+		camera.position.set(bx, by, 0);
 		
 		if(boss != null && boss.health().dead){
 			boss = null;
@@ -257,13 +276,16 @@ public class Control extends RendererModule{
 	
 	@Override
 	public void draw(){
-		//Renderer.getEffect(Darkness.class).intensity = 1f;
 		
 		drawBackground();
-		Renderer.renderWorld();
 		
+		Renderer.renderWorld();
 		Draw.color();
 		Facets.instance().renderAll();
+		
+		basis.setProcessorsEnabled(false);
+		basis.getProcessor(DrawProcessor.class).setEnabled(true);
+		basis.getProcessor(HealthBarProcessor.class).setEnabled(true);
 		basis.update();
 		
 		Entities.draw();

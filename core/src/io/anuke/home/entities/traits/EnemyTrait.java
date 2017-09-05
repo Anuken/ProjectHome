@@ -31,6 +31,11 @@ public class EnemyTrait extends Trait{
 	}
 	
 	@Override
+	public void init(Spark spark){
+		((Enemy)spark.getType()).init(spark);
+	}
+	
+	@Override
 	public void registerEvents(Prototype type){
 		
 	}

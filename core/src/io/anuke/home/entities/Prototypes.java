@@ -4,6 +4,7 @@ import io.anuke.home.entities.types.ItemDrop;
 import io.anuke.home.entities.types.Player;
 import io.anuke.home.entities.types.Projectile;
 import io.anuke.home.entities.types.enemies.corruption.*;
+import io.anuke.home.entities.types.enemies.library.Wisp;
 import io.anuke.ucore.ecs.Prototype;
 
 public class Prototypes{
@@ -19,5 +20,6 @@ public class Prototypes{
 	tentafly = new Tentafly(),
 	tentacolumn = new Tentacolumn(),
 	tentawarrior = new Tentawarrior(),
-	tentapod = new Tentapod();
+	tentapod = new Tentapod(),
+	wisp = new Wisp();
 }

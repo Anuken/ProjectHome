@@ -21,12 +21,13 @@ public class LightEffect extends RenderEffect{
 	private final int rayamount = 130;
 	private final int chunksize = 3 * Vars.tilesize;
 	private RayHandler rays = new RayHandler();
+	private Color lightColor = Hue.rgb(0.65, 0.5, 0.3).mul(1.1f);
 	
 	private int lastcamx, lastcamy;
 
 	@Override
 	public void init(){
-		rays.setTint(Hue.rgb(0.65, 0.5, 0.3).mul(1.1f));
+		rays.setTint(lightColor);
 	}
 	
 	@Override
@@ -103,7 +104,11 @@ public class LightEffect extends RenderEffect{
 	}
 	
 	public Light addLight(float radius){
-		Light light = new PointLight(rays, rayamount, Color.WHITE, radius, 0, 0);
+		return addLight(radius, lightColor);
+	}
+	
+	public Light addLight(float radius, Color color){
+		Light light = new PointLight(rays, rayamount, color, radius, 0, 0);
 		light.setSoftnessLength(50f);
 		light.setNoise(4f, 1f, 4f);
 		return light;

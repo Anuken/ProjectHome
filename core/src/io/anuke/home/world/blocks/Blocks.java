@@ -121,8 +121,7 @@ public class Blocks{
 		
 		@Override
 		public void draw(FacetList list, Tile tile){
-			new BaseFacet(p->{
-				p.layer = tile.worldy()+24;
+			new BaseFacet(tile.worldy()+24, p->{
 				
 				int amount = tile.rand(-1, colors.length+1)-1;
 				
@@ -133,7 +132,9 @@ public class Blocks{
 					int rot = tile.rand(i*2 + 2, 360);
 					float mul = 1f + (tile.rand(i*2 + 3, 255)/255f-0.5f)/6f;
 					
-					drawBook(w, h, tile.worldx() + dx-Vars.tilesize/2, tile.worldy() + dy - Vars.tilesize/2,
+					drawBook(w, h, 
+							tile.worldx() + dx-Vars.tilesize/2 /*- 0.5f + Core.camera.position.x % 1f*/, 
+							tile.worldy() + dy - Vars.tilesize/2 /*- 0.5f + Core.camera.position.y % 1f*/,
 							rot, colors[i], mul);
 				}
 			}).add(list);
@@ -163,8 +164,7 @@ public class Blocks{
 		@Override
 		public void draw(FacetList list, Tile tile){
 			table.draw(list, tile);
-			new BaseFacet(p->{
-				p.layer = tile.worldy() - offset;
+			new BaseFacet(tile.worldy() - offset, p->{
 				
 				int amount = tile.rand(-1, 3)-1;
 				

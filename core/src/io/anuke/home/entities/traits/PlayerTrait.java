@@ -4,9 +4,7 @@ import static io.anuke.home.entities.Direction.*;
 
 import com.badlogic.gdx.math.Vector2;
 
-import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
-import io.anuke.home.effect.LightEffect;
 import io.anuke.home.entities.Direction;
 import io.anuke.home.items.Item;
 import io.anuke.home.world.Tile;
@@ -21,7 +19,6 @@ import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
 import io.anuke.ucore.ecs.extend.traits.HealthTrait;
 import io.anuke.ucore.ecs.extend.traits.PosTrait;
 import io.anuke.ucore.ecs.extend.traits.TileCollideTrait;
-import io.anuke.ucore.lights.Light;
 import io.anuke.ucore.util.*;
 
 public class PlayerTrait extends Trait{
@@ -43,19 +40,15 @@ public class PlayerTrait extends Trait{
 	public float walktime;
 	public float walkspeed = 0.09f;
 	
-	public Light light;
-	
 	@Override
-	public void init(Spark spark){
-		light = Renderer.getEffect(LightEffect.class).addLight(200);
+	public void added(Spark spark){
+		
 	}
 	
 	@Override
 	public void update(Spark spark){
 		HealthTrait ht = spark.get(HealthTrait.class);
 		PosTrait pos = spark.pos();
-		
-		light.setPosition(pos.x, pos.y);
 		
 		Vector2 vector = Tmp.v1;
 		

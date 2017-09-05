@@ -2,6 +2,7 @@ package io.anuke.home.entities.types;
 
 import io.anuke.home.Vars;
 import io.anuke.home.entities.Direction;
+import io.anuke.home.entities.traits.LightTrait;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.items.Item;
 import io.anuke.ucore.core.Draw;
@@ -56,6 +57,7 @@ public class Player extends Prototype{
 			new HealthTrait(100),
 			new ColliderTrait(4),
 			new TileCollideTrait(0.5f, 1.5f, 4, 3),
+			new LightTrait(100),
 			new FacetTrait((trait, spark)->{
 				
 				trait.draw(b->{
@@ -63,6 +65,12 @@ public class Player extends Prototype{
 					PlayerTrait player = spark.get(PlayerTrait.class);
 					Item weapon = player.weapon;
 					float angle = player.angle(spark) + (weapon == null ? 0f : weapon.weapontype.getAngleOffset());
+					
+					float x = spark.pos().x;
+					float y = spark.pos().y;
+					
+					spark.pos().x = (int)spark.pos().x;
+					spark.pos().y = (int)spark.pos().y;
 					
 					Callable drawWeapon = ()->{
 						if(weapon != null){
@@ -93,7 +101,10 @@ public class Player extends Prototype{
 						walk = "walk" + ((int)(walktime)%2+1);
 					}
 					
-					Draw.grect("player-" + player.direction.name+walk, spark.pos().x, spark.pos().y, player.direction.flipped);
+					Draw.grect("player-" + player.direction.name+walk, 
+							spark.pos().x, 
+							spark.pos().y,
+							player.direction.flipped);
 					
 					b.layer = spark.pos().y;
 					
@@ -101,9 +112,12 @@ public class Player extends Prototype{
 						drawWeapon.run();
 					}
 					
+					
+					spark.pos().x = x;
+					spark.pos().y = y;
 				});
 				
-				trait.drawShadow(spark, 8, 0);
+				trait.drawShadow(spark, 8, 0, true);
 			})
 		);
 	}

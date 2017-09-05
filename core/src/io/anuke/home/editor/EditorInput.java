@@ -84,6 +84,7 @@ public class EditorInput extends Module{
 			control.offsetx1 = sclx;
 		}
 		
+		//TODO fix
 		if(Inputs.buttonRelease(Buttons.LEFT)){
 			control.line = -1;
 			doResize();

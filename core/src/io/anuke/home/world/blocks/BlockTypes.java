@@ -193,8 +193,7 @@ public class BlockTypes{
 		
 		@Override
 		public void draw(FacetList list, Tile tile){
-			new BaseFacet(b->{
-				b.provider = Sorter.tile;
+			new BaseFacet(0, Sorter.tile, b->{
 				draw(tile, tile.worldx(), tile.worldy());
 			}).add(list);
 		}

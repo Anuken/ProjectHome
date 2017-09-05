@@ -57,8 +57,13 @@ public abstract class Enemy extends Prototype{
 		});
 	}
 	
+	public void init(Spark spark){
+		
+	}
+	
 	@Override
 	public TraitList typeTraits(){
+		//TODO is this bad design?
 		return new TraitList(
 			new LootTrait(Items.aetherstaff, 0)
 		);
