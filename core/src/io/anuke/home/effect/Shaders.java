@@ -13,7 +13,8 @@ public class Shaders{
 	public static void create(){
 		new Outline();
 		new Distort();
-		new Wisp();
+		new Scanline();
+		new Glow();
 	}
 	
 	public static class Outline extends Shader{
@@ -31,11 +32,11 @@ public class Shaders{
 		
 	}
 	
-	public static class Wisp extends Shader{
+	public static class Scanline extends Shader{
 		public float screenx, screeny, time;
 		
-		public Wisp(){
-			super("wisp", "outline");
+		public Scanline(){
+			super("scanline", "outline");
 		}
 		
 		public void set(float screenx, float screeny){
@@ -47,6 +48,30 @@ public class Shaders{
 		public void apply(){
 			Core.camera.project(Tmp.v31.set(screenx, screeny, 0));
 			shader.setUniformf("time", Timers.time());
+			shader.setUniformf("resolution", (float)Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight());
+			shader.setUniformf("pos", Tmp.v31.x/Gdx.graphics.getWidth(), Tmp.v31.y/Gdx.graphics.getHeight());
+		}
+	}
+	
+	public static class Glow extends Shader{
+		public float screenx, screeny, time;
+		public Color color = Color.WHITE.cpy();
+		
+		public Glow(){
+			super("glow", "outline");
+		}
+		
+		public void set(float screenx, float screeny, Color color){
+			this.screenx = screenx;
+			this.screeny = screeny;
+			this.color = color;
+		}
+
+		@Override
+		public void apply(){
+			Core.camera.project(Tmp.v31.set(screenx, screeny, 0));
+			shader.setUniformf("time", Timers.time());
+			shader.setUniformf("glowcolor", color);
 			shader.setUniformf("resolution", (float)Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight());
 			shader.setUniformf("pos", Tmp.v31.x/Gdx.graphics.getWidth(), Tmp.v31.y/Gdx.graphics.getHeight());
 		}

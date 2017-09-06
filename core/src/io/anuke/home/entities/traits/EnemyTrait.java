@@ -65,6 +65,12 @@ public class EnemyTrait extends Trait{
 		spark.get(TileCollideTrait.class).move(spark, Tmp.v1.x, Tmp.v1.y);
 	}
 	
+	public void moveTowardDeltaless(Spark spark){
+		Tmp.v1.set(target.pos().x - spark.pos().x, target.pos().y - spark.pos().y);
+		Tmp.v1.setLength(((Enemy)spark.getType()).speed);
+		spark.get(TileCollideTrait.class).move(spark, Tmp.v1.x, Tmp.v1.y);
+	}
+	
 	public boolean targetValid(Spark spark){
 		return target != null && !target.get(HealthTrait.class).dead && spark.pos().dst(target.pos()) < ((Enemy)spark.getType()).range;
 	}

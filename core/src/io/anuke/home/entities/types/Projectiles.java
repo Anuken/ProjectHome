@@ -2,6 +2,7 @@ package io.anuke.home.entities.types;
 
 import com.badlogic.gdx.graphics.Color;
 
+import io.anuke.home.entities.types.enemies.library.Wisp;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.extend.traits.ProjectileTrait.ProjectileType;
@@ -13,7 +14,51 @@ public abstract class Projectiles extends ProjectileType{
 	static final float pd = -0.3f;
 	static final float ld = -10;
 	
+	public boolean light = false;
+	public float lightsize = 15;
+	
 	public static final Projectiles
+	wispshot = new Projectiles(){
+		{
+			speed = 1f;
+			hiteffect = "yellowblap";
+			lifetime = 110;
+			light = true;
+		}
+		
+		public void draw(Spark b){
+			
+			Draw.thick(2f);
+			Draw.lineAngleCenter(b.pos().x, b.pos().y, b.velocity().angle(), 4f);
+			Draw.thick(1f);
+			Draw.lineAngle(b.pos().x, b.pos().y, b.velocity().angle(), 4f);
+		}
+	},
+	wispflash = new Projectiles(){
+		{
+			speed = 0.14f;
+			lifetime = 13f;
+			damage = 0;
+			
+		}
+		
+		public void draw(Spark b){
+			
+			float ifract = b.life().ifract();
+			
+			Draw.color(Color.valueOf("ffda77"), Wisp.color, ifract);
+			
+			Draw.thick(4f - ifract*4f);
+			Draw.lineAngleCenter(b.pos().x, b.pos().y, b.velocity().angle(), 9f);
+			Draw.thick(3f - ifract*3f);
+			Draw.lineAngleCenter(b.pos().x, b.pos().y, b.velocity().angle(), 13f);
+			Draw.lineAngle(b.pos().x, b.pos().y, b.velocity().angle(), 7f);
+			Draw.thick(2f - ifract*2f);
+			Draw.lineAngle(b.pos().x, b.pos().y, b.velocity().angle(), 11f);
+			
+			Draw.reset();
+		}
+	},
 	yellowshot = new Projectiles(){
 		{
 			speed = 3f+pd;

@@ -19,6 +19,7 @@ import io.anuke.ucore.util.Mathf;
 
 public class LightEffect extends RenderEffect{
 	private final int rayamount = 130;
+	private final int srayamount = 7;
 	private final int chunksize = 3 * Vars.tilesize;
 	private RayHandler rays = new RayHandler();
 	private Color lightColor = Hue.rgb(0.65, 0.5, 0.3).mul(1.1f);
@@ -111,6 +112,13 @@ public class LightEffect extends RenderEffect{
 		Light light = new PointLight(rays, rayamount, color, radius, 0, 0);
 		light.setSoftnessLength(50f);
 		light.setNoise(4f, 1f, 4f);
+		return light;
+	}
+	
+	public Light addSmallLight(float radius){
+		Light light = new PointLight(rays, srayamount, Color.WHITE, radius, 0, 0);
+		//light.setSoftnessLength(10f);
+		light.setXray(true);
 		return light;
 	}
 	

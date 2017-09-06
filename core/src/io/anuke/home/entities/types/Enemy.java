@@ -14,7 +14,7 @@ import io.anuke.ucore.ecs.extend.Events.CollisionFilter;
 import io.anuke.ucore.ecs.extend.Events.Damaged;
 import io.anuke.ucore.ecs.extend.Events.Death;
 import io.anuke.ucore.ecs.extend.traits.*;
-import io.anuke.ucore.ecs.extend.traits.ProjectileTrait.ProjectileType;
+import io.anuke.ucore.util.Angles;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
@@ -149,15 +149,21 @@ public abstract class Enemy extends Prototype{
 		return Mathf.scl(Timers.time(), scale)%amount+1;
 	}
 	
-	public static void shoot(Spark spark, ProjectileType type, float angle){
+	public static void shootOff(Spark spark, Projectiles type, float offsety, Spark target, float translation, float angoffset){
+		float angle = Angles.angle(spark.pos().x, spark.pos().y + offsety, target.pos().x, target.pos().y + 3) + angoffset;
+		Angles.translation(angle, translation);
+		Projectile.create(type, spark, spark.pos().x + Angles.vector.x, spark.pos().y + offsety + Angles.vector.y, angle);
+	}
+	
+	public static void shoot(Spark spark, Projectiles type, float angle){
 		Projectile.create(type, spark, spark.pos().x, spark.pos().y, angle);
 	}
 	
-	public static void shoot(Spark spark, ProjectileType type, float x, float y, float angle){
+	public static void shoot(Spark spark, Projectiles type, float x, float y, float angle){
 		Projectile.create(type, spark, x, y, angle);
 	}
 	
-	public static void shoot(Spark spark, ProjectileType type, int damage, float x, float y, float angle){
+	public static void shoot(Spark spark, Projectiles type, int damage, float x, float y, float angle){
 		//TODO
 		Projectile.create(type, spark, x, y, angle);
 	}

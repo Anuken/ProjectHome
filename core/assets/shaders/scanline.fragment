@@ -5,6 +5,7 @@ precision mediump int;
 
 uniform sampler2D u_texture;
 
+uniform float bounds = 0.033;
 uniform float time;
 uniform vec2 resolution;
 uniform vec2 pos;
@@ -19,7 +20,7 @@ void main() {
 	
 	float ratio = resolution.x/resolution.y;
 	
-	float sr = 0.033;
+	float sr = bounds;
 	float ts = 1000.0;
 	float sign = (float(mod(int((time/ts / (sr*2.0)) + 1.0), 2)) - 0.5) * 2.0;
 	float scan = pos.x - sr*sign + mod(time/ts, sr*2)*sign;

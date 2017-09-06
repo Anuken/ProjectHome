@@ -21,7 +21,9 @@ public class HealthBarTrait extends DrawTrait{
 		super(spark->{
 			HealthBarTrait hb = spark.get(HealthBarTrait.class);
 			
-			drawBar(hb.health, hb.empty, hb.outline, 5f, spark.pos().x, spark.pos().y - 5f, spark.health().healthfrac());
+			if(spark.health().healthfrac() < 1f){
+				drawBar(hb.health, hb.empty, hb.outline, 5f, spark.pos().x, spark.pos().y - 5f, spark.health().healthfrac());
+			}
 		});
 	}
 	
