@@ -56,7 +56,7 @@ public class Player extends Prototype{
 			new PlayerTrait(),
 			new HealthTrait(100),
 			new ColliderTrait(4),
-			new TileCollideTrait(0.5f, 1.5f, 4, 3),
+			new TileCollideTrait(-0.5f, 1.5f, 4, 3),
 			new LightTrait(100, true),
 			new FacetTrait((trait, spark)->{
 				

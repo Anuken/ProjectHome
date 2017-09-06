@@ -18,7 +18,7 @@ import io.anuke.ucore.lights.RayHandler;
 import io.anuke.ucore.util.Mathf;
 
 public class LightEffect extends RenderEffect{
-	private final int rayamount = 130;
+	private final int rayamount = 140;
 	private final int srayamount = 7;
 	private final int chunksize = 3 * Vars.tilesize;
 	private RayHandler rays = new RayHandler();

@@ -266,6 +266,10 @@ public class Control extends RendererModule{
 			Renderer.getEffect(LightEffect.class).drawLight();
 		}
 		
+		Draw.setScreen();
+		batch.draw(Draw.getSurface("darkness").texture(), 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
+		Draw.end();
+		
 		recorder.update();
 		
 		if(!GameState.is(State.paused)){
