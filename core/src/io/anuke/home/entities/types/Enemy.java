@@ -149,7 +149,7 @@ public abstract class Enemy extends Prototype{
 		return Mathf.scl(Timers.time(), scale)%amount+1;
 	}
 	
-	public static void shootOff(Spark spark, Projectiles type, float offsety, Spark target, float translation, float angoffset){
+	public static void shoot(Spark spark, Projectiles type, float offsety, Spark target, float translation, float angoffset){
 		float angle = Angles.angle(spark.pos().x, spark.pos().y + offsety, target.pos().x, target.pos().y + 3) + angoffset;
 		Angles.translation(angle, translation);
 		Projectile.create(type, spark, spark.pos().x + Angles.vector.x, spark.pos().y + offsety + Angles.vector.y, angle);

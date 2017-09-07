@@ -2,11 +2,14 @@ package io.anuke.home.entities.types;
 
 import com.badlogic.gdx.graphics.Color;
 
+import io.anuke.home.entities.traits.ParticleTrait;
+import io.anuke.home.entities.traits.ParticleTrait.Particle;
 import io.anuke.home.entities.types.enemies.library.Wisp;
 import io.anuke.ucore.core.Draw;
+import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.extend.traits.ProjectileTrait.ProjectileType;
-import io.anuke.ucore.util.Geometry;
+import io.anuke.ucore.util.*;
 
 //TODO aaaaaaAAAAAAAAAAAAAAAAAAaaaa
 public abstract class Projectiles extends ProjectileType{
@@ -17,7 +20,110 @@ public abstract class Projectiles extends ProjectileType{
 	public boolean light = false;
 	public float lightsize = 15;
 	
+	public boolean dark = false;
+	public boolean particles = false;
+	public int particleAmount = 10;
+	
 	public static final Projectiles
+	darkball = new Projectiles(){
+		{
+			dark = true;
+			speed = 0.01f;
+			lifetime = 110f;
+		}
+		
+		public void draw(Spark b){
+			float rad = b.life().ifract()*12f;
+			float rad2 = Mathf.clamp(b.life().ifract()-0.5f)*24f;
+			
+			Draw.color(Color.DARK_GRAY);
+			Draw.rect("circle", b.pos().x, b.pos().y, rad, rad);
+			
+			Draw.color(Color.PURPLE);
+			Draw.rect("circle", b.pos().x, b.pos().y, rad2, rad2);
+			
+			Draw.reset();
+		}
+		
+		public void despawned(Spark spark){
+			Projectile.create(darkshot, spark.projectile().source, spark.pos().x, spark.pos().y, spark.velocity().angle());
+			Effects.shake(3f, 3f);
+		}
+	},
+	darkshot = new Projectiles(){
+		{
+			dark = true;
+			particles = true;
+			speed = 1f;
+			lifetime = 150f;
+			particleAmount = 30;
+			hitsize = 8;
+		}
+		
+		public void draw(Spark b){
+			float rad = 9f;
+			
+			ParticleTrait particles = b.get(ParticleTrait.class);
+			
+			Draw.color(Color.PURPLE);
+			
+			for(Particle p : particles.particles){
+				float prad = p.fract()*5f;
+				Draw.rect("circle", p.x, p.y, prad, prad);
+			}
+			
+			Draw.rect("circle", b.pos().x, b.pos().y, rad, rad, Timers.time()*2f);
+			
+			Draw.thick(2f);
+			Draw.polygon(20, b.pos().x, b.pos().y, rad/2f + 3f, -Timers.time()*2f);
+			
+			Draw.reset();
+			
+			//Draw.spikes(b.pos().x, b.pos().y, rad/2f-1f, 3f, 4, Timers.time()*2f);
+		}
+		
+		public void despawned(Spark spark){
+			removed(spark);
+		}
+		
+		public void removed(Spark spark){
+			Effects.shake(2f, 3f);
+			
+			Geometry.circle(8, f->{
+				Angles.translation(f, 4f);
+				Projectile.create(darksplit, spark.projectile().source, spark.pos().x + Angles.vector.x, spark.pos().y + Angles.vector.y, f);
+			});
+		}
+	},
+	darksplit = new Projectiles(){
+		{
+			dark = true;
+			particles = true;
+			speed = 1f;
+			lifetime = 100f;
+		}
+		
+		public void draw(Spark b){
+			float rad = 10f*b.life().fract();
+			
+			ParticleTrait particles = b.get(ParticleTrait.class);
+			
+			Draw.color(Color.PURPLE);
+			
+			for(Particle p : particles.particles){
+				float prad = p.sfract()*5f*b.life().fract();
+				Draw.rect("circle", p.x, p.y, prad, prad);
+			}
+			
+			Draw.rect("circle", b.pos().x, b.pos().y, rad, rad, Timers.time()*2f);
+			
+			Draw.reset();
+			
+			//Draw.circle(b.pos().x, b.pos().y, rad/2f + 2f);
+			
+			//Draw.spikes(b.pos().x, b.pos().y, rad/2f-1f, 3f, 4, Timers.time()*2f);
+		}
+	},
 	wispshot = new Projectiles(){
 		{
 			speed = 1f;

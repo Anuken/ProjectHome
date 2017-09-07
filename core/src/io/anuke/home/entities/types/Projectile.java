@@ -4,6 +4,7 @@ import io.anuke.home.Renderer;
 import io.anuke.home.effect.LightEffect;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.home.entities.traits.LightTrait;
+import io.anuke.home.entities.traits.ParticleTrait;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.ucore.core.Effects;
@@ -13,6 +14,7 @@ import io.anuke.ucore.ecs.TraitList;
 import io.anuke.ucore.ecs.extend.Events.CollisionFilter;
 import io.anuke.ucore.ecs.extend.Events.TileCollision;
 import io.anuke.ucore.ecs.extend.traits.*;
+import io.anuke.ucore.facet.Sorter;
 
 public class Projectile extends Prototype{
 	
@@ -56,9 +58,19 @@ public class Projectile extends Prototype{
 			new LifetimeTrait(),
 			new ProjectileTrait(),
 			new LightTrait(30),
+			new ParticleTrait(10),
 			new TileCollideTrait(0, 0, 2, 2),
+			new FacetTrait((trait, spark)->{
+				if(((Projectiles)spark.projectile().type).dark){
+					trait.draw(Sorter.object, Sorter.dark, ()->{
+						spark.projectile().type.draw(spark);
+					});
+				}
+			}),
 			new DrawTrait(spark->{
-				spark.get(ProjectileTrait.class).type.draw(spark);
+				if(!((Projectiles)spark.projectile().type).dark){
+					spark.projectile().type.draw(spark);
+				}
 			})
 		);
 	}
@@ -75,6 +87,12 @@ public class Projectile extends Prototype{
 		spark.get(LightTrait.class).enabled = type.light;
 		spark.get(LightTrait.class).radius = type.lightsize;
 		spark.get(LightTrait.class).small = true;
+		if(type.particles){
+			spark.get(ParticleTrait.class).setEmission(0f, 30f);
+			spark.get(ParticleTrait.class).setParticles(type.particleAmount);
+		}else{
+			spark.get(ParticleTrait.class).setParticles(0);
+		}
 		spark.velocity().vector.set(1, 1).setAngle(angle);
 		if(damage != -1){
 			spark.get(ContactDamageTrait.class).damage = damage;

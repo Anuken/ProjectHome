@@ -30,11 +30,24 @@ public class ParticleTrait extends Trait{
 		return this;
 	}
 	
+	public ParticleTrait setParticles(int amount){
+		particles = new Particle[amount];
+		for(int i = 0; i < particles.length; i ++){
+			particles[i] = new Particle();
+		}
+		return this;
+	}
+	
+	@Override
+	public void added(Spark spark){
+		reset(spark);
+	}
+	
 	@Override
 	public void init(Spark spark){
 		for(int i = 0; i < particles.length; i ++){
 			particles[i] = new Particle();
-			particles[i].reset();
+			particles[i].reset(spark);
 			particles[i].life = Mathf.random(particleLife);
 		}
 	}
@@ -46,18 +59,18 @@ public class ParticleTrait extends Trait{
 			part.y += Mathf.delta()*speed;
 			
 			if(part.fract() <= 0f){
-				part.reset();
+				part.reset(spark);
 			}
 		}
 		
 		if(Mathf.delta() >= particleLife/5f){
-			reset();
+			reset(spark);
 		}
 	}
 	
-	public void reset(){
+	public void reset(Spark spark){
 		for(int i = 0; i < particles.length; i ++){
-			particles[i].reset();
+			particles[i].reset(spark);
 			particles[i].life = Mathf.random(particleLife);
 		}
 	}
@@ -77,8 +90,8 @@ public class ParticleTrait extends Trait{
 			return (0.5f-Math.abs(life/particleLife-0.5f))*2f;
 		}
 		
-		void reset(){
-			set(Mathf.range(xRange), Mathf.random(yMin, yMax));
+		void reset(Spark spark){
+			set(Mathf.range(xRange) + spark.pos().x, Mathf.random(yMin, yMax) + spark.pos().y);
 			life = 0f;
 		}
 	}

@@ -148,7 +148,7 @@ public class EffectLoader{
 			Draw.color(Color.SCARLET, new Color(0xff341c00), e.ifract());
 			
 			float rad = e.fract()*4f;
-			Geometry.randVectors(e.id, 5, e.ifract()*30f, (x, y)->{
+			Geometry.randLenVectors(e.id, 5, e.ifract()*30f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			

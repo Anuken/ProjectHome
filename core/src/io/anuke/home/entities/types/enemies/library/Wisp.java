@@ -45,10 +45,10 @@ public class Wisp extends Enemy{
 				if(Timers.get(spark, "reload3", 5)){
 					
 					Geometry.shotgun(4, 25f, 0f, f->{
-						shootOff(spark, Projectiles.wispshot, raise(), target, 5, f + Mathf.sin(Timers.time(), 0.3f, 60f));
+						shoot(spark, Projectiles.wispshot, raise(), target, 5, f + Mathf.sin(Timers.time(), 0.3f, 60f));
 					});
 					
-					shootOff(spark, Projectiles.wispflash, raise(), target, 5, Mathf.range(50f));
+					shoot(spark, Projectiles.wispflash, raise(), target, 5, Mathf.range(50f));
 					
 					trait.moveTowardDeltaless(spark);
 					Effects.shake(0.5f, 1f);
@@ -66,7 +66,7 @@ public class Wisp extends Enemy{
 				float angle = j*10f;
 				Timers.run(j*15, ()->{
 					for(int i = 0; i < 4; i ++){
-						shootOff(spark, Projectiles.wispshot, raise(), target, 5, i*90 + angle);
+						shoot(spark, Projectiles.wispshot, raise(), target, 5, i*90 + angle);
 					}
 				});
 					
