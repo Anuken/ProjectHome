@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 
 import io.anuke.home.entities.traits.ParticleTrait;
 import io.anuke.home.entities.traits.ParticleTrait.Particle;
+import io.anuke.home.entities.types.enemies.library.Shade;
 import io.anuke.home.entities.types.enemies.library.Wisp;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
@@ -39,7 +40,7 @@ public abstract class Projectiles extends ProjectileType{
 			Draw.color(Color.DARK_GRAY);
 			Draw.rect("circle", b.pos().x, b.pos().y, rad, rad);
 			
-			Draw.color(Color.PURPLE);
+			Draw.color(Shade.color);
 			Draw.rect("circle", b.pos().x, b.pos().y, rad2, rad2);
 			
 			Draw.reset();
@@ -65,7 +66,7 @@ public abstract class Projectiles extends ProjectileType{
 			
 			ParticleTrait particles = b.get(ParticleTrait.class);
 			
-			Draw.color(Color.PURPLE);
+			Draw.color(Shade.color);
 			
 			for(Particle p : particles.particles){
 				float prad = p.fract()*5f;
@@ -108,7 +109,7 @@ public abstract class Projectiles extends ProjectileType{
 			
 			ParticleTrait particles = b.get(ParticleTrait.class);
 			
-			Draw.color(Color.PURPLE);
+			Draw.color(Shade.color);
 			
 			for(Particle p : particles.particles){
 				float prad = p.sfract()*5f*b.life().fract();

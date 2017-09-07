@@ -4,8 +4,7 @@ import io.anuke.home.entities.types.ItemDrop;
 import io.anuke.home.entities.types.Player;
 import io.anuke.home.entities.types.Projectile;
 import io.anuke.home.entities.types.enemies.corruption.*;
-import io.anuke.home.entities.types.enemies.library.Shade;
-import io.anuke.home.entities.types.enemies.library.Wisp;
+import io.anuke.home.entities.types.enemies.library.*;
 import io.anuke.ucore.ecs.Prototype;
 
 public class Prototypes{
@@ -23,5 +22,7 @@ public class Prototypes{
 	tentawarrior = new Tentawarrior(),
 	tentapod = new Tentapod(),
 	wisp = new Wisp(),
-	shade = new Shade();
+	shade = new Shade(),
+	crawler = new Crawler(),
+	goldfrog = new GoldFrog();
 }

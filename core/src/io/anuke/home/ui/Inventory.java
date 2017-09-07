@@ -9,9 +9,7 @@ import com.badlogic.gdx.utils.Align;
 import io.anuke.home.Vars;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.entities.types.ItemDrop;
-import io.anuke.home.items.Item;
-import io.anuke.home.items.ItemStack;
-import io.anuke.home.items.ItemType;
+import io.anuke.home.items.*;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Graphics;
 import io.anuke.ucore.core.Inputs;
@@ -52,7 +50,7 @@ public class Inventory extends Table{
 		Arrays.fill(stacks, null);
 		selected = null;
 		
-		/*
+		
 		addItem(new ItemStack(Items.marblesword));
 		addItem(new ItemStack(Items.amberstaff));
 		
@@ -63,7 +61,7 @@ public class Inventory extends Table{
 			addItem(new ItemStack(Items.planestaff));
 			addItem(new ItemStack(Items.fusionstaff));
 		}
-		*/
+		
 	}
 	
 	public boolean selectedItem(){

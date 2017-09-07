@@ -12,7 +12,7 @@ public class WeaponType{
 	
 	public String getStatString(){
 		return "Damage: " + damage + 
-				"\n[firebrick]Attack Speed: " + toFixed(60f/speed, 1);
+				"\n[FIREBRICK]Attack Speed: " + toFixed(60f/speed, 1);
 	}
 	
 	public float getAngleOffset(){

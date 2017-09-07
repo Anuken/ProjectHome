@@ -22,6 +22,7 @@ public class EnemyTrait extends Trait{
 	public float idletime = 0f;
 	
 	public float rot = 0f;
+	public float time = 0f;
 	public float reload = 0f;
 	
 	public Consumer<Spark> mover;

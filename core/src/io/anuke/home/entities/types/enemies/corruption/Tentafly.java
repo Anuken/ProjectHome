@@ -52,7 +52,7 @@ public class Tentafly extends Enemy{
 			Vector2 vector = Tmp.v1;
 			
 			float sin = Mathf.sin(Timers.time(), 4, 0.75f)+0.75f;
-			float raise = 6f+Mathf.sin(Timers.time(), 12f, 2f);
+			float raise = 6f + Mathf.sin(Timers.time(), 12f, 2f);
 			
 			Draw.grect("tentafly", x, y+raise);
 			Draw.grect("tentaflywingsbot", x, y-sin+raise);
