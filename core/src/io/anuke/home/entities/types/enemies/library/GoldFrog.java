@@ -1,9 +1,11 @@
 package io.anuke.home.entities.types.enemies.library;
 
 import io.anuke.home.entities.traits.EnemyTrait;
+import io.anuke.home.entities.traits.LightTrait;
 import io.anuke.home.entities.types.Enemy;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.ecs.Spark;
+import io.anuke.ucore.ecs.TraitList;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
 import io.anuke.ucore.ecs.extend.traits.TileCollideTrait;
 import io.anuke.ucore.util.Angles;
@@ -14,6 +16,11 @@ public class GoldFrog extends Enemy{
 	
 	public GoldFrog(){
 		speed = 0.04f;
+	}
+	
+	@Override
+	public void init(Spark spark){
+		Timers.reset(spark, "jump", Mathf.random(100));
 	}
 
 	@Override
@@ -44,7 +51,8 @@ public class GoldFrog extends Enemy{
 		});
 	}
 	
-	static class Data{
-		
+	@Override
+	public TraitList traits(){
+		return super.traits().with(new LightTrait(20).setSmall().setOffset(0, 3));
 	}
 }

@@ -1,9 +1,11 @@
 package io.anuke.home.entities.types.enemies.library;
 
+import io.anuke.home.entities.traits.DarkenTrait;
 import io.anuke.home.entities.traits.EnemyTrait;
 import io.anuke.home.entities.traits.ParticleTrait;
 import io.anuke.home.entities.types.Enemy;
 import io.anuke.ucore.ecs.Spark;
+import io.anuke.ucore.ecs.TraitList;
 import io.anuke.ucore.util.Mathf;
 
 public abstract class DarkEnemy extends Enemy{
@@ -28,5 +30,10 @@ public abstract class DarkEnemy extends Enemy{
 		}
 		
 		enemy.rot = Mathf.clamp(enemy.rot, 0, waketime);
+	}
+	
+	@Override
+	public TraitList traits(){
+		return super.traits().with(new DarkenTrait());
 	}
 }

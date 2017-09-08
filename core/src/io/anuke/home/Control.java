@@ -85,9 +85,9 @@ public class Control extends RendererModule{
 		Sounds.load("blockdie.wav", "hurt.wav", "pickup.wav", "shoot.wav", "slash.wav", 
 				"slash2.wav", "tentadie.wav", "ult.wav", "walls.wav", "death.wav", "bossdie.wav", "respawn.wav");
 		
-		Musics.load("menu.ogg", "world1.mp3", "world2.mp3", "world3.mp3", "boss.mp3");
+		Musics.load("menu.ogg", "world1.mp3", "boss.mp3");
 		
-		Musics.createTracks("world", "world1", "world2", "world3");
+		Musics.createTracks("world", "world1");
 		Musics.createTracks("menu", "menu");
 		Musics.createTracks("boss", "boss");
 		

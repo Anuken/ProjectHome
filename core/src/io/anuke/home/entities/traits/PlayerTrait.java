@@ -39,6 +39,7 @@ public class PlayerTrait extends Trait{
 	
 	public float walktime;
 	public float walkspeed = 0.09f;
+	public float lightrange;
 	
 	@Override
 	public void added(Spark spark){
@@ -49,6 +50,10 @@ public class PlayerTrait extends Trait{
 	public void update(Spark spark){
 		HealthTrait ht = spark.get(HealthTrait.class);
 		PosTrait pos = spark.pos();
+		
+		lightrange = 100;
+		
+
 		
 		Vector2 vector = Tmp.v1;
 		

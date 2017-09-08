@@ -19,7 +19,7 @@ import io.anuke.ucore.util.Mathf;
 
 public class LightEffect extends RenderEffect{
 	private final int rayamount = 140;
-	private final int srayamount = 7;
+	private final int srayamount = 18;
 	private final int chunksize = 3 * Vars.tilesize;
 	private RayHandler rays = new RayHandler();
 	private Color lightColor = Hue.rgb(0.65, 0.5, 0.3).mul(1.1f);

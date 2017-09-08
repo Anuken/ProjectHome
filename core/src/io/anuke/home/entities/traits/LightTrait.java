@@ -5,8 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 
 import io.anuke.home.Renderer;
 import io.anuke.home.effect.LightEffect;
+import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
+import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
 import io.anuke.ucore.graphics.Hue;
 import io.anuke.ucore.lights.Light;
 import io.anuke.ucore.util.Mathf;
@@ -22,6 +24,7 @@ public class LightTrait extends Trait{
 	public Color color = Color.WHITE;
 	
 	private float shrink = 0f;
+	private float calcradius = 0f;
 	
 	public LightTrait(float radius, boolean instant){
 		this.radius = radius;
@@ -37,6 +40,16 @@ public class LightTrait extends Trait{
 		this.color = color;
 	}
 	
+	public LightTrait setSmall(){
+		small = true;
+		return this;
+	}
+	
+	public LightTrait setOffset(float x, float y){
+		offset.set(x, y);
+		return this;
+	}
+	
 	@Override
 	public void init(Spark spark){
 		
@@ -46,6 +59,22 @@ public class LightTrait extends Trait{
 	public void update(Spark spark){
 		if(enabled){
 			light.setPosition(spark.pos().x + offset.x, spark.pos().y + offset.y);
+			
+			calcradius = radius;
+			
+			float scan = radius/1.5f;
+			
+			Basis.instance().getProcessor(CollisionProcessor.class).getNearby(spark.pos().x, spark.pos().y, scan, other->{
+				if(other.has(DarkenTrait.class)){
+					float dst = other.pos().dst(spark.pos());
+					
+					if(dst < scan){
+						calcradius -= (1f-dst/scan)*(scan/1.4f);
+					}
+				}
+			});
+			
+			light.setDistance(Mathf.lerp(light.getDistance(), Math.max(calcradius, radius/10f), 0.03f*Mathf.delta()));
 		}
 	}
 	
