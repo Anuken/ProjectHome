@@ -52,16 +52,9 @@ public class Inventory extends Table{
 		
 		
 		addItem(new ItemStack(Items.marblesword));
-		addItem(new ItemStack(Items.amberstaff));
-		
-		if(Vars.debug){
-			addItem(new ItemStack(Items.tentasword));
-			addItem(new ItemStack(Items.silversword));
-			addItem(new ItemStack(Items.orbstaff));
-			addItem(new ItemStack(Items.planestaff));
-			addItem(new ItemStack(Items.fusionstaff));
-		}
-		
+		addItem(new ItemStack(Items.fusionstaff));
+		addItem(new ItemStack(Items.lightsoul));
+		addItem(new ItemStack(Items.densearmor));
 	}
 	
 	public boolean selectedItem(){
@@ -251,7 +244,7 @@ public class Inventory extends Table{
 				getCell(image).size(9*imgscl, 15*imgscl);
 			}else{
 				image.setDrawable(new TextureRegionDrawable(Draw.region(item.name + "-item")));
-				getCell(image).size(8*imgscl, 8*imgscl).pad(6).padTop(16);
+				getCell(image).size(8*imgscl, 8*imgscl).pad(6).padBottom(16);
 			}
 			
 			pack();

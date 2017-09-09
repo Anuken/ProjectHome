@@ -62,7 +62,9 @@ public class LightTrait extends Trait{
 			
 			calcradius = radius;
 			
-			float scan = radius/1.5f;
+			float scan = radius/1.7f;
+			
+			if(Basis.instance().getProcessor(CollisionProcessor.class) == null) return;
 			
 			Basis.instance().getProcessor(CollisionProcessor.class).getNearby(spark.pos().x, spark.pos().y, scan, other->{
 				if(other.has(DarkenTrait.class)){
@@ -74,7 +76,7 @@ public class LightTrait extends Trait{
 				}
 			});
 			
-			light.setDistance(Mathf.lerp(light.getDistance(), Math.max(calcradius, radius/10f), 0.03f*Mathf.delta()));
+			light.setDistance(Mathf.lerp(light.getDistance(), Math.max(calcradius, radius/6f), 0.03f*Mathf.delta()));
 		}
 	}
 	

@@ -32,11 +32,6 @@ public class EnemyTrait extends Trait{
 	}
 	
 	@Override
-	public void init(Spark spark){
-		((Enemy)spark.getType()).init(spark);
-	}
-	
-	@Override
 	public void registerEvents(Prototype type){
 		
 	}
@@ -73,6 +68,7 @@ public class EnemyTrait extends Trait{
 	}
 	
 	public boolean targetValid(Spark spark){
-		return target != null && !target.get(HealthTrait.class).dead && spark.pos().dst(target.pos()) < ((Enemy)spark.getType()).range;
+		return target != null && !target.get(HealthTrait.class).dead 
+				&& spark.pos().dst(target.pos()) < ((Enemy)spark.getType()).range;
 	}
 }

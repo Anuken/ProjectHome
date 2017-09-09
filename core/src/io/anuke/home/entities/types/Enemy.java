@@ -32,6 +32,7 @@ public abstract class Enemy extends Prototype{
 
 	public float range = 230, reload = 150f;
 	public boolean despawn = true;
+	public boolean passthrough = false;
 	
 	public Enemy(){
 		event(Damaged.class, (spark, source, damage)->{
@@ -74,9 +75,8 @@ public abstract class Enemy extends Prototype{
 		Trait data = data();
 		TraitList list = new TraitList(
 			new PosTrait(),
-			new TileCollideTrait(),
 			new ColliderTrait(hitsize, hitsize, 0, hitsize/2 + hitoffset),
-			new TileCollideTrait(1f, 2f, 5, 4),
+			new TileCollideTrait(1f, 2f, 5, 4, passthrough),
 			new HealthTrait(maxhealth),
 			new HealthBarTrait(),
 			new EnemyTrait(spark->{

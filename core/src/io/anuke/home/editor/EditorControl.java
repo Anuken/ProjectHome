@@ -88,6 +88,10 @@ public class EditorControl extends RendererModule{
 		
 		drawDefault();
 		
+		Draw.setScreen();
+		batch.draw(Draw.getSurface("darkness").texture(), 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
+		Draw.end();
+		
 		Timers.update();
 		Inputs.update();
 	}
@@ -108,6 +112,8 @@ public class EditorControl extends RendererModule{
 		//Facets.instance().renderAll();
 		Renderer.renderWorld();
 		Facets.instance().renderAll();
+		
+		
 		
 		int mousex = Mathf.scl2(Graphics.mouseWorld().x, Vars.tilesize),
 				mousey = Mathf.scl2(Graphics.mouseWorld().y, Vars.tilesize);
@@ -138,6 +144,8 @@ public class EditorControl extends RendererModule{
 		Draw.reset();
 		
 		view.draw();
+		
+		
 		
 		/*
 		int brushsize = (!tool.radius() || seltype != null ? 1 : this.brushsize);

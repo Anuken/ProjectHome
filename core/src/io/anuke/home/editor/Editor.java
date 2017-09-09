@@ -31,5 +31,9 @@ public class Editor extends ModuleCore{
 		}
 		*/
 	}
+	
+	public static boolean active(){
+		return Evar.control != null;
+	}
 
 }

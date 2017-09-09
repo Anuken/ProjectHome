@@ -17,14 +17,32 @@ import io.anuke.ucore.util.Timers;
 public class Crawler extends DarkEnemy{
 	
 	public Crawler(){
-		speed = 0.14f;
+		speed = 0.16f;
+		passthrough = true;
+	}
+	
+	@Override
+	public void init(Spark spark){
+		Timers.reset(spark, "dash", Mathf.random(400));
+		spark.get(Data.class).speed = speed;
 	}
 
 	@Override
 	public void move(Spark spark){
 		EnemyTrait enemy = spark.get(EnemyTrait.class);
+		Data data = spark.get(Data.class);
 		
 		enemy.moveToward(spark);
+		
+		if(Timers.get(spark, "dash", 400)){
+			Timers.runFor(80, ()->{
+				data.speed += 0.004f*Mathf.delta();
+			}, ()->{
+				Timers.runFor(60, ()->{
+					data.speed -= 0.004f*Mathf.delta();
+				});
+			});
+		}
 	}
 
 	@Override
@@ -35,15 +53,21 @@ public class Crawler extends DarkEnemy{
 		
 		trait.draw(Sorter.object, Sorter.dark, ()->{
 			
-			float wake = spark.get(EnemyTrait.class).rot/waketime;
+			float wake = spark.get(EnemyTrait.class).time/waketime;
+			
+			if(wake <= 0.001f){
+				return;
+			}
 			
 			Draw.color(Color.BLACK, Color.DARK_GRAY, wake);
 			
-			for(int i = 0; i <8; i ++){
+			float offset = spark.getID() * 125f;
+			
+			for(int i = 0; i < 8; i ++){
 				
-				float rot1 = i*45 + 45 +  Mathf.sin(Timers.time(), 16f, 8f) + Timers.time()*0.1f, 
-					  rot2 = Mathf.sin(Timers.time() + i*4, 30f, 25f),
-					  rot3 = Mathf.sin(Timers.time() + i*4, 15f, 15f);
+				float rot1 = i*45 + 45 +  Mathf.sin(Timers.time() + offset, 16f, 8f) + Timers.time()*0.1f + offset, 
+					  rot2 = Mathf.sin(Timers.time() + offset + i*4, 30f, 25f),
+					  rot3 = Mathf.sin(Timers.time() + offset + i*4, 15f, 15f);
 				
 				float rots = rot1 + rot2 + rot3;
 				
@@ -59,6 +83,7 @@ public class Crawler extends DarkEnemy{
 				}
 				
 				scale += data.scales[i];
+				
 				
 				Draw.thick(3f);
 				
@@ -87,8 +112,8 @@ public class Crawler extends DarkEnemy{
 			}
 			
 			Draw.thick(1f);
-			Draw.color(Color.BLACK, Color.PURPLE, wake);
-			Draw.polygon(3, spark.pos().x, spark.pos().y, 4f, Timers.time()*1f);
+			Draw.color(Color.BLACK, Shade.color, wake);
+			Draw.polygon(3, spark.pos().x, spark.pos().y, 4f, Timers.time()*1f + offset);
 			
 			Draw.reset();
 		});
@@ -108,5 +133,6 @@ public class Crawler extends DarkEnemy{
 	
 	static class Data extends Trait{
 		public float[] scales = new float[8];
+		public float speed = 0.16f;
 	}
 }

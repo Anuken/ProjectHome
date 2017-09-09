@@ -10,6 +10,9 @@ import io.anuke.ucore.util.Geometry;
 public class Items{
 	public static final Item 
 	
+	lightsoul = new Item("lightsoul", "Soul of Light", ItemType.soul){{
+		//TODO
+	}},
 	densearmor = new Item("densearmor", "Dense Armor", ItemType.armor){{
 		defensebuff = 3;
 		speedbuff = -1;

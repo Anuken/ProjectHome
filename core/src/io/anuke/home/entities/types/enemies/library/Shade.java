@@ -45,7 +45,7 @@ public class Shade extends DarkEnemy{
 		
 		trait.draw(Sorter.object, Sorter.dark, ()->{
 			
-			Draw.alpha(enemy.rot/waketime);
+			Draw.alpha(enemy.time/waketime);
 			
 			Draw.tint(Color.DARK_GRAY);
 			

@@ -54,7 +54,7 @@ public class Player extends Prototype{
 		return new TraitList(
 			new PosTrait(), 
 			new PlayerTrait(),
-			new HealthTrait(100),
+			new HealthTrait(20),
 			new ColliderTrait(4),
 			new TileCollideTrait(-0.5f, 1.5f, 4, 3),
 			new LightTrait(100, true),
