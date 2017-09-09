@@ -13,6 +13,7 @@ import io.anuke.home.effect.LightEffect;
 import io.anuke.home.effect.Shaders;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.home.entities.processors.HealthBarProcessor;
+import io.anuke.home.entities.traits.EffectTrait;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
@@ -24,8 +25,7 @@ import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
 import io.anuke.ucore.ecs.extend.processors.DrawProcessor;
 import io.anuke.ucore.ecs.extend.processors.TileCollisionProcessor;
 import io.anuke.ucore.entities.Entities;
-import io.anuke.ucore.facet.FacetLayerHandler;
-import io.anuke.ucore.facet.Facets;
+import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
 import io.anuke.ucore.modules.RendererModule;
@@ -66,6 +66,15 @@ public class Control extends RendererModule{
 		
 		basis.addProcessor(new HealthBarProcessor());
 		basis.addProcessor(new DrawProcessor());
+		
+		Effects.setEffectProvider((name, color, x, y)->{
+			Spark spark = new Spark(Prototypes.effect);
+			spark.get(EffectTrait.class).name = name;
+			spark.get(EffectTrait.class).color = color;
+			spark.life().lifetime = Effects.getEffect(name).lifetime;
+			spark.pos().set(x, y);
+			spark.add();
+		});
 	
 		KeyBinds.defaults(
 			"up", Keys.W,
@@ -90,15 +99,6 @@ public class Control extends RendererModule{
 		Musics.createTracks("world", "world1");
 		Musics.createTracks("menu", "menu");
 		Musics.createTracks("boss", "boss");
-		
-		Entities.initPhysics();
-		Entities.setCollider(Vars.tilesize, (x, y)->{
-			Tile tile = World.get(x, y);
-			return tile != null && tile.wall.solid;
-		}, (x, y, out)->{
-			Tile tile = World.get(x, y);
-			tile.wall.getHitbox(tile, out);
-		});
 		
 		EffectLoader.load();
 		
@@ -169,7 +169,6 @@ public class Control extends RendererModule{
 		Renderer.updateWalls();
 		killed.clear();
 		World.loadMap("library-filled");
-		Entities.clear();
 		Renderer.clearWorld();
 		
 		checkpoint = World.get(World.getStartX(), World.getStartY());
@@ -184,8 +183,10 @@ public class Control extends RendererModule{
 		
 		respawn();
 		
-		Entities.resizeTree(0, 0, center*2, center*2);
 		basis.getProcessor(CollisionProcessor.class).resizeTree(0, 0, center*2, center*2);
+		
+		//this is so dark things don't get stuck on screen
+		new BaseFacet(Sorter.dark, Sorter.object, p->{}).add();
 	}
 	
 	@Override
@@ -292,7 +293,6 @@ public class Control extends RendererModule{
 		basis.getProcessor(HealthBarProcessor.class).setEnabled(true);
 		basis.update();
 		
-		Entities.draw();
 		Renderer.renderEffects();
 	}
 	

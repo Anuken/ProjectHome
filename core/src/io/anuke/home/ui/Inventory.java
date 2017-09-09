@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Align;
 
 import io.anuke.home.Vars;
+import io.anuke.home.entities.traits.InventoryTrait;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.entities.types.ItemDrop;
 import io.anuke.home.items.*;
@@ -26,21 +27,29 @@ import io.anuke.ucore.util.Timers;
 
 public class Inventory extends Table{
 	int slotw = 4, sloth = 4;
+	Slot[] slots = new Slot[4];
 	ItemStack[] stacks = new ItemStack[slotw * sloth];
 	ItemType[] filters = new ItemType[slotw * sloth];
 	ItemStack selected;
 	ItemTooltip tooltip;
 	boolean deselecting;
 	int slotweapon = 0;
+	InventoryTrait trait;
 
 	final float slotsize = 56;
 	final float itemsize = 32;
 
-	public Inventory() {
+	public Inventory(Spark player) {
+		trait = player.get(InventoryTrait.class);
+		
 		filters[0] = ItemType.weapon;
 		filters[1] = ItemType.ranged_weapon;
 		filters[2] = ItemType.soul;
 		filters[3] = ItemType.armor;
+		
+		trait.melee.add(Items.marblesword);
+		trait.melee.add(Items.silversword);
+		trait.melee.add(Items.icesword);
 		
 		clearItems();
 		setup();
@@ -49,7 +58,6 @@ public class Inventory extends Table{
 	public void clearItems(){
 		Arrays.fill(stacks, null);
 		selected = null;
-		
 		
 		addItem(new ItemStack(Items.marblesword));
 		addItem(new ItemStack(Items.fusionstaff));
@@ -65,6 +73,27 @@ public class Inventory extends Table{
 		tooltip = new ItemTooltip();
 		tooltip.setVisible(false);
 		
+		pad(8);
+		
+		for(int i = 0; i < slots.length; i ++){
+			Slot slot = new Slot(i);
+			add(slot).size(slotsize).pad(10);
+		}
+		
+		stacks[0] = new ItemStack(Items.marblesword);
+		
+		/*
+		Table weapons = new Table();
+		
+		for(int i = 0; i < trait.capacity; i ++){
+			Table slot = new Table("slot");
+			
+			weapons.add(slot).size(64).pad(8);
+			weapons.row();
+		}
+		
+		add(weapons);
+		/*
 		background("inventory");
 		
 		Table slots = new Table();
@@ -84,6 +113,7 @@ public class Inventory extends Table{
 			}
 			slots.row();
 		}
+		*/
 	}
 	
 	@Override
@@ -275,7 +305,7 @@ public class Inventory extends Table{
 
 		@Override
 		public void draw(){
-			Draw.patch(slotweapon == index ? "slot-select" : "slot", x, y, width, height);
+			Draw.patch(slotweapon == index ? "slot-select" : "blank", x, y, width, height);
 
 			ItemStack stack = stacks[index];
 

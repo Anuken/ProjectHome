@@ -2,6 +2,7 @@ package io.anuke.home.entities.types;
 
 import io.anuke.home.Vars;
 import io.anuke.home.entities.Direction;
+import io.anuke.home.entities.traits.InventoryTrait;
 import io.anuke.home.entities.traits.LightTrait;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.items.Item;
@@ -45,7 +46,7 @@ public class Player extends Prototype{
 		});
 		
 		event(CollisionFilter.class, (spark, other)->{
-			return other.has(ProjectileTrait.class) && other.get(ProjectileTrait.class).source.getType() instanceof Enemy;
+			return (!other.has(ProjectileTrait.class)) || (other.has(ProjectileTrait.class) && other.get(ProjectileTrait.class).source.getType() instanceof Enemy);
 		});
 	}
 
@@ -56,6 +57,7 @@ public class Player extends Prototype{
 			new PlayerTrait(),
 			new HealthTrait(20),
 			new ColliderTrait(4),
+			new InventoryTrait(3),
 			new TileCollideTrait(-0.5f, 1.5f, 4, 3),
 			new LightTrait(100, true),
 			new FacetTrait((trait, spark)->{

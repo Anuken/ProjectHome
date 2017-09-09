@@ -137,14 +137,14 @@ enemies/corruption/tentaflyi1
   orig: 24, 13
   offset: 0, 0
   index: -1
-enemies/corruption/tentaflyi3
+enemies/corruption/tentaflyi5
   rotate: false
   xy: 567, 139
   size: 24, 13
   orig: 24, 13
   offset: 0, 0
   index: -1
-enemies/corruption/tentaflyi5
+enemies/corruption/tentaflyi3
   rotate: false
   xy: 567, 139
   size: 24, 13

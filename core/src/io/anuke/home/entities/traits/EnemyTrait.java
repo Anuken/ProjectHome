@@ -40,7 +40,7 @@ public class EnemyTrait extends Trait{
 	public void update(Spark spark){
 		((Enemy)spark.getType()).retarget(spark);
 
-		if(targetValid(spark)){
+		if(targetValid(spark) && !spark.health().dead){
 			mover.accept(spark);
 		}
 	}

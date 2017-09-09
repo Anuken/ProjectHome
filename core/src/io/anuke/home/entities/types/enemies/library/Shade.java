@@ -16,7 +16,6 @@ import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
 public class Shade extends DarkEnemy{
-	public static final Color color = new Color(0x882ddcff);
 	
 	public Shade(){
 		range = 100;
@@ -66,7 +65,7 @@ public class Shade extends DarkEnemy{
 			Draw.lineAngleCenter(spark.pos().x, spark.pos().y + raise, 90, 12f);
 			
 			Draw.thick(1f);
-			Draw.tint(color);
+			Draw.tint(DarkEnemy.eyeColor);
 			Draw.polygon(3, spark.pos().x, spark.pos().y + 10 + raise + Mathf.sin(Timers.time() + 2, 30f, 4f), 3f, Timers.time());
 			
 			Draw.reset();

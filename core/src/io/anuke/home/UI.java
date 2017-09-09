@@ -207,7 +207,7 @@ public class UI extends SceneModule{
 			
 			row();
 			
-			inventory = new Inventory();
+			inventory = new Inventory(Vars.control.getPlayer());
 			
 			add(inventory);
 			

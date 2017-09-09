@@ -2,6 +2,7 @@ package io.anuke.home.effect;
 
 import com.badlogic.gdx.graphics.Color;
 
+import io.anuke.home.entities.types.enemies.library.Shade;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.graphics.Hue;
@@ -11,6 +12,41 @@ public class EffectLoader{
 	static final Color tent = new Color(0x500680ff);
 	
 	public static void load(){
+		
+		Effects.create("shadecloud", 20, e->{
+			Draw.color(Color.DARK_GRAY);
+			
+			float rad = e.fract()*5f + 1f;
+			Geometry.randLenVectors(e.id, 5, e.powfract()*16f, (x, y)->{
+				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
+			});
+			
+			Draw.reset();
+		});
+		
+		Effects.create("shadedeath", 24, e->{
+			Draw.thickness(3f);
+			Draw.color(Hue.mix(Shade.eyeColor, Color.DARK_GRAY, e.ifract()));
+			Draw.spikes(e.x, e.y, 1f+e.ifract()*8f, 1, 5);
+			
+			float rad = e.fract()*6f;
+			Geometry.randLenVectors(e.id, 9, e.ifract()*40f, (x, y)->{
+				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
+			});
+			
+			Draw.reset();
+		});
+		
+		Effects.create("shadehit", 10, e->{
+			Draw.thickness(1f);
+			Draw.color(Hue.mix(Shade.eyeColor, Color.DARK_GRAY, e.ifract()));
+			float rad = e.fract()*3f+1f;
+			Geometry.randLenVectors(e.id, 6, e.ifract()*14f, (x, y)->{
+				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
+			});
+			//Draw.spikes(e.x, e.y, e.ifract()*4f, 2, 8);
+			Draw.reset();
+		});
 		
 		Effects.create("rockbreak", 38, e->{
 			Draw.color(Color.LIGHT_GRAY, Color.DARK_GRAY, e.ifract());
@@ -222,7 +258,7 @@ public class EffectLoader{
 			Draw.spikes(e.x, e.y, 1f+e.ifract()*8f, 1, 5);
 			
 			float rad = e.fract()*6f;
-			Geometry.randVectors(e.id, 8, e.ifract()*40f, (x, y)->{
+			Geometry.randLenVectors(e.id, 8, e.ifract()*40f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			

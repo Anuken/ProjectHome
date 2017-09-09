@@ -1,8 +1,6 @@
 package io.anuke.home.entities;
 
-import io.anuke.home.entities.types.ItemDrop;
-import io.anuke.home.entities.types.Player;
-import io.anuke.home.entities.types.Projectile;
+import io.anuke.home.entities.types.*;
 import io.anuke.home.entities.types.enemies.corruption.*;
 import io.anuke.home.entities.types.enemies.library.*;
 import io.anuke.ucore.ecs.Prototype;
@@ -24,5 +22,6 @@ public class Prototypes{
 	wisp = new Wisp(),
 	shade = new Shade(),
 	crawler = new Crawler(),
-	goldfrog = new GoldFrog();
+	goldfrog = new GoldFrog(),
+	effect = new Effect();
 }

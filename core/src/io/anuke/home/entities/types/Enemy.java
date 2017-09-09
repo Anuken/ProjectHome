@@ -1,5 +1,7 @@
 package io.anuke.home.entities.types;
 
+import com.badlogic.gdx.graphics.Color;
+
 import io.anuke.home.Vars;
 import io.anuke.home.entities.traits.EnemyTrait;
 import io.anuke.home.entities.traits.HealthBarTrait;
@@ -29,6 +31,7 @@ public abstract class Enemy extends Prototype{
 	public String hiteffect = "hit", 
 			deatheffect = "death", 
 			deathsound = "tentadie";
+	public Color effectColor = Color.WHITE.cpy();
 
 	public float range = 230, reload = 150f;
 	public boolean despawn = true;
@@ -36,7 +39,7 @@ public abstract class Enemy extends Prototype{
 	
 	public Enemy(){
 		event(Damaged.class, (spark, source, damage)->{
-			Effects.effect(((Enemy)spark.getType()).hiteffect, source);
+			Effects.effect(hiteffect, effectColor, source.pos().x, source.pos().y);
 		});
 		
 		event(CollisionFilter.class, (spark, other)->
@@ -46,10 +49,10 @@ public abstract class Enemy extends Prototype{
 		event(Death.class, spark->{
 			Vars.control.addKill(spark);
 			for(int i = 0; i < 4; i++){
-				Effects.effect("hit", spark.pos().x + Mathf.range(5), spark.pos().y + Mathf.range(5) + height);
+				Effects.effect(hiteffect, effectColor, spark.pos().x + Mathf.range(5), spark.pos().y + Mathf.range(5) + height);
 			}
 			
-			Effects.effect(deatheffect, spark.pos().x, spark.pos().y + height);
+			Effects.effect(deatheffect, effectColor, spark.pos().x, spark.pos().y + height);
 			Effects.sound(deathsound, spark);
 			
 			spark.remove();

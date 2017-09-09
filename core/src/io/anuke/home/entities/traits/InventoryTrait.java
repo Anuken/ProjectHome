@@ -4,8 +4,9 @@ import com.badlogic.gdx.utils.Array;
 
 import io.anuke.home.items.Item;
 import io.anuke.home.items.ItemStack;
+import io.anuke.ucore.ecs.Trait;
 
-public class InventoryTrait{
+public class InventoryTrait extends Trait{
 	public Array<Item> melee, ranged, armor;
 	public Array<ItemStack> consumables;
 	public int capacity;
