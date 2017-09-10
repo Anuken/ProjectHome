@@ -7,8 +7,10 @@ import io.anuke.home.entities.traits.ParticleTrait;
 import io.anuke.home.entities.traits.ParticleTrait.Particle;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
+import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.TraitList;
+import io.anuke.ucore.ecs.extend.Events.Death;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
 import io.anuke.ucore.ecs.extend.traits.TileCollideTrait;
 import io.anuke.ucore.facet.Sorter;
@@ -18,8 +20,25 @@ import io.anuke.ucore.util.Timers;
 public class Shade extends DarkEnemy{
 	
 	public Shade(){
+		maxhealth = 400;
 		range = 100;
-		speed = 0.12f;
+		speed = 0.13f;
+		
+		event(Death.class, spark->{
+			
+			spark.get(ParticleTrait.class).emit = false;
+			
+			Timers.runFor(50f, ()->{
+				spark.get(EnemyTrait.class).time -= Mathf.delta();
+				if(Timers.get(spark, "shadespark", 8)){
+					Effects.effect("shadecloud", eyeColor, spark.pos().x + Mathf.range(6f), spark.pos().y + Mathf.range(6f) + raise());
+				}
+				Effects.shake(0.25f, 3f);
+			}, ()->{
+				Effects.shake(3f, 4f);
+				callSuper(Death.class, spark);
+			});
+		});
 	}
 
 	@Override
@@ -44,7 +63,7 @@ public class Shade extends DarkEnemy{
 		
 		trait.draw(Sorter.object, Sorter.dark, ()->{
 			
-			Draw.alpha(enemy.time/waketime);
+			Draw.alpha(Mathf.clamp(enemy.time/waketime));
 			
 			Draw.tint(Color.DARK_GRAY);
 			

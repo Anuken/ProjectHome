@@ -11,6 +11,7 @@ public class ParticleTrait extends Trait{
 	public float particleLife = 80;
 	public float xRange = 6f, yMin = 0f, yMax = 20f;
 	public float speed = 0.4f;
+	public boolean emit = true;
 	
 	public ParticleTrait(int amount){
 		this(amount, 6f, 6f);
@@ -58,7 +59,7 @@ public class ParticleTrait extends Trait{
 			part.life += Mathf.delta();
 			part.y += Mathf.delta()*speed;
 			
-			if(part.fract() <= 0f){
+			if(part.fract() <= 0f && emit){
 				part.reset(spark);
 			}
 		}

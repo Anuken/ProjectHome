@@ -19,9 +19,11 @@ public class Prototypes{
 	tentacolumn = new Tentacolumn(),
 	tentawarrior = new Tentawarrior(),
 	tentapod = new Tentapod(),
-	wisp = new Wisp(),
+	sol = new Sol(),
 	shade = new Shade(),
 	crawler = new Crawler(),
 	goldfrog = new GoldFrog(),
-	effect = new Effect();
+	effect = new Effect(),
+	solaris = new Solaris(),
+	bigcrawler = new BigCrawler();
 }

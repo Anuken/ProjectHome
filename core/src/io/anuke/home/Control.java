@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 
 import io.anuke.gif.GifRecorder;
 import io.anuke.home.GameState.State;
-import io.anuke.home.effect.EffectLoader;
+import io.anuke.home.effect.EffectCreator;
 import io.anuke.home.effect.LightEffect;
 import io.anuke.home.effect.Shaders;
 import io.anuke.home.entities.Prototypes;
@@ -100,7 +100,7 @@ public class Control extends RendererModule{
 		Musics.createTracks("menu", "menu");
 		Musics.createTracks("boss", "boss");
 		
-		EffectLoader.load();
+		EffectCreator.load();
 		
 		Facets.instance().setLayerManager(new FacetLayerHandler());
 	}

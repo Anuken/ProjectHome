@@ -17,6 +17,8 @@ varying vec2 v_texCoord;
 void main() {
 	vec2 coord = v_texCoord;
 	
+	//coord.y = (coord.y - pos.y)*1.2 + pos.y;
+	
 	vec4 color = texture2D(u_texture, coord);
 	
 	float ratio = resolution.x/resolution.y;

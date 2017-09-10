@@ -3,6 +3,7 @@ package io.anuke.home;
 import static io.anuke.home.Vars.tilesize;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import io.anuke.home.effect.*;
 import io.anuke.home.world.Tile;
@@ -22,6 +23,7 @@ public class Renderer{
 	private static FacetList[][] renderables;
 	private static ClassMap<RenderEffect> effects = new ClassMap<>();
 	private static int lastcamx = -100, lastcamy = -100;
+	private static TextureRegion region = new TextureRegion(); //temporary region
 	
 	static{
 		addEffects();
@@ -31,6 +33,15 @@ public class Renderer{
 		effects.add(new LightEffect());
 		effects.add(new Rain());
 		effects.add(new Darkness());
+	}
+	
+	public static TextureRegion getRune(int index){
+		region.setRegion(Draw.region("language"));
+		region.setRegionX(region.getRegionX() + index*7 + 1);
+		region.setRegionY(region.getRegionY());
+		region.setRegionWidth(5);
+		region.setRegionHeight(5);
+		return region;
 	}
 	
 	public static void resetEffects(){

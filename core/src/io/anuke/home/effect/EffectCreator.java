@@ -8,7 +8,7 @@ import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.graphics.Hue;
 import io.anuke.ucore.util.Geometry;
 
-public class EffectLoader{
+public class EffectCreator{
 	static final Color tent = new Color(0x500680ff);
 	
 	public static void load(){
@@ -26,7 +26,7 @@ public class EffectLoader{
 		
 		Effects.create("shadedeath", 24, e->{
 			Draw.thickness(3f);
-			Draw.color(Hue.mix(Shade.eyeColor, Color.DARK_GRAY, e.ifract()));
+			Draw.color(Shade.eyeColor, Color.DARK_GRAY, e.ifract());
 			Draw.spikes(e.x, e.y, 1f+e.ifract()*8f, 1, 5);
 			
 			float rad = e.fract()*6f;
@@ -37,11 +37,46 @@ public class EffectLoader{
 			Draw.reset();
 		});
 		
+		Effects.create("bigshadedeath", 60, e->{
+			Draw.thickness(3f);
+			
+			Draw.color(Color.DARK_GRAY);
+			
+			float rad = e.fract()*12f;
+			Geometry.randLenVectors(e.id+9999, 40, e.ifract()*60f, (x, y)->{
+				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
+			});
+			
+			Draw.color(Shade.eyeColor, Color.DARK_GRAY, e.ifract());
+			
+			float rad1 = e.fract()*9f;
+			
+			Geometry.randLenVectors(e.id, 20, e.ifract()*50f, (x, y)->{
+				Draw.rect("circle", e.x+x, e.y+y, rad1, rad1);
+			});
+			
+			Draw.spikes(e.x, e.y, 1f+e.ifract()*15f, 1, 5);
+			
+			
+			Draw.reset();
+		});
+		
 		Effects.create("shadehit", 10, e->{
 			Draw.thickness(1f);
-			Draw.color(Hue.mix(Shade.eyeColor, Color.DARK_GRAY, e.ifract()));
+			Draw.color(Shade.eyeColor, Color.DARK_GRAY, e.ifract());
 			float rad = e.fract()*3f+1f;
 			Geometry.randLenVectors(e.id, 6, e.ifract()*14f, (x, y)->{
+				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
+			});
+			//Draw.spikes(e.x, e.y, e.ifract()*4f, 2, 8);
+			Draw.reset();
+		});
+		
+		Effects.create("shadesmoke", 70, e->{
+			Draw.thickness(1f);
+			Draw.color(Color.DARK_GRAY);
+			float rad = e.sfract()*5f+1f;
+			Geometry.randLenVectors(e.id, 6, e.ifract()*20f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			//Draw.spikes(e.x, e.y, e.ifract()*4f, 2, 8);

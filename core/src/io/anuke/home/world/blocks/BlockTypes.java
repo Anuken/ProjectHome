@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 
+import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
 import io.anuke.home.world.*;
 import io.anuke.ucore.core.Draw;
@@ -185,7 +186,6 @@ public class BlockTypes{
 	}
 	
 	public static abstract class SpellCircle extends Block{
-		TextureRegion region = new TextureRegion();
 		
 		public SpellCircle(String name){
 			super(name, BlockType.wall);
@@ -198,15 +198,8 @@ public class BlockTypes{
 			}).add(list);
 		}
 		
-		public TextureRegion randGlyph(int index, Tile tile){
-			int max = 15;
-			int rand = tile.rand(index, max)-1;
-			region.setRegion(Draw.region("language"));
-			region.setRegionX(region.getRegionX() + rand*7 + 1);
-			region.setRegionY(region.getRegionY());
-			region.setRegionWidth(5);
-			region.setRegionHeight(5);
-			return region;
+		public TextureRegion randRune(int index, Tile tile){
+			return Renderer.getRune(tile.rand(index, 15)-1);
 		}
 		
 		public abstract void draw(Tile tile, float x, float y);

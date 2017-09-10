@@ -213,7 +213,7 @@ public class Blocks{
 			Draw.rect("spawncircle", x, y);
 			
 			Geometry.circleVectors(16, 40, (ox, oy)->{
-				Draw.rect(randGlyph((int)(ox+oy*100), tile), (int)(x + ox), (int)(y + oy));
+				Draw.rect(randRune((int)(ox+oy*100), tile), (int)(x + ox), (int)(y + oy));
 			});
 			
 			//Draw.rect(randGlyph(23, tile), (int)x, (int)y);

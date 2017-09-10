@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import io.anuke.home.entities.traits.ParticleTrait;
 import io.anuke.home.entities.traits.ParticleTrait.Particle;
 import io.anuke.home.entities.types.enemies.library.DarkEnemy;
-import io.anuke.home.entities.types.enemies.library.Wisp;
+import io.anuke.home.entities.types.enemies.library.Sol;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.Spark;
@@ -153,7 +153,7 @@ public abstract class Projectiles extends ProjectileType{
 			
 			float ifract = b.life().ifract();
 			
-			Draw.color(Color.valueOf("ffda77"), Wisp.color, ifract);
+			Draw.color(Color.valueOf("ffda77"), Sol.color, ifract);
 			
 			Draw.thick(4f - ifract*4f);
 			Draw.lineAngleCenter(b.pos().x, b.pos().y, b.velocity().angle(), 9f);

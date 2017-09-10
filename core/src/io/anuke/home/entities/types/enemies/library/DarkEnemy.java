@@ -3,9 +3,7 @@ package io.anuke.home.entities.types.enemies.library;
 import com.badlogic.gdx.graphics.Color;
 
 import io.anuke.home.editor.Editor;
-import io.anuke.home.entities.traits.DarkenTrait;
-import io.anuke.home.entities.traits.EnemyTrait;
-import io.anuke.home.entities.traits.ParticleTrait;
+import io.anuke.home.entities.traits.*;
 import io.anuke.home.entities.types.Enemy;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.TraitList;
@@ -26,7 +24,11 @@ public abstract class DarkEnemy extends Enemy{
 	public void update(Spark spark){
 		EnemyTrait enemy = spark.get(EnemyTrait.class);
 		
-		if(spark.health().dead) return;
+		if(spark.health().dead){
+			//enemy.time -= Mathf.delta();
+			//enemy.time = Mathf.clamp(enemy.time, 0, waketime);
+			return;
+		}
 		
 		if(enemy.targetValid(spark) || Editor.active()){
 			if(enemy.time <= 0.0001f){
@@ -43,6 +45,6 @@ public abstract class DarkEnemy extends Enemy{
 	
 	@Override
 	public TraitList traits(){
-		return super.traits().with(new DarkenTrait());
+		return super.traits().with(new DarkenTrait()).exclude(HealthBarTrait.class);
 	}
 }

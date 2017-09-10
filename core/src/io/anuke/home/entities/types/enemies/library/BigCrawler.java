@@ -16,25 +16,42 @@ import io.anuke.ucore.util.Angles;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
-public class Crawler extends DarkEnemy{
+public class BigCrawler extends DarkEnemy{
 	Tentacle tentacle = new Tentacle();
+	static int numtentacles = 24;
 	
-	public Crawler(){
-		maxhealth = 500;
-		speed = 0.16f;
+	public BigCrawler(){
+		range = 200f;
+		maxhealth = 2000;
+		speed = 0.1f;
 		passthrough = true;
 		height = 0f;
 		
+		deatheffect = "bigshadedeath";
+		
 		event(Death.class, (spark)->{
 			
-			Timers.runFor(80, ()->{
-				if(Timers.get("crawlerspark", 8)){
-					Effects.effect("shadecloud", eyeColor, spark.pos().x + Mathf.range(8f), spark.pos().y + Mathf.range(8f));
+			Timers.runFor(105, ()->{
+				if(Timers.get("crawlerspark", 4)){
+					Effects.effect("shadecloud", eyeColor, spark.pos().x + Mathf.range(14f), spark.pos().y + Mathf.range(14f));
 				}
 				Effects.shake(0.25f, 3f);
 			}, ()->{
 				callSuper(Death.class, spark);
-				Effects.shake(3f, 4f);
+				for(int i = 0; i < 3; i ++){
+					float delay = i*15f;
+					Timers.run(delay, ()->{
+						Effects.effect("bigshadedeath", eyeColor, spark.pos().x + Mathf.range(20), spark.pos().y + Mathf.range(20));
+					});
+					
+				}
+				
+				for(int i = 0; i < 20; i ++){
+					Timers.run(Mathf.random(40), ()->{
+						Effects.effect("shadecloud", eyeColor, spark.pos().x + Mathf.range(14f), spark.pos().y + Mathf.range(14f));
+					});
+				}
+				Effects.shake(4f, 5f);
 			});
 			
 			spark.get(Data.class).dying = true;
@@ -51,10 +68,8 @@ public class Crawler extends DarkEnemy{
 	
 	@Override
 	public void init(Spark spark){
-		Timers.reset(spark, "dash", Mathf.random(400));
-		spark.get(Data.class).speed = speed;
 		
-		for(int i = 0; i < 8; i ++){
+		for(int i = 0; i < numtentacles; i ++){
 			Spark t = new Spark(tentacle);
 			t.get(TentacleData.class).parent = spark;
 			t.get(TentacleData.class).index = i;
@@ -66,33 +81,18 @@ public class Crawler extends DarkEnemy{
 	@Override
 	public void move(Spark spark){
 		EnemyTrait enemy = spark.get(EnemyTrait.class);
-		Data data = spark.get(Data.class);
 		
-		//hack
-		speed = data.speed;
 		enemy.moveToward(spark);
-		speed = 0.16f;
 		
-		if(Timers.get(spark, "reload", 400) && spark.health().healthfrac() < 0.7){
+		if(Timers.get(spark, "reload", 500) && spark.health().healthfrac() < 0.7){
 			for(int i = 0; i < 20; i ++){
 				int id = i;
-				Timers.run(5f*i, ()->{
+				Timers.run(8f*i, ()->{
 					if(enemy.target == null) return;
 					
-					shoot(spark, Projectiles.darksplit, 0, enemy.target, 4f, Mathf.sin(id, 2.5f, 32f));
-				});;
-			}
-			
-		}
-		
-		if(Timers.get(spark, "dash", 400)){
-			Timers.runFor(80, ()->{
-				data.speed += 0.004f*Mathf.delta();
-			}, ()->{
-				Timers.runFor(80, ()->{
-					data.speed -= 0.004f*Mathf.delta();
+					shoot(spark, Projectiles.darkshot, 0, enemy.target, 6f, Mathf.sin(id, 1f, 40f));
 				});
-			});
+			}
 		}
 	}
 	
@@ -123,7 +123,7 @@ public class Crawler extends DarkEnemy{
 			float wake = spark.get(EnemyTrait.class).time/waketime;
 			
 			if(data.dying){
-				spark.get(EnemyTrait.class).time -= Mathf.delta();
+				spark.get(EnemyTrait.class).time -= Mathf.delta()/2f;
 			}
 			
 			if(wake <= 0.001f){
@@ -134,74 +134,65 @@ public class Crawler extends DarkEnemy{
 			
 			float offset = spark.getID() * 125f;
 			
-			for(int i = 0; i < 8; i ++){
+			for(int i = 0; i < numtentacles; i ++){
 				
-				float shake = data.dying ? 1f : 0f;
+				float scale = 1f + Mathf.sin(Timers.time() - i*40, 30f, 0.2f);
 				
-				float rot1 = i*45 + 45 +  Mathf.sin(Timers.time() + offset, 16f, 8f) + Timers.time()*0.1f + offset 
-					  + Mathf.sin(Timers.time() + offset + i*3, 6f, 8f)*shake, 
-					  rot2 = Mathf.sin(Timers.time() + offset + i*4, 30f, 25f) 
-					  + Mathf.sin(Timers.time() + offset + i*4, 6f, 8f)*shake,
-					  rot3 = Mathf.sin(Timers.time() + offset + i*4, 15f, 15f) 
-					  + Mathf.sin(Timers.time() + offset + i*5, 6f, 8f)*shake;
+				scale += data.scales[i];
 				
-				float rots = rot1 + rot2 + rot3;
+				scale = Mathf.clamp(scale, 0, 10f);
 				
-				float scale = 0.9f + Mathf.sin(Timers.time() - i*40, 30f, 0.3f);
+				if(scale <= 0.1f) continue;
+				
+				int segments = 7;
+				
+				float lastangle =  Timers.time()*0.1f + offset + i*(360f/numtentacles);
+				float baselength = 17f;
+				
+				float lastx = spark.pos().x, lasty = spark.pos().y;
+				
+				for(int s = 0; s < segments; s ++){
+					Draw.thick(segments-s);
+					
+					float angle = lastangle + Mathf.sin(Timers.time() + offset + i*(99+s*9) + s*99, Math.max(38f - s*4f, 6f), 10f);
+					
+					Angles.translation(angle, Math.max(baselength-s*2f, 4f)*wake*scale);
+					
+					Draw.line(lastx, lasty, lastx + Angles.x(), lasty + Angles.y());
+					
+					lastx += Angles.x();
+					lasty += Angles.y();
+					
+					lastangle = angle;
+					
+					if(Mathf.chance(Mathf.delta() * 0.001)){
+						Effects.effect("shadesmoke", eyeColor, lastx, lasty);
+					}
+				}
+				
+				data.tentacles[i].pos().set(lastx, lasty);
 				
 				if(data.dying){
-					data.scales[i] = Mathf.lerp(data.scales[i], -1.3f, 0.034f*Mathf.delta());
+					data.scales[i] = Mathf.lerp(data.scales[i], -1.3f, 0.004f*Mathf.delta());
 				}else if(data.damages[i] > 0){
 					data.damages[i] -= Mathf.delta();
 					
 					data.scales[i] = Mathf.lerp(data.scales[i], -0.3f, 0.06f*Mathf.delta());
 				}else if(enemy.target != null){
 					float angto = spark.pos().angleTo(enemy.target);
-					float dst = Angles.angleDist(angto, rots);
+					float dst = Angles.angleDist(angto, lastangle);
 					
-					data.scales[i] = Mathf.lerp(data.scales[i], Mathf.clamp(1f-dst/60f), 0.04f*Mathf.delta());
+					data.scales[i] = Mathf.lerp(data.scales[i], Mathf.clamp(1f-dst/60f)/8f, 0.04f*Mathf.delta());
 				}else{
 					data.scales[i] = Mathf.lerp(data.scales[i], 0f, 0.04f*Mathf.delta());
 				}
 				
-				scale += data.scales[i];
 				
-				
-				scale = Mathf.clamp(scale, 0, 10f);
-				
-				if(scale <= 0.1f) continue;
-				
-				Draw.thick(3f);
-				
-				Angles.translation(rot1, 8f*wake*scale);
-				
-				float vx = Angles.vector.x, vy = Angles.vector.y;
-				
-				Draw.line(spark.pos().x, spark.pos().y, 
-						spark.pos().x + vx, spark.pos().y + vy);
-				
-				Angles.translation(rot1 + rot2, 8f*wake*scale);
-				
-				Draw.thick(2f);
-				
-				float v2x = Angles.vector.x, v2y = Angles.vector.y;
-				
-				Draw.line(spark.pos().x + vx, spark.pos().y + vy, 
-						spark.pos().x + v2x + vx, spark.pos().y + v2y + vy);
-				
-				Angles.translation(rot1 + rot2 + rot3, 5f*wake*scale);
-				
-				Draw.thick(1f);
-				
-				Draw.line(spark.pos().x + vx + v2x, spark.pos().y + vy + v2y, 
-						spark.pos().x + v2x + vx + Angles.x(), spark.pos().y + v2y + vy + Angles.y());
-				
-				data.tentacles[i].pos().set(spark.pos().x + v2x + vx + Angles.x(), spark.pos().y + v2y + vy + Angles.y());
 			}
 			
 			Draw.thick(1f);
 			Draw.color(Color.BLACK, DarkEnemy.eyeColor, wake);
-			Draw.polygon(3, spark.pos().x, spark.pos().y, 4f, Timers.time()*1f + offset);
+			Draw.polygon(3, spark.pos().x, spark.pos().y, 8f, Timers.time()*1f + offset);
 			
 			Draw.reset();
 		});
@@ -220,10 +211,9 @@ public class Crawler extends DarkEnemy{
 	}
 	
 	static class Data extends Trait{
-		float[] scales = new float[8];
-		float[] damages = new float[8];
-		Spark[] tentacles = new Spark[8];
-		float speed = 0.16f;
+		float[] scales = new float[numtentacles];
+		float[] damages = new float[numtentacles];
+		Spark[] tentacles = new Spark[numtentacles];
 		boolean dying = false;
 	}
 	
@@ -256,7 +246,6 @@ public class Crawler extends DarkEnemy{
 				new ColliderTrait(7f),
 				new TentacleData(),
 				new HealthTrait(1),
-				//new ContactDamageTrait(3),
 				new FacetTrait((trait, spark)->{
 					TentacleData data = spark.get(TentacleData.class);
 					
@@ -273,7 +262,6 @@ public class Crawler extends DarkEnemy{
 				})
 			);
 		}
-		
 	}
 	
 	class TentacleData extends Trait{

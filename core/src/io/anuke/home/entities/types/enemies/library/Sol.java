@@ -2,8 +2,6 @@ package io.anuke.home.entities.types.enemies.library;
 
 import com.badlogic.gdx.graphics.Color;
 
-import io.anuke.home.Renderer;
-import io.anuke.home.effect.LightEffect;
 import io.anuke.home.effect.Shaders.Glow;
 import io.anuke.home.entities.traits.EnemyTrait;
 import io.anuke.home.entities.traits.HealthBarTrait;
@@ -19,16 +17,16 @@ import io.anuke.ucore.util.Geometry;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Timers;
 
-public class Wisp extends Enemy{
+public class Sol extends Enemy{
 	public static Color color = new Color(0xf9f1bdff);
 	
-	public Wisp(){
+	public Sol(){
 		speed = 2f;
 	}
 	
 	@Override
 	public void init(Spark spark){
-		Renderer.getEffect(LightEffect.class).addLight(4f);
+		//Renderer.getEffect(LightEffect.class).addLight(4f);
 	}
 	
 	@Override

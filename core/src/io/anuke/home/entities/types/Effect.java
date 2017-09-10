@@ -11,6 +11,10 @@ import io.anuke.ucore.ecs.extend.traits.PosTrait;
 import io.anuke.ucore.facet.Sorter;
 
 public class Effect extends Prototype{
+	
+	public Effect(){
+		
+	}
 
 	@Override
 	public TraitList traits(){
@@ -21,8 +25,9 @@ public class Effect extends Prototype{
 			new FacetTrait((trait, spark)->{
 				EffectTrait effect = spark.get(EffectTrait.class);
 				
+				//TODO make this cleaner
 				if(!effect.color.equals(Shade.eyeColor)){
-					trait.draw(Sorter.object, -99999, ()->{
+					trait.draw(Sorter.object, spark.pos().y - 8, ()->{
 						Effects.renderEffect(spark.getID(), Effects.getEffect(effect.name), 
 							effect.color, spark.life().life, spark.pos().x, spark.pos().y);
 					});
