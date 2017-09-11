@@ -24,6 +24,6 @@ public class Prototypes{
 	crawler = new Crawler(),
 	goldfrog = new GoldFrog(),
 	effect = new Effect(),
-	solaris = new Solaris(),
+	solaris = new Shapeshifter(),
 	bigcrawler = new BigCrawler();
 }

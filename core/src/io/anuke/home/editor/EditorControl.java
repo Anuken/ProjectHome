@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
+import io.anuke.home.effect.EffectCreator;
 import io.anuke.home.effect.Shaders;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.home.world.*;
@@ -52,6 +53,8 @@ public class EditorControl extends RendererModule{
 		);
 		
 		Settings.load("io.anuke.home.editor");
+		
+		EffectCreator.load();
 		
 		Core.cameraScale = 4;
 		

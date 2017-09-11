@@ -125,7 +125,7 @@ public abstract class Projectiles extends ProjectileType{
 			//Draw.spikes(b.pos().x, b.pos().y, rad/2f-1f, 3f, 4, Timers.time()*2f);
 		}
 	},
-	wispshot = new Projectiles(){
+	lightshot = new Projectiles(){
 		{
 			speed = 1f;
 			hiteffect = "yellowblap";
@@ -141,7 +141,22 @@ public abstract class Projectiles extends ProjectileType{
 			Draw.lineAngle(b.pos().x, b.pos().y, b.velocity().angle(), 4f);
 		}
 	},
-	wispflash = new Projectiles(){
+	lightball = new Projectiles(){
+		{
+			speed = 1f;
+			hiteffect = "yellowblap";
+			lifetime = 110;
+			light = true;
+		}
+		
+		public void draw(Spark b){
+			
+			Draw.thick(1f);
+			Draw.circle(b.pos().x, b.pos().y, 3);
+			Draw.reset();
+		}
+	},
+	lightflash = new Projectiles(){
 		{
 			speed = 0.14f;
 			lifetime = 13f;
