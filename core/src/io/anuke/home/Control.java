@@ -30,7 +30,6 @@ import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
 import io.anuke.ucore.modules.RendererModule;
 import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
 
 public class Control extends RendererModule{
 	private Basis basis;

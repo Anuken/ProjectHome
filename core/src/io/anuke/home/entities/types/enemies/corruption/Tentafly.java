@@ -8,6 +8,7 @@ import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
 import io.anuke.ucore.util.*;
@@ -33,11 +34,11 @@ public class Tentafly extends Enemy{
 		
 		if(Timers.get(spark, "reload", reload)){
 			Effects.effect("tentashoot", spark.pos().x, spark.pos().y + height);
-			Geometry.shotgun(7, 9f, spark.pos().angleTo(enemy.target), f->{
+			Angles.shotgun(7, 9f, spark.pos().angleTo(enemy.target), f->{
 				shoot(spark, Projectiles.tentashot, spark.pos().x, spark.pos().y+8, f);
 			});
 			
-			Geometry.circle(8, f->{
+			Angles.circle(8, f->{
 			//	shoot(Projectiles.tentashot, x, y+8, f);
 			});
 		}

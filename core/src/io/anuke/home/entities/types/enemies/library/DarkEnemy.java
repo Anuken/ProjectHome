@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import io.anuke.home.editor.Editor;
 import io.anuke.home.entities.traits.*;
 import io.anuke.home.entities.types.Enemy;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.TraitList;
 import io.anuke.ucore.util.Mathf;
@@ -35,9 +36,9 @@ public abstract class DarkEnemy extends Enemy{
 				if(spark.has(ParticleTrait.class))
 					spark.get(ParticleTrait.class).reset(spark);
 			}
-			enemy.time += Mathf.delta();
+			enemy.time += Timers.delta();
 		}else{
-			enemy.time -= Mathf.delta();
+			enemy.time -= Timers.delta();
 		}
 		
 		enemy.time = Mathf.clamp(enemy.time, 0, waketime);

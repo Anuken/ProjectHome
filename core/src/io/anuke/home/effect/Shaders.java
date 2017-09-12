@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
 import io.anuke.ucore.core.Core;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.graphics.Shader;
-import io.anuke.ucore.util.Timers;
 import io.anuke.ucore.util.Tmp;
 
 public class Shaders{

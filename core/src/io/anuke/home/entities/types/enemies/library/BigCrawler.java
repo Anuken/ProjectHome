@@ -7,6 +7,7 @@ import io.anuke.home.entities.traits.EnemyTrait;
 import io.anuke.home.entities.types.*;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.*;
 import io.anuke.ucore.ecs.extend.Events.*;
 import io.anuke.ucore.ecs.extend.traits.*;
@@ -14,7 +15,6 @@ import io.anuke.ucore.facet.Sorter;
 import io.anuke.ucore.graphics.Hue;
 import io.anuke.ucore.util.Angles;
 import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
 
 public class BigCrawler extends DarkEnemy{
 	Tentacle tentacle = new Tentacle();
@@ -123,7 +123,7 @@ public class BigCrawler extends DarkEnemy{
 			float wake = spark.get(EnemyTrait.class).time/waketime;
 			
 			if(data.dying){
-				spark.get(EnemyTrait.class).time -= Mathf.delta()/2f;
+				spark.get(EnemyTrait.class).time -= Timers.delta()/2f;
 			}
 			
 			if(wake <= 0.001f){
@@ -165,7 +165,7 @@ public class BigCrawler extends DarkEnemy{
 					
 					lastangle = angle;
 					
-					if(Mathf.chance(Mathf.delta() * 0.001)){
+					if(Mathf.chance(Timers.delta() * 0.001)){
 						Effects.effect("shadesmoke", eyeColor, lastx, lasty);
 					}
 				}
@@ -173,18 +173,18 @@ public class BigCrawler extends DarkEnemy{
 				data.tentacles[i].pos().set(lastx, lasty);
 				
 				if(data.dying){
-					data.scales[i] = Mathf.lerp(data.scales[i], -1.3f, 0.004f*Mathf.delta());
+					data.scales[i] = Mathf.lerp(data.scales[i], -1.3f, 0.004f*Timers.delta());
 				}else if(data.damages[i] > 0){
-					data.damages[i] -= Mathf.delta();
+					data.damages[i] -= Timers.delta();
 					
-					data.scales[i] = Mathf.lerp(data.scales[i], -0.3f, 0.06f*Mathf.delta());
+					data.scales[i] = Mathf.lerp(data.scales[i], -0.3f, 0.06f*Timers.delta());
 				}else if(enemy.target != null){
 					float angto = spark.pos().angleTo(enemy.target);
 					float dst = Angles.angleDist(angto, lastangle);
 					
-					data.scales[i] = Mathf.lerp(data.scales[i], Mathf.clamp(1f-dst/60f)/8f, 0.04f*Mathf.delta());
+					data.scales[i] = Mathf.lerp(data.scales[i], Mathf.clamp(1f-dst/60f)/8f, 0.04f*Timers.delta());
 				}else{
-					data.scales[i] = Mathf.lerp(data.scales[i], 0f, 0.04f*Mathf.delta());
+					data.scales[i] = Mathf.lerp(data.scales[i], 0f, 0.04f*Timers.delta());
 				}
 				
 				

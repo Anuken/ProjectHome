@@ -11,9 +11,7 @@ import io.anuke.home.entities.traits.InventoryTrait;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.entities.types.ItemDrop;
 import io.anuke.home.items.*;
-import io.anuke.ucore.core.Draw;
-import io.anuke.ucore.core.Graphics;
-import io.anuke.ucore.core.Inputs;
+import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.scene.Element;
 import io.anuke.ucore.scene.event.Touchable;
@@ -23,7 +21,6 @@ import io.anuke.ucore.scene.ui.Label;
 import io.anuke.ucore.scene.ui.layout.Table;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Strings;
-import io.anuke.ucore.util.Timers;
 
 public class Inventory extends Table{
 	int slotw = 4, sloth = 4;

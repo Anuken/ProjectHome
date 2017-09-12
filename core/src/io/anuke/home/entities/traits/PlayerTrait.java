@@ -10,9 +10,7 @@ import io.anuke.home.items.Item;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.home.world.blocks.Blocks;
-import io.anuke.ucore.core.Effects;
-import io.anuke.ucore.core.Graphics;
-import io.anuke.ucore.core.Inputs;
+import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
 import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
@@ -57,7 +55,7 @@ public class PlayerTrait extends Trait{
 		
 		Vector2 vector = Tmp.v1;
 		
-		float delta = Mathf.clamp(Mathf.delta(), 0, 2f);
+		float delta = Mathf.clamp(Timers.delta(), 0, 2f);
 		
 		if(hittime > 0){
 			hittime -= delta;

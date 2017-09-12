@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import io.anuke.home.Renderer;
 import io.anuke.home.effect.LightEffect;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
@@ -12,7 +13,6 @@ import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
 import io.anuke.ucore.graphics.Hue;
 import io.anuke.ucore.lights.Light;
 import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
 
 public class LightTrait extends Trait{
 	public boolean enabled = true;
@@ -76,7 +76,7 @@ public class LightTrait extends Trait{
 				}
 			});
 			
-			light.setDistance(Mathf.lerp(light.getDistance(), Math.max(calcradius, radius/6f), 0.03f*Mathf.delta()));
+			light.setDistance(Mathf.lerp(light.getDistance(), Math.max(calcradius, radius/6f), 0.03f*Timers.delta()));
 		}
 	}
 	
@@ -99,7 +99,7 @@ public class LightTrait extends Trait{
 		if(enabled && light != null){
 			if(!instant){
 				Timers.runFor(30f, ()->{
-					shrink += Mathf.delta();
+					shrink += Timers.delta();
 					light.setColor(Hue.lightness(1f-shrink/30f));
 				}, ()->{
 					light.setActive(false);

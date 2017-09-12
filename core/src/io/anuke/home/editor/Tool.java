@@ -16,7 +16,7 @@ import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Inputs;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
-import io.anuke.ucore.function.SegmentConsumer;
+import io.anuke.ucore.function.ISegmentConsumer;
 import io.anuke.ucore.util.Mathf;
 
 public enum Tool{
@@ -316,7 +316,7 @@ public enum Tool{
 			});
 		}
 		
-		void iterateRect(SegmentConsumer cons){
+		void iterateRect(ISegmentConsumer cons){
 			int w = Math.abs(x1-x2), h = Math.abs(y1-y2);
 			int mulx = Mathf.sign(x2 > x1), muly = Mathf.sign(y2 > y1);
 			
@@ -345,8 +345,16 @@ public enum Tool{
 
 		for(int rx = -brushsize; rx <= brushsize; rx++){
 			for(int ry = -brushsize; ry <= brushsize; ry++){
-				if(Vector2.dst(rx, ry, 0, 0) < brushsize)
+				if(Vector2.dst(rx, ry, 0, 0) < brushsize){
 					Draw.rect("place", rx * Vars.tilesize + x * Vars.tilesize, ry * Vars.tilesize + y * Vars.tilesize);
+					
+					if(Evar.control.selected != null && Evar.control.blocktype == BlockType.wall){
+						Draw.color(Color.GREEN);
+						Draw.rect("place", rx * Vars.tilesize + x * Vars.tilesize, ry * Vars.tilesize + y * Vars.tilesize + Evar.control.selected.height);
+					}
+					
+					Draw.color();
+				}
 			}
 		}
 	}

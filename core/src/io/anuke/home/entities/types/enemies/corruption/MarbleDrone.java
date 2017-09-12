@@ -5,10 +5,10 @@ import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
 import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
 
 public class MarbleDrone extends Enemy{
 	

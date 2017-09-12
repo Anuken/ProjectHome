@@ -8,6 +8,7 @@ import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
 import io.anuke.ucore.ecs.TraitList;
@@ -33,7 +34,7 @@ public class Shapeshifter extends Enemy{
 		
 		height = raise();
 		
-		trait.rot += Mathf.delta() * (6.5f - data.sides);
+		trait.rot += Timers.delta() * (6.5f - data.sides);
 		
 		data.sides = (int)(3 + spark.health().healthfrac() * 3f);
 		
@@ -44,7 +45,7 @@ public class Shapeshifter extends Enemy{
 		
 		if(data.phase == 0){
 			if(Timers.get(spark, "shoot1", 5f + (data.sides-3f)*8)){
-				Geometry.circle(data.sides, f->{
+				Angles.circle(data.sides, f->{
 					float ang = trait.rot + f;
 			
 					shoot(spark, Projectiles.lightball, spark.pos().x, spark.pos().y + raise(), ang);
@@ -54,7 +55,6 @@ public class Shapeshifter extends Enemy{
 			if(Timers.get(spark, "teleport", 20 + data.sides*5)){
 				
 				//TODO effect
-				//spark.get(TileCollideTrait.class).move(spark, Mathf.range(5), Mathf.range(5));
 				Timers.runFor(data.sides*5, ()->{
 					if(Timers.get(spark, "reload2", 2)){
 						Effects.shake(0.5f, 2f);
@@ -66,7 +66,7 @@ public class Shapeshifter extends Enemy{
 				
 				for(int i = 0; i < 9 - data.sides/2; i ++){
 					Timers.run((i*6), ()->{
-						Geometry.circle(data.sides, f->{
+						Angles.circle(data.sides, f->{
 							float ang = trait.rot + f;
 					
 							shoot(spark, Projectiles.lightball, spark.pos().x, spark.pos().y + raise(), ang);

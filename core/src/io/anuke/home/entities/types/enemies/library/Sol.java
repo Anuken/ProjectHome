@@ -10,12 +10,12 @@ import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.TraitList;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
-import io.anuke.ucore.util.Geometry;
+import io.anuke.ucore.util.Angles;
 import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
 
 public class Sol extends Enemy{
 	public static Color color = new Color(0xf9f1bdff);
@@ -34,15 +34,15 @@ public class Sol extends Enemy{
 		EnemyTrait trait = spark.get(EnemyTrait.class);
 		Spark target = trait.target;
 		
-		trait.rot += Mathf.delta();
+		trait.rot += Timers.delta();
 		
 		if(Timers.get(spark, "reload", 450)){
 			Timers.runFor(70f, ()->{
-				trait.rot = Mathf.slerp(trait.rot, spark.pos().angleTo(target, 0, raise()), 0.1f*Mathf.delta());
+				trait.rot = Mathf.slerp(trait.rot, spark.pos().angleTo(target, 0, raise()), 0.1f*Timers.delta());
 				
 				if(Timers.get(spark, "reload3", 5)){
 					
-					Geometry.shotgun(4, 25f, 0f, f->{
+					Angles.shotgun(4, 25f, 0f, f->{
 						shoot(spark, Projectiles.lightshot, raise(), target, 5, f + Mathf.sin(Timers.time(), 0.3f, 60f));
 					});
 					

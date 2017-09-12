@@ -12,13 +12,12 @@ import io.anuke.home.entities.types.Projectile;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.*;
 import io.anuke.ucore.ecs.extend.Events.Death;
 import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
-import io.anuke.ucore.util.Geometry;
-import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
+import io.anuke.ucore.util.*;
 
 public class DarkEffigy extends Enemy{
 	private static final Color tent = new Color(0x500680ff);
@@ -104,8 +103,8 @@ public class DarkEffigy extends Enemy{
 			});
 		}
 		if(data.phase != Phase.chase && data.phase != Phase.spam){
-			spark.pos().x = Mathf.lerp(x, data.startx, 0.03f*Mathf.delta());
-			spark.pos().y = Mathf.lerp(y, data.starty, 0.03f*Mathf.delta());
+			spark.pos().x = Mathf.lerp(x, data.startx, 0.03f*Timers.delta());
+			spark.pos().y = Mathf.lerp(y, data.starty, 0.03f*Timers.delta());
 		}
 		
 		if(data.phase == Phase.swirl){
@@ -117,7 +116,7 @@ public class DarkEffigy extends Enemy{
 			if(Timers.get(this, "blast", 30)){
 				data.eyeflash = 1f;
 				data.rotation += 15f;
-				Geometry.circle(8, f->{
+				Angles.circle(8, f->{
 					shoot(spark, Projectiles.golemsplitshot, x, y+height, f + data.rotation);
 				});
 			}
@@ -129,7 +128,7 @@ public class DarkEffigy extends Enemy{
 			if(Timers.get(this, "chase", 90)){
 				
 				Timers.runFor(40f, ()->{
-					float a = 0.05f*Mathf.delta();
+					float a = 0.05f*Timers.delta();
 					spark.pos().x = Mathf.lerp(spark.pos().x, target.pos().x, a);
 					spark.pos().y = Mathf.lerp(spark.pos().y, target.pos().y, a);
 					if(Timers.get(this, "chases", 1f))
@@ -139,11 +138,11 @@ public class DarkEffigy extends Enemy{
 					data.eyeflash = 1f;
 					Effects.shake(4f, 4f);
 					
-					Geometry.circle(4, f->{
+					Angles.circle(4, f->{
 						shoot(spark, Projectiles.shadowsplit, cx, cy+height, f);
 					});
 					
-					Geometry.circle(25, f->{
+					Angles.circle(25, f->{
 						shoot(spark, Projectiles.shadowshot, cx, cy+height, f);
 					});
 				});
@@ -151,7 +150,7 @@ public class DarkEffigy extends Enemy{
 			}
 		}else if(data.phase == Phase.tentacles){
 			if(Timers.get(this, "circle2", 5)){
-				Geometry.circle(4,f->{
+				Angles.circle(4,f->{
 					shoot(spark, Projectiles.tentashot, 20, x, y+height, data.rotation+45+f);
 				});
 				data.rotation += 7f;
@@ -162,7 +161,7 @@ public class DarkEffigy extends Enemy{
 				float targetx = data.startx + Mathf.range(120);
 				float targety = data.starty + Mathf.range(120);
 				Timers.runFor(20f, ()->{
-					float a = 0.1f*Mathf.delta();
+					float a = 0.1f*Timers.delta();
 					
 					spark.pos().x = Mathf.lerp(spark.pos().x, targetx, a);
 					spark.pos().y = Mathf.lerp(spark.pos().y, targety, a);
@@ -173,11 +172,11 @@ public class DarkEffigy extends Enemy{
 					float cx = spark.pos().x, cy = spark.pos().y;
 					data.eyeflash = 1f;
 					if(Mathf.chance(0.5)){
-						Geometry.circle(8, f->{
+						Angles.circle(8, f->{
 							shoot(spark, Projectiles.shadowsplit, cx, cy+height, f);
 						});
 					}else{
-						Geometry.circle(20, f->{
+						Angles.circle(20, f->{
 							shoot(spark, Projectiles.shadowshot, cx, cy+height, f);
 						});
 					}
@@ -190,7 +189,7 @@ public class DarkEffigy extends Enemy{
 				float offset = data.rotation+360f*(Timers.getTime(this, "changephase") / data.phasetime);
 				
 				for(int i = 0; i < 2; i ++)
-				Geometry.shotgun(16, 10, i*180+offset+30, f->{
+				Angles.shotgun(16, 10, i*180+offset+30, f->{
 					shoot(spark, Projectiles.shadowshot, x, y+height, f);
 				});
 			}
@@ -213,7 +212,7 @@ public class DarkEffigy extends Enemy{
 			float x = spark.pos().x, y = spark.pos().y;
 			
 			if(data.eyeflash > 0){
-				data.eyeflash -= Mathf.delta()*0.05f;
+				data.eyeflash -= Timers.delta()*0.05f;
 				data.eyeflash = Mathf.clamp(data.eyeflash);
 			}
 			
@@ -225,8 +224,8 @@ public class DarkEffigy extends Enemy{
 			Draw.spikes(x, y+10f, 8f+si, 6f, 8, Timers.time());
 			
 			for(Particle part : data.particles){
-				part.life += Mathf.delta();
-				part.y += Mathf.delta()*0.4f;
+				part.life += Timers.delta();
+				part.y += Timers.delta()*0.4f;
 				
 				float size = part.fract()*10f;
 				Draw.color(tent, Color.CLEAR, 1f-part.sfract());

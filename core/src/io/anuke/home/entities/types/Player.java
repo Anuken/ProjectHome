@@ -6,8 +6,7 @@ import io.anuke.home.entities.traits.InventoryTrait;
 import io.anuke.home.entities.traits.LightTrait;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.items.Item;
-import io.anuke.ucore.core.Draw;
-import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.TraitList;
@@ -71,8 +70,10 @@ public class Player extends Prototype{
 					float x = spark.pos().x;
 					float y = spark.pos().y;
 					
+					boolean add = (int)(Graphics.size().y/Core.cameraScale * 2f) %2 == 1;
+					
 					spark.pos().x = (int)spark.pos().x;
-					spark.pos().y = (int)spark.pos().y;
+					spark.pos().y = (int)spark.pos().y - (add ? 0.5f : 0);
 					
 					Callable drawWeapon = ()->{
 						if(weapon != null){

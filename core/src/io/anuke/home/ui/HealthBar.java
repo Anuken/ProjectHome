@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import io.anuke.home.Vars;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.ucore.core.Draw;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.core.Core;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.graphics.Hue;
@@ -23,7 +24,7 @@ public class HealthBar extends Element{
 		Spark entity = Vars.control.getPlayer();
 		
 		AtlasRegion region = (AtlasRegion)Core.skin.getRegion("healthbar");
-		frac = Mathf.lerp(frac, entity.health().healthfrac(), 0.4f*Mathf.delta());
+		frac = Mathf.lerp(frac, entity.health().healthfrac(), 0.4f*Timers.delta());
 		frac = Mathf.clamp(frac, 0, 1f);
 		
 		Draw.color(Color.DARK_GRAY);

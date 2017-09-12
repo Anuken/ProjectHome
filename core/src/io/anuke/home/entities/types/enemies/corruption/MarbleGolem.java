@@ -4,12 +4,11 @@ import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
-import io.anuke.ucore.util.Geometry;
-import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
+import io.anuke.ucore.util.*;
 
 public class MarbleGolem extends Enemy{
 
@@ -23,7 +22,7 @@ public class MarbleGolem extends Enemy{
 
 				float rdir = 30;
 				Timers.runFor(rdir, () -> {
-					data.armraise += 3f / rdir * Mathf.delta();
+					data.armraise += 3f / rdir * Timers.delta();
 				}, () -> {
 					if(spark.health().dead)
 						return;
@@ -33,7 +32,7 @@ public class MarbleGolem extends Enemy{
 					Effects.effect("purpleeyeflash", spark.pos().x, spark.pos().y + 8);
 					Effects.effect("golemwave", spark);
 
-					Geometry.circle(4, ang -> {
+					Angles.circle(4, ang -> {
 						shoot(spark, Projectiles.golemsplitshot, ang);
 					});
 
@@ -48,7 +47,7 @@ public class MarbleGolem extends Enemy{
 					Timers.run(i * (rdir*2), () -> {
 						
 						Timers.runFor(rdir, () -> {
-							data.armraise += 3f / rdir * Mathf.delta();
+							data.armraise += 3f / rdir * Timers.delta();
 						}, () -> {
 							if(spark.health().dead)
 								return;
@@ -60,12 +59,12 @@ public class MarbleGolem extends Enemy{
 							Effects.effect("purpleeyeflash", spark.pos().x, spark.pos().y + 9);
 							Effects.effect("golemwave", spark);
 							
-							Geometry.circle(4, ang -> {
+							Angles.circle(4, ang -> {
 								shoot(spark, Projectiles.golemsplitshot, ang+45);
 							});
 
-							Geometry.circle(4, ang -> {
-								Geometry.shotgun(5, 9f, ang, out -> {
+							Angles.circle(4, ang -> {
+								Angles.shotgun(5, 9f, ang, out -> {
 									shoot(spark, Projectiles.golemwave, out);
 								});
 							});

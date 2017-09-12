@@ -8,13 +8,13 @@ import io.anuke.home.entities.traits.DropTrait;
 import io.anuke.home.items.ItemStack;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Graphics;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.TraitList;
 import io.anuke.ucore.ecs.extend.traits.*;
 import io.anuke.ucore.facet.Sorter;
 import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
 
 public class ItemDrop extends Prototype{
 	public static final float pickuprange = 65;

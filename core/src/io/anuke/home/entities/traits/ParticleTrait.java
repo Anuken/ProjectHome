@@ -2,6 +2,7 @@ package io.anuke.home.entities.traits;
 
 import com.badlogic.gdx.math.Vector2;
 
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
 import io.anuke.ucore.util.Mathf;
@@ -56,15 +57,15 @@ public class ParticleTrait extends Trait{
 	@Override
 	public void update(Spark spark){
 		for(Particle part : particles){
-			part.life += Mathf.delta();
-			part.y += Mathf.delta()*speed;
+			part.life += Timers.delta();
+			part.y += Timers.delta()*speed;
 			
 			if(part.fract() <= 0f && emit){
 				part.reset(spark);
 			}
 		}
 		
-		if(Mathf.delta() >= particleLife/5f){
+		if(Timers.delta() >= particleLife/5f){
 			reset(spark);
 		}
 	}

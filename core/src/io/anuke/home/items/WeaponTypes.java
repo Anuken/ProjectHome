@@ -7,9 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.entities.types.Projectile;
 import io.anuke.home.entities.types.Projectiles;
-import io.anuke.ucore.core.Draw;
-import io.anuke.ucore.core.Effects;
-import io.anuke.ucore.core.Inputs;
+import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.entities.Entity;
 import io.anuke.ucore.modules.Module;
@@ -41,7 +39,7 @@ public class WeaponTypes{
 		
 		public void altAttack(Spark player){
 			Effects.shake(3f, 3f);
-			Geometry.circle(20, f->{
+			Angles.circle(20, f->{
 				Angles.translation(f, 10f);
 				Projectile.create(projectile, player, damage*2, vector.x + Angles.vector.x, vector.y + Angles.vector.y, f);
 				//player.shoot(projectile, damage*2, vector.x + Angles.vector.x, vector.y + Angles.vector.y, f);
@@ -66,7 +64,7 @@ public class WeaponTypes{
 		public void draw(Spark player, Item item){
 			setVector(player);
 			
-			offset = Mathf.lerp(offset, charge/chargetime*4f, 0.3f*Mathf.delta());
+			offset = Mathf.lerp(offset, charge/chargetime*4f, 0.3f*Timers.delta());
 			
 			Draw.rect(item.name, player.pos().x+vector.x, offset+player.pos().y+PlayerTrait.height+vector.y+4);
 			Draw.rect("hand", player.pos().x+vector.x, offset+player.pos().y+PlayerTrait.height+vector.y);
@@ -103,7 +101,7 @@ public class WeaponTypes{
 			}
 			
 			if(Inputs.buttonDown(Buttons.RIGHT)){
-				charge += Mathf.delta();
+				charge += Timers.delta();
 				if(charge >= chargetime && holdable){
 					Effects.effect(shooteffect, x, y+2);
 					setTip(player);
@@ -115,7 +113,7 @@ public class WeaponTypes{
 				Effects.effect(shooteffect, x, y+2);
 				shot();
 				Effects.sound("shoot", player);
-				Geometry.shotgun(shots, shotspacing, Angles.mouseAngle(x, y), f->{
+				Angles.shotgun(shots, shotspacing, Angles.mouseAngle(x, y), f->{
 					Projectile.create(projectile, player, damage, x, y, f + Mathf.range(accuracy));
 				});
 				

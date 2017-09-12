@@ -8,6 +8,7 @@ import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
@@ -46,7 +47,7 @@ public class Tentacolumn extends Enemy{
 			Timers.runFor(30f, ()->{
 				if(Timers.get(this, "swave", 9f)){
 					Effects.effect("golemflash", spark);
-					Geometry.circle(18, f->{
+					Angles.circle(18, f->{
 						shoot(spark, Projectiles.tentashot2, spark.pos().x, spark.pos().y+height, f);
 					});
 				}

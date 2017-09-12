@@ -4,13 +4,13 @@ import io.anuke.home.entities.traits.EnemyTrait;
 import io.anuke.home.entities.traits.LightTrait;
 import io.anuke.home.entities.types.Enemy;
 import io.anuke.ucore.core.Draw;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.TraitList;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
 import io.anuke.ucore.ecs.extend.traits.TileCollideTrait;
 import io.anuke.ucore.util.Angles;
 import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
 
 public class GoldFrog extends Enemy{
 	
@@ -33,7 +33,7 @@ public class GoldFrog extends Enemy{
 		}
 		
 		if(trait.time > 0){
-			trait.time -= Mathf.delta();
+			trait.time -= Timers.delta();
 			Angles.translation(trait.rot, speed);
 			spark.get(TileCollideTrait.class).move(spark, Angles.vector.x, Angles.vector.y);
 		}

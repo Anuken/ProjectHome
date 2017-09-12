@@ -5,12 +5,15 @@ import com.badlogic.gdx.graphics.Color;
 import io.anuke.home.entities.traits.ParticleTrait;
 import io.anuke.home.entities.traits.ParticleTrait.Particle;
 import io.anuke.home.entities.types.enemies.library.DarkEnemy;
+import io.anuke.home.entities.types.enemies.library.Shade;
 import io.anuke.home.entities.types.enemies.library.Sol;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.extend.traits.ProjectileTrait.ProjectileType;
-import io.anuke.ucore.util.*;
+import io.anuke.ucore.util.Angles;
+import io.anuke.ucore.util.Mathf;
 
 //TODO aaaaaaAAAAAAAAAAAAAAAAAAaaaa
 public abstract class Projectiles extends ProjectileType{
@@ -90,7 +93,7 @@ public abstract class Projectiles extends ProjectileType{
 		public void removed(Spark spark){
 			Effects.shake(2f, 3f);
 			
-			Geometry.circle(8, f->{
+			Angles.circle(8, f->{
 				Angles.translation(f, 4f);
 				Projectile.create(darksplit, spark.projectile().source, spark.pos().x + Angles.vector.x, spark.pos().y + Angles.vector.y, f);
 			});
@@ -102,6 +105,7 @@ public abstract class Projectiles extends ProjectileType{
 			particles = true;
 			speed = 1f;
 			lifetime = 100f;
+			hiteffect = despawneffect = "purpleshadecloud";
 		}
 		
 		public void draw(Spark b){
@@ -117,6 +121,103 @@ public abstract class Projectiles extends ProjectileType{
 			}
 			
 			Draw.rect("circle", b.pos().x, b.pos().y, rad, rad, Timers.time()*2f);
+			
+			Draw.reset();
+			
+			//Draw.circle(b.pos().x, b.pos().y, rad/2f + 2f);
+			
+			//Draw.spikes(b.pos().x, b.pos().y, rad/2f-1f, 3f, 4, Timers.time()*2f);
+		}
+	},
+	darkorb = new Projectiles(){
+		{
+			dark = true;
+			//particles = true;
+			speed = 1f;
+			lifetime = 200f;
+			despawneffect = hiteffect = "shadewave";
+		}
+		
+		public void draw(Spark b){
+			float rad = 5f;
+			
+			Draw.color(DarkEnemy.eyeColor);
+			
+			Draw.rect("circle", b.pos().x, b.pos().y, rad/1.3f, rad/1.3f, Timers.time()*2f);
+			
+			Draw.circle(b.pos().x, b.pos().y, rad);
+			
+			Draw.reset();
+			
+			//Draw.circle(b.pos().x, b.pos().y, rad/2f + 2f);
+			
+			//Draw.spikes(b.pos().x, b.pos().y, rad/2f-1f, 3f, 4, Timers.time()*2f);
+		}
+		
+		public void update(Spark spark){
+			spark.velocity().vector.rotate(Timers.delta()/2f);
+			
+			if(Timers.get(spark, "fire", 13)){
+				Angles.circle(3, f->{
+					Projectile.create(darksplit, spark.projectile().source, spark.pos().x, spark.pos().y, f + spark.velocity().angle());
+				});
+				
+			}
+		}
+	},
+	darkorb3 = new Projectiles(){
+		{
+			dark = true;
+			//particles = true;
+			speed = 1f;
+			lifetime = 200f;
+			despawneffect = hiteffect = "shadewave";
+		}
+		
+		public void draw(Spark b){
+			float rad = 5f;
+			
+			Draw.color(DarkEnemy.eyeColor);
+			
+			Draw.rect("circle", b.pos().x, b.pos().y, rad/1.3f, rad/1.3f, Timers.time()*2f);
+			
+			Draw.circle(b.pos().x, b.pos().y, rad);
+			
+			Draw.reset();
+			
+			//Draw.circle(b.pos().x, b.pos().y, rad/2f + 2f);
+			
+			//Draw.spikes(b.pos().x, b.pos().y, rad/2f-1f, 3f, 4, Timers.time()*2f);
+		}
+		
+		public void update(Spark spark){
+			spark.velocity().vector.rotate(-Timers.delta()/2f);
+			
+			if(Timers.get(spark, "fire", 13)){
+				Angles.circle(3, f->{
+					Projectile.create(darksplit, spark.projectile().source, spark.pos().x, spark.pos().y, f + spark.velocity().angle());
+				});
+				
+			}
+		}
+	},
+	darkorb2 = new Projectiles(){
+		{
+			dark = true;
+			//particles = true;
+			speed = 1f;
+			lifetime = 200f;
+			despawneffect = hiteffect = "shadewave";
+		}
+		
+		public void draw(Spark b){
+			float rad = 4f;
+			
+			Draw.color(DarkEnemy.eyeColor);
+			
+			Draw.rect("circle", b.pos().x, b.pos().y, rad/1.3f, rad/1.3f, Timers.time()*2f);
+			
+			Draw.circle(b.pos().x, b.pos().y, rad);
 			
 			Draw.reset();
 			
@@ -151,8 +252,10 @@ public abstract class Projectiles extends ProjectileType{
 		
 		public void draw(Spark b){
 			
+			Draw.color(Sol.color);
 			Draw.thick(1f);
 			Draw.circle(b.pos().x, b.pos().y, 3);
+			Draw.circle(b.pos().x, b.pos().y, 1f + Mathf.sin(Timers.time(), 10f, 1f));
 			Draw.reset();
 		}
 	},
@@ -348,7 +451,7 @@ public abstract class Projectiles extends ProjectileType{
 		
 		public void despawned(Spark b){
 			super.despawned(b);
-			Geometry.circle(8, f->{
+			Angles.circle(8, f->{
 				Projectile.create(golemsmallshot, b.projectile().source, b.pos().x, b.pos().y, f-90);
 				//new Projectile(golemsmallshot, b.owner, f-90).set(b.pos().x, b.pos().y).add();
 			});
@@ -462,7 +565,7 @@ public abstract class Projectiles extends ProjectileType{
 		
 		public void despawned(Spark b){
 			super.despawned(b);
-			Geometry.circle(6, f->{
+			Angles.circle(6, f->{
 				Projectile.create(shadowshot, b.projectile().source, b.pos().x, b.pos().y, f-90);
 				//new Projectile(shadowshot, b.owner, f-90).set(b.pos().x, b.pos().y).add();
 			});
@@ -502,7 +605,7 @@ public abstract class Projectiles extends ProjectileType{
 		
 		public void despawned(Spark b){
 			super.despawned(b);
-			Geometry.circle(6, f->{
+			Angles.circle(6, f->{
 				Projectile.create(tentashot, b.projectile().source, b.pos().x, b.pos().y, f-90);
 				//new Projectile(tentashot, b.owner, f-90).set(b.pos().x, b.pos().y).add();
 			});
@@ -512,6 +615,18 @@ public abstract class Projectiles extends ProjectileType{
 	@Override
 	public void draw(Spark b){
 		
+	}
+	
+	@Override
+	public void removed(Spark spark){
+		if(hiteffect != null)
+			Effects.effect(hiteffect, dark ? Shade.eyeColor : Color.WHITE, spark.pos().x, spark.pos().y);
+	}
+	
+	@Override
+	public void despawned(Spark spark){
+		if(despawneffect != null)
+			Effects.effect(despawneffect, dark ? Shade.eyeColor : Color.WHITE, spark.pos().x, spark.pos().y);
 	}
 
 }

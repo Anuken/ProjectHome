@@ -11,6 +11,7 @@ import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.*;
 import io.anuke.ucore.ecs.extend.Events.CollisionFilter;
 import io.anuke.ucore.ecs.extend.Events.Damaged;
@@ -18,7 +19,6 @@ import io.anuke.ucore.ecs.extend.Events.Death;
 import io.anuke.ucore.ecs.extend.traits.*;
 import io.anuke.ucore.util.Angles;
 import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
 
 /**Base enemy prototype. Extend to use.*/
 public abstract class Enemy extends Prototype{
@@ -126,7 +126,7 @@ public abstract class Enemy extends Prototype{
 			enemy.target = null;
 
 			if(dst > 300 && despawn){
-				enemy.idletime += Mathf.delta();
+				enemy.idletime += Timers.delta();
 
 				if(enemy.idletime >= timeout){
 					Tile tile = World.get(Mathf.scl(spark.pos().x, Vars.tilesize), Mathf.scl(spark.pos().y, Vars.tilesize));

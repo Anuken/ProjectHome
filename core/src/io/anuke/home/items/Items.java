@@ -5,7 +5,7 @@ import io.anuke.home.entities.types.Projectile;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.Spark;
-import io.anuke.ucore.util.Geometry;
+import io.anuke.ucore.util.Angles;
 
 public class Items{
 	public static final Item 
@@ -101,7 +101,7 @@ public class Items{
 		}
 	
 		public void altAttack(Spark player){
-			Geometry.shotgun(7, 10, player.get(PlayerTrait.class).angle(player), f->{
+			Angles.shotgun(7, 10, player.get(PlayerTrait.class).angle(player), f->{
 				Projectile.create(projectile, player, damage*2, vector.x, vector.y, f);
 			});
 		}
@@ -134,7 +134,7 @@ public class Items{
 		}
 		
 		public void altAttack(Spark player){
-			Geometry.shotgun(7, 10, player.get(PlayerTrait.class).angle(player), f->{
+			Angles.shotgun(7, 10, player.get(PlayerTrait.class).angle(player), f->{
 				Projectile.create(projectile, player, damage*2, vector.x, vector.y, f);
 			});
 		}

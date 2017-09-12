@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import io.anuke.home.entities.traits.BossTrait;
 import io.anuke.ucore.core.Draw;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.core.Core;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.scene.Element;
@@ -27,7 +28,7 @@ public class BossHealthBar extends Element{
 		BossTrait boss = entity.get(BossTrait.class);
 		
 		TextureRegion region = Core.skin.getRegion("healthbar");
-		frac = Mathf.lerp(frac, entity.health().healthfrac(), 0.3f*Mathf.delta());
+		frac = Mathf.lerp(frac, entity.health().healthfrac(), 0.3f*Timers.delta());
 		
 		Draw.color(Color.DARK_GRAY);
 		Core.batch.draw(Core.skin.getRegion("white"), x, y, width, height);

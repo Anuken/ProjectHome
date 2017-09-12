@@ -11,7 +11,7 @@ import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Hue;
-import io.anuke.ucore.util.Geometry;
+import io.anuke.ucore.util.Angles;
 
 public class Blocks{
 	public static final Block
@@ -151,6 +151,10 @@ public class Blocks{
 		destroyParticle = "rockbreak";
 		hitParticle = "rockspark";
 	}},
+	rubble = new Overlay("rubble"){{
+		vary = false;
+		offset = -1;
+	}},
 	table = new Prop("table"){{
 		offset = 3;
 	}},
@@ -212,7 +216,7 @@ public class Blocks{
 			
 			Draw.rect("spawncircle", x, y);
 			
-			Geometry.circleVectors(16, 40, (ox, oy)->{
+			Angles.circleVectors(16, 40, (ox, oy)->{
 				Draw.rect(randRune((int)(ox+oy*100), tile), (int)(x + ox), (int)(y + oy));
 			});
 			

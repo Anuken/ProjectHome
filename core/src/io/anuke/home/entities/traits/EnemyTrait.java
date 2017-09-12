@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import io.anuke.home.entities.traits.LootTrait.Drop;
 import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.ItemDrop;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
@@ -57,7 +58,7 @@ public class EnemyTrait extends Trait{
 	
 	public void moveToward(Spark spark){
 		Tmp.v1.set(target.pos().x - spark.pos().x, target.pos().y - spark.pos().y);
-		Tmp.v1.setLength(((Enemy)spark.getType()).speed * Mathf.delta());
+		Tmp.v1.setLength(((Enemy)spark.getType()).speed * Timers.delta());
 		spark.get(TileCollideTrait.class).move(spark, Tmp.v1.x, Tmp.v1.y);
 	}
 	

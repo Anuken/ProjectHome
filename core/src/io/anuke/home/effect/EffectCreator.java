@@ -6,7 +6,7 @@ import io.anuke.home.entities.types.enemies.library.Shade;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.graphics.Hue;
-import io.anuke.ucore.util.Geometry;
+import io.anuke.ucore.util.Angles;
 
 public class EffectCreator{
 	static final Color tent = new Color(0x500680ff);
@@ -17,9 +17,29 @@ public class EffectCreator{
 			Draw.color(Color.DARK_GRAY);
 			
 			float rad = e.fract()*5f + 1f;
-			Geometry.randLenVectors(e.id, 5, e.powfract()*16f, (x, y)->{
+			Angles.randLenVectors(e.id, 5, e.powfract()*16f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
+			
+			Draw.reset();
+		});
+		
+		Effects.create("purpleshadecloud", 17, e->{
+			Draw.color(Shade.eyeColor);
+			
+			float rad = e.fract()*3f + 1f;
+			Angles.randLenVectors(e.id, 5, e.powfract()*10f, (x, y)->{
+				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
+			});
+			
+			Draw.reset();
+		});
+		
+		Effects.create("shadewave", 10, e->{
+			Draw.color(Shade.eyeColor);
+			
+			Draw.thick(3f - e.ifract()*3f);
+			Draw.circle(e.x, e.y, 4+8f*e.ifract());
 			
 			Draw.reset();
 		});
@@ -30,7 +50,7 @@ public class EffectCreator{
 			Draw.spikes(e.x, e.y, 1f+e.ifract()*8f, 1, 5);
 			
 			float rad = e.fract()*6f;
-			Geometry.randLenVectors(e.id, 9, e.ifract()*40f, (x, y)->{
+			Angles.randLenVectors(e.id, 9, e.ifract()*40f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			
@@ -43,7 +63,7 @@ public class EffectCreator{
 			Draw.color(Color.DARK_GRAY);
 			
 			float rad = e.fract()*12f;
-			Geometry.randLenVectors(e.id+9999, 40, e.ifract()*60f, (x, y)->{
+			Angles.randLenVectors(e.id+9999, 40, e.ifract()*60f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			
@@ -51,7 +71,7 @@ public class EffectCreator{
 			
 			float rad1 = e.fract()*9f;
 			
-			Geometry.randLenVectors(e.id, 20, e.ifract()*50f, (x, y)->{
+			Angles.randLenVectors(e.id, 20, e.ifract()*50f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad1, rad1);
 			});
 			
@@ -65,7 +85,7 @@ public class EffectCreator{
 			Draw.thickness(1f);
 			Draw.color(Shade.eyeColor, Color.DARK_GRAY, e.ifract());
 			float rad = e.fract()*3f+1f;
-			Geometry.randLenVectors(e.id, 6, e.ifract()*14f, (x, y)->{
+			Angles.randLenVectors(e.id, 6, e.ifract()*14f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			//Draw.spikes(e.x, e.y, e.ifract()*4f, 2, 8);
@@ -76,7 +96,7 @@ public class EffectCreator{
 			Draw.thickness(1f);
 			Draw.color(Color.DARK_GRAY);
 			float rad = e.sfract()*5f+1f;
-			Geometry.randLenVectors(e.id, 6, e.ifract()*20f, (x, y)->{
+			Angles.randLenVectors(e.id, 6, e.ifract()*20f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			//Draw.spikes(e.x, e.y, e.ifract()*4f, 2, 8);
@@ -87,7 +107,7 @@ public class EffectCreator{
 			Draw.color(Color.LIGHT_GRAY, Color.DARK_GRAY, e.ifract());
 			
 			float rad = e.fract()*7f;
-			Geometry.randLenVectors(e.id, 5, e.powfract()*24f, (x, y)->{
+			Angles.randLenVectors(e.id, 5, e.powfract()*24f, (x, y)->{
 				Draw.rect("rockparticle", e.x+x, e.y+y, rad, rad);
 			});
 			
@@ -98,7 +118,7 @@ public class EffectCreator{
 			Draw.color(Color.WHITE, Color.DARK_GRAY, e.ifract());
 			
 			float rad = e.fract()*3f;
-			Geometry.randLenVectors(e.id, 5, e.powfract()*12f, (x, y)->{
+			Angles.randLenVectors(e.id, 5, e.powfract()*12f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			
@@ -219,7 +239,7 @@ public class EffectCreator{
 			Draw.color(Color.SCARLET, new Color(0xff341c00), e.ifract());
 			
 			float rad = e.fract()*4f;
-			Geometry.randLenVectors(e.id, 5, e.ifract()*30f, (x, y)->{
+			Angles.randLenVectors(e.id, 5, e.ifract()*30f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			
@@ -230,7 +250,7 @@ public class EffectCreator{
 			Draw.color(Color.LIGHT_GRAY, Color.DARK_GRAY, e.ifract());
 			
 			float rad = e.fract()*4f;
-			Geometry.randVectors(e.id, 5, e.ifract()*30f, (x, y)->{
+			Angles.randVectors(e.id, 5, e.ifract()*30f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			
@@ -241,7 +261,7 @@ public class EffectCreator{
 			Draw.color(new Color(0x411e4bff), Color.BLACK, e.ifract());
 			
 			float rad = e.fract()*8f;
-			Geometry.randVectors(e.id, 8, e.ifract()*40f, (x, y)->{
+			Angles.randVectors(e.id, 8, e.ifract()*40f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			
@@ -293,7 +313,7 @@ public class EffectCreator{
 			Draw.spikes(e.x, e.y, 1f+e.ifract()*8f, 1, 5);
 			
 			float rad = e.fract()*6f;
-			Geometry.randLenVectors(e.id, 8, e.ifract()*40f, (x, y)->{
+			Angles.randLenVectors(e.id, 8, e.ifract()*40f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			
@@ -305,14 +325,14 @@ public class EffectCreator{
 			Draw.color(Hue.mix(tent, Color.CLEAR, e.ifract()));
 			
 			float rad = e.fract()*23f;
-			Geometry.randVectors(e.id, 8, e.ifract()*70f, (x, y)->{
+			Angles.randVectors(e.id, 8, e.ifract()*70f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad, rad);
 			});
 			
 			Draw.color(Hue.mix(Color.BLACK, tent, e.ifract()));
 			
 			float rad2 = e.fract()*18f;
-			Geometry.randVectors(e.id+1, 8, e.ifract()*60f, (x, y)->{
+			Angles.randVectors(e.id+1, 8, e.ifract()*60f, (x, y)->{
 				Draw.rect("circle", e.x+x, e.y+y, rad2, rad2);
 			});
 			

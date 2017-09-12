@@ -4,6 +4,7 @@ import static io.anuke.home.Vars.tilesize;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Pools;
 
 import io.anuke.home.effect.*;
 import io.anuke.home.world.Tile;
@@ -20,9 +21,10 @@ import io.anuke.ucore.util.Mathf;
 public class Renderer{
 	private static int chunksize = 32;
 	private static Cache[][] caches;
-	private static FacetList[][] renderables;
+	private static FacetList[][] facets, writeback;
 	private static ClassMap<RenderEffect> effects = new ClassMap<>();
 	private static int lastcamx = -100, lastcamy = -100;
+	private static boolean resized = false;
 	private static TextureRegion region = new TextureRegion(); //temporary region
 	
 	static{
@@ -60,7 +62,7 @@ public class Renderer{
 	}
 	
 	public static void updateWalls(){
-		lastcamx = -100;
+		resized = true;
 	}
 	
 	public static void clearWorld(){
@@ -140,17 +142,18 @@ public class Renderer{
 		int vry = Mathf.scl2(camera.viewportHeight * camera.zoom, tilesize)+padding;
 		
 		//change renderable list size on screen resize/startup
-		if(renderables == null || renderables.length != vrx || renderables[0].length != vry){
+		if(facets == null || facets.length != vrx || facets[0].length != vry){
 			
-			if(renderables != null){
-				for(int rx = 0; rx < renderables.length; rx++){
-					for(int ry = 0; ry < renderables[0].length; ry++){
-						renderables[rx][ry].free();
+			if(facets != null){
+				for(int rx = 0; rx < facets.length; rx++){
+					for(int ry = 0; ry < facets[0].length; ry++){
+						facets[rx][ry].free();
 					}
 				}
 			}
 
-			renderables = new FacetList[vrx][vry];
+			facets = new FacetList[vrx][vry];
+			writeback = new FacetList[vrx][vry];
 			
 			//invalidate cam position
 			lastcamx = -1;
@@ -158,20 +161,63 @@ public class Renderer{
 
 			for(int rx = 0; rx < vrx; rx++){
 				for(int ry = 0; ry < vry; ry++){
-					renderables[rx][ry] = new FacetList();
+					facets[rx][ry] = Pools.obtain(FacetList.class);
 				}
 			}
+			
+			resized = true;
 		}
 		
 		
 		//if the camera moved, re-render everything
 		if(lastcamx != camx || lastcamy != camy){
+			
+			if(!resized){
+			int shiftx = -(camx-lastcamx);
+			int shifty = -(camy-lastcamy);
+			
+			//clear writeback
+			for(int x = 0; x < vrx; x++){
+				for(int y = 0; y < vry; y++){
+					writeback[x][y] = null;
+				}
+			}
+			
+			//shift everything
+			for(int x = 0; x < vrx; x++){
+				for(int y = 0; y < vry; y++){
+					
+					int targetx = x + shiftx;
+					int targety = y + shifty;
+					
+					if(!Mathf.inBounds(targetx, targety, facets)){
+						facets[x][y].free();
+						Pools.free(facets[x][y]);
+					}else{
+						writeback[targetx][targety] = facets[x][y];
+						facets[x][y] = null;
+					}
+				}
+			}
+			
+			for(int x = 0; x < vrx; x++){
+				for(int y = 0; y < vry; y++){
+					facets[x][y] = writeback[x][y];
+				}
+			}
+			
+			}
+			
 			for(int x = 0; x < vrx; x++){
 				for(int y = 0; y < vry; y++){
 					int worldx = x - vrx / 2 + camx;
 					int worldy = y - vry / 2 + camy;
-
-					renderables[x][y].free();
+					
+					if(facets[x][y] != null && !resized){
+						continue;
+					}else if(!resized){
+						facets[x][y] = Pools.obtain(FacetList.class);
+					}
 
 					Tile tile = World.get(worldx, worldy);
 
@@ -179,13 +225,15 @@ public class Renderer{
 						continue;
 
 					if(tile.wall != Blocks.air){
-						tile.wall.draw(renderables[x][y], tile);
+						tile.wall.draw(facets[x][y], tile);
 					}
 				}
 			}
 
 			lastcamx = camx;
 			lastcamy = camy;
+			
+			resized = false;
 		}
 	}
 
@@ -196,7 +244,17 @@ public class Renderer{
 	
 	public static void updateWall(int x, int y){
 		//TODO optimization
-		updateWalls();
+		int camx = x - Mathf.scl(Core.camera.position.x, tilesize) + facets.length/2;
+		int camy = y - Mathf.scl(Core.camera.position.y, tilesize) + facets[0].length/2;
+		
+		//invalid coords?
+		if(!Mathf.inBounds(camx, camy, facets)) return;
+		
+		facets[camx][camy].free();
+		
+		Tile tile = World.get(x, y);
+		
+		tile.wall.draw(facets[camx][camy], tile);
 	}
 	
 	public static void updateFloor(int x, int y){

@@ -9,6 +9,7 @@ import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.core.Draw;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.core.Core;
 import io.anuke.ucore.facet.Sorter;
 import io.anuke.ucore.util.Mathf;
@@ -91,12 +92,12 @@ public class Rain extends RenderEffect{
 			}
 			
 			if(part.splash.lifetime > 0){
-				part.splash.lifetime -= Mathf.delta()/10f;
+				part.splash.lifetime -= Timers.delta()/10f;
 			}
 
-			part.x -= fall.x * (Mathf.delta() + part.seed / 40f);
-			part.y -= fall.y * (Mathf.delta() + part.seed / 40f);
-			part.lifetime -= Mathf.delta()/70f;
+			part.x -= fall.x * (Timers.delta() + part.seed / 40f);
+			part.y -= fall.y * (Timers.delta() + part.seed / 40f);
+			part.lifetime -= Timers.delta()/70f;
 
 			if(part.y < 0){
 				part.y = 1f;

@@ -47,6 +47,11 @@ public class Projectile extends Prototype{
 			return other.getType() != Prototypes.projectile;
 		});
 	}
+	
+	@Override
+	public void update(Spark spark){
+		spark.get(ProjectileTrait.class).type.update(spark);
+	}
 
 	@Override
 	public TraitList traits(){

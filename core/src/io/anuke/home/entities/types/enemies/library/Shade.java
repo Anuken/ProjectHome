@@ -8,6 +8,7 @@ import io.anuke.home.entities.traits.ParticleTrait.Particle;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.TraitList;
 import io.anuke.ucore.ecs.extend.Events.Death;
@@ -15,7 +16,6 @@ import io.anuke.ucore.ecs.extend.traits.FacetTrait;
 import io.anuke.ucore.ecs.extend.traits.TileCollideTrait;
 import io.anuke.ucore.facet.Sorter;
 import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
 
 public class Shade extends DarkEnemy{
 	
@@ -29,7 +29,7 @@ public class Shade extends DarkEnemy{
 			spark.get(ParticleTrait.class).emit = false;
 			
 			Timers.runFor(50f, ()->{
-				spark.get(EnemyTrait.class).time -= Mathf.delta();
+				spark.get(EnemyTrait.class).time -= Timers.delta();
 				if(Timers.get(spark, "shadespark", 8)){
 					Effects.effect("shadecloud", eyeColor, spark.pos().x + Mathf.range(6f), spark.pos().y + Mathf.range(6f) + raise());
 				}

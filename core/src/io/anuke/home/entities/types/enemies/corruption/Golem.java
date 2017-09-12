@@ -5,12 +5,11 @@ import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.extend.traits.PosTrait;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
-import io.anuke.ucore.util.Geometry;
-import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
+import io.anuke.ucore.util.Angles;
 
 public class Golem extends Enemy{
 	
@@ -30,7 +29,7 @@ public class Golem extends Enemy{
 		if(Timers.get(this, "smash", 100)){
 			float rdir = 30;
 			Timers.runFor(rdir, ()->{
-				spark.get(EnemyTrait.class).rot += 3f/rdir*Mathf.delta();
+				spark.get(EnemyTrait.class).rot += 3f/rdir*Timers.delta();
 			}, ()->{
 				if(spark.health().dead) return;
 				
@@ -39,7 +38,7 @@ public class Golem extends Enemy{
 				Effects.effect("eyeflash", spark.pos().x, spark.pos().y+11);
 				Effects.effect("golemwave", spark);
 				
-				Geometry.circle(8, ang->{
+				Angles.circle(8, ang->{
 					shoot(spark, Projectiles.golemshot, ang);
 				});
 				

@@ -6,15 +6,16 @@ import com.badlogic.gdx.math.GridPoint2;
 
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
+import io.anuke.home.editor.Editor;
 import io.anuke.home.world.*;
 import io.anuke.ucore.core.Draw;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Caches;
 import io.anuke.ucore.util.Geometry;
 import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Timers;
 
 public class BlockTypes{
 	
@@ -215,7 +216,7 @@ public class BlockTypes{
 		
 		@Override
 		public void draw(FacetList list, Tile tile){
-			if(list != null) return;
+			if(!Editor.active()) return;
 			
 			new SpriteFacet(name).set(tile.worldx(), tile.worldy())
 			.center().sort(Sorter.tile).add(list);

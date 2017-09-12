@@ -5,10 +5,10 @@ import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
-import io.anuke.ucore.util.Geometry;
-import io.anuke.ucore.util.Timers;
+import io.anuke.ucore.util.Angles;
 
 public class MarbleObelisk extends Enemy{
 	
@@ -38,7 +38,7 @@ public class MarbleObelisk extends Enemy{
 			for(int i = 0; i < 4; i ++)
 				Effects.effect("purpleeyeflash", x, y+i+6);
 			
-			Geometry.circle(8, f->{
+			Angles.circle(8, f->{
 				shoot(spark, Projectiles.golemsplitshot, x, y+height, f);
 			});
 		}
