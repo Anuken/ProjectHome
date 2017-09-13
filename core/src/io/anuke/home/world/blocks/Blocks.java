@@ -77,12 +77,14 @@ public class Blocks{
 	}},
 	brickwall = new Wall("brickwall"){{
 		height = 13;
+		blendWith = block->block.name.contains("brick") && block instanceof Wall;
 	}},
 	brickshelf = new Wall("brickshelf"){{
 		height = 13;
 		variants = 3;
 		vary = true;
 		edge = "brickwall";
+		blendWith = block->block.name.contains("brick") && block instanceof Wall;
 	}},
 	stonefloor = new Floor("stonefloor"){{
 		variants = 5;
@@ -155,6 +157,10 @@ public class Blocks{
 		vary = false;
 		offset = -1;
 	}},
+	redcarpet = new Floor("redcarpet"){{
+		useEdge = false;
+		vary = false;
+	}},
 	table = new Prop("table"){{
 		offset = 3;
 	}},
@@ -188,8 +194,26 @@ public class Blocks{
 			}).add(list);
 		}
 	},
-	
-	cobweb = new WallOverlay("cobweb"),
+	smallshelf = new Bookshelf("smallshelf"){{
+		blendWith = block->block == this;
+		height = 13;
+		edge = "shelf";
+	}},
+	tallshelf = new Bookshelf("tallshelf"){{
+		blendWith = block->block == this;
+		height = 19;
+		shelves = 3;
+		edge = "shelf";
+	}},
+	verytallshelf = new Bookshelf("verytallshelf"){{
+		blendWith = block->block == this;
+		height = 25;
+		shelves = 4;
+		edge = "shelf";
+	}},
+	cobweb = new WallOverlay("cobweb"){{
+		vary = false;
+	}},
 	
 	moss = new Moss("moss"){
 		{

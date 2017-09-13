@@ -2,6 +2,7 @@ package io.anuke.home.world;
 
 import io.anuke.home.Vars;
 import io.anuke.home.world.blocks.Blocks;
+import io.anuke.ucore.util.Bits;
 import io.anuke.ucore.util.Mathf;
 
 //TODO make coords shorts?
@@ -26,12 +27,16 @@ public class Tile{
 		return !wall.solid;
 	}
 	
+	public float randFloat(int offset){
+		return rand(offset, 200)/200f;
+	}
+	
 	public int rand(int max){
-		return Mathf.randomSeed(x+x*y+y, 1, max);
+		return Mathf.randomSeed(Bits.packLong(x, y), 1, max);
 	}
 	
 	public int rand(int offset, int max){
-		return Mathf.randomSeed(offset + x+x*y+y, 1, max);
+		return Mathf.randomSeed(offset + Bits.packLong(x, y), 1, max);
 	}
 	
 	public int worldx(){

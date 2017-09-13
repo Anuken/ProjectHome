@@ -20,6 +20,7 @@ import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.facet.Facets;
 import io.anuke.ucore.modules.SceneModule;
 import io.anuke.ucore.scene.builders.*;
+import io.anuke.ucore.scene.event.Touchable;
 import io.anuke.ucore.scene.ui.*;
 import io.anuke.ucore.scene.ui.layout.Stack;
 import io.anuke.ucore.scene.ui.layout.Table;
@@ -95,126 +96,132 @@ public class EditorUI extends SceneModule{
 			aleft();
 			atop();
 			
-			new table(){{
-			
-				new table("button"){{
-					atop();
-					growY();
-					
-					tabs(get(), 
-						"Blocks", new Array<ImageButton>(){{
-							for(Block block : Block.getAllBlocks()){
-								
-								//ecksdee
-								TextureRegion region = Draw.hasRegion(block.name) ? 
-										Draw.region(block.name) : 
-										Draw.hasRegion(block.name + "1") ? 
-										Draw.region(block.name + "1") :  Draw.region("blank");
-								
-								ImageButton i = new ImageButton(region, "toggle");
-								i.resizeImage(42);
-								i.clicked(()->{
-									Evar.control.seltype = null;
-									Evar.control.selected = block;
-									Evar.control.blocktype = block.type;
-									updateWallButton();
-								});
-								
-								Table info = new Table();
-								info.background("button");
-								info.add("[yellow]" + block.name);
-								
-								Tooltip tip = new Tooltip(info);
-								
-								i.addListener(tip);
-								
-								add(i);
-							}
-						}},
-						"Mobs", new Array<ImageButton>(){{
-							for(Prototype type : Prototype.getAllTypes()){
-								if(!(type instanceof Enemy)) continue;
-								
-								String uname = ClassReflection.getSimpleName(type.getClass());
-								String name = uname.toLowerCase();
-								
-								TextureRegion region = Draw.hasRegion(name) ? 
-										Draw.region(name) : 
-										Draw.hasRegion(name + "i1") ? 
-										Draw.region(name + "i1") :  Draw.region("blank");
-								
-								ImageButton i = new ImageButton(region, "toggle");
-								i.resizeImage(42);
-								i.clicked(()->{
-									Evar.control.seltype = type;
-									Evar.control.selected = null;
-								});
-								
-								Table info = new Table();
-								info.background("button");
-								info.add("[yellow]" + uname);
-								
-								Tooltip tip = new Tooltip(info);
-								
-								i.addListener(tip);
-								
-								add(i);
-							}
-						}}
-					);
-					
-				}}.end();
+			new table("button"){{
+				get().setTouchable(Touchable.enabled);
+				get().padRight(8f);
 				
-				row();
+				new table(){{
 				
-				new button("Import", ()->{
-					importDialog.show();
-				}).fill();
-				
-				row();
-				new button("Export", ()->{
-					exportDialog.show();
-				}).fill();
-			
-			}}.end();
-			
-			new table(){{
-				atop();
-				
-				wallbutton = new imagebutton("icon-wall", 32, ()->{
-					Evar.control.switchBlockType();
-					updateWallButton();
-				}).size(50).get();
-				
-				row();
-				
-				ButtonGroup<ImageButton> group = new ButtonGroup<>();
-				
-				for(Tool tool : Tool.values()){
-					ImageButton button = new ImageButton("icon-"+tool.name(), "toggle");
-					button.clicked(()->{
-						Evar.control.tool = tool;
-					});
-					button.resizeImage(32);
-					add(button).size(50);
-					group.add(button);
+					new table("button"){{
+						atop();
+						growY();
+						
+						tabs(get(), 
+							"Blocks", new Array<ImageButton>(){{
+								for(Block block : Block.getAllBlocks()){
+									
+									//ecksdee
+									TextureRegion region = Draw.hasRegion(block.name) ? 
+											Draw.region(block.name) : 
+											Draw.hasRegion(block.name + "1") ? 
+											Draw.region(block.name + "1") :  Draw.region("blank");
+									
+									ImageButton i = new ImageButton(region, "toggle");
+									i.resizeImage(42);
+									i.clicked(()->{
+										Evar.control.seltype = null;
+										Evar.control.selected = block;
+										Evar.control.blocktype = block.type;
+										updateWallButton();
+									});
+									
+									Table info = new Table();
+									info.background("button");
+									info.add("[yellow]" + block.name);
+									
+									Tooltip tip = new Tooltip(info);
+									
+									i.addListener(tip);
+									
+									add(i);
+								}
+							}},
+							"Mobs", new Array<ImageButton>(){{
+								for(Prototype type : Prototype.getAllTypes()){
+									if(!(type instanceof Enemy)) continue;
+									
+									String uname = ClassReflection.getSimpleName(type.getClass());
+									String name = uname.toLowerCase();
+									
+									TextureRegion region = Draw.hasRegion(name) ? 
+											Draw.region(name) : 
+											Draw.hasRegion(name + "i1") ? 
+											Draw.region(name + "i1") :  Draw.region("blank");
+									
+									ImageButton i = new ImageButton(region, "toggle");
+									i.resizeImage(42);
+									i.clicked(()->{
+										Evar.control.seltype = type;
+										Evar.control.selected = null;
+									});
+									
+									Table info = new Table();
+									info.background("button");
+									info.add("[yellow]" + uname);
+									
+									Tooltip tip = new Tooltip(info);
+									
+									i.addListener(tip);
+									
+									add(i);
+								}
+							}}
+						);
+						
+					}}.end();
 					
 					row();
-				}
-			}}.top().end();
+					
+					new button("Import", ()->{
+						importDialog.show();
+					}).fill();
+					
+					row();
+					new button("Export", ()->{
+						exportDialog.show();
+					}).fill();
+				
+				}}.end();
+				
+				new table(){{
+					atop();
+					
+					wallbutton = new imagebutton("icon-wall", 32, ()->{
+						Evar.control.switchBlockType();
+						updateWallButton();
+					}).size(50).get();
+					
+					row();
+					
+					ButtonGroup<ImageButton> group = new ButtonGroup<>();
+					
+					for(Tool tool : Tool.values()){
+						ImageButton button = new ImageButton("icon-"+tool.name(), "toggle");
+						button.clicked(()->{
+							Evar.control.tool = tool;
+						});
+						button.resizeImage(32);
+						add(button).size(50);
+						group.add(button);
+						
+						row();
+					}
+				}}.top().end();
+				
+				new table(){{
+					top();
+					
+					Slider slider = new Slider(1, 9, 1, true);
+					slider.moved(f->{
+						Evar.control.brushsize = (int)(float)f;
+					});
+					
+					new label(()->(int)slider.getValue() + "").center();
+					row();
+					add(slider);
+				}}.pad(4).end();
 			
-			new table(){{
-				top();
-				
-				Slider slider = new Slider(1, 9, 1, true);
-				slider.moved(f->{
-					Evar.control.brushsize = (int)(float)f;
-				});
-				
-				new label(()->(int)slider.getValue() + "").center();
-				row();
-				add(slider);
-			}}.pad(4).end();
+			}}.end();
 			
 		}}.end();
 		

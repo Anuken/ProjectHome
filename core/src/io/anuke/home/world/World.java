@@ -119,7 +119,7 @@ public class World{
 		tiles[x][y] = tile;
 	}
 	
-	public static boolean isWall(int x, int y, Block wall){
+	public static boolean isWall(int x, int y){
 		Tile tile = get(x, y);
 		return tile != null && tile.wall instanceof Wall;
 	}
