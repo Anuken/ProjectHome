@@ -28,10 +28,10 @@ import io.anuke.ucore.entities.Entities;
 import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
-import io.anuke.ucore.modules.RendererModule;
+import io.anuke.ucore.modules.ControlModule;
 import io.anuke.ucore.util.Mathf;
 
-public class Control extends RendererModule{
+public class Control extends ControlModule{
 	private Basis basis;
 	
 	private Spark player;
@@ -218,12 +218,14 @@ public class Control extends RendererModule{
 			}
 		}
 		
+		float add = (int)(Graphics.size().y/Core.cameraScale * 2f) %2 == 1 ? 0.5f : 0;
+		
 		if(!GameState.is(State.menu)){
 			basis.getProcessor(DrawProcessor.class).setEnabled(false);
 			basis.getProcessor(HealthBarProcessor.class).setEnabled(false);
 			basis.update();
 			
-			smoothCamera(player.pos().x, player.pos().y+2f, 0.2f);
+			smoothCamera(player.pos().x, player.pos().y+2f + add, 0.2f);
 			
 			float lim = 3;
 			
@@ -250,7 +252,7 @@ public class Control extends RendererModule{
 		clampCamera(0, 0, World.width()*Vars.tilesize-Vars.tilesize/2, World.height()*Vars.tilesize-Vars.tilesize/2);
 		
 		float bx = camera.position.x, by = camera.position.y;
-		camera.position.set((int)bx, (int)by, 0);
+		camera.position.set((int)bx, (int)(by) + add, 0);
 		
 		camera.update();
 		

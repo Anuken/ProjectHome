@@ -12,6 +12,7 @@ import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Hue;
 import io.anuke.ucore.util.Angles;
+import io.anuke.ucore.util.Tmp;
 
 public class Blocks{
 	public static final Block
@@ -116,6 +117,9 @@ public class Blocks{
 	brokenbarrel = new Prop("brokenbarrel"){{
 		offset = 3;
 	}},
+	torchstand = new Prop("torchstand"){{
+		offset = 1;
+	}},
 	books = new Overlay("books"){
 		Color[] colors = {Color.valueOf("4c5f3e"), Color.valueOf("7b6844"), Color.valueOf("445e6d"), Color.valueOf("704533"), Color.valueOf("8f875f")};
 		Color temp = new Color();
@@ -140,6 +144,57 @@ public class Blocks{
 							rot, colors[i], mul);
 				}
 			}).add(list);
+		}
+	},
+	candles = new Overlay("candles"){
+		int maxcandles = 6;
+		Color color = Color.valueOf("e1d9d2");
+		float h, s, b;
+		
+		{
+			float[] colors = Hue.RGBtoHSB(color);
+			h = colors[0];
+			s = colors[1];
+			b = colors[2];
+		}
+		
+		@Override
+		public void draw(FacetList list, Tile tile){
+			new BaseFacet(tile.worldy()+12, p->{
+				draw(tile, false);
+			}).add(list);
+			
+			new BaseFacet(Sorter.shadow, Sorter.tile, p->{
+				draw(tile, true);
+			}).add(list);
+		}
+		
+		void draw(Tile tile, boolean shadows){
+			int candles = tile.rand(4);
+			
+			for(int i = 0; i < candles; i ++){
+				int dx = tile.rand(i*2 + 0, Vars.tilesize);
+				float dy = i * 12f/candles;
+				int candle = tile.rand(i*2 + 2, maxcandles);
+				
+				if(!shadows){
+					float hs = 0;//(tile.randFloat(i*2 + 3)-0.5f)/15f;
+					float ss = 0;//(tile.randFloat(i*2 + 4)-0.5f)/15f;
+					float bs = tile.randFloat(i*2) > 0.5  ? -0.02f : 0.1f;//(tile.randFloat(i*2 + 5)-0.5f)/5f;
+					boolean flip = tile.randFloat(i*4 + 5) > 0.5;
+				
+					Tmp.c1.a = 1f;
+					Draw.color(Hue.fromHSB(h + hs, s + ss, b + bs, Tmp.c1));
+					Draw.grect("candle" + candle, tile.worldx() + dx - Vars.tilesize/2, tile.worldy() + dy  -Vars.tilesize/2, flip);
+				
+				}else{
+					Draw.rect("shadow4", tile.worldx() + dx - Vars.tilesize/2, tile.worldy() + dy  -Vars.tilesize/2);
+				}
+			}
+			
+			Draw.color();
+			
+			
 		}
 	},
 	rocks = new Overlay("rocks"),

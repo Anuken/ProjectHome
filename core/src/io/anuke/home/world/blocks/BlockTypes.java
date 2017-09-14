@@ -120,10 +120,7 @@ public class BlockTypes{
 					
 				}
 			}
-			
-			
 		}
-
 	}
 
 	public static class Wall extends Block{

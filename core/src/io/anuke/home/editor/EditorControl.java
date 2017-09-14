@@ -21,10 +21,10 @@ import io.anuke.ucore.facet.FacetLayerHandler;
 import io.anuke.ucore.facet.Facets;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
-import io.anuke.ucore.modules.RendererModule;
+import io.anuke.ucore.modules.ControlModule;
 import io.anuke.ucore.util.Mathf;
 
-public class EditorControl extends RendererModule{
+public class EditorControl extends ControlModule{
 	public Block selected = Blocks.air;
 	public Prototype seltype = null;
 	public View view = View.none;
