@@ -59,7 +59,7 @@ public class Player extends Prototype{
 			new ColliderTrait(4),
 			new InventoryTrait(3),
 			new TileCollideTrait(-0.5f, 1.5f, 4, 3),
-			new LightTrait(100, true),
+			new LightTrait(100, true).setOffset(0, 8),
 			new FacetTrait((trait, spark)->{
 				
 				trait.draw(b->{

@@ -17,7 +17,9 @@ import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
 import io.anuke.ucore.ecs.extend.traits.HealthTrait;
 import io.anuke.ucore.ecs.extend.traits.PosTrait;
 import io.anuke.ucore.ecs.extend.traits.TileCollideTrait;
-import io.anuke.ucore.util.*;
+import io.anuke.ucore.util.Angles;
+import io.anuke.ucore.util.Mathf;
+import io.anuke.ucore.util.Tmp;
 
 public class PlayerTrait extends Trait{
 	public static final float hitdur = 30;
@@ -50,8 +52,6 @@ public class PlayerTrait extends Trait{
 		PosTrait pos = spark.pos();
 		
 		lightrange = 100;
-		
-
 		
 		Vector2 vector = Tmp.v1;
 		

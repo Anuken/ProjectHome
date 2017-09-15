@@ -49,8 +49,8 @@ public class World{
 				}else{
 					tile = tiles[targetx][targety];
 					tile.wall.cleanup(tile);
-					tile.x = x;
-					tile.y = y;
+					tile.x = (short)x;
+					tile.y = (short)y;
 				}
 
 				newtiles[x][y] = tile;
@@ -114,8 +114,8 @@ public class World{
 	}
 
 	public static void set(int x, int y, Tile tile){
-		tile.x = x;
-		tile.y = y;
+		tile.x = (short)x;
+		tile.y = (short)y;
 		tiles[x][y] = tile;
 	}
 	

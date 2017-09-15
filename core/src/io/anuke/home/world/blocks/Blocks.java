@@ -2,17 +2,21 @@ package io.anuke.home.world.blocks;
 
 import com.badlogic.gdx.graphics.Color;
 
+import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
+import io.anuke.home.effect.LightEffect;
 import io.anuke.home.world.Block;
 import io.anuke.home.world.BlockType;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.blocks.BlockTypes.*;
 import io.anuke.ucore.core.Draw;
+import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Hue;
+import io.anuke.ucore.lights.Light;
 import io.anuke.ucore.util.Angles;
-import io.anuke.ucore.util.Tmp;
+import io.anuke.ucore.util.Mathf;
 
 public class Blocks{
 	public static final Block
@@ -127,9 +131,9 @@ public class Blocks{
 		
 		@Override
 		public void draw(FacetList list, Tile tile){
-			new BaseFacet(tile.worldy()+24, p->{
+			new BaseFacet(tile.worldy()+5, p->{
 				
-				int amount = tile.rand(-1, colors.length+1)-1;
+				int amount = tile.rand(-1, colors.length);
 				
 				for(int i = 0; i < amount; i ++){
 					
@@ -146,54 +150,69 @@ public class Blocks{
 			}).add(list);
 		}
 	},
-	candles = new Overlay("candles"){
-		int maxcandles = 6;
-		Color color = Color.valueOf("e1d9d2");
-		float h, s, b;
+	candles = new Candle("candles"){
 		
-		{
-			float[] colors = Hue.RGBtoHSB(color);
-			h = colors[0];
-			s = colors[1];
-			b = colors[2];
-		}
+	},
+	litcandles = new Candle("litcandles"){
+		int[][] offsets = {
+			{3, 3},
+			{4, 2},
+			{4, 4},
+			{3, 4},
+			{3, 4},
+			{4, 4},
+		};
 		
 		@Override
 		public void draw(FacetList list, Tile tile){
-			new BaseFacet(tile.worldy()+12, p->{
-				draw(tile, false);
-			}).add(list);
+			super.draw(list, tile);
 			
-			new BaseFacet(Sorter.shadow, Sorter.tile, p->{
-				draw(tile, true);
+			new BaseFacet(p->{
+				if(tile.data4 == null){
+					tile.data4 = Renderer.getEffect(LightEffect.class).addLight(0f);
+				}
+				
+				Light light = (Light)tile.data4;
+				tile.data3 += Timers.delta()/40f;
+				tile.data3 = Mathf.clamp(tile.data3);
+				light.setPosition(tile.worldx(), tile.worldy());
+				light.setDistance(tile.data3 * 50f);
+				light.setStaticLight(true);
 			}).add(list);
 		}
 		
-		void draw(Tile tile, boolean shadows){
-			int candles = tile.rand(4);
+		@Override
+		public void cleanup(Tile tile){
+			if(tile.data4 == null) return;
 			
-			for(int i = 0; i < candles; i ++){
-				int dx = tile.rand(i*2 + 0, Vars.tilesize);
-				float dy = i * 12f/candles;
-				int candle = tile.rand(i*2 + 2, maxcandles);
-				
-				if(!shadows){
-					float hs = 0;//(tile.randFloat(i*2 + 3)-0.5f)/15f;
-					float ss = 0;//(tile.randFloat(i*2 + 4)-0.5f)/15f;
-					float bs = tile.randFloat(i*2) > 0.5  ? -0.02f : 0.1f;//(tile.randFloat(i*2 + 5)-0.5f)/5f;
-					boolean flip = tile.randFloat(i*4 + 5) > 0.5;
-				
-					Tmp.c1.a = 1f;
-					Draw.color(Hue.fromHSB(h + hs, s + ss, b + bs, Tmp.c1));
-					Draw.grect("candle" + candle, tile.worldx() + dx - Vars.tilesize/2, tile.worldy() + dy  -Vars.tilesize/2, flip);
-				
-				}else{
-					Draw.rect("shadow4", tile.worldx() + dx - Vars.tilesize/2, tile.worldy() + dy  -Vars.tilesize/2);
-				}
-			}
+			((Light)tile.data4).remove();
 			
-			Draw.color();
+			tile.data4 = null;
+		}
+		
+		@Override
+		void candleDrawn(Tile tile, int candle, boolean flip, float x, float y){
+			x -= 0.25f;
+			y -= 0.75f;
 			
+			//TODO make them blue when near dark enemies
+			
+			//Draw.grect("candlelight" + (int)(Timers.time()/6f + x*325) % 3, x, y + 6f);
+			
+			float offsetx = 8f - offsets[candle-1][0];
+			float offsety = 8f - offsets[candle-1][1];
+			
+			if(flip)
+				offsetx = 8f-offsetx;
+			
+			offsety += 1.5f;
+			
+			float rad = tile.data3 * (Mathf.sin(Timers.time() + tile.randFloat((int)(x*742 - y*35))*742, 3f, 0.35f) + 1.4f);
+			
+			Draw.color(Color.ORANGE);
+			Draw.rect("circle", x + offsetx - 4f, y + offsety + rad/3f, rad*2, rad*2);
+			Draw.color(Color.YELLOW);
+			Draw.rect("circle", x + offsetx - 4f, y + offsety, rad, rad);
 			
 		}
 	},
@@ -215,6 +234,42 @@ public class Blocks{
 	redcarpet = new Floor("redcarpet"){{
 		useEdge = false;
 		vary = false;
+	}},
+	tatteredredcarpet = new DecalFloor("tatteredredcarpet"){{
+		vary = true;
+		variants = 3;
+		under = stonefloor;
+	}},
+	tatteredredcarpetedge = new DecalFloor("tatteredredcarpetedge"){{
+		variants = 3;
+		under = stonefloor;
+	}},
+	tatteredredcarpetedge2 = new DecalFloor("tatteredredcarpetedge2"){{
+		variants = 3;
+		under = stonefloor;
+	}},
+	tatteredredcarpetmid = new DecalFloor("tatteredredcarpetmid"){{
+		under = stonefloor;
+	}},
+	tatteredredcarpetl = new DecalFloor("tatteredredcarpetl"){{
+		under = stonefloor;
+	}},
+	tatteredredcarpetr = new DecalFloor("tatteredredcarpetr"){{
+		under = stonefloor;
+	}},
+	tatteredredcarpetl2 = new DecalFloor("tatteredredcarpetl2"){{
+		under = stonefloor;
+	}},
+	tatteredredcarpetr2 = new DecalFloor("tatteredredcarpetr2"){{
+		under = stonefloor;
+	}},
+	redcarpettriml = new Decal("redcarpettriml"){{
+		variants = 2;
+		vary = true;
+	}},
+	redcarpettrimr = new Decal("redcarpettrimr"){{
+		variants = 2;
+		vary = true;
 	}},
 	table = new Prop("table"){{
 		offset = 3;
@@ -258,6 +313,8 @@ public class Blocks{
 		blendWith = block->block == this;
 		height = 19;
 		shelves = 3;
+		hitbox.height = 25;
+		hitbox.y += 3.5f;
 		edge = "shelf";
 	}},
 	verytallshelf = new Bookshelf("verytallshelf"){{

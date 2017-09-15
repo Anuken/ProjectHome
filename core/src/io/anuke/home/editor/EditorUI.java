@@ -2,6 +2,7 @@ package io.anuke.home.editor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.Glyph;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -25,6 +26,7 @@ import io.anuke.ucore.scene.ui.*;
 import io.anuke.ucore.scene.ui.layout.Stack;
 import io.anuke.ucore.scene.ui.layout.Table;
 import io.anuke.ucore.scene.utils.Elements;
+import io.anuke.ucore.util.Tmp;
 
 public class EditorUI extends SceneModule{
 	ImageButton wallbutton;
@@ -114,7 +116,8 @@ public class EditorUI extends SceneModule{
 									TextureRegion region = Draw.hasRegion(block.name) ? 
 											Draw.region(block.name) : 
 											Draw.hasRegion(block.name + "1") ? 
-											Draw.region(block.name + "1") :  Draw.region("blank");
+											Draw.region(block.name + "1") : 
+											getRegionFor(block.name);
 									
 									ImageButton i = new ImageButton(region, "toggle");
 									i.resizeImage(42);
@@ -146,7 +149,7 @@ public class EditorUI extends SceneModule{
 									TextureRegion region = Draw.hasRegion(name) ? 
 											Draw.region(name) : 
 											Draw.hasRegion(name + "i1") ? 
-											Draw.region(name + "i1") :  Draw.region("blank");
+											Draw.region(name + "i1") :  getRegionFor(name);
 									
 									ImageButton i = new ImageButton(region, "toggle");
 									i.resizeImage(42);
@@ -341,6 +344,15 @@ public class EditorUI extends SceneModule{
 		
 		table.row();
 		table.add(stack).colspan(group.getButtons().size).growY().fillX().fillY();
+	}
+	
+	TextureRegion getRegionFor(String s){
+		Tmp.tr1.setRegion(Core.font.getRegion());
+		Glyph glyph = Core.font.getData().getGlyph(Character.toUpperCase(s.charAt(0)));
+		
+		Tmp.tr1.setRegion(glyph.srcX, glyph.srcY, glyph.width, glyph.height);
+		
+		return new TextureRegion(Tmp.tr1);
 	}
 	
 	public void updateWallButton(){

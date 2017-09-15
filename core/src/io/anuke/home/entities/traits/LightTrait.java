@@ -71,7 +71,7 @@ public class LightTrait extends Trait{
 					float dst = other.pos().dst(spark.pos());
 					
 					if(dst < scan){
-						calcradius -= (1f-dst/scan)*(scan/1.4f);
+						calcradius -= (1f-dst/scan)*(scan/1.6f);
 					}
 				}
 			});

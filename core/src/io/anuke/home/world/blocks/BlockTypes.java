@@ -25,9 +25,11 @@ public class BlockTypes{
 	public static class Floor extends Block{
 		private static TextureRegion temp = new TextureRegion();
 		boolean useEdge = true;
+		String edgename;
 
 		public Floor(String name) {
 			super(name, BlockType.floor);
+			edgename = name;
 		}
 
 		@Override
@@ -35,8 +37,9 @@ public class BlockTypes{
 			if(tile.wall instanceof Wall)
 				return;
 
-			if(this != Blocks.air)
+			if(this != Blocks.air){
 				Caches.draw(name + (vary ? tile.rand(variants) : ""), tile.worldx(), tile.worldy());
+			}
 			
 			if(useEdge){
 			
@@ -50,7 +53,7 @@ public class BlockTypes{
 	
 					Block floor = other.floor;
 	
-					if(floor.id <= id || other.wall instanceof Wall || (floor instanceof Floor && !((Floor)floor).useEdge)){
+					if(floor.id <= id || other.wall instanceof Wall || !(floor instanceof Floor) || (floor instanceof Floor && !((Floor)floor).useEdge)){
 						continue;
 					}
 					
@@ -96,7 +99,7 @@ public class BlockTypes{
 						continue;
 					}
 					
-					Caches.draw(name + "inner", tile.worldx(), tile.worldy(), i*90);
+					Caches.draw(edgename + "inner", tile.worldx(), tile.worldy(), i*90);
 					
 				}
 				
@@ -116,10 +119,26 @@ public class BlockTypes{
 						continue;
 					}
 					
-					Caches.draw(name + "inneredge" + (overlaps == 2 ? "2" : ""), tile.worldx(), tile.worldy(), i*90);
+					Caches.draw(edgename + "inneredge" + (overlaps == 2 ? "2" : ""), tile.worldx(), tile.worldy(), i*90);
 					
 				}
 			}
+		}
+	}
+	
+	public static class DecalFloor extends Block{
+		Block under = null;
+
+		protected DecalFloor(String name) {
+			super(name, BlockType.floor);
+			vary = false;
+		}
+		
+		@Override
+		public void drawCache(Tile tile){
+			if(under != null)
+				Caches.draw(under.name + (under.vary ? tile.rand(under.variants) : ""), tile.worldx(), tile.worldy());
+			Caches.draw(name + (vary ? tile.rand(variants) : ""), tile.worldx(), tile.worldy());
 		}
 	}
 
@@ -365,6 +384,64 @@ public class BlockTypes{
 		@Override
 		public void drawCache(Tile tile){
 			Caches.draw(name + (vary ? tile.rand(variants) : ""), tile.worldx(), tile.worldy());
+		}
+	}
+	
+	public static class Candle extends Overlay{
+		int maxcandles = 6;
+		Color color = Color.valueOf("e1d9d2");
+		float h, s, b;
+		
+		public Candle(String name){
+			super(name);
+			
+			float[] colors = Hue.RGBtoHSB(color);
+			h = colors[0];
+			s = colors[1];
+			b = colors[2];
+		}
+		
+		@Override
+		public void draw(FacetList list, Tile tile){
+			new BaseFacet(tile.worldy()+12, p->{
+				draw(tile, false);
+			}).add(list);
+			
+			new BaseFacet(Sorter.shadow, Sorter.tile, p->{
+				draw(tile, true);
+			}).add(list);
+		}
+		
+		void draw(Tile tile, boolean shadows){
+			int candles = tile.rand(4);
+			
+			for(int i = 0; i < candles; i ++){
+				int dx = tile.rand(i*2 + 0, Vars.tilesize);
+				float dy = i * 12f/candles;
+				int candle = tile.rand(i*2 + 2, maxcandles);
+				
+				if(!shadows){
+					float hs = 0;//(tile.randFloat(i*2 + 3)-0.5f)/15f;
+					float ss = 0;//(tile.randFloat(i*2 + 4)-0.5f)/15f;
+					float bs = tile.randFloat(i*2) > 0.5  ? -0.02f : 0.1f;//(tile.randFloat(i*2 + 5)-0.5f)/5f;
+					boolean flip = tile.randFloat(i*4 + 5) > 0.5;
+					
+					flip = false;
+					
+					Tmp.c1.a = 1f;
+					Draw.color(Hue.fromHSB(h + hs, s + ss, b + bs, Tmp.c1));
+					Draw.grect("candle" + candle, tile.worldx() + dx - Vars.tilesize/2, tile.worldy() + dy  -Vars.tilesize/2, flip);
+					candleDrawn(tile, candle, flip, tile.worldx() + dx - Vars.tilesize/2, tile.worldy() + dy  -Vars.tilesize/2);
+				}else{
+					Draw.rect("shadow4", tile.worldx() + dx - Vars.tilesize/2, tile.worldy() + dy  -Vars.tilesize/2);
+				}
+			}
+			
+			Draw.color();
+		}
+		
+		void candleDrawn(Tile tile, int id, boolean flip, float x, float y){
+			
 		}
 	}
 

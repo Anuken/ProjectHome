@@ -8,13 +8,15 @@ import io.anuke.ucore.util.Mathf;
 //TODO make coords shorts?
 public class Tile{
 	public Block floor, wall, decal;
-	public int x, y;
+	public short x, y;
 	public short data1 = -1, data2 = -1;
+	public float data3 = 0f;
+	public Object data4 = null;
 	
 	public Tile(int x, int y){
 		floor = wall = decal = Blocks.air;
-		this.x = x;
-		this.y = y;
+		this.x = (short)x;
+		this.y = (short)y;
 	}
 	
 	public Tile(int x, int y, Block floor, Block wall){
@@ -32,7 +34,7 @@ public class Tile{
 	}
 	
 	public int rand(int max){
-		return Mathf.randomSeed(Bits.packLong(x, y), 1, max);
+		return rand(0, max);
 	}
 	
 	public int rand(int offset, int max){

@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Pools;
 import io.anuke.home.Vars;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
+import io.anuke.home.world.blocks.BlockTypes.Overlay;
 import io.anuke.home.world.blocks.BlockTypes.Wall;
 import io.anuke.ucore.core.Core;
 import io.anuke.ucore.graphics.Hue;
@@ -21,10 +22,16 @@ public class LightEffect extends RenderEffect{
 	private final int rayamount = 140;
 	private final int srayamount = 18;
 	private final int chunksize = 3 * Vars.tilesize;
-	private RayHandler rays = new RayHandler();
+	private RayHandler rays;
 	private Color lightColor = Hue.rgb(0.65, 0.5, 0.3).mul(1.1f);
 	
 	private int lastcamx, lastcamy;
+	
+	public LightEffect(){
+		
+		rays = new RayHandler();
+		//rays.setBlurNum(0);
+	}
 
 	@Override
 	public void init(){
@@ -75,8 +82,12 @@ public class LightEffect extends RenderEffect{
 					Rectangle rect = Pools.obtain(Rectangle.class);
 					tile.wall.getHitbox(tile, rect);
 					if(tile.wall instanceof Wall){
-						rect.y += 4;
-						rect.height -= 5;
+						rect.y += tile.wall.height;;
+						rect.height = 12f;
+					}
+					if(tile.wall instanceof Overlay){
+						rect.height -= 3f;
+						rect.y += 5f;
 					}
 					rays.addRect(rect);
 				}
@@ -105,12 +116,12 @@ public class LightEffect extends RenderEffect{
 	}
 	
 	public Light addLight(float radius){
-		return addLight(radius, lightColor);
+		return addLight(radius, Color.WHITE);
 	}
 	
 	public Light addLight(float radius, Color color){
 		Light light = new PointLight(rays, rayamount, color, radius, 0, 0);
-		light.setSoftnessLength(50f);
+		light.setSoftnessLength(15f);
 		light.setNoise(4f, 1f, 4f);
 		return light;
 	}
