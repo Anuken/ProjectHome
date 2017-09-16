@@ -171,7 +171,7 @@ public class Blocks{
 			
 			new BaseFacet(p->{
 				if(tile.data4 == null){
-					tile.data4 = Renderer.getEffect(LightEffect.class).addLight(0f, Hue.random());
+					tile.data4 = Renderer.getEffect(LightEffect.class).addLight(0f);
 				}
 				
 				Light light = (Light)tile.data4;
