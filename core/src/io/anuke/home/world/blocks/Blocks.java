@@ -1,6 +1,7 @@
 package io.anuke.home.world.blocks;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
@@ -154,6 +155,7 @@ public class Blocks{
 		
 	},
 	litcandles = new Candle("litcandles"){
+		float maxrad = 60f;
 		int[][] offsets = {
 			{3, 3},
 			{4, 2},
@@ -169,15 +171,22 @@ public class Blocks{
 			
 			new BaseFacet(p->{
 				if(tile.data4 == null){
-					tile.data4 = Renderer.getEffect(LightEffect.class).addLight(0f);
+					tile.data4 = Renderer.getEffect(LightEffect.class).addLight(0f, Hue.random());
 				}
 				
 				Light light = (Light)tile.data4;
 				tile.data3 += Timers.delta()/40f;
 				tile.data3 = Mathf.clamp(tile.data3);
-				light.setPosition(tile.worldx(), tile.worldy());
-				light.setDistance(tile.data3 * 50f);
-				light.setStaticLight(true);
+				
+				if(!MathUtils.isEqual(tile.worldx(), light.getX()) || !MathUtils.isEqual(tile.worldy(), light.getY()))
+					light.setPosition(tile.worldx(), tile.worldy());
+				
+				if(!MathUtils.isEqual(light.getDistance(), tile.data3 * maxrad))
+					light.setDistance(tile.data3 * maxrad);
+				
+				if(!light.isStaticLight())
+					light.setStaticLight(true);
+				
 			}).add(list);
 		}
 		

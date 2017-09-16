@@ -35,7 +35,7 @@ public class LightEffect extends RenderEffect{
 
 	@Override
 	public void init(){
-		rays.setTint(lightColor);
+		//rays.setTint(lightColor);
 	}
 	
 	@Override
