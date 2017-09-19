@@ -17,6 +17,7 @@ import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.ecs.extend.processors.TileCollisionProcessor;
+import io.anuke.ucore.facet.FacetContainers;
 import io.anuke.ucore.facet.FacetLayerHandler;
 import io.anuke.ucore.facet.Facets;
 import io.anuke.ucore.graphics.Atlas;
@@ -58,6 +59,7 @@ public class EditorControl extends ControlModule{
 		Core.cameraScale = 4;
 		
 		Facets.instance().setLayerManager(new FacetLayerHandler());
+		Facets.instance().setFacetContainer(FacetContainers.unsortedSet);
 		
 		Basis.instance().addProcessor(new TileCollisionProcessor(Vars.tilesize, (x, y) -> false));
 	}

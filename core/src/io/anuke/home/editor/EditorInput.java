@@ -4,6 +4,7 @@ import static io.anuke.home.editor.Evar.control;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -15,18 +16,32 @@ import io.anuke.home.world.World;
 import io.anuke.ucore.core.Core;
 import io.anuke.ucore.core.Graphics;
 import io.anuke.ucore.core.Inputs;
+import io.anuke.ucore.facet.FacetContainers;
+import io.anuke.ucore.facet.Facets;
 import io.anuke.ucore.modules.Module;
 import io.anuke.ucore.util.Mathf;
 
 public class EditorInput extends Module{
 	int lworldx, lworldy;
 	float mousedx, mousedy, lmousex, lmousey;
+	boolean lowdef = true;
 
 	public EditorInput() {
 		Inputs.addProcessor(this);
 	}
 	
 	public void update(){
+		if(Inputs.keyUp(Keys.R)){
+			Renderer.updateWalls();
+		}
+		
+		if(Inputs.keyUp(Keys.E)){
+			lowdef = !lowdef;
+			Facets.instance().clear();
+			Facets.instance().setFacetContainer(lowdef ? FacetContainers.unsortedSet : FacetContainers.array);
+			Renderer.updateWalls();
+		}
+		
 		if(Inputs.buttonRelease(Buttons.LEFT)){
 			int worldx = Mathf.scl2(Graphics.mouseWorld().x, Vars.tilesize);
 			int worldy = Mathf.scl2(Graphics.mouseWorld().y, Vars.tilesize);
