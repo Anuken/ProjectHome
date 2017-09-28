@@ -2,6 +2,7 @@ package io.anuke.home.editor;
 
 import java.util.Stack;
 
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.GridPoint2;
@@ -18,6 +19,7 @@ import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.ecs.Prototype;
 import io.anuke.ucore.function.ISegmentConsumer;
 import io.anuke.ucore.util.Mathf;
+import io.anuke.ucore.util.Physics;
 
 public enum Tool{
 	pencil{
@@ -58,6 +60,58 @@ public enum Tool{
 			tile.data1 = (short) type.getTypeID();
 			tile.wall = Blocks.spawner;
 			Renderer.updateWall(x, y);
+		}
+	},
+	line{
+		int x, y, x2, y2;
+		
+		public void down(int x, int y){
+			this.x = x;
+			this.y = y;
+		}
+		
+		public void up(int x, int y){
+			if(Evar.ui.hasMouse()) return;
+			
+			this.x2 = x;
+			this.y2 = y;
+			
+			drawLine();
+		}
+		
+		public void draw(int x, int y){
+			if(!Inputs.buttonDown(Buttons.LEFT) || Evar.ui.hasMouse()) return;
+			
+			Draw.thick(3f);
+			
+			Physics.vectorCast(this.x, this.y, x, y, (ox, oy)->{
+				for(int rx = -Evar.control.brushsize; rx <= Evar.control.brushsize; rx++){
+					for(int ry = -Evar.control.brushsize; ry <= Evar.control.brushsize; ry++){
+						if(Vector2.dst(rx, ry, 0, 0) < Evar.control.brushsize){
+							Draw.rect("place", (ox+rx)*Vars.tilesize, (oy+ry)*Vars.tilesize);
+						}
+					}
+				}
+				return false;
+			});
+			
+			Draw.color(Color.CORAL);
+			
+			Draw.line(this.x * Vars.tilesize, this.y * Vars.tilesize, x * Vars.tilesize, y * Vars.tilesize);
+			Draw.reset();;
+		}
+		
+		void drawLine(){
+			Physics.vectorCast(x, y, x2, y2, (x, y)->{
+				for(int rx = -Evar.control.brushsize; rx <= Evar.control.brushsize; rx++){
+					for(int ry = -Evar.control.brushsize; ry <= Evar.control.brushsize; ry++){
+						if(Vector2.dst(rx, ry, 0, 0) < Evar.control.brushsize){
+							pencil.clicked(rx + x, ry + y);
+						}
+					}
+				}
+				return false;
+			});
 		}
 	},
 	fill{

@@ -9,9 +9,9 @@ import io.anuke.home.entities.types.Projectile;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Spark;
-import io.anuke.ucore.entities.Entity;
 import io.anuke.ucore.modules.Module;
-import io.anuke.ucore.util.*;
+import io.anuke.ucore.util.Angles;
+import io.anuke.ucore.util.Mathf;
 
 public class WeaponTypes{
 	
@@ -211,7 +211,7 @@ public class WeaponTypes{
 				}else{
 					swing = !swing;
 					Timers.runFor(8, ()->{
-						swingang = Mathf.lerp(swingang, current(), 0.2f*Entity.delta);
+						swingang = Mathf.lerp(swingang, current(), 0.2f*Timers.delta());
 					}, ()->{
 						swingang = current();
 					});
@@ -220,9 +220,9 @@ public class WeaponTypes{
 			}
 			
 			if(Inputs.buttonDown(Buttons.RIGHT)){
-				swingang = Mathf.lerp(swingang, target(), chargealpha*Entity.delta);
+				swingang = Mathf.lerp(swingang, target(), chargealpha*Timers.delta());
 				if(charge <= chargetime)
-					charge += Entity.delta;
+					charge += Timers.delta();
 			}else if(Inputs.buttonDown(Buttons.LEFT) && Timers.get(player, "weaponcooldown", speed)){
 				slash(player, projectile, slash, damage);
 				Effects.sound("slash", player);
@@ -232,7 +232,7 @@ public class WeaponTypes{
 		
 		void slash(Spark player, Projectiles projectile, String effect, int damage){
 			
-			float delta = Entity.delta;
+			float delta = Timers.delta();
 			Vector2 vector = Module.vector;
 			float height = PlayerTrait.height;
 			float x = player.pos().x, y = player.pos().y;

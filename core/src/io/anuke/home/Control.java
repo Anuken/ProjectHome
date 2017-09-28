@@ -1,5 +1,7 @@
 package io.anuke.home;
 
+import static io.anuke.ucore.core.Core.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
@@ -28,10 +30,10 @@ import io.anuke.ucore.entities.Entities;
 import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
-import io.anuke.ucore.modules.ControlModule;
+import io.anuke.ucore.modules.RendererModule;
 import io.anuke.ucore.util.Mathf;
 
-public class Control extends ControlModule{
+public class Control extends RendererModule{
 	private Basis basis;
 	
 	private Spark player;

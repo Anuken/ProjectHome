@@ -29,7 +29,6 @@ public class Shaders{
 			shader.setUniformf("u_color", color);
 			shader.setUniformf("u_texsize", Tmp.v1.set(region.getTexture().getWidth(), region.getTexture().getHeight()));
 		}
-		
 	}
 	
 	public static class Scanline extends Shader{
