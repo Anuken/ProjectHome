@@ -7,8 +7,8 @@ public class ProjectHome extends ModuleCore {
 	
 	@Override
 	public void init(){
-		add(Vars.control = new Control());
-		add(Vars.ui = new UI());
+		module(Vars.control = new Control());
+		module(Vars.ui = new UI());
 	}
 	
 	@Override

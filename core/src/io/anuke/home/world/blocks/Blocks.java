@@ -95,6 +95,9 @@ public class Blocks{
 	stonefloor = new Floor("stonefloor"){{
 		variants = 5;
 	}},
+	cavefloor = new Floor("cavefloor"){{
+		variants = 1;
+	}},
 	bottles = new Overlay("bottles"){
 		Color color = new Color(0.9f, 0.9f, 0.9f, 0.86f);
 		{

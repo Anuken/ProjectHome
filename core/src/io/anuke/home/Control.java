@@ -169,7 +169,7 @@ public class Control extends RendererModule{
 		Facets.instance().clear();
 		Renderer.updateWalls();
 		killed.clear();
-		World.loadMap("library-filled");
+		World.loadMap("library-3");
 		Renderer.clearWorld();
 		
 		checkpoint = World.get(World.getStartX(), World.getStartY());

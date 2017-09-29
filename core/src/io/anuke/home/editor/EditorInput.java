@@ -214,7 +214,7 @@ public class EditorInput extends Module{
 			return false;
 
 		Core.camera.zoom += amount / 5f;
-		Core.camera.zoom = Mathf.clamp(Core.camera.zoom, 0.05f, 20f);
+		Core.camera.zoom = Mathf.clamp(Core.camera.zoom, 0.05f, 30f);
 		return false;
 	}
 }

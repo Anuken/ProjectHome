@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Queue;
 
+import io.anuke.home.editor.Editor;
 import io.anuke.home.effect.*;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
@@ -64,6 +65,7 @@ public class Renderer{
 	}
 
 	public static void updateWalls(){
+		if(facets == null) return;
 		for(int rx = 0; rx < facets.length; rx++){
 			for(int ry = 0; ry < facets[0].length; ry++){
 				queueFree(facets[rx][ry]);
@@ -265,7 +267,11 @@ public class Renderer{
 	}
 	
 	private static void queueFree(FacetList list){
-		freelist.addFirst(list);
+		if(Editor.active()){
+			freelist.addFirst(list);
+		}else{
+			list.free();
+		}
 	}
 
 	public static void renderWorld(){
