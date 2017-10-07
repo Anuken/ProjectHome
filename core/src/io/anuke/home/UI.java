@@ -21,8 +21,8 @@ import io.anuke.ucore.scene.ui.*;
 import io.anuke.ucore.scene.ui.layout.Cell;
 
 public class UI extends SceneModule{
-	VisibilityProvider play = ()->{return GameState.is(State.playing);};
-	VisibilityProvider inmenu = ()->{return GameState.is(State.menu);};
+	VisibilityProvider play = ()->GameState.is(State.playing);
+	VisibilityProvider inmenu = ()->GameState.is(State.menu);
 	
 	KeybindDialog keybind;
 	SettingsDialog settings;

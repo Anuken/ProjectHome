@@ -5,7 +5,7 @@ import io.anuke.home.entities.Direction;
 import io.anuke.home.entities.traits.InventoryTrait;
 import io.anuke.home.entities.traits.LightTrait;
 import io.anuke.home.entities.traits.PlayerTrait;
-import io.anuke.home.items.Item;
+import io.anuke.home.items.types.Weapon;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.Basis;
@@ -65,8 +65,8 @@ public class Player extends Prototype{
 				trait.draw(b->{
 					
 					PlayerTrait player = spark.get(PlayerTrait.class);
-					Item weapon = player.weapon;
-					float angle = player.angle(spark) + (weapon == null ? 0f : weapon.weapontype.getAngleOffset());
+					Weapon weapon = player.weapon;
+					float angle = player.angle(spark) + (weapon == null ? 0f : weapon.getAngleOffset());
 					
 					float x = spark.pos().x;
 					float y = spark.pos().y;
@@ -76,7 +76,7 @@ public class Player extends Prototype{
 					
 					Callable drawWeapon = ()->{
 						if(weapon != null){
-							weapon.weapontype.draw(spark, weapon);
+							weapon.draw(spark, weapon);
 						}else{
 							int ox = player.direction == Direction.left ? -1 : 0;
 							Draw.rect("hand", spark.pos().x - 2 + ox, spark.pos().y + 2);

@@ -140,9 +140,11 @@ public enum Tool{
 				set.add(asInt(pos.x, pos.y, width));
 
 				Block block = wall ? World.get(pos.x, pos.y).wall : World.get(pos.x, pos.y).floor;
+				
 
 				if(block == dest){
 					World.get(pos.x, pos.y).setBlock(Evar.control.selected);
+					Renderer.updateWall(pos.x, pos.y);
 
 					if(pos.x > 0 && !set.contains(asInt(pos.x - 1, pos.y, width)))
 						points.add(new GridPoint2(pos).cpy().add(-1, 0));
@@ -155,8 +157,7 @@ public enum Tool{
 				}
 			}
 
-			Renderer.clearWorld();
-			Renderer.updateWalls();
+			
 		}
 
 		int asInt(int x, int y, int width){

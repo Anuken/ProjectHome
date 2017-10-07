@@ -53,9 +53,9 @@ public class Tile{
 		if(selected.type == BlockType.floor)
 			floor = selected;
 		else if(selected.type == BlockType.decal)
-			wall = selected;
-		else
 			decal = selected;
+		else
+			wall = selected;
 	}
 	
 	@Override

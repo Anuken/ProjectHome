@@ -5,12 +5,16 @@ import java.util.Arrays;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.reflect.ClassReflection;
 
 import io.anuke.home.Vars;
 import io.anuke.home.entities.traits.InventoryTrait;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.entities.types.ItemDrop;
 import io.anuke.home.items.*;
+import io.anuke.home.items.types.Armor;
+import io.anuke.home.items.types.Soul;
+import io.anuke.home.items.types.Weapon;
 import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.scene.Element;
@@ -26,7 +30,7 @@ public class Inventory extends Table{
 	int slotw = 4, sloth = 4;
 	Slot[] slots = new Slot[4];
 	ItemStack[] stacks = new ItemStack[slotw * sloth];
-	ItemType[] filters = new ItemType[slotw * sloth];
+	ItemFilter filter = new ItemFilter(Weapon.class, Weapon.class, Soul.class, Armor.class);
 	ItemStack selected;
 	ItemTooltip tooltip;
 	boolean deselecting;
@@ -38,11 +42,6 @@ public class Inventory extends Table{
 
 	public Inventory(Spark player) {
 		trait = player.get(InventoryTrait.class);
-		
-		filters[0] = ItemType.weapon;
-		filters[1] = ItemType.ranged_weapon;
-		filters[2] = ItemType.soul;
-		filters[3] = ItemType.armor;
 		
 		trait.melee.add(Items.marblesword);
 		trait.melee.add(Items.silversword);
@@ -135,7 +134,7 @@ public class Inventory extends Table{
 		Spark spark = Vars.control.getPlayer();
 		PlayerTrait player = spark.get(PlayerTrait.class);
 		
-		player.weapon = (stacks[slotweapon] == null ? null : stacks[slotweapon].item);
+		player.weapon = (stacks[slotweapon] == null ? null : (Weapon)stacks[slotweapon].item);
 		
 		if(stacks[3] != null){
 			Item item = stacks[3].item;
@@ -193,7 +192,7 @@ public class Inventory extends Table{
 	}
 
 	public boolean canPlace(ItemStack stack, int slot){
-		return filters[slot] == null || filters[slot] == stack.item.type;
+		return filter.accept(slot, stack.item);
 	}
 	
 	public boolean isFull(){
@@ -214,7 +213,7 @@ public class Inventory extends Table{
 			if(stack == null){
 				stacks[i] = add;
 				return true;
-			}else if(stack.item == add.item && stack.item.type.stackable){
+			}else if(stack.item == add.item && stack.item.stackable){
 				stacks[i].amount += add.amount;
 				return true;
 			}
@@ -255,7 +254,7 @@ public class Inventory extends Table{
 			
 			label.setText(
 				"[yellow]"+item.formalName+"\n"+
-				"[DARK_GRAY]" + Strings.capitalize(item.type.name()) + 
+				"[DARK_GRAY]" + Strings.capitalize(item.typeName) + 
 				"[orange]" + stat+
 				"[purple]" + desc
 			);
@@ -311,8 +310,8 @@ public class Inventory extends Table{
 				Draw.rect(stack.item.name + "-item", x + width / 2, y + height / 2-4, itemsize, itemsize);
 				Draw.color();
 				Draw.rect(stack.item.name + "-item", x + width / 2, y + height / 2, itemsize, itemsize);
-			}else if(filters[index] != null){
-				Draw.rect("icon-" + filters[index].name(), x + width / 2, y + height / 2, itemsize, itemsize);
+			}else if(filter.getType(index) != null){
+				Draw.rect("icon-" + ClassReflection.getSimpleName(filter.getType(index)).toLowerCase(), x + width / 2, y + height / 2, itemsize, itemsize);
 			}
 		}
 	}

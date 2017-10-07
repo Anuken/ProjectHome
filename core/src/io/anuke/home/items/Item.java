@@ -1,55 +1,21 @@
 package io.anuke.home.items;
 
-import io.anuke.ucore.util.Strings;
-
 public class Item{
 	public final String name;
-	public final WeaponType weapontype;
-	public final ItemType type;
-	public int attackbuff = 0, defensebuff = 0, speedbuff = 0;
+	public String typeName;
 	public String formalName;
 	public String description = null;
+	public boolean stackable = false;
+	public int attackbuff = 0, defensebuff = 0, speedbuff = 0;
 	
-	public Item(String name, ItemType type){
+	public Item(String name, String formalName, String typeName){
 		this.name = name;
-		this.type = type;
-		this.formalName = Strings.capitalize(name);
-		this.weapontype = null;
-	}
-	
-	public Item(String name, String formal, ItemType type){
-		this.name = name;
-		this.type = type;
-		this.formalName = formal;
-		this.weapontype = null;
-	}
-	
-	public Item(String name, WeaponType weapon){
-		this.name = name;
-		this.type = ItemType.weapon;
-		this.formalName = Strings.capitalize(name);
-		this.weapontype = weapon;
-	}
-	
-	public Item(String name, String fname, WeaponType weapon){
-		this.name = name;
-		this.type = ItemType.weapon;
-		this.formalName = fname;
-		this.weapontype = weapon;
-	}
-	
-	public Item(String name, String fname, ItemType type, WeaponType weapon){
-		this.name = name;
-		this.type = type;
-		this.formalName = fname;
-		this.weapontype = weapon;
+		this.formalName = formalName;
+		this.typeName = typeName;
 	}
 	
 	public String getStats(){
 		String out = "";
-		if(weapontype != null){
-			out += "\n[orange]" + weapontype.getStatString(); 
-		}
 		
 		if(Math.abs(attackbuff) > 0){
 			out += "\n" + parse(attackbuff) + " Attack";

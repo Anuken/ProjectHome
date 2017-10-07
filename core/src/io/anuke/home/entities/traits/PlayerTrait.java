@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import io.anuke.home.Vars;
 import io.anuke.home.entities.Direction;
-import io.anuke.home.items.Item;
+import io.anuke.home.items.types.Weapon;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
 import io.anuke.home.world.blocks.Blocks;
@@ -31,7 +31,7 @@ public class PlayerTrait extends Trait{
 	public float dashcharge = 15f;
 	
 	public boolean oncheckpoint = false;
-	public Item weapon;
+	public Weapon weapon;
 	public int defense;
 	public int attack;
 	public float speed;
@@ -140,7 +140,7 @@ public class PlayerTrait extends Trait{
 		}
 		
 		if(weapon != null && !Vars.ui.hasMouse() && !Vars.ui.getInventory().selectedItem()){
-			weapon.weapontype.update(spark);
+			weapon.update(spark);
 		}
 	}
 	

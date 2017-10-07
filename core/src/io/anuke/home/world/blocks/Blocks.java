@@ -85,6 +85,11 @@ public class Blocks{
 		height = 13;
 		blendWith = block->block.name.contains("brick") && block instanceof Wall;
 	}},
+	tallbrickwall = new Wall("tallbrickwall"){{
+		height = 19;
+		edge = "brickwall";
+		blendWith = block->block.name.contains("brick") && block instanceof Wall;
+	}},
 	brickshelf = new Wall("brickshelf"){{
 		height = 13;
 		variants = 3;

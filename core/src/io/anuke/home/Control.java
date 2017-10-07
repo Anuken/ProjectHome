@@ -31,7 +31,6 @@ import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
 import io.anuke.ucore.modules.RendererModule;
-import io.anuke.ucore.util.Mathf;
 
 public class Control extends RendererModule{
 	private Basis basis;
@@ -166,6 +165,7 @@ public class Control extends RendererModule{
 	public void reset(){
 		if(Vars.ui.inventory != null)
 			Vars.ui.clearInventory();
+		
 		Facets.instance().clear();
 		Renderer.updateWalls();
 		killed.clear();
@@ -179,6 +179,7 @@ public class Control extends RendererModule{
 		for(Trait trait : player.getTraits()){
 			trait.removed(player);
 		}
+		
 		player.get(PlayerTrait.class).reset();
 		player.add();
 		
@@ -229,15 +230,7 @@ public class Control extends RendererModule{
 			
 			smoothCamera(player.pos().x, player.pos().y+2f + add, 0.2f);
 			
-			float lim = 3;
-			
-			if(Math.abs(player.pos().x - camera.position.x) > lim){
-				camera.position.x = player.pos().x - Mathf.clamp(player.pos().x - camera.position.x, -lim, lim);
-			}
-			
-			if(Math.abs(player.pos().y - camera.position.y) > lim){
-				camera.position.y = player.pos().y - Mathf.clamp(player.pos().y - camera.position.y, -lim, lim);
-			}
+			limitCamera(3f, player.pos().x, player.pos().y);
 			
 			if(boss != null){
 				Musics.playTracks("boss");
