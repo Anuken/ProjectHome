@@ -387,10 +387,19 @@ public class BlockTypes{
 		}
 	}
 	
-	public static class Candle extends Overlay{
+	public abstract static class Candle extends Overlay implements Lightable{
 		int maxcandles = 6;
+		int[][] offsets = {
+			{3, 3},
+			{4, 2},
+			{4, 4},
+			{3, 4},
+			{3, 4},
+			{4, 4},
+		};
 		Color color = Color.valueOf("e1d9d2");
 		float h, s, b;
+		
 		
 		public Candle(String name){
 			super(name);
@@ -440,7 +449,26 @@ public class BlockTypes{
 			Draw.color();
 		}
 		
-		void candleDrawn(Tile tile, int id, boolean flip, float x, float y){
+
+		
+		void candleDrawn(Tile tile, int candle, boolean flip, float x, float y){
+			x -= 0.25f;
+			y -= 0.75f;
+			
+			float offsetx = 8f - offsets[candle-1][0];
+			float offsety = 8f - offsets[candle-1][1];
+			
+			if(flip)
+				offsetx = 8f-offsetx;
+			
+			offsety += 1.5f;
+			
+			float rad = tile.data3 * (Mathf.sin(Timers.time() + tile.randFloat((int)(x*742 - y*35))*742, 3f, 0.35f) + 1.4f);
+			
+			Draw.color(Color.ORANGE);
+			Draw.rect("circle", x + offsetx - 4f, y + offsety + rad/3f, rad*2, rad*2);
+			Draw.color(Color.YELLOW);
+			Draw.rect("circle", x + offsetx - 4f, y + offsety, rad, rad);
 			
 		}
 	}

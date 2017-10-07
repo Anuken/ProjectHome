@@ -77,39 +77,6 @@ public class Inventory extends Table{
 		}
 		
 		stacks[0] = new ItemStack(Items.marblesword);
-		
-		/*
-		Table weapons = new Table();
-		
-		for(int i = 0; i < trait.capacity; i ++){
-			Table slot = new Table("slot");
-			
-			weapons.add(slot).size(64).pad(8);
-			weapons.row();
-		}
-		
-		add(weapons);
-		/*
-		background("inventory");
-		
-		Table slots = new Table();
-		
-		//add("Inventory", Color.DARK_GRAY).padBottom(-32).left();
-		//row();
-		//add("Inventory").left().padBottom(4);
-		//row();
-		add(slots);
-		
-		pad(10);
-		
-		for(int y = 0; y < sloth; y++){
-			for(int x = 0; x < slotw; x++){
-				Slot slot = new Slot(y * slotw + x);
-				slots.add(slot).size(slotsize);
-			}
-			slots.row();
-		}
-		*/
 	}
 	
 	@Override
@@ -135,6 +102,7 @@ public class Inventory extends Table{
 		PlayerTrait player = spark.get(PlayerTrait.class);
 		
 		player.weapon = (stacks[slotweapon] == null ? null : (Weapon)stacks[slotweapon].item);
+		player.soul = (stacks[2] == null ? null : (Soul)stacks[2].item);
 		
 		if(stacks[3] != null){
 			Item item = stacks[3].item;
@@ -258,10 +226,6 @@ public class Inventory extends Table{
 				"[orange]" + stat+
 				"[purple]" + desc
 			);
-			
-			//namel.setText(Strings.capitalize(item.name));
-			//descl.setText(item.description == null ? "                         " : item.description);
-			//typel.setText(Strings.capitalize(item.type.name()));
 			
 			getCell(image).pad(4);
 			

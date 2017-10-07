@@ -104,7 +104,7 @@ public class Sword extends Weapon{
 				swing = !swing;
 				slash(player, altprojectile, alt, damage * chargemult);
 				Effects.sound("slash2", player);
-				Effects.shake(4, 4);
+				Effects.shake(4, 4, player);
 			}else{
 				swing = !swing;
 				Timers.runFor(8, () -> {
@@ -123,7 +123,7 @@ public class Sword extends Weapon{
 		}else if(Inputs.buttonDown(Buttons.LEFT) && Timers.get(player, "weaponcooldown", speed)){
 			slash(player, projectile, slash, damage);
 			Effects.sound("slash", player);
-			Effects.shake(1f, 1f);
+			Effects.shake(1f, 1f, player);
 		}
 	}
 

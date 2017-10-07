@@ -2,6 +2,7 @@ package io.anuke.home.world;
 
 import com.badlogic.gdx.Gdx;
 
+import io.anuke.home.Vars;
 import io.anuke.home.world.blocks.BlockTypes.Wall;
 import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.ecs.Prototype;
@@ -111,6 +112,10 @@ public class World{
 		}
 
 		return tiles[x][y];
+	}
+	
+	public static Tile getWorld(float x, float y){
+		return get(Mathf.scl2(x, Vars.tilesize), Mathf.scl2(y, Vars.tilesize));
 	}
 
 	public static void set(int x, int y, Tile tile){

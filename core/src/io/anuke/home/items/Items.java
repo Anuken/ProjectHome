@@ -1,9 +1,14 @@
 package io.anuke.home.items;
 
+import io.anuke.home.Renderer;
 import io.anuke.home.entities.traits.PlayerTrait;
 import io.anuke.home.entities.types.Projectile;
 import io.anuke.home.entities.types.Projectiles;
 import io.anuke.home.items.types.*;
+import io.anuke.home.world.Tile;
+import io.anuke.home.world.World;
+import io.anuke.home.world.blocks.Blocks;
+import io.anuke.ucore.core.Core;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.util.Angles;
@@ -14,6 +19,16 @@ public class Items{
 	lightsoul = new Soul("lightsoul", "Soul of Light"){
 		{
 		
+		}
+		
+		@Override
+		public void update(Spark player){
+			Tile tile = World.getWorld(player.pos().x, player.pos().y);
+			
+			if(tile != null && tile.wall == Blocks.candles){
+				tile.wall = Blocks.litcandles;
+				Renderer.updateWall(tile.x, tile.y);
+			}
 		}
 	},
 	densearmor = new Armor("densearmor", "Dense Armor"){{
@@ -135,7 +150,7 @@ public class Items{
 		
 		@Override
 		public void onShoot(){
-			Effects.shake(3, 2);
+			Effects.shake(3, 2, Core.camera.position.x, Core.camera.position.y);
 		}
 		
 		@Override

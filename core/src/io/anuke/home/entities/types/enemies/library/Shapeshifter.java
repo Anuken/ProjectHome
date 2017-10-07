@@ -13,7 +13,8 @@ import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.Trait;
 import io.anuke.ucore.ecs.TraitList;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
-import io.anuke.ucore.util.*;
+import io.anuke.ucore.util.Angles;
+import io.anuke.ucore.util.Mathf;
 
 public class Shapeshifter extends Enemy{
 	int[] runes = new int[8];
@@ -57,7 +58,7 @@ public class Shapeshifter extends Enemy{
 				//TODO effect
 				Timers.runFor(data.sides*5, ()->{
 					if(Timers.get(spark, "reload2", 2)){
-						Effects.shake(0.5f, 2f);
+						Effects.shake(0.5f, 2f, spark);
 						shoot(spark, Projectiles.lightflash, raise(), target, 4f, Mathf.range(30f));
 						
 						shoot(spark, Projectiles.lightshot, raise(), target, 5f, Mathf.range(20f));

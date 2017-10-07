@@ -19,6 +19,7 @@ public abstract class DarkEnemy extends Enemy{
 		effectColor = eyeColor;
 		deatheffect = "shadedeath";
 		hiteffect = "shadehit";
+		untargetMultiplier = 2f;
 	}
 	
 	@Override

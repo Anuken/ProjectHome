@@ -35,7 +35,7 @@ public class BigCrawler extends DarkEnemy{
 				if(Timers.get("crawlerspark", 4)){
 					Effects.effect("shadecloud", eyeColor, spark.pos().x + Mathf.range(14f), spark.pos().y + Mathf.range(14f));
 				}
-				Effects.shake(0.25f, 3f);
+				Effects.shake(0.25f, 3f, spark);
 			}, ()->{
 				callSuper(Death.class, spark);
 				for(int i = 0; i < 3; i ++){
@@ -51,7 +51,7 @@ public class BigCrawler extends DarkEnemy{
 						Effects.effect("shadecloud", eyeColor, spark.pos().x + Mathf.range(14f), spark.pos().y + Mathf.range(14f));
 					});
 				}
-				Effects.shake(4f, 5f);
+				Effects.shake(4f, 5f, spark);
 			});
 			
 			spark.get(Data.class).dying = true;

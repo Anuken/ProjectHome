@@ -31,10 +31,10 @@ public class Crawler extends DarkEnemy{
 				if(Timers.get("crawlerspark", 8)){
 					Effects.effect("shadecloud", eyeColor, spark.pos().x + Mathf.range(8f), spark.pos().y + Mathf.range(8f));
 				}
-				Effects.shake(0.25f, 3f);
+				Effects.shake(0.25f, 3f, spark);
 			}, ()->{
 				callSuper(Death.class, spark);
-				Effects.shake(3f, 4f);
+				Effects.shake(3f, 4f, spark);
 			});
 			
 			spark.get(Data.class).dying = true;

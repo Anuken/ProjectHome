@@ -39,7 +39,7 @@ public class Staff extends Weapon{
 	}
 
 	public void altAttack(Spark player){
-		Effects.shake(3f, 3f);
+		Effects.shake(3f, 3f, player);
 		float basex = Angles.x(), basey = Angles.y();
 		
 		Angles.circle(20, f -> {

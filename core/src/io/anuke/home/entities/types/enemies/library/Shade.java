@@ -33,9 +33,9 @@ public class Shade extends DarkEnemy{
 				if(Timers.get(spark, "shadespark", 8)){
 					Effects.effect("shadecloud", eyeColor, spark.pos().x + Mathf.range(6f), spark.pos().y + Mathf.range(6f) + raise());
 				}
-				Effects.shake(0.25f, 3f);
+				Effects.shake(0.25f, 3f, spark);
 			}, ()->{
-				Effects.shake(3f, 4f);
+				Effects.shake(3f, 4f, spark);
 				callSuper(Death.class, spark);
 			});
 		});

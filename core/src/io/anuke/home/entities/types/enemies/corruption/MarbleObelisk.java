@@ -33,7 +33,7 @@ public class MarbleObelisk extends Enemy{
 		
 		if(Timers.get(spark, "bigshot", 240)){
 			Effects.effect("golemwave", spark);
-			Effects.shake(3, 4f);
+			Effects.shake(3, 4f, spark);
 			
 			for(int i = 0; i < 4; i ++)
 				Effects.effect("purpleeyeflash", x, y+i+6);

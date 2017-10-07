@@ -51,7 +51,7 @@ public abstract class Projectiles extends ProjectileType{
 		
 		public void despawned(Spark spark){
 			Projectile.create(darkshot, spark.projectile().source, spark.pos().x, spark.pos().y, spark.velocity().angle());
-			Effects.shake(3f, 3f);
+			Effects.shake(3f, 3f, spark);
 		}
 	},
 	darkshot = new Projectiles(){
@@ -91,7 +91,7 @@ public abstract class Projectiles extends ProjectileType{
 		}
 		
 		public void removed(Spark spark){
-			Effects.shake(2f, 3f);
+			Effects.shake(2f, 3f, spark);
 			
 			Angles.circle(8, f->{
 				Angles.translation(f, 4f);

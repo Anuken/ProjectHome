@@ -70,6 +70,6 @@ public class EnemyTrait extends Trait{
 	
 	public boolean targetValid(Spark spark){
 		return target != null && !target.get(HealthTrait.class).dead 
-				&& spark.pos().dst(target.pos()) < ((Enemy)spark.getType()).range;
+				&& spark.pos().dst(target.pos()) < ((Enemy)spark.getType()).range * ((Enemy)spark.getType()).untargetMultiplier;
 	}
 }

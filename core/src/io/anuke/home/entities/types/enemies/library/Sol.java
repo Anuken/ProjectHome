@@ -49,7 +49,7 @@ public class Sol extends Enemy{
 					shoot(spark, Projectiles.lightflash, raise(), target, 5, Mathf.range(50f));
 					
 					trait.moveTowardDeltaless(spark);
-					Effects.shake(0.5f, 1f);
+					Effects.shake(0.5f, 1f, spark);
 				}
 			}, ()->{
 				

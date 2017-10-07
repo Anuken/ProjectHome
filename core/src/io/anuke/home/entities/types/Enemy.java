@@ -32,7 +32,9 @@ public abstract class Enemy extends Prototype{
 			deatheffect = "death", 
 			deathsound = "tentadie";
 	public Color effectColor = Color.WHITE.cpy();
-
+	
+	/**The number to multiply the range by to get the range at which the player is un-targeted.*/
+	public float untargetMultiplier = 1.4f;
 	public float range = 230, reload = 150f;
 	public boolean despawn = true;
 	public boolean passthrough = false;

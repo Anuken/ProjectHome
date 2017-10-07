@@ -160,18 +160,42 @@ public class Blocks{
 		}
 	},
 	candles = new Candle("candles"){
+		@Override
+		public boolean light(Tile tile){
+			tile.wall = litcandles;
+			return true;
+		}
+
+		@Override
+		public boolean extinguish(Tile tile){
+			return false;
+		}
 		
+		@Override
+		public void draw(FacetList list, Tile tile){
+			super.draw(list, tile);
+			
+			//de-light the candles if needed
+			new BaseFacet(p->{
+				tile.data3 -= Timers.delta()/30f;
+				tile.data3 = Mathf.clamp(tile.data3);
+			}).add(list);
+		}
 	},
 	litcandles = new Candle("litcandles"){
 		float maxrad = 60f;
-		int[][] offsets = {
-			{3, 3},
-			{4, 2},
-			{4, 4},
-			{3, 4},
-			{3, 4},
-			{4, 4},
-		};
+		
+		@Override
+		public boolean light(Tile tile){
+			return false;
+		}
+
+		@Override
+		public boolean extinguish(Tile tile){
+			tile.wall = candles;
+			cleanup(tile);
+			return true;
+		}
 		
 		@Override
 		public void draw(FacetList list, Tile tile){
@@ -202,35 +226,15 @@ public class Blocks{
 		public void cleanup(Tile tile){
 			if(tile.data4 == null) return;
 			
-			((Light)tile.data4).remove();
+			Light light = ((Light)tile.data4);
+			
+			Timers.runFor(maxrad, ()->{
+				light.setDistance(Mathf.clamp(light.getDistance() - Timers.delta(), 4f, maxrad));
+			}, ()->{
+				light.remove();
+			});
 			
 			tile.data4 = null;
-		}
-		
-		@Override
-		void candleDrawn(Tile tile, int candle, boolean flip, float x, float y){
-			x -= 0.25f;
-			y -= 0.75f;
-			
-			//TODO make them blue when near dark enemies
-			
-			//Draw.grect("candlelight" + (int)(Timers.time()/6f + x*325) % 3, x, y + 6f);
-			
-			float offsetx = 8f - offsets[candle-1][0];
-			float offsety = 8f - offsets[candle-1][1];
-			
-			if(flip)
-				offsetx = 8f-offsetx;
-			
-			offsety += 1.5f;
-			
-			float rad = tile.data3 * (Mathf.sin(Timers.time() + tile.randFloat((int)(x*742 - y*35))*742, 3f, 0.35f) + 1.4f);
-			
-			Draw.color(Color.ORANGE);
-			Draw.rect("circle", x + offsetx - 4f, y + offsety + rad/3f, rad*2, rad*2);
-			Draw.color(Color.YELLOW);
-			Draw.rect("circle", x + offsetx - 4f, y + offsety, rad, rad);
-			
 		}
 	},
 	rocks = new Overlay("rocks"),

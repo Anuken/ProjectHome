@@ -17,7 +17,8 @@ import io.anuke.ucore.ecs.*;
 import io.anuke.ucore.ecs.extend.Events.Death;
 import io.anuke.ucore.ecs.extend.processors.CollisionProcessor;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
-import io.anuke.ucore.util.*;
+import io.anuke.ucore.util.Angles;
+import io.anuke.ucore.util.Mathf;
 
 public class DarkEffigy extends Enemy{
 	private static final Color tent = new Color(0x500680ff);
@@ -33,7 +34,7 @@ public class DarkEffigy extends Enemy{
 		event(Death.class, spark->{
 			float x = spark.pos().x, y = spark.pos().y;
 			
-			Effects.shake(10, 60f);
+			Effects.shake(10, 60f, spark);
 			Effects.effect("wraithdie", x, y+10);
 			Effects.sound("bossdie", spark);
 			
@@ -136,7 +137,7 @@ public class DarkEffigy extends Enemy{
 				}, ()->{
 					float cx = spark.pos().x, cy = spark.pos().y;
 					data.eyeflash = 1f;
-					Effects.shake(4f, 4f);
+					Effects.shake(4f, 4f, spark);
 					
 					Angles.circle(4, f->{
 						shoot(spark, Projectiles.shadowsplit, cx, cy+height, f);
