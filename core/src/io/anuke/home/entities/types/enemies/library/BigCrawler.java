@@ -3,6 +3,7 @@ package io.anuke.home.entities.types.enemies.library;
 import com.badlogic.gdx.graphics.Color;
 
 import io.anuke.home.entities.Prototypes;
+import io.anuke.home.entities.traits.DarkenTrait;
 import io.anuke.home.entities.traits.EnemyTrait;
 import io.anuke.home.entities.types.*;
 import io.anuke.ucore.core.Draw;
@@ -17,8 +18,10 @@ import io.anuke.ucore.util.Angles;
 import io.anuke.ucore.util.Mathf;
 
 public class BigCrawler extends DarkEnemy{
+	/**number of tentacles*/
+	int numtentacles = 24;
+	/**tentacle prototype instance*/
 	Tentacle tentacle = new Tentacle();
-	static int numtentacles = 24;
 	
 	public BigCrawler(){
 		range = 200f;
@@ -207,10 +210,11 @@ public class BigCrawler extends DarkEnemy{
 	public TraitList traits(){
 		TraitList list = super.traits();
 		list.get(TileCollideTrait.class).trigger = true;
+		list.get(DarkenTrait.class).darkenRad = 7;
 		return list;
 	}
 	
-	static class Data extends Trait{
+	class Data extends Trait{
 		float[] scales = new float[numtentacles];
 		float[] damages = new float[numtentacles];
 		Spark[] tentacles = new Spark[numtentacles];

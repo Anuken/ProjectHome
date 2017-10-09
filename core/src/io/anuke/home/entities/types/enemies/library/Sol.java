@@ -51,8 +51,6 @@ public class Sol extends Enemy{
 					trait.moveTowardDeltaless(spark);
 					Effects.shake(0.5f, 1f, spark);
 				}
-			}, ()->{
-				
 			});
 			
 			

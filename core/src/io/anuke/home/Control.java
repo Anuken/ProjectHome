@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
-import io.anuke.gif.GifRecorder;
 import io.anuke.home.GameState.State;
 import io.anuke.home.effect.EffectCreator;
 import io.anuke.home.effect.LightEffect;
@@ -31,6 +30,8 @@ import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Atlas;
 import io.anuke.ucore.graphics.Textures;
 import io.anuke.ucore.modules.RendererModule;
+import io.anuke.ucore.util.Mathf;
+import io.anuke.ucore.util.Tmp;
 
 public class Control extends RendererModule{
 	private Basis basis;
@@ -41,7 +42,7 @@ public class Control extends RendererModule{
 	private Tile checkpoint;
 	private Array<Spark> killed = new Array<>();
 	
-	private GifRecorder recorder = new GifRecorder(batch);
+	private String[] noises = {"waterdrop", "waterdrop2", "switch1", "growl1"};
 	
 	public Control(){
 		atlas = new Atlas("sprites.atlas");
@@ -75,6 +76,8 @@ public class Control extends RendererModule{
 			spark.pos().set(x, y);
 			spark.add();
 		});
+		
+		Effects.setShakeFalloff(9000f);
 	
 		KeyBinds.defaults(
 			"up", Keys.W,
@@ -91,8 +94,11 @@ public class Control extends RendererModule{
 		
 		Settings.loadAll("io.anuke.home");
 		
-		Sounds.load("blockdie.wav", "hurt.wav", "pickup.wav", "shoot.wav", "slash.wav", 
-				"slash2.wav", "tentadie.wav", "ult.wav", "walls.wav", "death.wav", "bossdie.wav", "respawn.wav");
+		Sounds.load("blockdie.wav", "hurt.mp3", "pickup.wav", "shoot.mp3", "slash.mp3", 
+				"slash2.mp3", "tentadie.wav", "ult.wav", "walls.wav", "death.mp3", "bossdie.wav", "respawn.mp3", 
+				"distortroar.mp3", "waterdrop.mp3", "waterdrop2.mp3", "switch1.mp3", "growl1.mp3");
+		
+		Sounds.setGlobalVolume(0.2f);
 		
 		Musics.load("menu.ogg", "world1.mp3", "boss.mp3");
 		
@@ -198,8 +204,15 @@ public class Control extends RendererModule{
 		
 		Renderer.getEffect(LightEffect.class).setEnabled(World.data().dark);
 		
-		if(Inputs.keyDown(Keys.ESCAPE) && Vars.debug)
-			Gdx.app.exit();
+		if(Vars.debug){
+			//if(Inputs.keyDown(Keys.ESCAPE))
+			//	Gdx.app.exit();
+			
+			if(Inputs.keyDown(Keys.SPACE))
+				Effects.shake(3f, 3f, Graphics.mouseWorld().x, Graphics.mouseWorld().y);
+		}
+		
+		
 		
 		if(GameState.is(State.playing)){
 			basis.setProcessorsEnabled(true);
@@ -210,6 +223,11 @@ public class Control extends RendererModule{
 			}
 			
 			Entities.update();
+			
+			if(Mathf.chance(0.002f* Timers.delta())){
+				Tmp.v1.setToRandomDirection().setLength(Mathf.random(10f, 200f));
+				Sounds.play(noises[Mathf.random(0, noises.length-1)], Mathf.random(0.6f));
+			}
 			
 		}else if(GameState.is(State.paused)){
 			basis.setProcessorsEnabled(false);
@@ -267,7 +285,7 @@ public class Control extends RendererModule{
 		batch.draw(Draw.getSurface("darkness").texture(), 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
 		Draw.end();
 		
-		recorder.update();
+		record();
 		
 		if(!GameState.is(State.paused)){
 			Timers.update();

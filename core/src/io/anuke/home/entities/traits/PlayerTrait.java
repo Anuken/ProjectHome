@@ -41,7 +41,7 @@ public class PlayerTrait extends Trait{
 	public Soul soul;
 	
 	public float walktime;
-	public float walkspeed = 0.09f;
+	public float walkspeed = 0.08f;
 	public float lightrange;
 	
 	@Override

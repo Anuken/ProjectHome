@@ -24,6 +24,7 @@ public class Crawler extends DarkEnemy{
 		speed = 0.16f;
 		passthrough = true;
 		height = 0f;
+		deathsound = "distortroar";
 		
 		event(Death.class, (spark)->{
 			

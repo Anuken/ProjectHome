@@ -10,6 +10,7 @@ import io.anuke.home.world.Block;
 import io.anuke.home.world.BlockType;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.blocks.BlockTypes.*;
+import io.anuke.home.world.blocks.BlockTypes.LiveSpellCircle.SpellShape;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Basis;
@@ -307,11 +308,11 @@ public class Blocks{
 			table.draw(list, tile);
 			new BaseFacet(tile.worldy() - offset, p->{
 				
-				int amount = tile.rand(-1, 3)-1;
+				int amount = tile.rand(-1, 3);
 				
 				for(int i = 0; i < amount; i ++){
 					
-					int index = tile.rand(-2, colors.length) - 1;
+					int index = tile.rand(-2 - i*2, colors.length) - 1;
 					int dx = tile.rand(i*2 + 0, 14);
 					int dy = tile.rand(i*2 + 2, 4);
 					int rot = tile.rand(i*2 + 4, 360);
@@ -384,6 +385,15 @@ public class Blocks{
 			
 			Draw.reset();
 		}
+	},
+	
+	lightspawncircle = new LiveSpellCircle("lightspawncircle",
+			new SpellShape(25, 26f, 0f, 2f),
+			new SpellShape(5, 25f, 0f, 1f),
+			new SpellShape(5, 25f, 180f/5, 1f),
+			new SpellShape(true, 10, 13f)
+			){
+		
 	},
 	
 	end = null

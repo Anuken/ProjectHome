@@ -16,9 +16,7 @@ import io.anuke.ucore.facet.*;
 import io.anuke.ucore.function.Predicate;
 import io.anuke.ucore.graphics.Caches;
 import io.anuke.ucore.graphics.Hue;
-import io.anuke.ucore.util.Geometry;
-import io.anuke.ucore.util.Mathf;
-import io.anuke.ucore.util.Tmp;
+import io.anuke.ucore.util.*;
 
 public class BlockTypes{
 
@@ -326,6 +324,80 @@ public class BlockTypes{
 		}
 
 		public abstract void draw(Tile tile, float x, float y);
+	}
+	
+	public static abstract class LiveSpellCircle extends Block{
+		SpellShape[] shapes;
+		Color color = Color.WHITE;
+		float spinspeed = 0f;
+		
+		private int cindex = 0;
+
+		public LiveSpellCircle(String name, SpellShape... shapes) {
+			super(name, BlockType.wall);
+			this.shapes = shapes;
+		}
+
+		@Override
+		public void draw(FacetList list, Tile tile){
+			new BaseFacet(0, Sorter.tile, b -> {
+				Draw.colorl(color, 0.9f + Mathf.sin(Timers.time(), 10f, 0.1f));
+				
+				int index = 0;
+				
+				for(SpellShape shape : shapes){
+					
+					float spin = Timers.time() * ((index % 2) - 0.5f)*2f * spinspeed;
+					
+					if(shape.runes){
+						cindex = 0;
+						
+						Angles.circle(shape.sides, f->{
+							cindex ++;
+							Angles.translation(f + shape.rotation + spin, shape.radius);
+							Draw.rect(randRune(cindex + 1, tile), tile.worldx() + Angles.x(), tile.worldy() + Angles.y());
+						});
+					}else{
+						Draw.thick(shape.thickness);
+						Draw.polygon(shape.sides, tile.worldx(), tile.worldy(), shape.radius, shape.rotation + spin);
+					}
+					
+					index ++;
+				}
+				
+				Draw.color();
+			}).add(list);
+		}
+
+		public TextureRegion randRune(int index, Tile tile){
+			return Renderer.getRune(tile.rand(index, 15) - 1);
+		}
+		
+		static public class SpellShape{
+			public int sides;
+			public float radius, thickness = 1f, rotation;
+			public boolean runes;
+			
+			public SpellShape(int sides, float radius, float angle, float thickness){
+				this.sides = sides;
+				this.radius = radius;
+				this.rotation = angle;
+				this.thickness = thickness;
+			}
+			
+			public SpellShape(int sides, float radius, float angle){
+				this(sides, radius, angle, 1f);
+			}
+			
+			public SpellShape(int sides, float radius){
+				this(sides, radius, 0);
+			}
+			
+			public SpellShape(boolean runes, int sides, float radius){
+				this(sides, radius, 90f/sides);
+				this.runes = runes;
+			}
+		}
 	}
 
 	public static class Checkpoint extends Block{
