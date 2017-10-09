@@ -25,6 +25,8 @@ public class DarkBlob extends DarkEnemy{
 		
 		range = 140f;
 		
+		deathsound = "blobdie";
+		
 		event(Death.class, spark->{
 			callSuper(Death.class, spark);
 			
@@ -45,6 +47,7 @@ public class DarkBlob extends DarkEnemy{
 		for(int i = 0; i < 2; i ++){
 			Spark split = new Spark(Prototypes.darkblob);
 			split.get(Data.class).size = data.size/2f;
+			split.get(EnemyTrait.class).time = waketime;
 			split.pos().set(spark.pos().x + Mathf.range(data.size/3f), spark.pos().y + Mathf.range(data.size/3f));
 			split.add();
 		}
@@ -167,7 +170,7 @@ public class DarkBlob extends DarkEnemy{
 				radius *= wake;
 				
 				Angles.translation(rotation + Timers.time() * scale, len);
-
+				
 				Draw.rect("circle", spark.pos().x + Angles.x(), spark.pos().y + Angles.y(), radius, radius);
 			}
 

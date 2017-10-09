@@ -96,7 +96,8 @@ public class Control extends RendererModule{
 		
 		Sounds.load("blockdie.wav", "hurt.mp3", "pickup.wav", "shoot.mp3", "slash.mp3", 
 				"slash2.mp3", "tentadie.wav", "ult.wav", "walls.wav", "death.mp3", "bossdie.wav", "respawn.mp3", 
-				"distortroar.mp3", "waterdrop.mp3", "waterdrop2.mp3", "switch1.mp3", "growl1.mp3");
+				"distortroar.mp3", "waterdrop.mp3", "waterdrop2.mp3", "switch1.mp3", "growl1.mp3",
+				"blobdie.mp3", "scream.mp3");
 		
 		Sounds.setGlobalVolume(0.2f);
 		

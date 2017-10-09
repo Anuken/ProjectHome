@@ -31,6 +31,7 @@ public class BigCrawler extends DarkEnemy{
 		height = 0f;
 		
 		deatheffect = "bigshadedeath";
+		deathsound = "scream";
 		
 		event(Death.class, (spark)->{
 			
