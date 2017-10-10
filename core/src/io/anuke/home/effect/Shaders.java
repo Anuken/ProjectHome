@@ -71,6 +71,7 @@ public class Shaders{
 			Core.camera.project(Tmp.v31.set(screenx, screeny, 0));
 			shader.setUniformf("time", Timers.time());
 			shader.setUniformf("glowcolor", color);
+			shader.setUniformf("bounds", 0.033f);
 			shader.setUniformf("resolution", (float)Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight());
 			shader.setUniformf("pos", Tmp.v31.x/Gdx.graphics.getWidth(), Tmp.v31.y/Gdx.graphics.getHeight());
 		}

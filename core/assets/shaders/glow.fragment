@@ -5,7 +5,7 @@ precision mediump int;
 
 uniform sampler2D u_texture;
 
-uniform float bounds = 0.033;
+uniform float bounds;
 uniform float time;
 uniform vec2 resolution;
 uniform vec2 pos;

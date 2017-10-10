@@ -3,7 +3,7 @@ package io.anuke.home;
 import com.badlogic.gdx.graphics.Color;
 
 public class Vars{
-	public static boolean debug = true;
+	public static boolean debug = false;
 	
 	public static Control control;
 	public static UI ui;
