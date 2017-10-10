@@ -26,6 +26,8 @@ public class Crawler extends DarkEnemy{
 		height = 0f;
 		deathsound = "distortroar";
 		
+		range = 90;
+		
 		event(Death.class, (spark)->{
 			
 			Timers.runFor(80, ()->{

@@ -93,3 +93,7 @@ task afterEclipseImport(description: "Post processing after project generation",
     printer.print(classpath)
   }
 }
+
+eclipse.project {
+    name = appName + "-desktop"
+}

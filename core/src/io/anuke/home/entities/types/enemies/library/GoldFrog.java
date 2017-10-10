@@ -16,6 +16,7 @@ public class GoldFrog extends Enemy{
 	
 	public GoldFrog(){
 		speed = 0.04f;
+		deathsound = "scream";
 	}
 	
 	@Override
