@@ -24,7 +24,7 @@ import io.anuke.ucore.util.Tmp;
 
 public class PlayerTrait extends Trait{
 	public static final float hitdur = 30;
-	public static final float basespeed = 1.8f;
+	public static final float basespeed = 1.6f;
 	public static final float height = 4;
 	
 	public Direction direction = right;
@@ -41,7 +41,7 @@ public class PlayerTrait extends Trait{
 	public Soul soul;
 	
 	public float walktime;
-	public float walkspeed = 0.08f;
+	public float walkspeed = 0.09f;
 	public float lightrange;
 	
 	@Override

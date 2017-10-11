@@ -122,9 +122,8 @@ public enum Tool{
 
 			Tile tile = World.get(x, y);
 
-			boolean wall = Evar.control.selected.type == BlockType.wall;
-
-			Block dest = wall ? tile.wall : tile.floor;
+			Block dest = Evar.control.selected.type == BlockType.wall ? tile.wall : 
+					Evar.control.selected.type == BlockType.decal ? tile.decal : tile.floor;
 
 			if(dest == Evar.control.selected)
 				return;
@@ -138,9 +137,11 @@ public enum Tool{
 			while(!points.isEmpty()){
 				GridPoint2 pos = points.pop();
 				set.add(asInt(pos.x, pos.y, width));
-
-				Block block = wall ? World.get(pos.x, pos.y).wall : World.get(pos.x, pos.y).floor;
 				
+				Tile btile = World.get(pos.x, pos.y);
+
+				Block block = Evar.control.selected.type == BlockType.wall ? btile.wall : 
+					Evar.control.selected.type == BlockType.decal ? btile.decal : btile.floor;;
 
 				if(block == dest){
 					World.get(pos.x, pos.y).setBlock(Evar.control.selected);

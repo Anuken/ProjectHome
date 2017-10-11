@@ -46,9 +46,6 @@ public class EditorControl extends RendererModule{
 		Prototypes.player.getClass();
 		Shaders.create();
 		
-		Textures.load("textures/");
-		Textures.repeatWrap("fog1", "fog2", "fog3", "fog4");
-		
 		Settings.defaultList(
 			"lastexport", System.getProperty("user.home"),
 			"lastimport", System.getProperty("user.home")
@@ -94,9 +91,9 @@ public class EditorControl extends RendererModule{
 		
 		drawDefault();
 		
-		Draw.setScreen();
-		batch.draw(Draw.getSurface("darkness").texture(), 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
-		Draw.end();
+		Graphics.setScreen();
+		batch.draw(Graphics.getSurface("darkness").texture(), 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
+		Graphics.end();
 		
 		Timers.update();
 		Inputs.update();
@@ -180,6 +177,7 @@ public class EditorControl extends RendererModule{
 	}
 	
 	void drawBackground(){
+		//TODO
 		if(World.data().sky){
 			Draw.color();
 			int s = 400;

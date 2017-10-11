@@ -46,8 +46,6 @@ public class Control extends RendererModule{
 	
 	public Control(){
 		atlas = new Atlas("sprites.atlas");
-		Textures.load("textures/");
-		Textures.repeatWrap("fog1", "fog2", "fog3", "fog4");
 		
 		Core.cameraScale = 4;
 		pixelate();
@@ -282,9 +280,9 @@ public class Control extends RendererModule{
 			Renderer.getEffect(LightEffect.class).drawLight();
 		}
 		
-		Draw.setScreen();
-		batch.draw(Draw.getSurface("darkness").texture(), 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
-		Draw.end();
+		Graphics.setScreen();
+		batch.draw(Graphics.getSurface("darkness").texture(), 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
+		Graphics.end();
 		
 		record();
 		
@@ -324,6 +322,7 @@ public class Control extends RendererModule{
 			int s = 400;
 			float scl = 1f;
 			for(int i = 0; i < 4; i ++){
+				//TODO
 				Texture t = Textures.get("fog" + (i+1));
 				int offset = (int)(Timers.time()/20*(i+1));
 				batch.draw(t, camera.position.x-s/2, camera.position.y-s/2, s/2, s/2, s, s, scl, scl, 0f, offset, 0, s, s, false, false);

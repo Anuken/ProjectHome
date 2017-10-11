@@ -7,7 +7,7 @@ import io.anuke.home.entities.types.Projectiles;
 import io.anuke.home.items.types.*;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.World;
-import io.anuke.home.world.blocks.Blocks;
+import io.anuke.home.world.blocks.Lightable;
 import io.anuke.ucore.core.Core;
 import io.anuke.ucore.core.Effects;
 import io.anuke.ucore.ecs.Spark;
@@ -25,8 +25,7 @@ public class Items{
 		public void update(Spark player){
 			Tile tile = World.getWorld(player.pos().x, player.pos().y);
 			
-			if(tile != null && tile.wall == Blocks.candles){
-				tile.wall = Blocks.litcandles;
+			if(tile != null && tile.wall instanceof Lightable && ((Lightable)tile.wall).light(tile)){
 				Renderer.updateWall(tile.x, tile.y);
 			}
 		}

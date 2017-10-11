@@ -14,6 +14,7 @@ import io.anuke.home.world.World;
 import io.anuke.home.world.blocks.Blocks;
 import io.anuke.ucore.core.Core;
 import io.anuke.ucore.core.Draw;
+import io.anuke.ucore.core.Graphics;
 import io.anuke.ucore.facet.FacetList;
 import io.anuke.ucore.graphics.Cache;
 import io.anuke.ucore.graphics.Caches;
@@ -118,7 +119,7 @@ public class Renderer{
 		int crangex = Math.round(camera.viewportWidth * camera.zoom / (chunksize * tilesize)) + 1;
 		int crangey = Math.round(camera.viewportHeight * camera.zoom / (chunksize * tilesize)) + 1;
 
-		Draw.end();
+		Graphics.end();
 
 		//render tile chunks
 		for(int x = -crangex; x <= crangex; x++){
@@ -138,7 +139,7 @@ public class Renderer{
 			}
 		}
 
-		Draw.begin();
+		Graphics.begin();
 
 	}
 

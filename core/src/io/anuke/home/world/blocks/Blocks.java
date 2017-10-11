@@ -1,24 +1,18 @@
 package io.anuke.home.world.blocks;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.MathUtils;
 
-import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
-import io.anuke.home.effect.LightEffect;
 import io.anuke.home.world.Block;
 import io.anuke.home.world.BlockType;
 import io.anuke.home.world.Tile;
 import io.anuke.home.world.blocks.BlockTypes.*;
 import io.anuke.home.world.blocks.BlockTypes.LiveSpellCircle.SpellShape;
 import io.anuke.ucore.core.Draw;
-import io.anuke.ucore.core.Timers;
 import io.anuke.ucore.ecs.Basis;
 import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Hue;
-import io.anuke.ucore.lights.Light;
 import io.anuke.ucore.util.Angles;
-import io.anuke.ucore.util.Mathf;
 
 public class Blocks{
 	public static final Block
@@ -131,9 +125,29 @@ public class Blocks{
 	brokenbarrel = new Prop("brokenbarrel"){{
 		offset = 3;
 	}},
-	torchstand = new Prop("torchstand"){{
-		offset = 1;
-	}},
+	torchlit = new Torch("torchstandlit", "torchstand", true){
+		{
+			offset = 1;
+			height -= 1f;
+			lightradius = 100f;
+		}
+
+		@Override
+		public void loadTransition(){
+			transition = torchunlit;
+		}
+	},
+	torchunlit = new Torch("torchstand", "torchstand", false){
+		{
+			offset = 1;
+			height -= 1f;
+		}
+
+		@Override
+		public void loadTransition(){
+			transition = torchlit;
+		}
+	},
 	books = new Overlay("books"){
 		Color[] colors = {Color.valueOf("4c5f3e"), Color.valueOf("7b6844"), Color.valueOf("445e6d"), Color.valueOf("704533"), Color.valueOf("8f875f")};
 		Color temp = new Color();
@@ -160,82 +174,18 @@ public class Blocks{
 			}).add(list);
 		}
 	},
-	candles = new Candle("candles"){
-		@Override
-		public boolean light(Tile tile){
-			tile.wall = litcandles;
-			return true;
-		}
+	candles = new Candle("candles", false){
 
 		@Override
-		public boolean extinguish(Tile tile){
-			return false;
-		}
-		
-		@Override
-		public void draw(FacetList list, Tile tile){
-			super.draw(list, tile);
-			
-			//de-light the candles if needed
-			new BaseFacet(p->{
-				tile.data3 -= Timers.delta()/30f;
-				tile.data3 = Mathf.clamp(tile.data3);
-			}).add(list);
+		public void loadTransition(){
+			transition = litcandles;
 		}
 	},
-	litcandles = new Candle("litcandles"){
-		float maxrad = 60f;
-		
-		@Override
-		public boolean light(Tile tile){
-			return false;
-		}
+	litcandles = new Candle("litcandles", true){
 
 		@Override
-		public boolean extinguish(Tile tile){
-			tile.wall = candles;
-			cleanup(tile);
-			return true;
-		}
-		
-		@Override
-		public void draw(FacetList list, Tile tile){
-			super.draw(list, tile);
-			
-			new BaseFacet(p->{
-				if(tile.data4 == null){
-					tile.data4 = Renderer.getEffect(LightEffect.class).addLight(0f);
-				}
-				
-				Light light = (Light)tile.data4;
-				tile.data3 += Timers.delta()/40f;
-				tile.data3 = Mathf.clamp(tile.data3);
-				
-				if(!MathUtils.isEqual(tile.worldx(), light.getX()) || !MathUtils.isEqual(tile.worldy(), light.getY()))
-					light.setPosition(tile.worldx(), tile.worldy());
-				
-				if(!MathUtils.isEqual(light.getDistance(), tile.data3 * maxrad))
-					light.setDistance(tile.data3 * maxrad);
-				
-				if(!light.isStaticLight())
-					light.setStaticLight(true);
-				
-			}).add(list);
-		}
-		
-		@Override
-		public void cleanup(Tile tile){
-			if(tile.data4 == null) return;
-			
-			Light light = ((Light)tile.data4);
-			
-			Timers.runFor(maxrad, ()->{
-				light.setDistance(Mathf.clamp(light.getDistance() - Timers.delta(), 4f, maxrad));
-			}, ()->{
-				light.remove();
-			});
-			
-			tile.data4 = null;
+		public void loadTransition(){
+			transition = candles;
 		}
 	},
 	rocks = new Overlay("rocks"),
@@ -357,6 +307,16 @@ public class Blocks{
 	thickmoss = new Moss("thickmoss"){
 		{
 			color = Color.valueOf("5f6639");
+		}
+	},
+	blackweb = new Moss("blackweb"){
+		{
+			color = Color.valueOf("414141");
+		}
+	},
+	blackink = new Moss("blackink"){
+		{
+			color = Color.valueOf("414141");
 		}
 	},
 	wallmoss = new WallOverlay("wallmoss"){

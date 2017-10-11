@@ -3,10 +3,12 @@ package io.anuke.home.world.blocks;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.MathUtils;
 
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
 import io.anuke.home.editor.Editor;
+import io.anuke.home.effect.LightEffect;
 import io.anuke.home.world.*;
 import io.anuke.ucore.core.Draw;
 import io.anuke.ucore.core.Timers;
@@ -16,6 +18,7 @@ import io.anuke.ucore.facet.*;
 import io.anuke.ucore.function.Predicate;
 import io.anuke.ucore.graphics.Caches;
 import io.anuke.ucore.graphics.Hue;
+import io.anuke.ucore.lights.Light;
 import io.anuke.ucore.util.*;
 
 public class BlockTypes{
@@ -268,7 +271,8 @@ public class BlockTypes{
 
 		@Override
 		public void draw(FacetList list, Tile tile){
-			new SpriteFacet(name).set(tile.worldx(), tile.worldy() - offset).layer(tile.worldy()).centerX().addShadow(list, offset).sort(Sorter.object).add(list);
+			new SpriteFacet(name).set(tile.worldx(), tile.worldy() - offset).layer(tile.worldy()).centerX()
+			.addShadow(list, offset).sort(Sorter.object).add(list);
 		}
 	}
 
@@ -459,7 +463,126 @@ public class BlockTypes{
 		}
 	}
 	
-	public abstract static class Candle extends Overlay implements Lightable{
+	public abstract static class LightableBlock extends Block implements Lightable{
+		boolean lit;
+		Block transition;
+		float lightradius = 60f;
+		
+		protected LightableBlock(String name, boolean lit) {
+			super(name, BlockType.wall);
+			this.lit = lit;
+		}
+		
+		public abstract void loadTransition();
+		
+		@Override
+		public boolean extinguish(Tile tile){
+			if(lit){
+				if(transition == null){
+					throw new RuntimeException("Block transition cannot be null!");
+				}
+				tile.wall = transition;
+				cleanup(tile);
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
+		@Override
+		public boolean light(Tile tile){
+			if(!lit){
+				if(transition == null){
+					throw new RuntimeException("Block transition cannot be null!");
+				}
+				tile.wall = transition;
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
+		public void updateLight(FacetList list, Tile tile){
+			if(transition == null){
+				loadTransition();
+			}
+			new BaseFacet(p->{
+				if(!lit){
+					tile.data3 -= Timers.delta()/30f;
+					tile.data3 = Mathf.clamp(tile.data3);
+					return;
+				}
+				
+				if(tile.data4 == null){
+					tile.data4 = Renderer.getEffect(LightEffect.class).addLight(0f);
+				}
+				
+				Light light = (Light)tile.data4;
+				tile.data3 += Timers.delta()/40f;
+				tile.data3 = Mathf.clamp(tile.data3);
+				
+				
+				if(!MathUtils.isEqual(tile.worldx(), light.getX()) || !MathUtils.isEqual(tile.worldy(), light.getY()))
+					light.setPosition(tile.worldx(), tile.worldy());
+				
+				if(!MathUtils.isEqual(light.getDistance(), tile.data3 * lightradius))
+					light.setDistance(tile.data3 * lightradius);
+				
+				if(!light.isStaticLight())
+					light.setStaticLight(true);
+				
+			}).add(list);
+		}
+		
+		@Override
+		public void cleanup(Tile tile){
+			if(tile.data4 == null) return;
+			
+			Light light = ((Light)tile.data4);
+			
+			Timers.runFor(lightradius, ()->{
+				light.setDistance(Mathf.clamp(light.getDistance() - Timers.delta(), 4f, lightradius));
+			}, ()->{
+				light.remove();
+			});
+			
+			tile.data4 = null;
+		}
+	}
+	
+	public abstract static class Torch extends LightableBlock{
+		String propname;
+
+		protected Torch(String name, String propname, boolean lit) {
+			super(name, lit);
+			this.propname = propname;
+		}
+		
+		@Override
+		public void draw(FacetList list, Tile tile){
+			updateLight(list, tile);
+			
+			new BaseFacet(tile.worldy() - 1f, Sorter.object, p->{
+				drawFlame(tile);
+			}).add(list);
+			
+			new SpriteFacet(propname).set(tile.worldx(), tile.worldy() - offset).layer(tile.worldy()).centerX()
+			.addShadow(list, offset).sort(Sorter.object).add(list);
+		}
+		
+		void drawFlame(Tile tile){
+			float rad = tile.data3 * (Mathf.sin(Timers.time() + tile.randFloat(0)*742, 3f, 0.35f) + 2f);
+			
+			Draw.color(Color.ORANGE);
+			Draw.rect("circle", tile.worldx(), tile.worldy() + rad/3f + height - offset, rad*2, rad*2);
+			Draw.color(Color.YELLOW);
+			Draw.rect("circle", tile.worldx(), tile.worldy() + height - offset, rad, rad);
+			
+			Draw.color();
+		}
+	}
+	
+	public abstract static class Candle extends LightableBlock{
 		int maxcandles = 6;
 		int[][] offsets = {
 			{3, 3},
@@ -473,8 +596,8 @@ public class BlockTypes{
 		float h, s, b;
 		
 		
-		public Candle(String name){
-			super(name);
+		public Candle(String name, boolean lit){
+			super(name, lit);
 			
 			float[] colors = Hue.RGBtoHSB(color);
 			h = colors[0];
@@ -484,6 +607,8 @@ public class BlockTypes{
 		
 		@Override
 		public void draw(FacetList list, Tile tile){
+			updateLight(list, tile);
+			
 			new BaseFacet(tile.worldy()+12, p->{
 				draw(tile, false);
 			}).add(list);
@@ -561,11 +686,11 @@ public class BlockTypes{
 			Caches.color(color);
 
 			for(GridPoint2 point : Geometry.getD4Points()){
+				
 				Tile other = World.get(point.x + tile.x, point.y + tile.y);
 
 				if(other != null && other.decal == this){
 					int rot = tile.rand(i * 2, 5) - 1;
-
 					Caches.draw(name + "" + (i + (rotate ? rot : 0)) % 4, tile.worldx(), tile.worldy(), rotate ? -rot * 90 : 0);
 					any = true;
 				}

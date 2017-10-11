@@ -8,9 +8,7 @@ import io.anuke.home.entities.traits.HealthBarTrait;
 import io.anuke.home.entities.traits.LightTrait;
 import io.anuke.home.entities.types.Enemy;
 import io.anuke.home.entities.types.Projectiles;
-import io.anuke.ucore.core.Draw;
-import io.anuke.ucore.core.Effects;
-import io.anuke.ucore.core.Timers;
+import io.anuke.ucore.core.*;
 import io.anuke.ucore.ecs.Spark;
 import io.anuke.ucore.ecs.TraitList;
 import io.anuke.ucore.ecs.extend.traits.FacetTrait;
@@ -81,8 +79,8 @@ public class Sol extends Enemy{
 			
 			spark.get(LightTrait.class).offset.y = raise;
 			
-			Draw.getShader(Glow.class).set(spark.pos().x, spark.pos().y + raise, color);
-			Draw.beginShaders(Glow.class);
+			Graphics.getShader(Glow.class).set(spark.pos().x, spark.pos().y + raise, color);
+			Graphics.beginShaders(Glow.class);
 			
 			Draw.rect("circle", spark.pos().x, spark.pos().y + raise, radius, radius);
 			
@@ -99,7 +97,7 @@ public class Sol extends Enemy{
 			
 			Draw.reset();
 			
-			Draw.endShaders();
+			Graphics.endShaders();
 		});
 	}
 	

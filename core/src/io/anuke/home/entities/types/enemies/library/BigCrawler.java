@@ -29,6 +29,7 @@ public class BigCrawler extends DarkEnemy{
 		speed = 0.1f;
 		passthrough = true;
 		height = 0f;
+		hitsize = 16f;
 		
 		deatheffect = "bigshadedeath";
 		deathsound = "scream";

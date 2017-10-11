@@ -25,6 +25,8 @@ public class Crawler extends DarkEnemy{
 		passthrough = true;
 		height = 0f;
 		deathsound = "distortroar";
+		height = 0f;
+		hitsize = 10f;
 		
 		range = 90;
 		
