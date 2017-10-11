@@ -263,6 +263,8 @@ public class BlockTypes{
 	}
 
 	public static class Prop extends Block{
+		boolean spread = false;
+		float spreadrange = 6f;
 
 		public Prop(String name) {
 			super(name, BlockType.wall);
@@ -271,13 +273,17 @@ public class BlockTypes{
 
 		@Override
 		public void draw(FacetList list, Tile tile){
-			new SpriteFacet(name).set(tile.worldx(), tile.worldy() - offset).layer(tile.worldy()).centerX()
+			new SpriteFacet(name).set(tile.worldx() + (int)(spread ? tile.randFloat(0) * spreadrange - spreadrange/2f : 0f), 
+					tile.worldy() - offset + (int)(spread ? tile.randFloat(1) * spreadrange - spreadrange/2f : 0f))
+			.layer(tile.worldy()).centerX()
 			.addShadow(list, offset).sort(Sorter.object).add(list);
 		}
 	}
 
 	public static class Overlay extends Block{
 		boolean shadow = true;
+		boolean spread = false;
+		float spreadrange = 6f;
 
 		public Overlay(String name) {
 			super(name, BlockType.wall);
@@ -287,7 +293,11 @@ public class BlockTypes{
 		@Override
 		public void draw(FacetList list, Tile tile){
 			String name = this.name + (vary ? tile.rand(variants) : "");
-			SpriteFacet sprite = new SpriteFacet(name).set(tile.worldx(), tile.worldy() - offset).layer(tile.worldy() + 5).center().sort(Sorter.object).sprite();
+			SpriteFacet sprite = new SpriteFacet(name)
+					.set(tile.worldx() + (int)(spread ? tile.randFloat(0) * spreadrange - spreadrange/2f : 0f), 
+						tile.worldy() - offset + (int)(spread ? tile.randFloat(1) * spreadrange - spreadrange/2f : 0f))
+			.layer(tile.worldy() + 5)
+			.center().sort(Sorter.object).sprite();
 
 			if(shadow)
 				sprite.addShadow(list, name, offset + 8);

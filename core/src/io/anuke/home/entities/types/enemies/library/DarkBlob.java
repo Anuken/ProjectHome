@@ -163,13 +163,12 @@ public class DarkBlob extends DarkEnemy{
 
 			for(int i = 0; i < blobs; i++){
 				float rotation = i * 100;
-				float scale = (Mathf.randomSeed(spark.getID() * 2 + i) - 0.5f) * 2f;
-				float radius = 3 + Mathf.randomSeed(spark.getID() * 3 + i) * (data.size/3f) + Mathf.sin(Timers.time() + offset + i * 77, 20f, 2f);
-				float len = rad / 2.3f + Mathf.sin(Timers.time() + i * 30f, 20 + 10f + Mathf.randomSeed(spark.getID() * 46 + i), 1f);
+				float radius = 3 + (Mathf.randomSeed(spark.getID() * 3 + i)/2f + 0.5f) * (data.size/3f) + Mathf.sin(Timers.time() + offset + i * 77, 20f, 2f);
+				float len = rad / 2.3f + Mathf.sin(Timers.time() + i * 30f, 30f + Mathf.randomSeed(spark.getID() * 46 + i), 1f);
 				
 				radius *= wake;
 				
-				Angles.translation(rotation + Timers.time() * scale, len);
+				Angles.translation(rotation + Timers.time()/2f + spark.getID()*999, len);
 				
 				Draw.rect("circle", spark.pos().x + Angles.x(), spark.pos().y + Angles.y(), radius, radius);
 			}

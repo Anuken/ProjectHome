@@ -104,6 +104,7 @@ public class Blocks{
 			vary = true;
 			variants = 5;
 			shadow = false;
+			spread = true;
 		}
 		
 		@Override
@@ -121,9 +122,11 @@ public class Blocks{
 	},
 	barrel = new Prop("barrel"){{
 		offset = 3;
+		spread = true;
 	}},
 	brokenbarrel = new Prop("brokenbarrel"){{
 		offset = 3;
+		spread = true;
 	}},
 	torchlit = new Torch("torchstandlit", "torchstand", true){
 		{
