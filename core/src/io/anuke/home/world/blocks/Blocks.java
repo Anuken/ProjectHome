@@ -22,7 +22,7 @@ public class Blocks{
 	},
 	
 	grass = new Floor("grass"){{
-		vary = false;
+		variants = 0;
 	}},
 	pgrass = new Floor("pgrass"){{
 		edgecolor = Hue.rgb(0x63569bff, 0.65f);
@@ -38,10 +38,10 @@ public class Blocks{
 		edgecolor = Hue.rgb(0x7f788cff, 0.7f);
 	}}, 
 	marbles = new Floor("marbles"){{
-		vary = false;
+		variants = 0;
 	}}, 
 	marbles2 = new Floor("marbles2"){{
-		vary = false;
+		variants = 0;
 	}}, 
 	blocks = new Overlay("blocks"),
 	checkpoint = new Checkpoint("respawnpoint"),
@@ -88,7 +88,6 @@ public class Blocks{
 	brickshelf = new Wall("brickshelf"){{
 		height = 13;
 		variants = 3;
-		vary = true;
 		edge = "brickwall";
 		blendWith = block->block.name.contains("brick") && block instanceof Wall;
 	}},
@@ -101,7 +100,6 @@ public class Blocks{
 	bottles = new Overlay("bottles"){
 		Color color = new Color(0.9f, 0.9f, 0.9f, 0.86f);
 		{
-			vary = true;
 			variants = 5;
 			shadow = false;
 			spread = true;
@@ -109,7 +107,7 @@ public class Blocks{
 		
 		@Override
 		public void draw(FacetList list, Tile tile){
-			String name = this.name + (vary ? tile.rand(variants) : "");
+			String name = this.name + (variants > 0 ? tile.rand(variants) : "");
 			new SpriteFacet(name).set(tile.worldx(), tile.worldy()-offset)
 			.color(color)
 			.layer(tile.worldy())
@@ -193,7 +191,7 @@ public class Blocks{
 	},
 	rocks = new Overlay("rocks"),
 	bigrock = new Overlay("bigrocks"){{
-		vary = false;
+		variants = 0;
 		solid = true;
 		hitbox.setSize(10, 10);
 		destructible = true;
@@ -203,24 +201,27 @@ public class Blocks{
 		hitParticle = "rockspark";
 	}},
 	rubble = new Overlay("rubble"){{
-		vary = false;
+		variants = 0;
 		offset = -1;
 	}},
 	redcarpet = new Floor("redcarpet"){{
 		useEdge = false;
-		vary = false;
+		variants = 0;
 	}},
 	tatteredredcarpet = new DecalFloor("tatteredredcarpet"){{
-		vary = true;
 		variants = 3;
 		under = stonefloor;
 	}},
 	tatteredredcarpetedge = new DecalFloor("tatteredredcarpetedge"){{
-		variants = 3;
 		under = stonefloor;
 	}},
 	tatteredredcarpetedge2 = new DecalFloor("tatteredredcarpetedge2"){{
-		variants = 3;
+		under = stonefloor;
+	}},
+	tatteredredcarpetedge3 = new DecalFloor("tatteredredcarpetedge3"){{
+		under = stonefloor;
+	}},
+	tatteredredcarpetedge4 = new DecalFloor("tatteredredcarpetedge4"){{
 		under = stonefloor;
 	}},
 	tatteredredcarpetmid = new DecalFloor("tatteredredcarpetmid"){{
@@ -232,6 +233,12 @@ public class Blocks{
 	tatteredredcarpetr = new DecalFloor("tatteredredcarpetr"){{
 		under = stonefloor;
 	}},
+	tatteredredcarpett = new DecalFloor("tatteredredcarpett"){{
+		under = stonefloor;
+	}},
+	tatteredredcarpetb = new DecalFloor("tatteredredcarpetb"){{
+		under = stonefloor;
+	}},
 	tatteredredcarpetl2 = new DecalFloor("tatteredredcarpetl2"){{
 		under = stonefloor;
 	}},
@@ -240,11 +247,15 @@ public class Blocks{
 	}},
 	redcarpettriml = new Decal("redcarpettriml"){{
 		variants = 2;
-		vary = true;
 	}},
 	redcarpettrimr = new Decal("redcarpettrimr"){{
 		variants = 2;
-		vary = true;
+	}},
+	redcarpettrimt = new Decal("redcarpettrimt"){{
+		variants = 2;
+	}},
+	redcarpettrimb = new Decal("redcarpettrimb"){{
+		variants = 2;
 	}},
 	table = new Prop("table"){{
 		offset = 3;
@@ -293,13 +304,20 @@ public class Blocks{
 		edge = "shelf";
 	}},
 	verytallshelf = new Bookshelf("verytallshelf"){{
-		blendWith = block->block == this;
+		blendWith = block->block == this || block == verytallshelfblank;
 		height = 25;
 		shelves = 4;
 		edge = "shelf";
+		hitbox.height  += 12f;
+		hitbox.y += 6f;
+	}},
+	verytallshelfblank = new Wall("verytallshelf-blank"){{
+		blendWith = block->block == this || block == verytallshelf;
+		height = 25;
+		edge = "shelf";
 	}},
 	cobweb = new WallOverlay("cobweb"){{
-		vary = false;
+		variants = 0;
 	}},
 	
 	moss = new Moss("moss"){
@@ -341,21 +359,17 @@ public class Blocks{
 				Draw.rect(randRune((int)(ox+oy*100), tile), (int)(x + ox), (int)(y + oy));
 			});
 			
-			//Draw.rect(randGlyph(23, tile), (int)x, (int)y);
-			//Geometry.circleVectors(8, 15, (ox, oy)->{
-			//	Draw.rect(randGlyph((int)(oy*100), tile), (int)(x + ox), (int)(y + oy));
-			//});
-			
 			Draw.reset();
 		}
 	},
 	
-	lightspawncircle = new LiveSpellCircle("lightspawncircle",
-			new SpellShape(25, 26f, 0f, 2f),
-			new SpellShape(5, 25f, 0f, 1f),
-			new SpellShape(5, 25f, 180f/5, 1f),
-			new SpellShape(true, 10, 13f)
-			){
+	lightspawncircle 
+	= new LiveSpellCircle("lightspawncircle",
+		new SpellShape(25, 26f, 0f, 2f),
+		new SpellShape(5, 25f, 0f, 1f),
+		new SpellShape(5, 25f, 180f/5, 1f),
+		new SpellShape(true, 10, 13f)
+	){
 		
 	},
 	
@@ -374,6 +388,7 @@ public class Blocks{
 		Draw.color(temp.mul(0.8f, 0.8f, 0.8f, 1f));
 		Draw.rect("blank", x, y - 0.7f, w, h, rot);
 		
+		//whiteness
 		//Draw.color(Hue.lightness(0.7f));
 		//Draw.rect("blank", x, y - 1f, w, h, rot);
 		

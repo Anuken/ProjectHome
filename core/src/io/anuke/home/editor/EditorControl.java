@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
@@ -23,7 +24,6 @@ import io.anuke.ucore.facet.FacetContainers;
 import io.anuke.ucore.facet.FacetLayerHandler;
 import io.anuke.ucore.facet.Facets;
 import io.anuke.ucore.graphics.Atlas;
-import io.anuke.ucore.graphics.Textures;
 import io.anuke.ucore.modules.RendererModule;
 import io.anuke.ucore.util.Mathf;
 
@@ -41,6 +41,10 @@ public class EditorControl extends RendererModule{
 	
 	public EditorControl(){
 		atlas = new Atlas("sprites.atlas");
+		
+		for(int i = 1; i <= 4; i ++){
+			Draw.region("fog" + i).getTexture().setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+		}
 		
 		//load prototypes
 		Prototypes.player.getClass();
@@ -183,7 +187,7 @@ public class EditorControl extends RendererModule{
 			int s = 400;
 			float scl = 1f*camera.zoom;
 			for(int i = 0; i < 4; i ++){
-				Texture t = Textures.get("fog" + (i+1));
+				Texture t = Draw.region("fog" + (i+1)).getTexture();
 				int offset = (int)(Timers.time()/20*(i+1));
 				batch.draw(t, camera.position.x-s/2, camera.position.y-s/2, s/2, s/2, s, s, scl, scl, 0f, offset, 0, s, s, false, false);
 			}

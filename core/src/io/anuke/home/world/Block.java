@@ -20,7 +20,6 @@ public class Block{
 	public String edge;
 	public float offset = -3f;
 	
-	public boolean vary = true;
 	public int variants = 3;
 	
 	public boolean solid = false;

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.utils.Array;
 
 import io.anuke.home.GameState.State;
@@ -28,7 +29,6 @@ import io.anuke.ucore.ecs.extend.processors.TileCollisionProcessor;
 import io.anuke.ucore.entities.Entities;
 import io.anuke.ucore.facet.*;
 import io.anuke.ucore.graphics.Atlas;
-import io.anuke.ucore.graphics.Textures;
 import io.anuke.ucore.modules.RendererModule;
 import io.anuke.ucore.util.Mathf;
 import io.anuke.ucore.util.Tmp;
@@ -43,9 +43,14 @@ public class Control extends RendererModule{
 	private Array<Spark> killed = new Array<>();
 	
 	private String[] noises = {"waterdrop", "waterdrop2", "switch1", "growl1"};
+	private double noiseChance = 0.002;
 	
 	public Control(){
 		atlas = new Atlas("sprites.atlas");
+		
+		for(int i = 1; i <= 4; i ++){
+			Draw.region("fog" + i).getTexture().setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+		}
 		
 		Core.cameraScale = 4;
 		pixelate();
@@ -223,7 +228,7 @@ public class Control extends RendererModule{
 			
 			Entities.update();
 			
-			if(Mathf.chance(0.002f* Timers.delta())){
+			if(Mathf.chance(noiseChance * Timers.delta())){
 				Tmp.v1.setToRandomDirection().setLength(Mathf.random(10f, 200f));
 				Sounds.play(noises[Mathf.random(0, noises.length-1)], Mathf.random(0.6f));
 			}
@@ -323,7 +328,7 @@ public class Control extends RendererModule{
 			float scl = 1f;
 			for(int i = 0; i < 4; i ++){
 				//TODO
-				Texture t = Textures.get("fog" + (i+1));
+				Texture t = Draw.region("fog" + (i+1)).getTexture();
 				int offset = (int)(Timers.time()/20*(i+1));
 				batch.draw(t, camera.position.x-s/2, camera.position.y-s/2, s/2, s/2, s, s, scl, scl, 0f, offset, 0, s, s, false, false);
 			}

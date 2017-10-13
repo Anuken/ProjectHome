@@ -39,7 +39,7 @@ public class BlockTypes{
 				return;
 
 			if(this != Blocks.air){
-				Caches.draw(name + (vary ? tile.rand(variants) : ""), tile.worldx(), tile.worldy());
+				Caches.draw(name + (variants > 0 ? tile.rand(variants) : ""), tile.worldx(), tile.worldy());
 			}
 			
 			if(useEdge){
@@ -132,14 +132,14 @@ public class BlockTypes{
 
 		protected DecalFloor(String name) {
 			super(name, BlockType.floor);
-			vary = false;
+			variants = 0;
 		}
 		
 		@Override
 		public void drawCache(Tile tile){
 			if(under != null)
-				Caches.draw(under.name + (under.vary ? tile.rand(under.variants) : ""), tile.worldx(), tile.worldy());
-			Caches.draw(name + (vary ? tile.rand(variants) : ""), tile.worldx(), tile.worldy());
+				Caches.draw(under.name + (under.variants > 0 ? tile.rand(under.variants) : ""), tile.worldx(), tile.worldy());
+			Caches.draw(name + (variants > 0 ? tile.rand(variants) : ""), tile.worldx(), tile.worldy());
 		}
 	}
 
@@ -150,7 +150,7 @@ public class BlockTypes{
 		public Wall(String name) {
 			super(name, BlockType.wall);
 			edge = name;
-			vary = false;
+			variants = 0;
 			solid = true;
 			hitbox.setSize(12, 18);
 			hitbox.y = 3;
@@ -158,7 +158,7 @@ public class BlockTypes{
 
 		@Override
 		public void draw(FacetList list, Tile tile){
-			new SpriteFacet(name + (vary ? tile.rand(variants) : "")).set(tile.worldx(), tile.worldy() - Vars.tilesize / 2f).centerX().addShadow(list, "wallshadow", 6).sort(Sorter.object).add(list);
+			new SpriteFacet(name + (variants > 0 ? tile.rand(variants) : "")).set(tile.worldx(), tile.worldy() - Vars.tilesize / 2f).centerX().addShadow(list, "wallshadow", 6).sort(Sorter.object).add(list);
 
 			drawEdge(list, tile);
 		}
@@ -258,7 +258,7 @@ public class BlockTypes{
 
 		@Override
 		public void draw(FacetList list, Tile tile){
-			new SpriteFacet(name + (vary ? tile.rand(variants) : "")).set(tile.worldx(), tile.worldy() - offset).layer(tile.worldy()).centerX().addShadow(list, offset).sort(Sorter.object).add(list);
+			new SpriteFacet(name + (variants > 0 ? tile.rand(variants) : "")).set(tile.worldx(), tile.worldy() - offset).layer(tile.worldy()).centerX().addShadow(list, offset).sort(Sorter.object).add(list);
 		}
 	}
 
@@ -292,7 +292,7 @@ public class BlockTypes{
 
 		@Override
 		public void draw(FacetList list, Tile tile){
-			String name = this.name + (vary ? tile.rand(variants) : "");
+			String name = this.name + (variants > 0 ? tile.rand(variants) : "");
 			SpriteFacet sprite = new SpriteFacet(name)
 					.set(tile.worldx() + (int)(spread ? tile.randFloat(0) * spreadrange - spreadrange/2f : 0f), 
 						tile.worldy() - offset + (int)(spread ? tile.randFloat(1) * spreadrange - spreadrange/2f : 0f))
@@ -315,7 +315,7 @@ public class BlockTypes{
 
 		@Override
 		public void draw(FacetList list, Tile tile){
-			new SpriteFacet(name + (vary ? tile.rand(variants) : "")).color(color).set(tile.worldx(), tile.worldy() + Vars.tilesize / 2f - 0.001f).centerX().sort(Sorter.object).add(list);
+			new SpriteFacet(name + (variants > 0 ? tile.rand(variants) : "")).color(color).set(tile.worldx(), tile.worldy() + Vars.tilesize / 2f - 0.001f).centerX().sort(Sorter.object).add(list);
 		}
 
 	}
@@ -464,12 +464,12 @@ public class BlockTypes{
 
 		protected Decal(String name) {
 			super(name, BlockType.decal);
-			vary = false;
+			variants = 0;
 		}
 
 		@Override
 		public void drawCache(Tile tile){
-			Caches.draw(name + (vary ? tile.rand(variants) : ""), tile.worldx(), tile.worldy());
+			Caches.draw(name + (variants > 0 ? tile.rand(variants) : ""), tile.worldx(), tile.worldy());
 		}
 	}
 	
