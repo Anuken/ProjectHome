@@ -176,7 +176,7 @@ public class Control extends RendererModule{
 		Facets.instance().clear();
 		Renderer.updateWalls();
 		killed.clear();
-		World.loadMap("procmap");
+		World.loadMap("library-3");
 		Renderer.clearWorld();
 		
 		checkpoint = World.get(World.getStartX(), World.getStartY());
