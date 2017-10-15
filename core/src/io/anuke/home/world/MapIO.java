@@ -66,7 +66,7 @@ public class MapIO{
 		World.setTiles(tiles);
 	}
 	
-	public static void save(Tile[][] tiles, FileHandle file) throws IOException, FileNotFoundException{
+	public static void save(Tile[][] tiles, OutputStream outstream) throws IOException, FileNotFoundException{
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		DataOutputStream stream = new DataOutputStream(out);
 		
@@ -96,8 +96,12 @@ public class MapIO{
 		
 		ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
 		
-		Lzma.compress(in, file.write(false));
+		Lzma.compress(in, outstream);
 		
 		stream.close();
+	}
+	
+	public static void save(Tile[][] tiles, FileHandle file) throws IOException, FileNotFoundException{
+		save(tiles, file.write(false));
 	}
 }
