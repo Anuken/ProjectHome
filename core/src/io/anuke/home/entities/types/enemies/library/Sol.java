@@ -2,7 +2,7 @@ package io.anuke.home.entities.types.enemies.library;
 
 import com.badlogic.gdx.graphics.Color;
 
-import io.anuke.home.effect.Shaders.Glow;
+import io.anuke.home.effect.Shaders;
 import io.anuke.home.entities.traits.EnemyTrait;
 import io.anuke.home.entities.traits.HealthBarTrait;
 import io.anuke.home.entities.traits.LightTrait;
@@ -79,8 +79,8 @@ public class Sol extends Enemy{
 			
 			spark.get(LightTrait.class).offset.y = raise;
 			
-			Graphics.getShader(Glow.class).set(spark.pos().x, spark.pos().y + raise, color);
-			Graphics.beginShaders(Glow.class);
+			Shaders.glow.set(spark.pos().x, spark.pos().y + raise, color);
+			Graphics.beginShaders(Shaders.glow);
 			
 			Draw.rect("circle", spark.pos().x, spark.pos().y + raise, radius, radius);
 			

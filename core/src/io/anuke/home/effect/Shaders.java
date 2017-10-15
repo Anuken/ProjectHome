@@ -9,13 +9,10 @@ import io.anuke.ucore.graphics.Shader;
 import io.anuke.ucore.util.Tmp;
 
 public class Shaders{
-	
-	public static void create(){
-		new Outline();
-		new Distort();
-		new Scanline();
-		new Glow();
-	}
+	public static final Outline outline = new Outline();
+	public static final Glow glow = new Glow();
+	public static final Scanline scanLine = new Scanline();
+	public static final Distort distort = new Distort();
 	
 	public static class Outline extends Shader{
 		public Color color = new Color();

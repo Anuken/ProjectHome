@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import io.anuke.home.Renderer;
 import io.anuke.home.Vars;
 import io.anuke.home.effect.EffectCreator;
-import io.anuke.home.effect.Shaders;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.home.world.*;
 import io.anuke.home.world.blocks.Blocks;
@@ -48,7 +47,6 @@ public class EditorControl extends RendererModule{
 		
 		//load prototypes
 		Prototypes.player.getClass();
-		Shaders.create();
 		
 		Settings.defaultList(
 			"lastexport", System.getProperty("user.home"),

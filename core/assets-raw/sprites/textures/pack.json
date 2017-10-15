@@ -1,0 +1,8 @@
+{
+	duplicatePadding: false,
+	combineSubdirectories: false,
+	maxWidth: 256,
+	maxHeight: 256,
+	paddingX: 0,
+	paddingY: 0
+}

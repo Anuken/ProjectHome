@@ -1,7 +1,7 @@
 package io.anuke.home.entities.types.enemies.library;
 
 import io.anuke.home.Renderer;
-import io.anuke.home.effect.Shaders.Glow;
+import io.anuke.home.effect.Shaders;
 import io.anuke.home.entities.traits.EnemyTrait;
 import io.anuke.home.entities.traits.LightTrait;
 import io.anuke.home.entities.types.Enemy;
@@ -96,8 +96,8 @@ public class Shapeshifter extends Enemy{
 			
 			spark.get(LightTrait.class).offset.y = raise;
 			
-			Graphics.getShader(Glow.class).set(spark.pos().x, spark.pos().y + raise, Sol.color);
-			Graphics.beginShaders(Glow.class);
+			Shaders.glow.set(spark.pos().x, spark.pos().y + raise, Sol.color);
+			Graphics.beginShaders(Shaders.glow);
 			
 			Draw.thick(1f);
 			

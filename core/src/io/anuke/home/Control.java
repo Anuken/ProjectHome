@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.Array;
 import io.anuke.home.GameState.State;
 import io.anuke.home.effect.EffectCreator;
 import io.anuke.home.effect.LightEffect;
-import io.anuke.home.effect.Shaders;
 import io.anuke.home.entities.Prototypes;
 import io.anuke.home.entities.processors.HealthBarProcessor;
 import io.anuke.home.entities.traits.EffectTrait;
@@ -54,8 +53,6 @@ public class Control extends RendererModule{
 		
 		Core.cameraScale = 4;
 		pixelate();
-		
-		Shaders.create();
 		
 		basis = new Basis();
 		basis.addProcessor(new CollisionProcessor());
