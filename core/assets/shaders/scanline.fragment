@@ -23,8 +23,8 @@ void main() {
 	
 	float sr = bounds;
 	float ts = 1000.0;
-	float sign = (float(mod(int((time/ts / (sr*2.0)) + 1.0), 2)) - 0.5) * 2.0;
-	float scan = pos.x - sr*sign + mod(time/ts, sr*2)*sign;
+	float sign = (float(mod(float(int((time/ts / (sr*2.0)) + 1.0)), 2.0)) - 0.5) * 2.0;
+	float scan = pos.x - sr*sign + mod(time/ts, sr*2.0)*sign;
 	int x = int(coord.x * resolution.x);
 	int y = int(coord.y * resolution.y);
 	
