@@ -38,7 +38,7 @@ project(":core") {
 
 
     dependencies {
-        //compile 'com.github.anuken:ucore:77506a62ac'
+        //compile 'com.github.anuken:ucore:495c420c6b'
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
